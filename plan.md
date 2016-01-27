@@ -17,3 +17,5 @@ Plan to make it work on cell phone.
 ### End Game
 
 1. Does failure work? Unplug internet to test AJAX failures.
+
+API Key: AIzaSyCQCl1KRNkAF-BPdyKyO92M0d4vd6MOd0w
