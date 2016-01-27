@@ -1,3 +1,15 @@
 /* Imports */
 
 @import 'imports/reset';
+
+// Right from the Google Maps API example to get the map to display
+html, body { 
+    height: 100%; 
+    margin: 0; 
+    padding: 0; 
+}
+
+// With no specification here, the map will fail to display
+#map {
+    height: 100%;
+}
