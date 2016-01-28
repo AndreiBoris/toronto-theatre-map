@@ -50,5 +50,11 @@ var TheatreMapViewModel = function() {
 //         }
 //     }));
 // };
+/**
+ * tmvm is the instantiated ViewModel that we use to load the initial marker 
+ * array through the initMap function in mapmaker.js
+ * @type {TheatreMapViewModel}
+ */
+var tmvm = new TheatreMapViewModel();
+ko.applyBindings(tmvm);
 
-ko.applyBindings(new TheatreMapViewModel());

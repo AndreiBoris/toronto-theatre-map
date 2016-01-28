@@ -54,5 +54,8 @@ function initMap() {
         },
     });
 
+    /**
+     * Add the markers stored in mapManager.markers
+     */
     tmvm.addMarkers();
 }
