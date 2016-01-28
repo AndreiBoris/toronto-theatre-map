@@ -9,7 +9,8 @@ Plan to make it work on cell phone.
 1. Get a KO text box working that allows me input text into my app. DONE
 2. Get the Google Maps API on there. DONE
 3. Get the search bar to appear on the map DONE
-4. Get twitter feed
+4. Set up some map markers
+5. Get twitter feed
 
 ### Working with Google Maps API
 
