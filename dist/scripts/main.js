@@ -2,6 +2,8 @@ var ko = ko || {};
 var google = google || {};
 var mapManager = mapManager || {};
 
+var contentString = 'Words words words';
+
 /**
  * The ViewModel is a function to take advantage of the 'var self = this' idiom
  */
@@ -19,37 +21,24 @@ var TheatreMapViewModel = function() {
     self.markers = ko.observableArray([]);
 
     self.addMarkers = function() {
+        
+        var infowindow = new google.maps.InfoWindow({
+            content: contentString
+        });
+
         mapManager.markers.forEach(function(curMarker, index, hardCodedMarkers) {
             self.markers.push(new google.maps.Marker({
                 position: curMarker.position,
                 map: mapManager.map,
                 title: curMarker.title
             }));
+            self.markers()[index].addListener('click', function() {
+                infowindow.open(mapManager.map, self.markers()[index]);
+            });
         });
     };
 };
 
-// /**
-//  * Once the Google Maps API loads asynchronously, it will run this function and 
-//  * give us access to the map through the TheatreMapsViewModel. 
-//  */
-// TheatreMapViewModel.prototype.initMap = function() {
-//     'use strict';
-//     this.map = ko.observable();
-
-//     this.map(new google.maps.Map(document.getElementById('map'), {
-//         center: {
-//             lat: 43.657899,
-//             lng: -79.3782433
-//         },
-//         scrollwheel: true,
-//         zoom: 12,
-//         mapTypeControlOptions: {
-//             style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-//             position: google.maps.ControlPosition.BOTTOM_CENTER
-//         }
-//     }));
-// };
 /**
  * tmvm is the instantiated ViewModel that we use to load the initial marker 
  * array through the initMap function in mapmaker.js
@@ -57,7 +46,6 @@ var TheatreMapViewModel = function() {
  */
 var tmvm = new TheatreMapViewModel();
 ko.applyBindings(tmvm);
-
 
 var google = google || {};
 var tmvm = tmvm || {};
@@ -119,6 +107,7 @@ function initMap() {
 }
 
 var google = google || {};
+// instantiated TheatreMapViewModel from app.js
 var tmvm = tmvm || {};
 
 /**
@@ -155,6 +144,10 @@ var mapManager = {
     }]
 };
 
+/**
+ * Load the map initially
+ * @return {[type]} [description]
+ */
 function initMap() {
     'use strict';
 
@@ -175,7 +168,8 @@ function initMap() {
     });
 
     /**
-     * Add the markers stored in mapManager.markers
+     * Add the markers stored in mapManager.markers through instantiated 
+     * TheatreMapViewModel
      */
     tmvm.addMarkers();
 }

@@ -1,4 +1,5 @@
 var google = google || {};
+// instantiated TheatreMapViewModel from app.js
 var tmvm = tmvm || {};
 
 /**
@@ -35,6 +36,10 @@ var mapManager = {
     }]
 };
 
+/**
+ * Load the map initially
+ * @return {[type]} [description]
+ */
 function initMap() {
     'use strict';
 
@@ -55,7 +60,8 @@ function initMap() {
     });
 
     /**
-     * Add the markers stored in mapManager.markers
+     * Add the markers stored in mapManager.markers through instantiated 
+     * TheatreMapViewModel
      */
     tmvm.addMarkers();
 }

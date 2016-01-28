@@ -9,11 +9,13 @@ Plan to make it work on cell phone.
 1. Get a KO text box working that allows me input text into my app. DONE
 2. Get the Google Maps API on there. DONE
 3. Get the search bar to appear on the map DONE
-4. Test that bindings work with this method of getting the map loaded SKIPPED 
-5. Reapply own method of having the map be separate. SKIPPED
-6. Set up some map markers - figure out how to search for places using names not
-coordinates
-7. Get twitter feed
+4. Set up some map markers - DONE
+5. Set up basic console.log handlers to clicks on markers
+
+
+### TODO
+
+* Get twitter feed
 
 ### Working with Google Maps API
 
