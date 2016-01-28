@@ -1,7 +1,9 @@
 var ko = ko || {};
 var google = google || {};
 
-
+/**
+ * The ViewModel is a function to take advantage of the 'var self = this' idiom
+ */
 var TheatreMapViewModel = function() {
     'use strict';
     var self = this;
@@ -9,10 +11,21 @@ var TheatreMapViewModel = function() {
     self.searchText = ko.observable('');
 
     self.consoleLogSearchText = function() {
-        self.map().setOptions({ zoom: 4});
+        self.map().setOptions({
+            zoom: 4
+        });
     };
+};
 
-    self.map = ko.observable(new google.maps.Map(document.getElementById('map'), {
+/**
+ * Once the Google Maps API loads asynchronously, it will run this function and 
+ * give us access to the map through the TheatreMapsViewModel. 
+ */
+TheatreMapViewModel.prototype.initMap = function() {
+    'use strict';
+    this.map = ko.observable();
+
+    this.map(new google.maps.Map(document.getElementById('map'), {
         center: {
             lat: 43.657899,
             lng: -79.3782433
@@ -22,7 +35,7 @@ var TheatreMapViewModel = function() {
         mapTypeControlOptions: {
             style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
             position: google.maps.ControlPosition.BOTTOM_CENTER
-        },
+        }
     }));
 };
 
