@@ -1,6 +1,19 @@
 var google = google || {};
 
+/**
+ * mapManager is responsible for holding the map, markers, and related logic
+ */
 var mapManager = {
+    markers: [],
+    addMarker: function(pos, name){
+        'use strict';
+
+        var marker = new google.maps.Marker({
+            position: pos,
+            map: mapManager.map,
+            title: 'the six'
+        });
+    }
 };
 
 function initMap() {
@@ -20,11 +33,5 @@ function initMap() {
             style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
             position: google.maps.ControlPosition.BOTTOM_CENTER
         },
-    });
-
-    var marker = new google.maps.Marker({
-        position: torontoLatLng,
-        map: mapManager.map,
-        title: 'The "Six" ...'
     });
 }

@@ -9,12 +9,26 @@ var TheatreMapViewModel = function() {
     'use strict';
     var self = this;
 
+    var torontoLatLng = {
+        lat: 43.657899,
+        lng: -79.3782433
+    };
+
     self.searchText = ko.observable('');
 
-    self.consoleLogSearchText = function() {
-        mapManager.map.setOptions({
-            zoom: 4
-        });
+    self.markers = ko.observableArray([]);
+
+    self.addMarker = function() {
+        /*var marker = new google.maps.Marker({
+            position: torontoLatLng,
+            map: mapManager.map,
+            title: 'the six'
+        });*/
+        self.markers.push(new google.maps.Marker({
+            position: torontoLatLng,
+            map: mapManager.map,
+            title: 'the six'
+        }));
     };
 };
 
