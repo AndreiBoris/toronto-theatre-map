@@ -12,27 +12,31 @@ var mapManager = {
             lat: 43.663346,
             lng: -79.383107
         },
-        title: 'Buddies in Bad Times Theatre'
+        title: 'Buddies in Bad Times Theatre',
+        content: 'Buddies in Bad Times Theatre'
     }, {
         position: {
             lat: 43.674842, 
             lng: -79.412820
         },
-        title: 'Tarragon Theatre'
+        title: 'Tarragon Theatre',
+        content: 'Tarragon Theatre'
     },
     {
         position: {
             lat: 43.648553, 
             lng: -79.402584
         },
-        title: 'Theatre Passe Muraille'
+        title: 'Theatre Passe Muraille',
+        content: 'Theatre Passe Muraille'
     },
     {
         position: {
             lat: 43.645531, 
             lng: -79.402690
         },
-        title: 'Factory Theatre'
+        title: 'Factory Theatre',
+        content: 'Factory Theatre'
     }]
 };
 

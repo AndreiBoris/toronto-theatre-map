@@ -20,21 +20,26 @@ var TheatreMapViewModel = function() {
 
     self.markers = ko.observableArray([]);
 
-    self.addMarkers = function() {
-        
-        var infowindow = new google.maps.InfoWindow({
-            content: contentString
-        });
+    var infowindow;
 
-        mapManager.markers.forEach(function(curMarker, index, hardCodedMarkers) {
+    var infoWindowMaker = function(index, infowindow) {
+        self.markers()[index].addListener('click', function() {
+            infowindow.open(mapManager.map, self.markers()[index]);
+        });
+    };
+
+    self.addMarkers = function() {
+        mapManager.markers.forEach(function(markerData, index, hardCodedMarkers) {
             self.markers.push(new google.maps.Marker({
-                position: curMarker.position,
+                position: markerData.position,
                 map: mapManager.map,
-                title: curMarker.title
+                title: markerData.title
             }));
-            self.markers()[index].addListener('click', function() {
-                infowindow.open(mapManager.map, self.markers()[index]);
+
+            infowindow = new google.maps.InfoWindow({
+                content: markerData.content
             });
+            infoWindowMaker(index, infowindow);
         });
     };
 };

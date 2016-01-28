@@ -20,21 +20,26 @@ var TheatreMapViewModel = function() {
 
     self.markers = ko.observableArray([]);
 
-    self.addMarkers = function() {
-        
-        var infowindow = new google.maps.InfoWindow({
-            content: contentString
-        });
+    var infowindow;
 
-        mapManager.markers.forEach(function(curMarker, index, hardCodedMarkers) {
+    var infoWindowMaker = function(index, infowindow) {
+        self.markers()[index].addListener('click', function() {
+            infowindow.open(mapManager.map, self.markers()[index]);
+        });
+    };
+
+    self.addMarkers = function() {
+        mapManager.markers.forEach(function(markerData, index, hardCodedMarkers) {
             self.markers.push(new google.maps.Marker({
-                position: curMarker.position,
+                position: markerData.position,
                 map: mapManager.map,
-                title: curMarker.title
+                title: markerData.title
             }));
-            self.markers()[index].addListener('click', function() {
-                infowindow.open(mapManager.map, self.markers()[index]);
+
+            infowindow = new google.maps.InfoWindow({
+                content: markerData.content
             });
+            infoWindowMaker(index, infowindow);
         });
     };
 };
@@ -120,27 +125,31 @@ var mapManager = {
             lat: 43.663346,
             lng: -79.383107
         },
-        title: 'Buddies in Bad Times Theatre'
+        title: 'Buddies in Bad Times Theatre',
+        content: 'Buddies in Bad Times Theatre'
     }, {
         position: {
             lat: 43.674842, 
             lng: -79.412820
         },
-        title: 'Tarragon Theatre'
+        title: 'Tarragon Theatre',
+        content: 'Tarragon Theatre'
     },
     {
         position: {
             lat: 43.648553, 
             lng: -79.402584
         },
-        title: 'Theatre Passe Muraille'
+        title: 'Theatre Passe Muraille',
+        content: 'Theatre Passe Muraille'
     },
     {
         position: {
             lat: 43.645531, 
             lng: -79.402690
         },
-        title: 'Factory Theatre'
+        title: 'Factory Theatre',
+        content: 'Factory Theatre'
     }]
 };
 
