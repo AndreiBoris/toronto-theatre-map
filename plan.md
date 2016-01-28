@@ -10,12 +10,15 @@ Plan to make it work on cell phone.
 2. Get the Google Maps API on there. DONE
 3. Get the search bar to appear on the map DONE
 4. Set up some map markers - DONE
-5. Set up basic console.log handlers to clicks on markers
+5. Set up basic console.log handlers to clicks on markers - DONE
+6. Implement one marker that moves from marker to marker. Maybe create an 
+observableArray(?) array of infoBoxes that opens a 'close all' button - DONE
 
 
 ### TODO
 
 * Get twitter feed
+* probably should apply Bootstrap classes to the content of the InfoWindows
 
 ### Working with Google Maps API
 

@@ -13,7 +13,8 @@ var mapManager = {
             lng: -79.383107
         },
         title: 'Buddies in Bad Times Theatre',
-        content: 'Buddies in Bad Times Theatre'
+        content: 'Buddies in Bad Times Theatre. This is an obnoxiously long ' +
+                'message. Let\'s see how it gets handled in the little window.'
     }, {
         position: {
             lat: 43.674842, 

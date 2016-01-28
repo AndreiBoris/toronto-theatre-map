@@ -20,11 +20,25 @@ var TheatreMapViewModel = function() {
 
     self.markers = ko.observableArray([]);
 
+    self.infoWindows = [];
+
     var infowindow;
 
-    var infoWindowMaker = function(index, infowindow) {
+    /**
+     * This is used inside the forEach loop in self.addMarkers, it makes sure
+     * that the listeners are bound to the correct markers.
+     * @param  {[type]} index      [description]
+     * @param  {[type]} infowindow [description]
+     * @return {[type]}            [description]
+     */
+    var infoWindowBinder = function(index, infowindow) {
         self.markers()[index].addListener('click', function() {
+            self.infoWindows.forEach(function(infoWin, index, allInfoWindows) {
+                infoWin.close();
+            });
             infowindow.open(mapManager.map, self.markers()[index]);
+            console.log('Good job, you clicked on ' + self.markers()[index].title);
+            console.log('Here are all the infoWindows:' + self.infoWindows);
         });
     };
 
@@ -37,9 +51,11 @@ var TheatreMapViewModel = function() {
             }));
 
             infowindow = new google.maps.InfoWindow({
-                content: markerData.content
+                content: markerData.content,
+                maxWidth: 150
             });
-            infoWindowMaker(index, infowindow);
+            self.infoWindows.push(infowindow);
+            infoWindowBinder(index, infowindow);
         });
     };
 };
