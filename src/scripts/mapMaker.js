@@ -12,7 +12,11 @@ function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
         center: torontoLatLng,
         scrollwheel: true,
-        zoom: 11
+        zoom: 11,
+        mapTypeControlOptions: {
+            style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+            position: google.maps.ControlPosition.BOTTOM_CENTER
+        },
     });
 
     var marker = new google.maps.Marker({

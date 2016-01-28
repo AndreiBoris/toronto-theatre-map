@@ -23,6 +23,11 @@ Plan to make it work on cell phone.
 * Needs to be fairly simple for me to add more twitter accounts to the feed.
 * Look into [Web Scraping](https://blog.hartleybrody.com/web-scraping/)
 * Scrape Theatre Now and Mooney On theatre reviews?
+* How to get there from TTC
+
+### Responsive Design
+
+* Make sure the map controls are useable on mobile.
 
 ### End Game
 
