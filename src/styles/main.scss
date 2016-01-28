@@ -9,7 +9,23 @@ html, body {
     padding: 0; 
 }
 
+#search-box {
+    position: absolute;
+    left: 10em;
+    top: 1em;
+    z-index: 2;
+}
+
 // With no specification here, the map will fail to display
 #map {
     height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 1;
 }
+
+/* @media only screen and (max-width: 500px) {
+    body {
+        background-color: lightblue;
+    }
+} */

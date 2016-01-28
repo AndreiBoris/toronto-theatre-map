@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta name="description" content="Theatre in Toronto">
     <meta name="author" content="Andrei Borissenko">
     <title>Toronto Live Theatre Resource</title>
@@ -13,7 +14,7 @@
 
 <body>
     <header>
-        <form data-bind="submit: consoleLogSearchText">
+        <form id="search-box" data-bind="submit: consoleLogSearchText">
             <input data-bind="value: searchText"></input>
             <button type="submit">Search</button>
         </form>

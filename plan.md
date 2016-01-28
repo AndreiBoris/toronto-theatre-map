@@ -6,16 +6,43 @@ Plan to make it work on cell phone.
 
 ## Steps
 
-1. Get a KO text box working that allows me input text into my app.
-2. Get the Google Maps API on there.
-
+1. Get a KO text box working that allows me input text into my app. DONE
+2. Get the Google Maps API on there. DONE
+3. Get the search bar to appear on the map DONE
+4. Get twitter feed
 
 ### Working with Google Maps API
 
 * might have to use subscribe Knockout function
+
+### Other APIs
+
+### Features
+
+* Needs to be fairly simple for me to add more twitter accounts to the feed.
+* Look into [Web Scraping](https://blog.hartleybrody.com/web-scraping/)
+* Scrape Theatre Now and Mooney On theatre reviews?
 
 ### End Game
 
 1. Does failure work? Unplug internet to test AJAX failures.
 
 API Key: AIzaSyCQCl1KRNkAF-BPdyKyO92M0d4vd6MOd0w
+
+
+### Twitter Feeds to get at
+
+* [Factory](https://twitter.com/factorytoronto)
+* [Tarragon](https://twitter.com/tarragontheatre)
+* [Crow's Theatre](https://twitter.com/crowstheatre?lang=en)
+* [Hart House Theatre](https://twitter.com/hhtheatre)
+* [Nightwood Theatre](https://twitter.com/nightwoodtheat?lang=en)
+* [Canadian Stage](https://twitter.com/canadianstage)
+* [Theatre Pass Muraille](https://twitter.com/beyondwallstpm)
+* [Theatre Centre](https://twitter.com/theatrecentre)
+* [Obsidian Theatre](https://twitter.com/obsidiantheatre)
+* [Mirvish Productions](https://twitter.com/mirvish?lang=en)
+* [Buddies in Bad Times](https://twitter.com/yyzbuddies)
+* [Toronto Fringe](https://twitter.com/toronto_fringe)
+* [Gay Toronto Theatre](https://twitter.com/gaytheatreyyz)
+* [Soulpepper Theatre](https://twitter.com/soulpepper)
