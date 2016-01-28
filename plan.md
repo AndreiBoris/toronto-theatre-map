@@ -11,7 +11,8 @@ Plan to make it work on cell phone.
 3. Get the search bar to appear on the map DONE
 4. Test that bindings work with this method of getting the map loaded SKIPPED 
 5. Reapply own method of having the map be separate. SKIPPED
-6. Set up some map markers
+6. Set up some map markers - figure out how to search for places using names not
+coordinates
 7. Get twitter feed
 
 ### Working with Google Maps API
@@ -26,6 +27,7 @@ Plan to make it work on cell phone.
 * Look into [Web Scraping](https://blog.hartleybrody.com/web-scraping/)
 * Scrape Theatre Now and Mooney On theatre reviews?
 * How to get there from TTC
+* Robust site that won't get outdated if a theatre goes out of business or moves
 
 ### Responsive Design
 
@@ -35,7 +37,8 @@ Plan to make it work on cell phone.
 
 1. Does failure work? Unplug internet to test AJAX failures.
 
-API Key: AIzaSyCQCl1KRNkAF-BPdyKyO92M0d4vd6MOd0w
+Map API Key: AIzaSyCQCl1KRNkAF-BPdyKyO92M0d4vd6MOd0w
+Geocoding API key: AIzaSyA4SAawmy-oEMzdWboD0iHk9gDmmjb61o4
 
 
 ### Twitter Feeds to get at

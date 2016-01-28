@@ -18,17 +18,14 @@ var TheatreMapViewModel = function() {
 
     self.markers = ko.observableArray([]);
 
-    self.addMarker = function() {
-        /*var marker = new google.maps.Marker({
-            position: torontoLatLng,
-            map: mapManager.map,
-            title: 'the six'
-        });*/
-        self.markers.push(new google.maps.Marker({
-            position: torontoLatLng,
-            map: mapManager.map,
-            title: 'the six'
-        }));
+    self.addMarkers = function() {
+        mapManager.markers.forEach(function(curMarker, index, hardCodedMarkers) {
+            self.markers.push(new google.maps.Marker({
+                position: curMarker.position,
+                map: mapManager.map,
+                title: curMarker.title
+            }));
+        });
     };
 };
 
