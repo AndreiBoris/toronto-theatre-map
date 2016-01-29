@@ -3,7 +3,7 @@ var google = google || {};
 var tmvm = tmvm || {};
 
 /**
- * mapManager is responsible for holding the map, markers information, and 
+ * mapManager is responsible for holding the map, markers data, and 
  * related logic
  */
 var mapManager = {
@@ -31,7 +31,7 @@ var mapManager = {
         });
 
         /**
-         * Add the markers stored in mapManager.markers through instantiated 
+         * Add the markers stored in mapManager.markerData through instantiated 
          * TheatreMapViewModel
          */
         tmvm.addMarkers();
@@ -52,7 +52,7 @@ var mapManager = {
          * successful
          */
         var wikipediaRequestTimeout = setTimeout(function() { // no wiki articles found
-            viewmodel.infoWindows[index].setContent(self.markers[index].content);
+            viewmodel.infoWindows[index].setContent(self.markerData[index].content);
             return false;
         }, 5000);
 
@@ -69,7 +69,7 @@ var mapManager = {
                     viewmodel.infoWindows[index].setContent(wikiTitle);
                 }
                 if (wikiFound < 1) {
-                    viewmodel.infoWindows[index].setContent(self.markers[index].content);
+                    viewmodel.infoWindows[index].setContent(self.markerData[index].content);
                 }
             }
         });
@@ -90,24 +90,24 @@ var mapManager = {
             var lat = data.results[0].geometry.location.lat;
             var lng = data.results[0].geometry.location.lng;
             viewmodel.markers[index].setPosition(new google.maps.LatLng(lat, lng));
-            self.markers[index].position = {
+            self.markerData[index].position = {
                 lat: lat,
                 lng: lng
             };
         }).error(function(e) {
             console.log('We experienced a failure when making the coordinate request for ' +
-                address + ' for the place called ' + self.markers[index].title);
+                address + ' for the place called ' + self.markerData[index].title);
             viewmodel.markers[index].setMap(null);
         });
     },
     store: function() {
         'use strict';
-        localStorage.markers = JSON.stringify(this.markers);
+        localStorage.markerData = JSON.stringify(this.markerData);
     },
     load: function() {
         'use strict';
-        if (!localStorage.markers) {
-            this.markers = [{
+        if (!localStorage.markerData) {
+            this.markerData = [{
                 position: {
                     lat: 43.663346,
                     lng: -79.383107
@@ -167,10 +167,13 @@ var mapManager = {
                 address: '235 Queens Quay W'
             }];
         } else {
-            this.markers = JSON.parse(localStorage.markers);
+            this.markerData = JSON.parse(localStorage.markerData);
         }
 
     }
 };
 
+/**
+ * Is this safe?
+ */
 mapManager.load();

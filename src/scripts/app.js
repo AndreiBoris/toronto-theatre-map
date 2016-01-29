@@ -50,7 +50,7 @@ var TheatreMapViewModel = function() {
     };
 
     self.addMarkers = function() {
-        mapManager.markers.forEach(function(markerData, index, hardCodedMarkers) {
+        mapManager.markerData.forEach(function(markerData, index, hardCodedMarkers) {
             var goodToGo = true;
             // handle lack of title here
             if (markerData.title === undefined) {
