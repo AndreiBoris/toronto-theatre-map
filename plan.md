@@ -25,6 +25,9 @@ the first is a bit general for some.
 about a theatre location is provided (no address OR position)
 11. Try to get the website link from wikipedia to the clickable link instead
 of the wikipedia page itself (cause the wiki page is pretty useless!)
+12. Implement sophisticated localStorage system that gets takes the new, editted
+version first and then adds any bonuses from localStorage to supplement, rather
+than overriding all server storage. Currently it is totally broken.
 
 ### TODO
 
@@ -37,7 +40,10 @@ an observable that can be switched on an off with a button.
 odd when it gets no good information
 * Very smart search mechanic that reads sections of words when doing a search
 * A way to fix corrupted localStorage... Maybe just a matter of separating 
-coordinates from everything else.
+coordinates from everything else. This needs to be more sophisticated such that 
+adding a new location is handled CORRECTLY rather than NOT.
+* Allow users to add their own markers. This should be decently easy to do at 
+least sort of badly though the use of localStorage.
 
 ### Bootstrap features to use
 

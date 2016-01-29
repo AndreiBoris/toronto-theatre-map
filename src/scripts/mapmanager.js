@@ -102,11 +102,13 @@ var mapManager = {
     },
     store: function() {
         'use strict';
+        console.log('storing data');
         localStorage.markerData = JSON.stringify(this.markerData);
     },
     load: function() {
         'use strict';
-        if (!localStorage.markerData) {
+        console.log('loading data');
+        if (true) {
             this.markerData = [{
                 position: {
                     lat: 43.663346,
@@ -165,9 +167,20 @@ var mapManager = {
                 title: 'Harbourfront Center',
                 content: 'Harbourfront Center',
                 address: '235 Queens Quay W'
+            },{
+                title: 'High Park Amphitheare',
+                content: '<a href="https://www.canadianstage.com/Online/' + 
+                    'default.asp?BOparam::WScontent::loadArticle::permalink=' +
+                    '1314shakespeare">Shakespeare in High Park</a><p>Each ' +
+                    'summer, a shakespeare show is performed at High Park ' +
+                    'Amphitheatre.</p>',
+                position: {
+                    lat: 43.646378, 
+                    lng: -79.462464
+                }
             }];
         } else {
-            this.markerData = JSON.parse(localStorage.markerData);
+            //this.markerData = JSON.parse(localStorage.markerData);
         }
 
     }
