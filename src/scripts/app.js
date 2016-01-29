@@ -17,13 +17,10 @@ var TheatreMapViewModel = function() {
 
     self.infoWindowsContent = ko.observableArray([]);
 
-    var infowindow;
-
     /**
      * This is used inside the forEach loop in self.addMarkers, it makes sure
      * that the listeners are bound to the correct markers.
      * @param  {int} index      This corresponds to the index number
-     * @param  {google.maps.InfoWindow} infowindow [description]
      */
     var infoWindowBinder = function(index) {
         self.markers[index].addListener('click', function() {
@@ -50,6 +47,7 @@ var TheatreMapViewModel = function() {
     };
 
     self.addMarkers = function() {
+        var curInfoWindow;
         mapManager.markerData.forEach(function(markerData, index, hardCodedMarkers) {
             var goodToGo = true;
             // handle lack of title here
@@ -83,7 +81,7 @@ var TheatreMapViewModel = function() {
                 mapManager.wikipediaRequest(markerData.title, self, index);
             }
 
-            infowindow = new google.maps.InfoWindow({
+            curInfoWindow = new google.maps.InfoWindow({
                 content: '',
                 maxWidth: 150
             });
@@ -92,7 +90,7 @@ var TheatreMapViewModel = function() {
                 self.markers[index].setMap(null);
             }
 
-            self.infoWindows.push(infowindow);
+            self.infoWindows.push(curInfoWindow);
             infoWindowBinder(index);
         });
         mapManager.store();
