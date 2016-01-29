@@ -28,10 +28,13 @@ function loadData(nameOfTheatre, viewmodel, index) {
             console.log('We succeed at the AJAX call');
             clearTimeout(wikiRequestTimeout);
             var wikiFound = data[1].length;
-            var wikiTitle = '<h4><a href="' + data[3][0] + '">' + data[1][0] + '</a></h4>';
-            console.log(wikiTitle);
-            // var wikiLink = '<li id="article-' + i + '" class="article">' + wikiTitle + '</li>';
+
             if (wikiFound) {
+
+                var wikiTitle = '<h4><a href="' + data[3][0] + '">' + data[1][0] + '</a></h4>' +
+                '<p></p>;
+
+                // var wikiLink = '<li id="article-' + i + '" class="article">' + wikiTitle + '</li>';
                 console.log('alledgedly pushing a value');
                 viewmodel.infoWindowsContent.push(wikiTitle);
                 viewmodel.infoWindows[index].setContent(wikiTitle);

@@ -17,6 +17,7 @@ function loadData(nameOfTheatre, viewmodel, index) {
      * successful
      */
     var wikiRequestTimeout = setTimeout(function() { // no wiki articles found
+        viewmodel.infoWindows[index].setContent(mapManager.markers[index].content);
         return false;
     }, 5000);
 
@@ -25,22 +26,15 @@ function loadData(nameOfTheatre, viewmodel, index) {
         dataType: 'jsonp',
         success: function(data) {
             // This will not let the timeout response to occur.
-            console.log('We succeed at the AJAX call');
             clearTimeout(wikiRequestTimeout);
             var wikiFound = data[1].length;
-            var wikiTitle = '<h4><a href="' + data[3][0] + '">' + data[1][0] + '</a></h4>';
-            console.log(wikiTitle);
-            // var wikiLink = '<li id="article-' + i + '" class="article">' + wikiTitle + '</li>';
             if (wikiFound) {
-                console.log('alledgedly pushing a value');
-                viewmodel.infoWindowsContent.push(wikiTitle);
+                var wikiTitle = '<h4><a href="' + data[3][0] + '">' + data[1][0] + 
+                '</a></h4><p>' + data[2][0] + '</p>';
                 viewmodel.infoWindows[index].setContent(wikiTitle);
-                console.log(viewmodel.infoWindowsContent());
             }
             if (wikiFound < 1) {
-                console.log('we fail to find an article');
-                viewmodel.infoWindowsContent.push(mapManager.markers.content);
-                viewmodel.infoWindows[index].setContent(mapManager.markers.content);
+                viewmodel.infoWindows[index].setContent(mapManager.markers[index].content);
             }
         }
     });

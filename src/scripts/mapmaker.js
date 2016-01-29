@@ -13,8 +13,7 @@ var mapManager = {
             lng: -79.383107
         },
         title: 'Buddies in Bad Times Theatre',
-        content: 'Buddies in Bad Times Theatre. This is an obnoxiously long ' +
-                'message. Let\'s see how it gets handled in the little window.'
+        content: 'Buddies in Bad Times Theatre.'
     }, {
         position: {
             lat: 43.674842, 
@@ -38,7 +37,18 @@ var mapManager = {
         },
         title: 'Factory Theatre',
         content: 'Factory Theatre'
-    }]
+    },
+    {
+        position: {
+            lat: 43.661288, 
+            lng: -79.428240
+        },
+        title: 'Storefront Theatre',
+        content: '<a href="http://thestorefronttheatre.com/">Storefront ' +
+        'Theatre</a><p>Storefront Theatre is an independent theatre that is ' + 
+        'home of the Red One Theatre Collective.</p>'
+    }
+    ]
 };
 
 /**
