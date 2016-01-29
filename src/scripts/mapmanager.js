@@ -111,7 +111,7 @@ var mapManager = {
          * successful
          */
         var wikipediaRequestTimeout = setTimeout(function() { // no wiki articles found
-            viewmodel.infoWindows[index].setContent(this.markers[index].content);
+            viewmodel.infoWindows[index].setContent(self.markers[index].content);
             return false;
         }, 5000);
 
