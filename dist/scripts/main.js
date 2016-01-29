@@ -120,65 +120,6 @@ var tmvm = tmvm || {};
  * related logic
  */
 var mapManager = {
-    markers: [{
-        position: {
-            lat: 43.663346,
-            lng: -79.383107
-        },
-        title: 'Buddies in Bad Times Theatre',
-        content: 'Buddies in Bad Times Theatre.'
-    }, {
-        position: {
-            lat: 43.674842,
-            lng: -79.412820
-        },
-        title: 'Tarragon Theatre',
-        content: 'Tarragon Theatre'
-    }, {
-        position: {
-            lat: 43.648553,
-            lng: -79.402584
-        },
-        title: 'Theatre Passe Muraille',
-        content: 'Theatre Passe Muraille'
-    }, {
-        position: {
-            lat: 43.645531,
-            lng: -79.402690
-        },
-        title: 'Factory Theatre',
-        content: 'Factory Theatre'
-    }, {
-        position: {
-            lat: 43.661288,
-            lng: -79.428240
-        },
-        title: 'Storefront Theatre',
-        content: '<a href="http://thestorefronttheatre.com/">Storefront ' +
-            'Theatre</a><p>Storefront Theatre is an independent theatre that is ' +
-            'home of the Red One Theatre Collective.</p>'
-    }, {
-        position: {
-            lat: 43.659961,
-            lng: -79.362607
-        },
-        title: 'Native Earth Performing Arts',
-        content: '<a href="http://www.nativeearth.ca/">Native Earth Performing ' +
-            'Arts</a><p>Founded in 1982, it is the oldest professional Aboriginal ' +
-            'performing arts company in Canada.</p>'
-    }, {
-        title: 'Berkeley Street Theatre',
-        content: 'Berkeley Street Theatre',
-        address: '26 Berkeley St, Toronto'
-    }, {
-        title: 'Bluma Appel Theatre',
-        content: 'Bluma Appel Theatre',
-        address: '27 Front St E, Toronto'
-    }, {
-        title: 'Harbourfront Center',
-        content: 'Harbourfront Center',
-        address: '235 Queens Quay W'
-    }, ],
     nullPosition: {
         lat: 0,
         lng: 0
@@ -262,15 +203,87 @@ var mapManager = {
             var lat = data.results[0].geometry.location.lat;
             var lng = data.results[0].geometry.location.lng;
             viewmodel.markers()[index].setPosition(new google.maps.LatLng(lat, lng));
-            self.markers[index].position = { lat: lat, lng: lng };
+            self.markers[index].position = {
+                lat: lat,
+                lng: lng
+            };
         }).error(function(e) {
-            console.log('We experienced a failure when making the coordinate request for ' + 
+            console.log('We experienced a failure when making the coordinate request for ' +
                 address + ' for the place called ' + self.markers[index].title);
             viewmodel.markers()[index].setMap(null);
         });
     },
     store: function() {
         'use strict';
-        console.log(this.markers);
+        localStorage.markers = JSON.stringify(this.markers);
+    },
+    load: function() {
+        'use strict';
+        if (!localStorage.markers) {
+            this.markers = [{
+                position: {
+                    lat: 43.663346,
+                    lng: -79.383107
+                },
+                title: 'Buddies in Bad Times Theatre',
+                content: 'Buddies in Bad Times Theatre.'
+            }, {
+                position: {
+                    lat: 43.674842,
+                    lng: -79.412820
+                },
+                title: 'Tarragon Theatre',
+                content: 'Tarragon Theatre'
+            }, {
+                position: {
+                    lat: 43.648553,
+                    lng: -79.402584
+                },
+                title: 'Theatre Passe Muraille',
+                content: 'Theatre Passe Muraille'
+            }, {
+                position: {
+                    lat: 43.645531,
+                    lng: -79.402690
+                },
+                title: 'Factory Theatre',
+                content: 'Factory Theatre'
+            }, {
+                position: {
+                    lat: 43.661288,
+                    lng: -79.428240
+                },
+                title: 'Storefront Theatre',
+                content: '<a href="http://thestorefronttheatre.com/">Storefront ' +
+                    'Theatre</a><p>Storefront Theatre is an independent theatre that is ' +
+                    'home of the Red One Theatre Collective.</p>'
+            }, {
+                position: {
+                    lat: 43.659961,
+                    lng: -79.362607
+                },
+                title: 'Native Earth Performing Arts',
+                content: '<a href="http://www.nativeearth.ca/">Native Earth Performing ' +
+                    'Arts</a><p>Founded in 1982, it is the oldest professional Aboriginal ' +
+                    'performing arts company in Canada.</p>'
+            }, {
+                title: 'Berkeley Street Theatre',
+                content: 'Berkeley Street Theatre',
+                address: '26 Berkeley St, Toronto'
+            }, {
+                title: 'Bluma Appel Theatre',
+                content: 'Bluma Appel Theatre',
+                address: '27 Front St E, Toronto'
+            }, {
+                title: 'Harbourfront Center',
+                content: 'Harbourfront Center',
+                address: '235 Queens Quay W'
+            }];
+        } else {
+            this.markers = JSON.parse(localStorage.markers);
+        }
+
     }
 };
+
+mapManager.load();

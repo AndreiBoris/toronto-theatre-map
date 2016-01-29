@@ -23,6 +23,8 @@ first time the page is loaded. Measure the difference.
 the first is a bit general for some.
 10. Make sure that the program fails gracefully when not enough information 
 about a theatre location is provided (no address OR position)
+11. Try to get the website link from wikipedia to the clickable link instead
+of the wikipedia page itself (cause the wiki page is pretty useless!)
 
 ### TODO
 
