@@ -56,8 +56,16 @@ var mapManager = {
     }, {
         title: 'Berkeley Street Theatre',
         content: 'Berkeley Street Theatre',
-        address: '26 Berkeley St, Toronto, ON M5A 2W3'
-    }],
+        address: '26 Berkeley St, Toronto'
+    }, {
+        title: 'Bluma Appel Theatre',
+        content: 'Bluma Appel Theatre',
+        address: '27 Front St E, Toronto'
+    }, {
+        title: 'Harbourfront Center',
+        content: 'Harbourfront Center',
+        address: '235 Queens Quay W'
+    }, ],
     nullPosition: {
         lat: 0,
         lng: 0

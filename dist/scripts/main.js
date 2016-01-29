@@ -110,6 +110,9 @@ var TheatreMapViewModel = function() {
     self.addMarkers = function() {
         mapManager.markers.forEach(function(markerData, index, hardCodedMarkers) {
             // handle lack of title here
+            if (markerData.title === undefined) {
+                continue;
+            }
             if (markerData.position === undefined) {
                 // TODO: handle lack of address here.
                 self.markers.push(new google.maps.Marker({
@@ -262,8 +265,15 @@ var mapManager = {
     }, {
         title: 'Berkeley Street Theatre',
         content: 'Berkeley Street Theatre',
-        address: '26 Berkeley St, Toronto, ON M5A 2W3'
-    }],
+        address: '26 Berkeley St, Toronto'
+    }, {
+        title: 'Bluma Appel Theatre',
+        content: 'Bluma Appel Theatre',
+        address: '27 Front St E, Toronto'
+    }, {
+        content: 'Harbourfront Center',
+        address: '235 Queens Quay W'
+    }, ],
     nullPosition: {
         lat: 0,
         lng: 0

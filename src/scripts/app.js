@@ -46,7 +46,7 @@ function coordRequest(address, viewmodel, index) {
     var formattedAddress = address.replace(/ /g, '+');
 
     var urlCoords = ('https://maps.googleapis.com/maps/api/geocode/json?address=' +
-        formattedAddress + '&bounds=43.573936,-79.560076|43.758672,-79.275135' + 
+        formattedAddress + '&bounds=43.573936,-79.560076|43.758672,-79.275135' +
         '&key=AIzaSyA4SAawmy-oEMzdWboD0iHk9gDmmjb61o4');
 
     // TODO: perform some error handling
@@ -70,6 +70,9 @@ var TheatreMapViewModel = function() {
         lat: 43.657899,
         lng: -79.3782433
     };
+
+    self.emailme = 'Please contant the developer at Andrei.Borissenko@gmail.com ' +
+    'so that the issue can be promptly resolved.';
 
     self.searchText = ko.observable('');
 
@@ -109,7 +112,18 @@ var TheatreMapViewModel = function() {
 
     self.addMarkers = function() {
         mapManager.markers.forEach(function(markerData, index, hardCodedMarkers) {
+            var goodToGo = true;
             // handle lack of title here
+            if (markerData.title === undefined) {
+                console.log('One of the inputted locations is not being displayed ' + 
+                    'because it has no title attribute.');
+                if (markerData.content !== undefined) {
+                    console.log('It has the following content attached to it: ' + 
+                        markerData.content);
+                }
+                console.log(self.emailme);
+                goodToGo = false;
+            }
             if (markerData.position === undefined) {
                 // TODO: handle lack of address here.
                 self.markers.push(new google.maps.Marker({
@@ -126,11 +140,19 @@ var TheatreMapViewModel = function() {
                 }));
             }
 
-            wikiRequest(markerData.title, self, index);
+            if (goodToGo) {
+                wikiRequest(markerData.title, self, index);
+            }
+
             infowindow = new google.maps.InfoWindow({
                 content: '',
                 maxWidth: 150
             });
+
+            if (!goodToGo) {
+                self.markers()[index].setMap(null);
+            }
+
             self.infoWindows.push(infowindow);
             infoWindowBinder(index, infowindow);
         });
