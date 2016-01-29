@@ -146,7 +146,9 @@ var mapManager = {
             var lng = data.results[0].geometry.location.lng;
             viewmodel.markers()[index].setPosition(new google.maps.LatLng(lat, lng));
         }).error(function(e) {
-            console.log('Failure');
+            console.log('We experienced a failure when making the coordinate request for ' + 
+                address + ' for the place called ' + mapManager.markers[index].title);
+            viewmodel.markers()[index].setMap(null);
         });
     }
 };

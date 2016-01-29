@@ -1,0 +1,17 @@
+{
+  "vars": {},
+  "css": [
+    "grid.less",
+    "buttons.less",
+    "responsive-utilities.less",
+    "labels.less",
+    "badges.less",
+    "jumbotron.less",
+    "thumbnails.less",
+    "media.less"
+  ],
+  "js": [
+    "transition.js"
+  ],
+  "customizerUrl": "http://getbootstrap.com/customize/?id=2718a452d278933285e5"
+}

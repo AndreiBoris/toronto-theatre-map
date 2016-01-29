@@ -14,7 +14,9 @@ Plan to make it work on cell phone.
 6. Implement one marker that moves from marker to marker. Maybe create an 
 observableArray(?) array of infoBoxes that opens a 'close all' button - DONE
 7. Get geocoding working such that we don't have to type the coordinate of each
-place in. That is super tedious. 
+place in. That is super tedious. - DONE
+7.5. Get position attribute to be loaded onto mapManager Marker if found using 
+the ajax call.
 8. Find a way to store that so they only need to make those requests during the
 first time the page is loaded. Measure the difference. 
 9. Maybe try to get the second section from wikipedia on the theatres cause 
@@ -29,6 +31,19 @@ about a theatre location is provided (no address OR position)
 * Should add a way to stop the "close all infoWindows" feature, probably using 
 an observable that can be switched on an off with a button.
 * TTC directions must be available
+* Need to handle error from coordRequest so that the marker doesn't do something 
+odd when it gets no good information
+
+### Bootstrap features to use
+
+* buttons
+* responsive utilities
+* button groups
+* labels
+* badges (more twitter posts have come in, etc)
+* jumbotron initial screen
+* thumbnails for currently playing plays? (required scraping! )
+* media items for twitter and reviews...
 
 ### Working with Google Maps API
 
