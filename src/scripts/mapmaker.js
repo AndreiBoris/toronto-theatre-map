@@ -79,7 +79,7 @@ var mapManager = {
         };
 
         // Create a map object and specify the DOM element for display.
-        mapManager.map = new google.maps.Map(document.getElementById('map'), {
+        this.map = new google.maps.Map(document.getElementById('map'), {
             center: torontoLatLng,
             scrollwheel: true,
             zoom: 12,
@@ -98,6 +98,8 @@ var mapManager = {
     wikipediaRequest: function(nameOfTheatre, viewmodel, index) {
         'use strict';
 
+        var self = this;
+
         var formattedName = nameOfTheatre.replace(/ /g, '_');
 
         // Only try find 1 article.
@@ -109,7 +111,7 @@ var mapManager = {
          * successful
          */
         var wikipediaRequestTimeout = setTimeout(function() { // no wiki articles found
-            viewmodel.infoWindows[index].setContent(mapManager.markers[index].content);
+            viewmodel.infoWindows[index].setContent(this.markers[index].content);
             return false;
         }, 5000);
 
@@ -126,13 +128,15 @@ var mapManager = {
                     viewmodel.infoWindows[index].setContent(wikiTitle);
                 }
                 if (wikiFound < 1) {
-                    viewmodel.infoWindows[index].setContent(mapManager.markers[index].content);
+                    viewmodel.infoWindows[index].setContent(self.markers[index].content);
                 }
             }
         });
     },
     coordinateRequest: function(address, viewmodel, index) {
         'use strict';
+
+        var self = this;
 
         var formattedAddress = address.replace(/ /g, '+');
 
@@ -145,10 +149,15 @@ var mapManager = {
             var lat = data.results[0].geometry.location.lat;
             var lng = data.results[0].geometry.location.lng;
             viewmodel.markers()[index].setPosition(new google.maps.LatLng(lat, lng));
+            self.markers[index].position = { lat: lat, lng: lng };
         }).error(function(e) {
             console.log('We experienced a failure when making the coordinate request for ' + 
-                address + ' for the place called ' + mapManager.markers[index].title);
+                address + ' for the place called ' + self.markers[index].title);
             viewmodel.markers()[index].setMap(null);
         });
+    },
+    store: function() {
+        'use strict';
+        console.log(this.markers);
     }
 };

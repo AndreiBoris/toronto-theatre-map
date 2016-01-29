@@ -99,7 +99,7 @@ var TheatreMapViewModel = function() {
             self.infoWindows.push(infowindow);
             infoWindowBinder(index, infowindow);
         });
-        console.log(mapManager.markers);
+        mapManager.store();
     };
 };
 
