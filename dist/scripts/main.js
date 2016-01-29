@@ -9,12 +9,9 @@ var TheatreMapViewModel = function() {
     'use strict';
     var self = this;
 
-    self.emailme = 'Please contant the developer at Andrei.Borissenko@gmail.com ' +
-        'so that the issue can be promptly resolved.';
-
     self.searchText = ko.observable('');
 
-    self.markers = ko.observableArray([]);
+    self.markers = [];
 
     self.infoWindows = [];
 
@@ -29,11 +26,11 @@ var TheatreMapViewModel = function() {
      * @param  {google.maps.InfoWindow} infowindow [description]
      */
     var infoWindowBinder = function(index) {
-        self.markers()[index].addListener('click', function() {
+        self.markers[index].addListener('click', function() {
             // All other infoWindows are closed so as to not clutter up the 
             // map
             self.openInfoWindow(index);
-            console.log('Good job, you clicked on ' + self.markers()[index].title);
+            console.log('Good job, you clicked on ' + self.markers[index].title);
         });
     };
 
@@ -41,7 +38,7 @@ var TheatreMapViewModel = function() {
         self.infoWindows.forEach(function(infoWin, number, allInfoWindows) {
             infoWin.close();
         });
-        self.infoWindows[index].open(mapManager.map, self.markers()[index]);
+        self.infoWindows[index].open(mapManager.map, self.markers[index]);
     };
 
     self.printSomething = function() {
@@ -49,7 +46,7 @@ var TheatreMapViewModel = function() {
     };
 
     self.moveMarker = function() {
-
+        self.openInfoWindow(0);
     };
 
     self.addMarkers = function() {
@@ -63,7 +60,7 @@ var TheatreMapViewModel = function() {
                     console.log('It has the following content attached to it: ' +
                         markerData.content);
                 }
-                console.log(self.emailme);
+                console.log(mapManager.utilities.emailMsg);
                 goodToGo = false;
             }
             if (markerData.position === undefined) {
@@ -92,7 +89,7 @@ var TheatreMapViewModel = function() {
             });
 
             if (!goodToGo) {
-                self.markers()[index].setMap(null);
+                self.markers[index].setMap(null);
             }
 
             self.infoWindows.push(infowindow);
@@ -202,7 +199,7 @@ var mapManager = {
         $.getJSON(urlCoords, function(data) {
             var lat = data.results[0].geometry.location.lat;
             var lng = data.results[0].geometry.location.lng;
-            viewmodel.markers()[index].setPosition(new google.maps.LatLng(lat, lng));
+            viewmodel.markers[index].setPosition(new google.maps.LatLng(lat, lng));
             self.markers[index].position = {
                 lat: lat,
                 lng: lng
@@ -210,7 +207,7 @@ var mapManager = {
         }).error(function(e) {
             console.log('We experienced a failure when making the coordinate request for ' +
                 address + ' for the place called ' + self.markers[index].title);
-            viewmodel.markers()[index].setMap(null);
+            viewmodel.markers[index].setMap(null);
         });
     },
     store: function() {
@@ -287,3 +284,10 @@ var mapManager = {
 };
 
 mapManager.load();
+
+var mapManager = mapManager || {};
+
+mapManager.utilities = mapManager.utilities || {};
+
+mapManager.utilities.emailMsg = 'Please contant the developer at ' + 
+    'Andrei.Borissenko@gmail.com so that the issue can be promptly resolved.';

@@ -35,7 +35,9 @@ an observable that can be switched on an off with a button.
 * TTC directions must be available
 * Need to handle error from coordRequest so that the marker doesn't do something 
 odd when it gets no good information
-* Very smart search mechanic that reads sections of words
+* Very smart search mechanic that reads sections of words when doing a search
+* A way to fix corrupted localStorage... Maybe just a matter of separating 
+coordinates from everything else.
 
 ### Bootstrap features to use
 

@@ -89,7 +89,7 @@ var mapManager = {
         $.getJSON(urlCoords, function(data) {
             var lat = data.results[0].geometry.location.lat;
             var lng = data.results[0].geometry.location.lng;
-            viewmodel.markers()[index].setPosition(new google.maps.LatLng(lat, lng));
+            viewmodel.markers[index].setPosition(new google.maps.LatLng(lat, lng));
             self.markers[index].position = {
                 lat: lat,
                 lng: lng
@@ -97,7 +97,7 @@ var mapManager = {
         }).error(function(e) {
             console.log('We experienced a failure when making the coordinate request for ' +
                 address + ' for the place called ' + self.markers[index].title);
-            viewmodel.markers()[index].setMap(null);
+            viewmodel.markers[index].setMap(null);
         });
     },
     store: function() {
