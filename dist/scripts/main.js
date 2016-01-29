@@ -9,13 +9,8 @@ var TheatreMapViewModel = function() {
     'use strict';
     var self = this;
 
-    var torontoLatLng = {
-        lat: 43.657899,
-        lng: -79.3782433
-    };
-
     self.emailme = 'Please contant the developer at Andrei.Borissenko@gmail.com ' +
-    'so that the issue can be promptly resolved.';
+        'so that the issue can be promptly resolved.';
 
     self.searchText = ko.observable('');
 
@@ -50,7 +45,7 @@ var TheatreMapViewModel = function() {
     };
 
     self.moveMarker = function() {
-        self.markers()[0].setPosition(new google.maps.LatLng(43.657899, -79.3782433));
+        self.infoWindows[0].open(mapManager.map, self.markers()[0]);
     };
 
     self.addMarkers = function() {
@@ -58,10 +53,10 @@ var TheatreMapViewModel = function() {
             var goodToGo = true;
             // handle lack of title here
             if (markerData.title === undefined) {
-                console.log('One of the inputted locations is not being displayed ' + 
+                console.log('One of the inputted locations is not being displayed ' +
                     'because it has no title attribute.');
                 if (markerData.content !== undefined) {
-                    console.log('It has the following content attached to it: ' + 
+                    console.log('It has the following content attached to it: ' +
                         markerData.content);
                 }
                 console.log(self.emailme);
@@ -102,6 +97,7 @@ var TheatreMapViewModel = function() {
         mapManager.store();
     };
 };
+
 
 /**
  * tmvm is the instantiated ViewModel that we use to load the initial marker 
