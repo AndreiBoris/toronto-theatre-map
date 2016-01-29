@@ -95,7 +95,7 @@ var mapManager = {
          */
         tmvm.addMarkers();
     },
-    wikiRequest: function(nameOfTheatre, viewmodel, index) {
+    wikipediaRequest: function(nameOfTheatre, viewmodel, index) {
         'use strict';
 
         var formattedName = nameOfTheatre.replace(/ /g, '_');
@@ -105,10 +105,10 @@ var mapManager = {
             formattedName + '&limit=1&redirects=resolve');
 
         /**
-         * wikiRequestTimeout will be cancelled if the ajax request below is 
+         * wikipediaRequestTimeout will be cancelled if the ajax request below is 
          * successful
          */
-        var wikiRequestTimeout = setTimeout(function() { // no wiki articles found
+        var wikipediaRequestTimeout = setTimeout(function() { // no wiki articles found
             viewmodel.infoWindows[index].setContent(mapManager.markers[index].content);
             return false;
         }, 5000);
@@ -118,7 +118,7 @@ var mapManager = {
             dataType: 'jsonp',
             success: function(data) {
                 // This will not let the timeout response to occur.
-                clearTimeout(wikiRequestTimeout);
+                clearTimeout(wikipediaRequestTimeout);
                 var wikiFound = data[1].length;
                 if (wikiFound) {
                     var wikiTitle = '<h4><a href="' + data[3][0] + '">' + data[1][0] +
@@ -131,7 +131,7 @@ var mapManager = {
             }
         });
     },
-    coordRequest: function(address, viewmodel, index) {
+    coordinateRequest: function(address, viewmodel, index) {
         'use strict';
 
         var formattedAddress = address.replace(/ /g, '+');

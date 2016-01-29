@@ -74,7 +74,7 @@ var TheatreMapViewModel = function() {
                     map: mapManager.map,
                     title: markerData.title
                 }));
-                mapManager.coordRequest(markerData.address, self, index);
+                mapManager.coordinateRequest(markerData.address, self, index);
             } else {
                 self.markers.push(new google.maps.Marker({
                     position: markerData.position,
@@ -84,7 +84,7 @@ var TheatreMapViewModel = function() {
             }
 
             if (goodToGo) {
-                mapManager.wikiRequest(markerData.title, self, index);
+                mapManager.wikipediaRequest(markerData.title, self, index);
             }
 
             infowindow = new google.maps.InfoWindow({
