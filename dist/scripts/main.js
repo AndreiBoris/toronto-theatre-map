@@ -43,38 +43,38 @@ function wikiRequest(nameOfTheatre, viewmodel, index) {
 function coordRequest(nameOfTheatre, viewmodel, index) {
     'use strict';
 
-    var formattedName = nameOfTheatre.replace(/ /g, '_');
+    // var formattedName = nameOfTheatre.replace(/ /g, '_');
 
-    // Only try find 1 article.
-    var urlWiki = ('https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=' +
-        formattedName + '&limit=1&redirects=resolve');
+    // // Only try find 1 article.
+    // var urlWiki = ('https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=' +
+    //     formattedName + '&limit=1&redirects=resolve');
 
-    /**
-     * wikiRequestTimeout will be cancelled if the ajax request below is 
-     * successful
-     */
-    var wikiRequestTimeout = setTimeout(function() { // no wiki articles found
-        viewmodel.infoWindows[index].setContent(mapManager.markers[index].content);
-        return false;
-    }, 5000);
+    // /**
+    //  * wikiRequestTimeout will be cancelled if the ajax request below is 
+    //  * successful
+    //  */
+    // var wikiRequestTimeout = setTimeout(function() { // no wiki articles found
+    //     viewmodel.infoWindows[index].setContent(mapManager.markers[index].content);
+    //     return false;
+    // }, 5000);
 
-    $.ajax({
-        url: urlWiki,
-        dataType: 'jsonp',
-        success: function(data) {
-            // This will not let the timeout response to occur.
-            clearTimeout(wikiRequestTimeout);
-            var wikiFound = data[1].length;
-            if (wikiFound) {
-                var wikiTitle = '<h4><a href="' + data[3][0] + '">' + data[1][0] +
-                    '</a></h4><p>' + data[2][0] + '</p>';
-                viewmodel.infoWindows[index].setContent(wikiTitle);
-            }
-            if (wikiFound < 1) {
-                viewmodel.infoWindows[index].setContent(mapManager.markers[index].content);
-            }
-        }
-    });
+    // $.ajax({
+    //     url: urlWiki,
+    //     dataType: 'jsonp',
+    //     success: function(data) {
+    //         // This will not let the timeout response to occur.
+    //         clearTimeout(wikiRequestTimeout);
+    //         var wikiFound = data[1].length;
+    //         if (wikiFound) {
+    //             var wikiTitle = '<h4><a href="' + data[3][0] + '">' + data[1][0] +
+    //                 '</a></h4><p>' + data[2][0] + '</p>';
+    //             viewmodel.infoWindows[index].setContent(wikiTitle);
+    //         }
+    //         if (wikiFound < 1) {
+    //             viewmodel.infoWindows[index].setContent(mapManager.markers[index].content);
+    //         }
+    //     }
+    // });
 }
 
 /**
@@ -127,11 +127,23 @@ var TheatreMapViewModel = function() {
 
     self.addMarkers = function() {
         mapManager.markers.forEach(function(markerData, index, hardCodedMarkers) {
-            self.markers.push(new google.maps.Marker({
-                position: markerData.position,
-                map: mapManager.map,
-                title: markerData.title
-            }));
+            // handle lack of title here
+            if (markerData.position === undefined) {
+                // TODO: handle lack of address here.
+                self.markers.push(new google.maps.Marker({
+                    position: mapManager.nullPosition,
+                    map: mapManager.map,
+                    title: markerData.title
+                }));
+                coordRequest(markerData.address, self, index);
+            } else {
+                self.markers.push(new google.maps.Marker({
+                    position: markerData.position,
+                    map: mapManager.map,
+                    title: markerData.title
+                }));
+            }
+
             wikiRequest(markerData.title, self, index);
             infowindow = new google.maps.InfoWindow({
                 content: '',
@@ -228,49 +240,52 @@ var mapManager = {
         content: 'Buddies in Bad Times Theatre.'
     }, {
         position: {
-            lat: 43.674842, 
+            lat: 43.674842,
             lng: -79.412820
         },
         title: 'Tarragon Theatre',
         content: 'Tarragon Theatre'
-    },
-    {
+    }, {
         position: {
-            lat: 43.648553, 
+            lat: 43.648553,
             lng: -79.402584
         },
         title: 'Theatre Passe Muraille',
         content: 'Theatre Passe Muraille'
-    },
-    {
+    }, {
         position: {
-            lat: 43.645531, 
+            lat: 43.645531,
             lng: -79.402690
         },
         title: 'Factory Theatre',
         content: 'Factory Theatre'
-    },
-    {
+    }, {
         position: {
-            lat: 43.661288, 
+            lat: 43.661288,
             lng: -79.428240
         },
         title: 'Storefront Theatre',
         content: '<a href="http://thestorefronttheatre.com/">Storefront ' +
-        'Theatre</a><p>Storefront Theatre is an independent theatre that is ' + 
-        'home of the Red One Theatre Collective.</p>'
-    },
-    {
+            'Theatre</a><p>Storefront Theatre is an independent theatre that is ' +
+            'home of the Red One Theatre Collective.</p>'
+    }, {
         position: {
-            lat: 43.659961, 
+            lat: 43.659961,
             lng: -79.362607
         },
         title: 'Native Earth Performing Arts',
         content: '<a href="http://www.nativeearth.ca/">Native Earth Performing ' +
-        'Arts</a><p>Founded in 1982, it is the oldest professional Aboriginal ' + 
-        'performing arts company in Canada.</p>'
-    },
-    ]
+            'Arts</a><p>Founded in 1982, it is the oldest professional Aboriginal ' +
+            'performing arts company in Canada.</p>'
+    }, {
+        title: 'Berkeley Street Theatre',
+        content: 'Berkeley Street Theatre',
+        address: '26 Berkeley St, Toronto, ON M5A 2W3'
+    }],
+    nullPosition: {
+        lat: 0,
+        lng: 0
+    }
 };
 
 /**

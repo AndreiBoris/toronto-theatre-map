@@ -16,49 +16,52 @@ var mapManager = {
         content: 'Buddies in Bad Times Theatre.'
     }, {
         position: {
-            lat: 43.674842, 
+            lat: 43.674842,
             lng: -79.412820
         },
         title: 'Tarragon Theatre',
         content: 'Tarragon Theatre'
-    },
-    {
+    }, {
         position: {
-            lat: 43.648553, 
+            lat: 43.648553,
             lng: -79.402584
         },
         title: 'Theatre Passe Muraille',
         content: 'Theatre Passe Muraille'
-    },
-    {
+    }, {
         position: {
-            lat: 43.645531, 
+            lat: 43.645531,
             lng: -79.402690
         },
         title: 'Factory Theatre',
         content: 'Factory Theatre'
-    },
-    {
+    }, {
         position: {
-            lat: 43.661288, 
+            lat: 43.661288,
             lng: -79.428240
         },
         title: 'Storefront Theatre',
         content: '<a href="http://thestorefronttheatre.com/">Storefront ' +
-        'Theatre</a><p>Storefront Theatre is an independent theatre that is ' + 
-        'home of the Red One Theatre Collective.</p>'
-    },
-    {
+            'Theatre</a><p>Storefront Theatre is an independent theatre that is ' +
+            'home of the Red One Theatre Collective.</p>'
+    }, {
         position: {
-            lat: 43.659961, 
+            lat: 43.659961,
             lng: -79.362607
         },
         title: 'Native Earth Performing Arts',
         content: '<a href="http://www.nativeearth.ca/">Native Earth Performing ' +
-        'Arts</a><p>Founded in 1982, it is the oldest professional Aboriginal ' + 
-        'performing arts company in Canada.</p>'
-    },
-    ]
+            'Arts</a><p>Founded in 1982, it is the oldest professional Aboriginal ' +
+            'performing arts company in Canada.</p>'
+    }, {
+        title: 'Berkeley Street Theatre',
+        content: 'Berkeley Street Theatre',
+        address: '26 Berkeley St, Toronto, ON M5A 2W3'
+    }],
+    nullPosition: {
+        lat: 0,
+        lng: 0
+    }
 };
 
 /**

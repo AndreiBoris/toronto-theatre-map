@@ -19,6 +19,8 @@ place in. That is super tedious.
 first time the page is loaded. Measure the difference. 
 9. Maybe try to get the second section from wikipedia on the theatres cause 
 the first is a bit general for some.
+10. Make sure that the program fails gracefully when not enough information 
+about a theatre location is provided (no address OR position)
 
 ### TODO
 
@@ -26,6 +28,7 @@ the first is a bit general for some.
 * probably should apply Bootstrap classes to the content of the InfoWindows
 * Should add a way to stop the "close all infoWindows" feature, probably using 
 an observable that can be switched on an off with a button.
+* TTC directions must be available
 
 ### Working with Google Maps API
 
