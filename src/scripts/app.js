@@ -2,7 +2,49 @@ var ko = ko || {};
 var google = google || {};
 var mapManager = mapManager || {};
 
-var contentString = 'Words words words';
+
+function loadData(nameOfTheatre, viewmodel, index) {
+    'use strict';
+
+    var formattedName = nameOfTheatre.replace(/ /g, '_');
+
+    // Only try find 1 article.
+    var urlWiki = ('https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=' +
+        formattedName + '&limit=1&redirects=resolve');
+
+    /**
+     * wikiRequestTimeout will be cancelled if the ajax request below is 
+     * successful
+     */
+    var wikiRequestTimeout = setTimeout(function() { // no wiki articles found
+        return false;
+    }, 5000);
+
+    $.ajax({
+        url: urlWiki,
+        dataType: 'jsonp',
+        success: function(data) {
+            // This will not let the timeout response to occur.
+            console.log('We succeed at the AJAX call');
+            clearTimeout(wikiRequestTimeout);
+            var wikiFound = data[1].length;
+            var wikiTitle = '<h4><a href="' + data[3][0] + '">' + data[1][0] + '</a></h4>';
+            console.log(wikiTitle);
+            // var wikiLink = '<li id="article-' + i + '" class="article">' + wikiTitle + '</li>';
+            if (wikiFound) {
+                console.log('alledgedly pushing a value');
+                viewmodel.infoWindowsContent.push(wikiTitle);
+                viewmodel.infoWindows[index].setContent(wikiTitle);
+                console.log(viewmodel.infoWindowsContent());
+            }
+            if (wikiFound < 1) {
+                console.log('we fail to find an article');
+                viewmodel.infoWindowsContent.push(mapManager.markers.content);
+                viewmodel.infoWindows[index].setContent(mapManager.markers.content);
+            }
+        }
+    });
+}
 
 /**
  * The ViewModel is a function to take advantage of the 'var self = this' idiom
@@ -22,24 +64,30 @@ var TheatreMapViewModel = function() {
 
     self.infoWindows = [];
 
+    self.infoWindowsContent = ko.observableArray([]);
+
     var infowindow;
 
     /**
      * This is used inside the forEach loop in self.addMarkers, it makes sure
      * that the listeners are bound to the correct markers.
-     * @param  {[type]} index      [description]
-     * @param  {[type]} infowindow [description]
-     * @return {[type]}            [description]
+     * @param  {int} index      This corresponds to the index number
+     * @param  {google.maps.InfoWindow} infowindow [description]
      */
     var infoWindowBinder = function(index, infowindow) {
         self.markers()[index].addListener('click', function() {
+            // All other infoWindows are closed so as to not clutter up the 
+            // map
             self.infoWindows.forEach(function(infoWin, index, allInfoWindows) {
                 infoWin.close();
             });
             infowindow.open(mapManager.map, self.markers()[index]);
             console.log('Good job, you clicked on ' + self.markers()[index].title);
-            console.log('Here are all the infoWindows:' + self.infoWindows);
         });
+    };
+
+    self.printSomething = function() {
+        console.log(self.infoWindowsContent());
     };
 
     self.addMarkers = function() {
@@ -49,9 +97,9 @@ var TheatreMapViewModel = function() {
                 map: mapManager.map,
                 title: markerData.title
             }));
-
+            loadData(markerData.title, self, index);
             infowindow = new google.maps.InfoWindow({
-                content: markerData.content,
+                content: '',
                 maxWidth: 150
             });
             self.infoWindows.push(infowindow);

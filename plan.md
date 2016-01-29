@@ -13,12 +13,15 @@ Plan to make it work on cell phone.
 5. Set up basic console.log handlers to clicks on markers - DONE
 6. Implement one marker that moves from marker to marker. Maybe create an 
 observableArray(?) array of infoBoxes that opens a 'close all' button - DONE
+7. 
 
 
 ### TODO
 
 * Get twitter feed
 * probably should apply Bootstrap classes to the content of the InfoWindows
+* Should add a way to stop the "close all infoWindows" feature, probably using 
+an observable that can be switched on an off with a button.
 
 ### Working with Google Maps API
 
