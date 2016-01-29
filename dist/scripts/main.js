@@ -2,63 +2,6 @@ var ko = ko || {};
 var google = google || {};
 var mapManager = mapManager || {};
 
-
-function wikiRequest(nameOfTheatre, viewmodel, index) {
-    'use strict';
-
-    var formattedName = nameOfTheatre.replace(/ /g, '_');
-
-    // Only try find 1 article.
-    var urlWiki = ('https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=' +
-        formattedName + '&limit=1&redirects=resolve');
-
-    /**
-     * wikiRequestTimeout will be cancelled if the ajax request below is 
-     * successful
-     */
-    var wikiRequestTimeout = setTimeout(function() { // no wiki articles found
-        viewmodel.infoWindows[index].setContent(mapManager.markers[index].content);
-        return false;
-    }, 5000);
-
-    $.ajax({
-        url: urlWiki,
-        dataType: 'jsonp',
-        success: function(data) {
-            // This will not let the timeout response to occur.
-            clearTimeout(wikiRequestTimeout);
-            var wikiFound = data[1].length;
-            if (wikiFound) {
-                var wikiTitle = '<h4><a href="' + data[3][0] + '">' + data[1][0] +
-                    '</a></h4><p>' + data[2][0] + '</p>';
-                viewmodel.infoWindows[index].setContent(wikiTitle);
-            }
-            if (wikiFound < 1) {
-                viewmodel.infoWindows[index].setContent(mapManager.markers[index].content);
-            }
-        }
-    });
-}
-
-function coordRequest(address, viewmodel, index) {
-    'use strict';
-
-    var formattedAddress = address.replace(/ /g, '+');
-
-    var urlCoords = ('https://maps.googleapis.com/maps/api/geocode/json?address=' +
-        formattedAddress + '&bounds=43.573936,-79.560076|43.758672,-79.275135' + 
-        '&key=AIzaSyA4SAawmy-oEMzdWboD0iHk9gDmmjb61o4');
-
-    // TODO: perform some error handling
-    $.getJSON(urlCoords, function(data) {
-        var lat = data.results[0].geometry.location.lat;
-        var lng = data.results[0].geometry.location.lng;
-        viewmodel.markers()[index].setPosition(new google.maps.LatLng(lat, lng));
-    }).error(function(e) {
-        console.log('Failure');
-    });
-}
-
 /**
  * The ViewModel is a function to take advantage of the 'var self = this' idiom
  */
@@ -70,6 +13,9 @@ var TheatreMapViewModel = function() {
         lat: 43.657899,
         lng: -79.3782433
     };
+
+    self.emailme = 'Please contant the developer at Andrei.Borissenko@gmail.com ' +
+    'so that the issue can be promptly resolved.';
 
     self.searchText = ko.observable('');
 
@@ -109,9 +55,17 @@ var TheatreMapViewModel = function() {
 
     self.addMarkers = function() {
         mapManager.markers.forEach(function(markerData, index, hardCodedMarkers) {
+            var goodToGo = true;
             // handle lack of title here
             if (markerData.title === undefined) {
-                continue;
+                console.log('One of the inputted locations is not being displayed ' + 
+                    'because it has no title attribute.');
+                if (markerData.content !== undefined) {
+                    console.log('It has the following content attached to it: ' + 
+                        markerData.content);
+                }
+                console.log(self.emailme);
+                goodToGo = false;
             }
             if (markerData.position === undefined) {
                 // TODO: handle lack of address here.
@@ -120,7 +74,7 @@ var TheatreMapViewModel = function() {
                     map: mapManager.map,
                     title: markerData.title
                 }));
-                coordRequest(markerData.address, self, index);
+                mapManager.coordRequest(markerData.address, self, index);
             } else {
                 self.markers.push(new google.maps.Marker({
                     position: markerData.position,
@@ -129,11 +83,19 @@ var TheatreMapViewModel = function() {
                 }));
             }
 
-            wikiRequest(markerData.title, self, index);
+            if (goodToGo) {
+                mapManager.wikiRequest(markerData.title, self, index);
+            }
+
             infowindow = new google.maps.InfoWindow({
                 content: '',
                 maxWidth: 150
             });
+
+            if (!goodToGo) {
+                self.markers()[index].setMap(null);
+            }
+
             self.infoWindows.push(infowindow);
             infoWindowBinder(index, infowindow);
         });
@@ -271,41 +233,91 @@ var mapManager = {
         content: 'Bluma Appel Theatre',
         address: '27 Front St E, Toronto'
     }, {
+        title: 'Harbourfront Center',
         content: 'Harbourfront Center',
         address: '235 Queens Quay W'
     }, ],
     nullPosition: {
         lat: 0,
         lng: 0
+    },
+    initMap: function() {
+        'use strict';
+
+        var torontoLatLng = {
+            lat: 43.657899,
+            lng: -79.3782433
+        };
+
+        // Create a map object and specify the DOM element for display.
+        mapManager.map = new google.maps.Map(document.getElementById('map'), {
+            center: torontoLatLng,
+            scrollwheel: true,
+            zoom: 12,
+            mapTypeControlOptions: {
+                style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+                position: google.maps.ControlPosition.BOTTOM_CENTER
+            },
+        });
+
+        /**
+         * Add the markers stored in mapManager.markers through instantiated 
+         * TheatreMapViewModel
+         */
+        tmvm.addMarkers();
+    },
+    wikiRequest: function(nameOfTheatre, viewmodel, index) {
+        'use strict';
+
+        var formattedName = nameOfTheatre.replace(/ /g, '_');
+
+        // Only try find 1 article.
+        var urlWiki = ('https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=' +
+            formattedName + '&limit=1&redirects=resolve');
+
+        /**
+         * wikiRequestTimeout will be cancelled if the ajax request below is 
+         * successful
+         */
+        var wikiRequestTimeout = setTimeout(function() { // no wiki articles found
+            viewmodel.infoWindows[index].setContent(mapManager.markers[index].content);
+            return false;
+        }, 5000);
+
+        $.ajax({
+            url: urlWiki,
+            dataType: 'jsonp',
+            success: function(data) {
+                // This will not let the timeout response to occur.
+                clearTimeout(wikiRequestTimeout);
+                var wikiFound = data[1].length;
+                if (wikiFound) {
+                    var wikiTitle = '<h4><a href="' + data[3][0] + '">' + data[1][0] +
+                        '</a></h4><p>' + data[2][0] + '</p>';
+                    viewmodel.infoWindows[index].setContent(wikiTitle);
+                }
+                if (wikiFound < 1) {
+                    viewmodel.infoWindows[index].setContent(mapManager.markers[index].content);
+                }
+            }
+        });
+    },
+    coordRequest: function(address, viewmodel, index) {
+        'use strict';
+
+        var formattedAddress = address.replace(/ /g, '+');
+
+        var urlCoords = ('https://maps.googleapis.com/maps/api/geocode/json?address=' +
+            formattedAddress + '&bounds=43.573936,-79.560076|43.758672,-79.275135' +
+            '&key=AIzaSyA4SAawmy-oEMzdWboD0iHk9gDmmjb61o4');
+
+        // TODO: perform some error handling
+        $.getJSON(urlCoords, function(data) {
+            var lat = data.results[0].geometry.location.lat;
+            var lng = data.results[0].geometry.location.lng;
+            viewmodel.markers()[index].setPosition(new google.maps.LatLng(lat, lng));
+        }).error(function(e) {
+            console.log('Failure');
+        });
     }
 };
-
-/**
- * Load the map initially
- * @return {[type]} [description]
- */
-function initMap() {
-    'use strict';
-
-    var torontoLatLng = {
-        lat: 43.657899,
-        lng: -79.3782433
-    };
-
-    // Create a map object and specify the DOM element for display.
-    mapManager.map = new google.maps.Map(document.getElementById('map'), {
-        center: torontoLatLng,
-        scrollwheel: true,
-        zoom: 12,
-        mapTypeControlOptions: {
-            style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-            position: google.maps.ControlPosition.BOTTOM_CENTER
-        },
-    });
-
-    /**
-     * Add the markers stored in mapManager.markers through instantiated 
-     * TheatreMapViewModel
-     */
-    tmvm.addMarkers();
-}

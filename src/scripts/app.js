@@ -2,63 +2,6 @@ var ko = ko || {};
 var google = google || {};
 var mapManager = mapManager || {};
 
-
-function wikiRequest(nameOfTheatre, viewmodel, index) {
-    'use strict';
-
-    var formattedName = nameOfTheatre.replace(/ /g, '_');
-
-    // Only try find 1 article.
-    var urlWiki = ('https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=' +
-        formattedName + '&limit=1&redirects=resolve');
-
-    /**
-     * wikiRequestTimeout will be cancelled if the ajax request below is 
-     * successful
-     */
-    var wikiRequestTimeout = setTimeout(function() { // no wiki articles found
-        viewmodel.infoWindows[index].setContent(mapManager.markers[index].content);
-        return false;
-    }, 5000);
-
-    $.ajax({
-        url: urlWiki,
-        dataType: 'jsonp',
-        success: function(data) {
-            // This will not let the timeout response to occur.
-            clearTimeout(wikiRequestTimeout);
-            var wikiFound = data[1].length;
-            if (wikiFound) {
-                var wikiTitle = '<h4><a href="' + data[3][0] + '">' + data[1][0] +
-                    '</a></h4><p>' + data[2][0] + '</p>';
-                viewmodel.infoWindows[index].setContent(wikiTitle);
-            }
-            if (wikiFound < 1) {
-                viewmodel.infoWindows[index].setContent(mapManager.markers[index].content);
-            }
-        }
-    });
-}
-
-function coordRequest(address, viewmodel, index) {
-    'use strict';
-
-    var formattedAddress = address.replace(/ /g, '+');
-
-    var urlCoords = ('https://maps.googleapis.com/maps/api/geocode/json?address=' +
-        formattedAddress + '&bounds=43.573936,-79.560076|43.758672,-79.275135' +
-        '&key=AIzaSyA4SAawmy-oEMzdWboD0iHk9gDmmjb61o4');
-
-    // TODO: perform some error handling
-    $.getJSON(urlCoords, function(data) {
-        var lat = data.results[0].geometry.location.lat;
-        var lng = data.results[0].geometry.location.lng;
-        viewmodel.markers()[index].setPosition(new google.maps.LatLng(lat, lng));
-    }).error(function(e) {
-        console.log('Failure');
-    });
-}
-
 /**
  * The ViewModel is a function to take advantage of the 'var self = this' idiom
  */
@@ -131,7 +74,7 @@ var TheatreMapViewModel = function() {
                     map: mapManager.map,
                     title: markerData.title
                 }));
-                coordRequest(markerData.address, self, index);
+                mapManager.coordRequest(markerData.address, self, index);
             } else {
                 self.markers.push(new google.maps.Marker({
                     position: markerData.position,
@@ -141,7 +84,7 @@ var TheatreMapViewModel = function() {
             }
 
             if (goodToGo) {
-                wikiRequest(markerData.title, self, index);
+                mapManager.wikiRequest(markerData.title, self, index);
             }
 
             infowindow = new google.maps.InfoWindow({
