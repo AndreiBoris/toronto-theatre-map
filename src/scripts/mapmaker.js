@@ -47,7 +47,17 @@ var mapManager = {
         content: '<a href="http://thestorefronttheatre.com/">Storefront ' +
         'Theatre</a><p>Storefront Theatre is an independent theatre that is ' + 
         'home of the Red One Theatre Collective.</p>'
-    }
+    },
+    {
+        position: {
+            lat: 43.659961, 
+            lng: -79.362607
+        },
+        title: 'Native Earth Performing Arts',
+        content: '<a href="http://www.nativeearth.ca/">Native Earth Performing ' +
+        'Arts</a><p>Founded in 1982, it is the oldest professional Aboriginal ' + 
+        'performing arts company in Canada.</p>'
+    },
     ]
 };
 

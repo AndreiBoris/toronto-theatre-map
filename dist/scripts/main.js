@@ -17,6 +17,7 @@ function loadData(nameOfTheatre, viewmodel, index) {
      * successful
      */
     var wikiRequestTimeout = setTimeout(function() { // no wiki articles found
+        viewmodel.infoWindows[index].setContent(mapManager.markers[index].content);
         return false;
     }, 5000);
 
@@ -25,25 +26,15 @@ function loadData(nameOfTheatre, viewmodel, index) {
         dataType: 'jsonp',
         success: function(data) {
             // This will not let the timeout response to occur.
-            console.log('We succeed at the AJAX call');
             clearTimeout(wikiRequestTimeout);
             var wikiFound = data[1].length;
-
             if (wikiFound) {
-
-                var wikiTitle = '<h4><a href="' + data[3][0] + '">' + data[1][0] + '</a></h4>' +
-                '<p></p>;
-
-                // var wikiLink = '<li id="article-' + i + '" class="article">' + wikiTitle + '</li>';
-                console.log('alledgedly pushing a value');
-                viewmodel.infoWindowsContent.push(wikiTitle);
+                var wikiTitle = '<h4><a href="' + data[3][0] + '">' + data[1][0] + 
+                '</a></h4><p>' + data[2][0] + '</p>';
                 viewmodel.infoWindows[index].setContent(wikiTitle);
-                console.log(viewmodel.infoWindowsContent());
             }
             if (wikiFound < 1) {
-                console.log('we fail to find an article');
-                viewmodel.infoWindowsContent.push(mapManager.markers.content);
-                viewmodel.infoWindows[index].setContent(mapManager.markers.content);
+                viewmodel.infoWindows[index].setContent(mapManager.markers[index].content);
             }
         }
     });
@@ -193,8 +184,7 @@ var mapManager = {
             lng: -79.383107
         },
         title: 'Buddies in Bad Times Theatre',
-        content: 'Buddies in Bad Times Theatre. This is an obnoxiously long ' +
-                'message. Let\'s see how it gets handled in the little window.'
+        content: 'Buddies in Bad Times Theatre.'
     }, {
         position: {
             lat: 43.674842, 
@@ -218,7 +208,28 @@ var mapManager = {
         },
         title: 'Factory Theatre',
         content: 'Factory Theatre'
-    }]
+    },
+    {
+        position: {
+            lat: 43.661288, 
+            lng: -79.428240
+        },
+        title: 'Storefront Theatre',
+        content: '<a href="http://thestorefronttheatre.com/">Storefront ' +
+        'Theatre</a><p>Storefront Theatre is an independent theatre that is ' + 
+        'home of the Red One Theatre Collective.</p>'
+    },
+    {
+        position: {
+            lat: 43.659961, 
+            lng: -79.362607
+        },
+        title: 'Native Earth Performing Arts',
+        content: '<a href="http://www.nativeearth.ca/">Native Earth Performing ' +
+        'Arts</a><p>Founded in 1982, it is the oldest professional Aboriginal ' + 
+        'performing arts company in Canada.</p>'
+    },
+    ]
 };
 
 /**

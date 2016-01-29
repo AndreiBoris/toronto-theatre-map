@@ -13,8 +13,10 @@ Plan to make it work on cell phone.
 5. Set up basic console.log handlers to clicks on markers - DONE
 6. Implement one marker that moves from marker to marker. Maybe create an 
 observableArray(?) array of infoBoxes that opens a 'close all' button - DONE
-7. 
-
+7. Get geocoding working such that we don't have to type the coordinate of each
+place in. That is super tedious. 
+8. Find a way to store that so they only need to make those requests during the
+first time the page is loaded. Measure the difference. 
 
 ### TODO
 
