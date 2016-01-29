@@ -251,7 +251,7 @@ var mapManager = {
     load: function() {
         'use strict';
         console.log('loading data');
-        if (!localStorage.markerData) {
+        if (true) {
             this.markerData = [{
                 position: {
                     lat: 43.663346,
@@ -301,25 +301,42 @@ var mapManager = {
             }, {
                 title: 'Berkeley Street Theatre',
                 content: 'Berkeley Street Theatre',
-                address: '26 Berkeley St, Toronto'
+                address: '26 Berkeley St, Toronto',
+                position: {
+                    lat: 43.650621,
+                    lng: -79.363817
+                }
+
             }, {
                 title: 'Bluma Appel Theatre',
                 content: 'Bluma Appel Theatre',
-                address: '27 Front St E, Toronto'
+                address: '27 Front St E, Toronto',
+                position: {
+                    lat: 43.647414,
+                    lng: -79.375129
+                }
             }, {
                 title: 'Harbourfront Center',
                 content: 'Harbourfront Center',
-                address: '235 Queens Quay W'
-            },{
-                title: 'Shakespeare in High Park',
-                content: 'High Park Amphitheare',
+                address: '235 Queens Quay W',
                 position: {
-                    lat: 43.646378, 
+                    lat: 43.638818, 
+                    lng: -79.381911
+                }
+            }, {
+                title: 'High Park Amphitheare',
+                content: '<a href="https://www.canadianstage.com/Online/' +
+                    'default.asp?BOparam::WScontent::loadArticle::permalink=' +
+                    '1314shakespeare">Shakespeare in High Park</a><p>Each ' +
+                    'summer, a shakespeare show is performed at High Park ' +
+                    'Amphitheatre.</p>',
+                position: {
+                    lat: 43.646378,
                     lng: -79.462464
                 }
             }];
         } else {
-            this.markerData = JSON.parse(localStorage.markerData);
+            //this.markerData = JSON.parse(localStorage.markerData);
         }
 
     }
