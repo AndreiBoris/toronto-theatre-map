@@ -28,16 +28,20 @@ var TheatreMapViewModel = function() {
      * @param  {int} index      This corresponds to the index number
      * @param  {google.maps.InfoWindow} infowindow [description]
      */
-    var infoWindowBinder = function(index, infowindow) {
+    var infoWindowBinder = function(index) {
         self.markers()[index].addListener('click', function() {
             // All other infoWindows are closed so as to not clutter up the 
             // map
-            self.infoWindows.forEach(function(infoWin, index, allInfoWindows) {
-                infoWin.close();
-            });
-            infowindow.open(mapManager.map, self.markers()[index]);
+            self.openInfoWindow(index);
             console.log('Good job, you clicked on ' + self.markers()[index].title);
         });
+    };
+
+    self.openInfoWindow = function(index) {
+        self.infoWindows.forEach(function(infoWin, number, allInfoWindows) {
+            infoWin.close();
+        });
+        self.infoWindows[index].open(mapManager.map, self.markers()[index]);
     };
 
     self.printSomething = function() {
@@ -45,7 +49,7 @@ var TheatreMapViewModel = function() {
     };
 
     self.moveMarker = function() {
-        self.infoWindows[0].open(mapManager.map, self.markers()[0]);
+
     };
 
     self.addMarkers = function() {
@@ -92,7 +96,7 @@ var TheatreMapViewModel = function() {
             }
 
             self.infoWindows.push(infowindow);
-            infoWindowBinder(index, infowindow);
+            infoWindowBinder(index);
         });
         mapManager.store();
     };
