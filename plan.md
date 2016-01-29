@@ -15,10 +15,8 @@ Plan to make it work on cell phone.
 observableArray(?) array of infoBoxes that opens a 'close all' button - DONE
 7. Get geocoding working such that we don't have to type the coordinate of each
 place in. That is super tedious. - DONE
-7.5. Get position attribute to be loaded onto mapManager Marker if found using 
-the ajax call.
-8. Find a way to store that so they only need to make those requests during the
-first time the page is loaded. Measure the difference. 
+8. Place the InfoWindows into the same array as the markers as a value attached
+to each marker. See if this can work.
 9. Maybe try to get the second section from wikipedia on the theatres cause 
 the first is a bit general for some.
 10. Make sure that the program fails gracefully when not enough information 
@@ -28,6 +26,10 @@ of the wikipedia page itself (cause the wiki page is pretty useless!)
 12. Implement sophisticated localStorage system that gets takes the new, editted
 version first and then adds any bonuses from localStorage to supplement, rather
 than overriding all server storage. Currently it is totally broken.
+13. Get position attribute to be loaded onto mapManager Marker if found using 
+the ajax call.
+14. Find a way to store that so they only need to make those requests during the
+first time the page is loaded. Measure the difference. 
 
 ### TODO
 
@@ -44,6 +46,8 @@ coordinates from everything else. This needs to be more sophisticated such that
 adding a new location is handled CORRECTLY rather than NOT.
 * Allow users to add their own markers. This should be decently easy to do at 
 least sort of badly though the use of localStorage.
+* Theatre companies should be able to register and put in their shows so that 
+people can know about it and go.
 
 ### Bootstrap features to use
 

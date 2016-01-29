@@ -65,69 +65,82 @@ var TheatreMapViewModel = function() {
     };
 
     /**
-     * Here we add all the markers from the mapManager onto the map, add the 
-     * InfoWindows, and bind the InfoWindows to clicks on corresponding markers.
-     * We make a couple AJAX calls to find wikipedia resources for the 
-     * InfoWindows and, when necessary, calls to Google Maps geocoding API in 
-     * order to translate addresses into coordinates on the map.
+     * Does the following :
+     *     - adds all the Markers from the mapManager onto the map
+     *     - adds the InfoWindows 
+     *     - binds the InfoWindows to clicks on corresponding Markers
+     *     
+     * We make a AJAX calls to find wikipedia resources for the InfoWindows and, 
+     * when necessary, calls to Google Maps geocoding API in order to translate 
+     * addresses into coordinates on the map.
      */
     self.addMarkers = function() {
         // curInfoWindow is the placeholder name for all added InfoWindows
         var curInfoWindow;
         /**
          * mapManager.markerData holds a series of objects with the information 
-         * about theatres needed to create appropriate markers.
-         * @param  {object} markerData        An object holding information about
-         *                                    the theatre in question.
-         * @param  {int}    index             The position in the array we're on,
-         *                                    this is useful for the AJAX calls
-         *                                    we make that use the indices to 
-         *                                    asynchronously apply their data to
-         *                                    the correct markers and InfoWindows.               
+         * about theatres needed to create appropriate Markers.
+         * 
+         * @param  {object} markerData        An object holding information 
+         *                                    about a theatre venue.
+         *                                    
+         * @param  {int}    index             The position in the array we're 
+         *                                    on, this is useful for the AJAX 
+         *                                    calls we make that use the indices 
+         *                                    to asynchronously apply retrieved 
+         *                                    data to the correct Markers and 
+         *                                    InfoWindows.               
          */
-        mapManager.markerData.forEach(function(markerData, index) {
-            // If the markerData object has no title, we won't be able to put 
-            // it on the map
-            var hasTitle = true;
-            if (!markerData.title) {
-                hasTitle = false;
-            }
+        mapManager.markerData.forEach(function(markerItem, index) {
+            // If there is no title, we don't do a wikipedia ajax call.
+            var hasTitle = markerItem.title ? true : false;
 
+            // Add a marker into the position 0,0, which we will later move.
             self.markers.push(new google.maps.Marker({
                 position: mapManager.nullPosition,
                 map: mapManager.map,
-                title: markerData.title
+                title: markerItem.title
             }));
 
-            if (markerData.position) {
-                console.log('1');
-                self.markers[index].setPosition(markerData.position);
-            } else if (markerData.address) {
-                console.log('2');
-                mapManager.coordinateRequest(markerData.address, self, index);
+            /**
+             * If the markerItem has coordinates, use those. If it has an
+             * address, we can make a Google Maps Geocoding call to find the 
+             * corresponding coordinates. Failing those two things, we can't 
+             * display the Marker.
+             */
+            if (markerItem.position) {
+                self.markers[index].setPosition(markerItem.position);
+            } else if (markerItem.address) {
+                mapManager.coordinateRequest(markerItem.address, self.markers, index);
             } else {
-                console.log('3');
+                // Take the marker off the map.
                 self.markers[index].setMap(null);
             }
 
+            // Create an empty InfoWindow which we will fill below.
             curInfoWindow = new google.maps.InfoWindow({
                 content: '',
                 maxWidth: 150
             });
+
             self.infoWindows.push(curInfoWindow);
+            // Set up a listener on the marker that will open the corresponding
+            // InfoWindow when the Marker is clicked.
             infoWindowBinder(index);
 
+            /**
+             * If we have a title, we can use that to search for information 
+             * from the wikipedia resource, otherwise we use the information 
+             * provided in the markerItem.
+             */
             if (hasTitle) {
-                mapManager.wikipediaRequest(markerData.title, self, index);
+                mapManager.wikipediaRequest(markerItem.title, self.infoWindows, index);
             } else {
-                self.infoWindows[index].content = markerData.content;
+                self.infoWindows[index].content = markerItem.content;
             }
-
-
-            /*if (!hasTitle) {
-                self.markers[index].setMap(null);
-            }*/
         });
+        // Save coordinates to localStorage so that we can avoid using AJAX
+        // calls next time around. DOESN'T WORK YET.
         mapManager.store();
     };
 };

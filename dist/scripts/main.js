@@ -65,69 +65,82 @@ var TheatreMapViewModel = function() {
     };
 
     /**
-     * Here we add all the markers from the mapManager onto the map, add the 
-     * InfoWindows, and bind the InfoWindows to clicks on corresponding markers.
-     * We make a couple AJAX calls to find wikipedia resources for the 
-     * InfoWindows and, when necessary, calls to Google Maps geocoding API in 
-     * order to translate addresses into coordinates on the map.
+     * Does the following :
+     *     - adds all the Markers from the mapManager onto the map
+     *     - adds the InfoWindows 
+     *     - binds the InfoWindows to clicks on corresponding Markers
+     *     
+     * We make a AJAX calls to find wikipedia resources for the InfoWindows and, 
+     * when necessary, calls to Google Maps geocoding API in order to translate 
+     * addresses into coordinates on the map.
      */
     self.addMarkers = function() {
         // curInfoWindow is the placeholder name for all added InfoWindows
         var curInfoWindow;
         /**
          * mapManager.markerData holds a series of objects with the information 
-         * about theatres needed to create appropriate markers.
-         * @param  {object} markerData        An object holding information about
-         *                                    the theatre in question.
-         * @param  {int}    index             The position in the array we're on,
-         *                                    this is useful for the AJAX calls
-         *                                    we make that use the indices to 
-         *                                    asynchronously apply their data to
-         *                                    the correct markers and InfoWindows.               
+         * about theatres needed to create appropriate Markers.
+         * 
+         * @param  {object} markerData        An object holding information 
+         *                                    about a theatre venue.
+         *                                    
+         * @param  {int}    index             The position in the array we're 
+         *                                    on, this is useful for the AJAX 
+         *                                    calls we make that use the indices 
+         *                                    to asynchronously apply retrieved 
+         *                                    data to the correct Markers and 
+         *                                    InfoWindows.               
          */
-        mapManager.markerData.forEach(function(markerData, index) {
-            // If the markerData object has no title, we won't be able to put 
-            // it on the map
-            var hasTitle = true;
-            if (!markerData.title) {
-                hasTitle = false;
-            }
+        mapManager.markerData.forEach(function(markerItem, index) {
+            // If there is no title, we don't do a wikipedia ajax call.
+            var hasTitle = markerItem.title ? true : false;
 
+            // Add a marker into the position 0,0, which we will later move.
             self.markers.push(new google.maps.Marker({
                 position: mapManager.nullPosition,
                 map: mapManager.map,
-                title: markerData.title
+                title: markerItem.title
             }));
 
-            if (markerData.position) {
-                console.log('1');
-                self.markers[index].setPosition(markerData.position);
-            } else if (markerData.address) {
-                console.log('2');
-                mapManager.coordinateRequest(markerData.address, self, index);
+            /**
+             * If the markerItem has coordinates, use those. If it has an
+             * address, we can make a Google Maps Geocoding call to find the 
+             * corresponding coordinates. Failing those two things, we can't 
+             * display the Marker.
+             */
+            if (markerItem.position) {
+                self.markers[index].setPosition(markerItem.position);
+            } else if (markerItem.address) {
+                mapManager.coordinateRequest(markerItem.address, self.markers, index);
             } else {
-                console.log('3');
+                // Take the marker off the map.
                 self.markers[index].setMap(null);
             }
 
+            // Create an empty InfoWindow which we will fill below.
             curInfoWindow = new google.maps.InfoWindow({
                 content: '',
                 maxWidth: 150
             });
+
             self.infoWindows.push(curInfoWindow);
+            // Set up a listener on the marker that will open the corresponding
+            // InfoWindow when the Marker is clicked.
             infoWindowBinder(index);
 
+            /**
+             * If we have a title, we can use that to search for information 
+             * from the wikipedia resource, otherwise we use the information 
+             * provided in the markerItem.
+             */
             if (hasTitle) {
-                mapManager.wikipediaRequest(markerData.title, self, index);
+                mapManager.wikipediaRequest(markerItem.title, self.infoWindows, index);
             } else {
-                self.infoWindows[index].content = markerData.content;
+                self.infoWindows[index].content = markerItem.content;
             }
-
-
-            /*if (!hasTitle) {
-                self.markers[index].setMap(null);
-            }*/
         });
+        // Save coordinates to localStorage so that we can avoid using AJAX
+        // calls next time around. DOESN'T WORK YET.
         mapManager.store();
     };
 };
@@ -150,23 +163,36 @@ var tmvm = tmvm || {};
  * related logic
  */
 var mapManager = {
+
+    /**
+     * nullPosition is what new markers are set to before being given the
+     * correct coordinates.
+     */
     nullPosition: {
         lat: 0,
         lng: 0
     },
+
+    /**
+     * The Google Maps API runs this function as a callback when it loads in 
+     * order to pan over the correct region and then to load all the markers 
+     * from the model.
+     */
     initMap: function() {
         'use strict';
 
-        var torontoLatLng = {
+        var startingMapPosition = {
             lat: 43.657899,
             lng: -79.3782433
         };
 
-        // Create a map object and specify the DOM element for display.
+        // Create a Map object and specify the DOM element for display.
         this.map = new google.maps.Map(document.getElementById('map'), {
-            center: torontoLatLng,
+            center: startingMapPosition,
             scrollwheel: true,
             zoom: 12,
+            // This places the selection between map and satellite view at the 
+            // bottom of the screen.
             mapTypeControlOptions: {
                 style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
                 position: google.maps.ControlPosition.BOTTOM_CENTER
@@ -174,50 +200,79 @@ var mapManager = {
         });
 
         /**
-         * Add the markers stored in mapManager.markerData through instantiated 
-         * TheatreMapViewModel
+         * Add the markers stored in mapManager.markerData through an 
+         * instantiated TheatreMapViewModel object. mapManager.markerData is 
+         * populated when mapManager.load() is run at the bottom of this file.
          */
         tmvm.addMarkers();
     },
-    wikipediaRequest: function(nameOfTheatre, viewmodel, index) {
+
+    /**
+     * Perform a MediaWiki API AJAX request and apply retrieved info to the 
+     * InfoWindow stored at position index of array.
+     * @param  {string} nameOfTheatre Name we use to search the wiki
+     * @param  {array}  array         Each item is an InfoWindow object
+     * @param  {int}    index         Determines which InfoWindow to send 
+     *                                retrieved info to.
+     * @return {null}                 Returns if the API takes too long to 
+     *                                        respond. In which case we apply
+     *                                        the corresponding content from the
+     *                                        a mapManager.markerData item. 
+     */
+    wikipediaRequest: function(nameOfTheatre, array, index) {
         'use strict';
 
         var self = this;
 
         var formattedName = nameOfTheatre.replace(/ /g, '_');
 
-        // Only try find 1 article.
-        var urlWiki = ('https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=' +
-            formattedName + '&limit=1&redirects=resolve');
+        // Only try find 1 article (specified by the &limit=1 part)
+        var urlWiki = ('https://en.wikipedia.org/w/api.php?action=opensearch&' +
+            'format=json&search=' + formattedName + '&limit=1&redirects=resolve');
 
         /**
-         * wikipediaRequestTimeout will be cancelled if the ajax request below is 
-         * successful
+         * wikipediaRequestTimeout will be cancelled if the AJAX request below 
+         * is successful.
          */
-        var wikipediaRequestTimeout = setTimeout(function() { // no wiki articles found
-            viewmodel.infoWindows[index].setContent(self.markerData[index].content);
-            return false;
+        var wikipediaRequestTimeout = setTimeout(function() { 
+            // Fall back on whatever content is provided by markerData.
+            array[index].setContent(self.markerData[index].content);
+            return;
         }, 5000);
 
         $.ajax({
             url: urlWiki,
             dataType: 'jsonp',
             success: function(data) {
-                // This will not let the timeout response to occur.
+                console.log(data);
+                // Cancel the timeout since AJAX request is successful.
                 clearTimeout(wikipediaRequestTimeout);
+                // We either found 1 article or we found 0, hence the boolean.
                 var wikiFound = data[1].length;
                 if (wikiFound) {
-                    var wikiTitle = '<h4><a href="' + data[3][0] + '">' + data[1][0] +
-                        '</a></h4><p>' + data[2][0] + '</p>';
-                    viewmodel.infoWindows[index].setContent(wikiTitle);
-                }
-                if (wikiFound < 1) {
-                    viewmodel.infoWindows[index].setContent(self.markerData[index].content);
+                    // Here we are formatting some HTML to conform with the 
+                    // established pattern.
+                    var wikiTitle = '<h4><a href="' + data[3][0] + '">' +
+                    data[1][0] +
+                    '</a></h4>' +
+                    '<p>' + data[2][0] + '</p>';
+                    array[index].setContent(wikiTitle);
+                } else {
+                    // Fall back on whatever content is provided by markerData.
+                    array[index].setContent(self.markerData[index].content);
                 }
             }
         });
     },
-    coordinateRequest: function(address, viewmodel, index) {
+    /**
+     * Perform a Google Geocoding API request and apply retrieved info to Marker 
+     * stored at index of array.
+     * @param  {[type]} address   [description]
+     * @param  {[type]} viewmodel [description]
+     * @param  {[type]} index     [description]
+     * @return {[type]}           [description]
+     */
+    coordinateRequest: function(address, array, index) {
         'use strict';
 
         var self = this;
@@ -232,7 +287,7 @@ var mapManager = {
         $.getJSON(urlCoords, function(data) {
             var lat = data.results[0].geometry.location.lat;
             var lng = data.results[0].geometry.location.lng;
-            viewmodel.markers[index].setPosition(new google.maps.LatLng(lat, lng));
+            array[index].setPosition(new google.maps.LatLng(lat, lng));
             self.markerData[index].position = {
                 lat: lat,
                 lng: lng
@@ -240,7 +295,7 @@ var mapManager = {
         }).error(function(e) {
             console.log('We experienced a failure when making the coordinate request for ' +
                 address + ' for the place called ' + self.markerData[index].title);
-            viewmodel.markers[index].setMap(null);
+            array[index].setMap(null);
         });
     },
     store: function() {
@@ -320,7 +375,7 @@ var mapManager = {
                 content: 'Harbourfront Center',
                 address: '235 Queens Quay W',
                 position: {
-                    lat: 43.638818, 
+                    lat: 43.638818,
                     lng: -79.381911
                 }
             }, {
@@ -333,6 +388,27 @@ var mapManager = {
                 position: {
                     lat: 43.646378,
                     lng: -79.462464
+                }
+            }, {
+                title: 'Royal Alexandra Theatre',
+                content: '<a href="http://www.mirvish.com/theatres/royal' +
+                    'alexandratheatre">Royal Alexandra Theatre</a><p>A venue owned' +
+                    'by Mirvish Productions with some of the highest production-' +
+                    'value shows in the city.</p>',
+                address: '260 King Street West, Toronto',
+                position: {
+                    lat: 43.647354,
+                    lng: -79.387593
+                }
+            }, {
+                title: 'Soulpepper Theatre Company',
+                content: '<a href="https://www.soulpepper.ca/">Soulpepper</a>' +
+                    '<p>Founded in 1998, this theatre company resides in the ' +
+                    'distillery district of Toronto.</p>',
+                address: '50 Tank House Lane, Toronto',
+                position: {
+                    lat: 43.650860,
+                    lng: -79.357452
                 }
             }];
         } else {
