@@ -17,6 +17,8 @@ observableArray(?) array of infoBoxes that opens a 'close all' button - DONE
 place in. That is super tedious. 
 8. Find a way to store that so they only need to make those requests during the
 first time the page is loaded. Measure the difference. 
+9. Maybe try to get the second section from wikipedia on the theatres cause 
+the first is a bit general for some.
 
 ### TODO
 

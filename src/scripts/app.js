@@ -3,7 +3,7 @@ var google = google || {};
 var mapManager = mapManager || {};
 
 
-function loadData(nameOfTheatre, viewmodel, index) {
+function wikiRequest(nameOfTheatre, viewmodel, index) {
     'use strict';
 
     var formattedName = nameOfTheatre.replace(/ /g, '_');
@@ -29,8 +29,45 @@ function loadData(nameOfTheatre, viewmodel, index) {
             clearTimeout(wikiRequestTimeout);
             var wikiFound = data[1].length;
             if (wikiFound) {
-                var wikiTitle = '<h4><a href="' + data[3][0] + '">' + data[1][0] + 
-                '</a></h4><p>' + data[2][0] + '</p>';
+                var wikiTitle = '<h4><a href="' + data[3][0] + '">' + data[1][0] +
+                    '</a></h4><p>' + data[2][0] + '</p>';
+                viewmodel.infoWindows[index].setContent(wikiTitle);
+            }
+            if (wikiFound < 1) {
+                viewmodel.infoWindows[index].setContent(mapManager.markers[index].content);
+            }
+        }
+    });
+}
+
+function coordRequest(nameOfTheatre, viewmodel, index) {
+    'use strict';
+
+    var formattedName = nameOfTheatre.replace(/ /g, '_');
+
+    // Only try find 1 article.
+    var urlWiki = ('https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=' +
+        formattedName + '&limit=1&redirects=resolve');
+
+    /**
+     * wikiRequestTimeout will be cancelled if the ajax request below is 
+     * successful
+     */
+    var wikiRequestTimeout = setTimeout(function() { // no wiki articles found
+        viewmodel.infoWindows[index].setContent(mapManager.markers[index].content);
+        return false;
+    }, 5000);
+
+    $.ajax({
+        url: urlWiki,
+        dataType: 'jsonp',
+        success: function(data) {
+            // This will not let the timeout response to occur.
+            clearTimeout(wikiRequestTimeout);
+            var wikiFound = data[1].length;
+            if (wikiFound) {
+                var wikiTitle = '<h4><a href="' + data[3][0] + '">' + data[1][0] +
+                    '</a></h4><p>' + data[2][0] + '</p>';
                 viewmodel.infoWindows[index].setContent(wikiTitle);
             }
             if (wikiFound < 1) {
@@ -84,6 +121,10 @@ var TheatreMapViewModel = function() {
         console.log(self.infoWindowsContent());
     };
 
+    self.moveMarker = function() {
+        self.markers()[0].setPosition(new google.maps.LatLng(43.657899, -79.3782433));
+    };
+
     self.addMarkers = function() {
         mapManager.markers.forEach(function(markerData, index, hardCodedMarkers) {
             self.markers.push(new google.maps.Marker({
@@ -91,7 +132,7 @@ var TheatreMapViewModel = function() {
                 map: mapManager.map,
                 title: markerData.title
             }));
-            loadData(markerData.title, self, index);
+            wikiRequest(markerData.title, self, index);
             infowindow = new google.maps.InfoWindow({
                 content: '',
                 maxWidth: 150
