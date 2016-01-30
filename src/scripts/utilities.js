@@ -8,10 +8,7 @@ mapManager.util.blankInfoWin = {
     maxWidth: 200
 };
 
-/**
- * nullPosition is what new markers are set to before being given the
- * correct coordinates.
- */
+// What new markers are set to before being given the correct coordinates.
 mapManager.util.nullPosition = {
     lat: 0,
     lng: 0

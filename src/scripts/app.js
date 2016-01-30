@@ -33,7 +33,7 @@ var TheatreMapViewModel = function() {
     var infoWindowBinder = function(index) {
         self.markers[index].addListener('click', function() {
             self.openInfoWindow(index);
-            console.log('Good job, you clicked on ' + self.markers[index].title);
+            self.activeTwitter(self.markers[index].twitterHandle);
         });
     };
 
@@ -91,7 +91,8 @@ var TheatreMapViewModel = function() {
             self.markers.push(new google.maps.Marker({
                 position: mapManager.util.nullPosition,
                 map: mapManager.map,
-                title: markerItem.title
+                title: markerItem.title,
+                twitterHandle: markerItem.twitter
             }));
 
             /**

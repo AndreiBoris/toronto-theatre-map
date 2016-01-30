@@ -33,7 +33,7 @@ var TheatreMapViewModel = function() {
     var infoWindowBinder = function(index) {
         self.markers[index].addListener('click', function() {
             self.openInfoWindow(index);
-            console.log('Good job, you clicked on ' + self.markers[index].title);
+            self.activeTwitter(self.markers[index].twitterHandle);
         });
     };
 
@@ -89,9 +89,10 @@ var TheatreMapViewModel = function() {
         mapManager.markerData.forEach(function(markerItem, index) {
             // Add a marker into the position 0,0, which we will later move.
             self.markers.push(new google.maps.Marker({
-                position: mapManager.nullPosition,
+                position: mapManager.util.nullPosition,
                 map: mapManager.map,
-                title: markerItem.title
+                title: markerItem.title,
+                twitterHandle: markerItem.twitter
             }));
 
             /**
@@ -158,15 +159,6 @@ var tmvm = tmvm || {};
  * related logic
  */
 var mapManager = {
-
-    /**
-     * nullPosition is what new markers are set to before being given the
-     * correct coordinates.
-     */
-    nullPosition: {
-        lat: 0,
-        lng: 0
-    },
 
     /**
      * The Google Maps API runs this function as a callback when it loads in 
@@ -310,6 +302,7 @@ var mapManager = {
         console.log('loading data');
         if (true) {
             this.markerData = [{
+                twitter: '@yyzbuddies',
                 position: {
                     lat: 43.663346,
                     lng: -79.383107
@@ -325,6 +318,7 @@ var mapManager = {
                     'positioned to develop, promote, and preserve stories and ' +
                     'perspectives that are challenging and alternative.'
             }, {
+                twitter: '@tarragontheatre',
                 position: {
                     lat: 43.674842,
                     lng: -79.412820
@@ -340,6 +334,7 @@ var mapManager = {
                     'strategies to promote new work; and continually generates an ' +
                     'audience for new work.'
             }, {
+                twitter: '@beyondwallsTPM',
                 position: {
                     lat: 43.648553,
                     lng: -79.402584
@@ -354,6 +349,7 @@ var mapManager = {
                     'practices that support and ignite the voices of unique artists, ' +
                     'communities and audiences.'
             }, {
+                twitter: '@FactoryToronto',
                 position: {
                     lat: 43.645531,
                     lng: -79.402690
@@ -366,6 +362,7 @@ var mapManager = {
                     'courage and resolve; toughness; tenaciousness; and strength of ' +
                     'character. Factory has grit.'
             }, {
+                twitter: '@StorefrontTO',
                 position: {
                     lat: 43.661288,
                     lng: -79.428240
@@ -378,6 +375,7 @@ var mapManager = {
                     'groundbreaking productions, collaborative discourse and ' +
                     'community-centric support.'
             }, {
+                twitter: '@NativeEarth',
                 position: {
                     lat: 43.659961,
                     lng: -79.362607
@@ -392,6 +390,7 @@ var mapManager = {
                     'of members of the Indigenous community who actively ' + 
                     'participate in the arts.'
             }, {
+                twitter: '@canadianstage',
                 title: 'Berkeley Street Theatre',
                 website: 'https://nowtoronto.com/locations/berkeley-street-theatre/',
                 blurb: 'Berkeley Street Theatre is associated with the Canadian ' +
@@ -407,6 +406,7 @@ var mapManager = {
                 }
 
             }, {
+                twitter: '@canadianstage',
                 title: 'Bluma Appel Theatre',
                 content: 'Bluma Appel Theatre',
                 website: 'https://www.canadianstage.com/Online/default.asp',
@@ -422,6 +422,7 @@ var mapManager = {
                     lng: -79.375129
                 }
             }, {
+                twitter: '@Soulpepper',
                 title: 'Soulpepper Theatre Company',
                 website: 'https://www.soulpepper.ca/performances.aspx',
                 blurb: 'Central to Soulpepper’s identity is its commitment to ' + 
@@ -451,12 +452,14 @@ var mapManager = mapManager || {};
 
 mapManager.util = mapManager.util || {};
 
+// Set InfoWindows to this before giving them relavant content.
 mapManager.util.blankInfoWin = {
-                content: '',
-                maxWidth: 200
-            };
+    content: '',
+    maxWidth: 200
+};
 
-mapManager.util.nullPosition: {
-        lat: 0,
-        lng: 0
-    };
+// What new markers are set to before being given the correct coordinates.
+mapManager.util.nullPosition = {
+    lat: 0,
+    lng: 0
+};

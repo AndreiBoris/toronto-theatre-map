@@ -12,7 +12,7 @@ html, body {
 /*** The map needs to have a specific size in order to display. ***/
 #map {
     height: 100%;
-    width: 100%;
+    width: 70%;
     position: absolute;
     z-index: 1; // we want the search box to appear ontop of the map
 }
