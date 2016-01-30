@@ -12,10 +12,7 @@ var mapManager = {
      * nullPosition is what new markers are set to before being given the
      * correct coordinates.
      */
-    nullPosition: {
-        lat: 0,
-        lng: 0
-    },
+    
 
     /**
      * The Google Maps API runs this function as a callback when it loads in 

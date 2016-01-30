@@ -20,6 +20,8 @@ var TheatreMapViewModel = function() {
 
     self.infoWindowsContent = ko.observableArray([]);
 
+    self.activeTwitter = ko.observable('');
+
     /**
      * This is used inside the forEach loop in self.addMarkers. It makes sure
      * that the listeners are bound to the correct markers and that the 
@@ -87,7 +89,7 @@ var TheatreMapViewModel = function() {
         mapManager.markerData.forEach(function(markerItem, index) {
             // Add a marker into the position 0,0, which we will later move.
             self.markers.push(new google.maps.Marker({
-                position: mapManager.nullPosition,
+                position: mapManager.util.nullPosition,
                 map: mapManager.map,
                 title: markerItem.title
             }));

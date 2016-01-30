@@ -20,6 +20,8 @@ var TheatreMapViewModel = function() {
 
     self.infoWindowsContent = ko.observableArray([]);
 
+    self.activeTwitter = ko.observable('');
+
     /**
      * This is used inside the forEach loop in self.addMarkers. It makes sure
      * that the listeners are bound to the correct markers and that the 
@@ -453,3 +455,8 @@ mapManager.util.blankInfoWin = {
                 content: '',
                 maxWidth: 200
             };
+
+mapManager.util.nullPosition: {
+        lat: 0,
+        lng: 0
+    };
