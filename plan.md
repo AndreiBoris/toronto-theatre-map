@@ -16,13 +16,13 @@ observableArray(?) array of infoBoxes that opens a 'close all' button - DONE
 7. Get geocoding working such that we don't have to type the coordinate of each
 place in. That is super tedious. - DONE
 8. Place the InfoWindows into the same array as the markers as a value attached
-to each marker. See if this can work.
-9. Maybe try to get the second section from wikipedia on the theatres cause 
-the first is a bit general for some.
-10. Make sure that the program fails gracefully when not enough information 
-about a theatre location is provided (no address OR position)
-11. Try to get the website link from wikipedia to the clickable link instead
+to each marker. See if this can work. - DONE
+9. Make sure that the program fails gracefully when not enough information 
+about a theatre location is provided (no address OR position) - DONE
+10. Try to get the website link from wikipedia to the clickable link instead
 of the wikipedia page itself (cause the wiki page is pretty useless!)
+11. Maybe try to get the second section from wikipedia on the theatres cause 
+the first is a bit general for some.
 12. Implement sophisticated localStorage system that gets takes the new, editted
 version first and then adds any bonuses from localStorage to supplement, rather
 than overriding all server storage. Currently it is totally broken.
