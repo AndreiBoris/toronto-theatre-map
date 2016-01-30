@@ -80,7 +80,7 @@ var mapManager = {
          */
         var wikipediaRequestTimeout = setTimeout(function() { 
             // Fall back on whatever content is provided by markerData.
-            array[index].setContent(self.markerData[index].content);
+            array[index].infoWin.setContent(self.markerData[index].content);
             return;
         }, 5000);
 
@@ -100,10 +100,10 @@ var mapManager = {
                     data[1][0] +
                     '</a></h4>' +
                     '<p>' + data[2][0] + '</p>';
-                    array[index].setContent(wikiTitle);
+                    array[index].infoWin.setContent(wikiTitle);
                 } else {
                     // Fall back on whatever content is provided by markerData.
-                    array[index].setContent(self.markerData[index].content);
+                    array[index].infoWin.setContent(self.markerData[index].content);
                 }
             }
         });

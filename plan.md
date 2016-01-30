@@ -102,3 +102,14 @@ Geocoding API key: AIzaSyA4SAawmy-oEMzdWboD0iHk9gDmmjb61o4
 * [Toronto Fringe](https://twitter.com/toronto_fringe)
 * [Gay Toronto Theatre](https://twitter.com/gaytheatreyyz)
 * [Soulpepper Theatre](https://twitter.com/soulpepper)
+* Fugen theatre
+* Cahoots theatre
+* b current
+* Videofag
+* Young people's theatre
+* theatre direct
+* aluna theatre
+
+#### Credit
+
+Credit to Philip Turkiewicz for educating me about theatre companies.

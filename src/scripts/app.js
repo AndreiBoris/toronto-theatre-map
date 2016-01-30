@@ -18,13 +18,6 @@ var TheatreMapViewModel = function() {
      */
     self.markers = [];
 
-    /**
-     * Holds all the google.maps.InfoWindow type objects. Will probably need to 
-     * switch to observableArray.
-     * @type {Array}
-     */
-    self.infoWindows = [];
-
     self.infoWindowsContent = ko.observableArray([]);
 
     /**
@@ -49,10 +42,10 @@ var TheatreMapViewModel = function() {
      *                      self.markers
      */
     self.openInfoWindow = function(index) {
-        self.infoWindows.forEach(function(infoWin, number, allInfoWindows) {
-            infoWin.close();
+        self.markers.forEach(function(marker, number, allInfoWindows) {
+            marker.infoWin.close();
         });
-        self.infoWindows[index].open(mapManager.map, self.markers[index]);
+        self.markers[index].infoWin.open(mapManager.map, self.markers[index]);
     };
 
     // just a tester function
@@ -123,7 +116,7 @@ var TheatreMapViewModel = function() {
                 maxWidth: 150
             });
 
-            self.infoWindows.push(curInfoWindow);
+            self.markers[index].infoWin = curInfoWindow;
             // Set up a listener on the marker that will open the corresponding
             // InfoWindow when the Marker is clicked.
             infoWindowBinder(index);
@@ -134,9 +127,9 @@ var TheatreMapViewModel = function() {
              * provided in the markerItem.
              */
             if (hasTitle) {
-                mapManager.wikipediaRequest(markerItem.title, self.infoWindows, index);
+                mapManager.wikipediaRequest(markerItem.title, self.markers, index);
             } else {
-                self.infoWindows[index].content = markerItem.content;
+                self.markers[index].infoWin.content = markerItem.content;
             }
         });
         // Save coordinates to localStorage so that we can avoid using AJAX
