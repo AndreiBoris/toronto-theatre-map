@@ -70,7 +70,12 @@ html, body {
 
 /***  ***/
 #twitter-div {
-  width: 100;
+  position: absolute;
+  right: 0;
+  width: 20%;
+  height: 100%;
+  background-color: white;
+  z-index: 2;
 }
 
 /*** Each InfoWindow that appears when markers are clicked has a div inside them
