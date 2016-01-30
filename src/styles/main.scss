@@ -1,5 +1,5 @@
 /* Imports */
-
+/***  ***/
 @import 'imports/reset';
 
 // Right from the Google Maps API example to get the map to display
@@ -9,6 +9,21 @@ html, body {
     padding: 0; 
 }
 
+/*** The map needs to have a specific size in order to display. ***/
+#map {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 1; // we want the search box to appear ontop of the map
+}
+
+/***  ***/
+#twitter-div {
+    width: 100
+}
+
+/*** Each InfoWindow that appears when markers are clicked has a div inside them
+    with this class. ***/
 .info-window {
     font-size: 1.2em;
     height: 150px;
@@ -17,18 +32,12 @@ html, body {
 
 #search-box {
     position: absolute;
-    left: 10em;
-    top: 1em;
+    left: 10%;
+    top: 5%;
     z-index: 2;
 }
 
-// With no specification here, the map will fail to display
-#map {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    z-index: 1;
-}
+
 
 /* @media only screen and (max-width: 500px) {
     body {
