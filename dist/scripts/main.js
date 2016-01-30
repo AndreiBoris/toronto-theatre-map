@@ -101,7 +101,7 @@ var TheatreMapViewModel = function() {
             if (markerItem.position) {
                 self.markers[index].setPosition(markerItem.position);
             } else if (markerItem.address) {
-                mapManager.coordinateRequest(markerItem.address, self.markers, index);
+                mapManager.mapPositionAJAX(markerItem.address, self.markers, index);
             } else {
                 // Take the marker off the map.
                 self.markers[index].setMap(null);
@@ -247,16 +247,14 @@ var mapManager = {
                 var infoWindow = array[index].infoWin;
                 var title, website, blurb;
                 if (wikiFound) {
-                    title = data[1][0];
                     website = data[3][0];
                     blurb = data[2][0];
                 } else {
                     // Fall back on whatever content is provided by markerData.
-                    title = self.markerData[index].title;
                     website = self.markerData[index].website;
                     blurb = self.markerData[index].blurb;
                 }
-                self.infoWindowMaker(infoWindow, title, website, blurb);
+                self.infoWindowMaker(infoWindow, nameOfTheatre, website, blurb);
             }
         });
     },
@@ -267,7 +265,7 @@ var mapManager = {
      * @param  {array}  array   An array of google.maps.Marker objects.
      * @param  {int}    index   Determines which Marker to send coordinates to.
      */
-    coordinateRequest: function(address, array, index) {
+    mapPositionAJAX: function(address, array, index) {
         'use strict';
         var self = this;
 
@@ -348,35 +346,61 @@ var mapManager = {
                     lng: -79.402584
                 },
                 title: 'Theatre Passe Muraille',
-                content: 'Theatre Passe Muraille'
+                website: 'http://passemuraille.ca/current-season',
+                blurb: 'Theatre Passe Muraille (TPM) believes there should be a ' +
+                    'more diverse representation of artists, audience members, and ' +
+                    'stories in our theatre in Canada. TPM aspires to be a leader ' +
+                    'locally, nationally and internationally in establishing, ' +
+                    'promoting, and embracing collaborative and inclusive theatre ' +
+                    'practices that support and ignite the voices of unique artists, ' +
+                    'communities and audiences.'
             }, {
                 position: {
                     lat: 43.645531,
                     lng: -79.402690
                 },
                 title: 'Factory Theatre',
-                content: 'Factory Theatre'
+                website: 'https://www.factorytheatre.ca/what-s-on/',
+                blurb: 'From its founding in 1970 with a commitment to Canadian ' +
+                    'stories; to the Heritage building that now houses the 45-year ' +
+                    'old company; Factory\'s vision has always conveyed indomitable ' +
+                    'courage and resolve; toughness; tenaciousness; and strength of ' +
+                    'character. Factory has grit.'
             }, {
                 position: {
                     lat: 43.661288,
                     lng: -79.428240
                 },
                 title: 'Storefront Theatre',
-                blurb: '<a href="http://thestorefronttheatre.com/">Storefront ' +
-                    'Theatre</a><p>Storefront Theatre is an independent theatre that is ' +
-                    'home of the Red One Theatre Collective.</p>'
+                website: 'http://thestorefronttheatre.com/current-season/',
+                blurb: 'The Storefront Arts Initiative represents the Storefront ' +
+                    'Theatre’s management team and its commitment to the artistic ' +
+                    'independent scene in Toronto through affordable venues, ' +
+                    'groundbreaking productions, collaborative discourse and ' +
+                    'community-centric support.'
             }, {
                 position: {
                     lat: 43.659961,
                     lng: -79.362607
                 },
                 title: 'Native Earth Performing Arts',
-                content: '<a href="http://www.nativeearth.ca/">Native Earth Performing ' +
-                    'Arts</a><p>Founded in 1982, it is the oldest professional Aboriginal ' +
-                    'performing arts company in Canada.</p>'
+                website: 'http://www.nativeearth.ca/aki-studio-theatre/',
+                blurb: 'Through stage productions (theatre, dance and ' + 
+                    'multi-disciplinary art), new script development, ' + 
+                    'apprenticeships and internships, Native Earth seeks to ' + 
+                    'fulfill a community of artistic visions. It is a vision ' + 
+                    'that is inclusive and reflective of the artistic directions ' + 
+                    'of members of the Indigenous community who actively ' + 
+                    'participate in the arts.'
             }, {
                 title: 'Berkeley Street Theatre',
-                content: 'Berkeley Street Theatre',
+                website: 'https://nowtoronto.com/locations/berkeley-street-theatre/',
+                blurb: 'Berkeley Street Theatre is associated with the Canadian ' +
+                    'Stage Company. <br>A home for innovative live performance from ' + 
+                    'Canada and around the world,<br>Where audiences encounter ' + 
+                    'daring productions, guided by a strong directorial vision ' +
+                    '<br>Where theatre, dance, music and visual arts cohabit, clash, interrogate ' +
+                    '<br>Where a bold, 21st-century aesthetic reigns',
                 address: '26 Berkeley St, Toronto',
                 position: {
                     lat: 43.650621,
@@ -386,46 +410,29 @@ var mapManager = {
             }, {
                 title: 'Bluma Appel Theatre',
                 content: 'Bluma Appel Theatre',
+                website: 'https://www.canadianstage.com/Online/default.asp',
+                blurb: 'Bluma Appel Theatre is associated with the Canadian ' +
+                    'Stage Company. <br>A home for innovative live performance from ' + 
+                    'Canada and around the world,<br>Where audiences encounter ' + 
+                    'daring productions, guided by a strong directorial vision ' +
+                    '<br>Where theatre, dance, music and visual arts cohabit, clash, interrogate ' +
+                    '<br>Where a bold, 21st-century aesthetic reigns',
                 address: '27 Front St E, Toronto',
                 position: {
                     lat: 43.647414,
                     lng: -79.375129
                 }
             }, {
-                title: 'Harbourfront Center',
-                content: 'Harbourfront Center',
-                address: '235 Queens Quay W',
-                position: {
-                    lat: 43.638818,
-                    lng: -79.381911
-                }
-            }, {
-                title: 'High Park Amphitheare',
-                blurb: '<a href="https://www.canadianstage.com/Online/' +
-                    'default.asp?BOparam::WScontent::loadArticle::permalink=' +
-                    '1314shakespeare">Shakespeare in High Park</a><p>Each ' +
-                    'summer, a shakespeare show is performed at High Park ' +
-                    'Amphitheatre.</p>',
-                position: {
-                    lat: 43.646378,
-                    lng: -79.462464
-                }
-            }, {
-                title: 'Royal Alexandra Theatre',
-                content: '<a href="http://www.mirvish.com/theatres/royal' +
-                    'alexandratheatre">Royal Alexandra Theatre</a><p>A venue owned' +
-                    'by Mirvish Productions with some of the highest production-' +
-                    'value shows in the city.</p>',
-                address: '260 King Street West, Toronto',
-                position: {
-                    lat: 43.647354,
-                    lng: -79.387593
-                }
-            }, {
                 title: 'Soulpepper Theatre Company',
-                content: '<a href="https://www.soulpepper.ca/">Soulpepper</a>' +
-                    '<p>Founded in 1998, this theatre company resides in the ' +
-                    'distillery district of Toronto.</p>',
+                website: 'https://www.soulpepper.ca/performances.aspx',
+                blurb: 'Central to Soulpepper’s identity is its commitment to ' + 
+                'being a Civic Theatre - a place of belonging for artists and ' + 
+                'audiences of all ages and backgrounds. We are the largest ' + 
+                'employer of theatre artists in Toronto, and our artists live ' + 
+                'and play in this community. Our partners are our neighbours ' + 
+                'and the stories we tell are infused with our shared ' + 
+                'experiences. Soulpepper plays an intrinsic role in the ' + 
+                'cultural life of this city.',
                 address: '50 Tank House Lane, Toronto',
                 position: {
                     lat: 43.650860,

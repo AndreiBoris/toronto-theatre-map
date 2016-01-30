@@ -101,7 +101,7 @@ var TheatreMapViewModel = function() {
             if (markerItem.position) {
                 self.markers[index].setPosition(markerItem.position);
             } else if (markerItem.address) {
-                mapManager.coordinateRequest(markerItem.address, self.markers, index);
+                mapManager.mapPositionAJAX(markerItem.address, self.markers, index);
             } else {
                 // Take the marker off the map.
                 self.markers[index].setMap(null);
