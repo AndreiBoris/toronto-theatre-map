@@ -108,10 +108,7 @@ var TheatreMapViewModel = function() {
             }
 
             // Create an empty InfoWindow which we will fill below.
-            tempInfoWindow = new google.maps.InfoWindow({
-                content: '',
-                maxWidth: 150
-            });
+            tempInfoWindow = new google.maps.InfoWindow(mapManager.util.blankInfoWin);
 
             self.markers[index].infoWin = tempInfoWindow;
             // Set up a listener on the marker that will open the corresponding
@@ -295,10 +292,10 @@ var mapManager = {
     },
     infoWindowMaker: function(infoWindow, title, website, blurb) {
         'use strict';
-        var content = '<h4><a href="' + website + '">' +
+        var content = '<div class="info-window"><h4><a href="' + website + '">' +
             title +
             '</a></h4>' +
-            '<p>' + blurb + '</p>';
+            '<p>' + blurb + '</p></div>';
         infoWindow.setContent(content);
     },
     store: function() {
@@ -450,7 +447,9 @@ mapManager.load();
 
 var mapManager = mapManager || {};
 
-mapManager.utilities = mapManager.utilities || {};
+mapManager.util = mapManager.util || {};
 
-mapManager.utilities.emailMsg = 'Please contant the developer at ' + 
-    'Andrei.Borissenko@gmail.com so that the issue can be promptly resolved.';
+mapManager.util.blankInfoWin = {
+                content: '',
+                maxWidth: 200
+            };

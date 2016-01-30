@@ -143,10 +143,10 @@ var mapManager = {
     },
     infoWindowMaker: function(infoWindow, title, website, blurb) {
         'use strict';
-        var content = '<h4><a href="' + website + '">' +
+        var content = '<div class="info-window"><h4><a href="' + website + '">' +
             title +
             '</a></h4>' +
-            '<p>' + blurb + '</p>';
+            '<p>' + blurb + '</p></div>';
         infoWindow.setContent(content);
     },
     store: function() {

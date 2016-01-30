@@ -108,10 +108,7 @@ var TheatreMapViewModel = function() {
             }
 
             // Create an empty InfoWindow which we will fill below.
-            tempInfoWindow = new google.maps.InfoWindow({
-                content: '',
-                maxWidth: 150
-            });
+            tempInfoWindow = new google.maps.InfoWindow(mapManager.util.blankInfoWin);
 
             self.markers[index].infoWin = tempInfoWindow;
             // Set up a listener on the marker that will open the corresponding

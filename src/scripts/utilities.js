@@ -1,6 +1,8 @@
 var mapManager = mapManager || {};
 
-mapManager.utilities = mapManager.utilities || {};
+mapManager.util = mapManager.util || {};
 
-mapManager.utilities.emailMsg = 'Please contant the developer at ' + 
-    'Andrei.Borissenko@gmail.com so that the issue can be promptly resolved.';
+mapManager.util.blankInfoWin = {
+                content: '',
+                maxWidth: 200
+            };

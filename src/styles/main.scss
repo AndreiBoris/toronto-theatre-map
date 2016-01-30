@@ -9,6 +9,12 @@ html, body {
     padding: 0; 
 }
 
+.info-window {
+    font-size: 1.2em;
+    height: 150px;
+    overflow: scroll;
+}
+
 #search-box {
     position: absolute;
     left: 10em;
