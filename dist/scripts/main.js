@@ -227,7 +227,7 @@ var mapManager = {
          * wikipediaRequestTimeout will be cancelled if the AJAX request below 
          * is successful.
          */
-        var wikipediaRequestTimeout = setTimeout(function() { 
+        var wikipediaRequestTimeout = setTimeout(function() {
             // Fall back on whatever content is provided by markerData.
             array[index].infoWin.setContent(self.markerData[index].content);
             return;
@@ -237,23 +237,23 @@ var mapManager = {
             url: urlWiki,
             dataType: 'jsonp',
             success: function(data) {
-                console.log(data);
                 // Cancel the timeout since AJAX request is successful.
                 clearTimeout(wikipediaRequestTimeout);
                 // We either found 1 article or we found 0, hence the boolean.
                 var wikiFound = data[1].length;
+                var infoWindow = array[index].infoWin;
+                var title, website, blurb;
                 if (wikiFound) {
-                    // Here we are formatting some HTML to conform with the 
-                    // established pattern.
-                    var wikiTitle = '<h4><a href="' + data[3][0] + '">' +
-                    data[1][0] +
-                    '</a></h4>' +
-                    '<p>' + data[2][0] + '</p>';
-                    array[index].infoWin.setContent(wikiTitle);
+                    title = data[1][0];
+                    website = data[3][0];
+                    blurb = data[2][0];
                 } else {
                     // Fall back on whatever content is provided by markerData.
-                    array[index].infoWin.setContent(self.markerData[index].content);
+                    title = self.markerData[index].title;
+                    website = self.markerData[index].website;
+                    blurb = self.markerData[index].blurb;
                 }
+                self.infoWindowMaker(infoWindow, title, website, blurb);
             }
         });
     },
@@ -292,6 +292,14 @@ var mapManager = {
             array[index].setMap(null);
         });
     },
+    infoWindowMaker: function(infoWindow, title, website, blurb) {
+        'use strict';
+        var content = '<h4><a href="' + website + '">' +
+            title +
+            '</a></h4>' +
+            '<p>' + blurb + '</p>';
+        infoWindow.setContent(content);
+    },
     store: function() {
         'use strict';
         console.log('storing data');
@@ -307,14 +315,30 @@ var mapManager = {
                     lng: -79.383107
                 },
                 title: 'Buddies in Bad Times Theatre',
-                content: 'Buddies in Bad Times Theatre.'
+                website: 'http://buddiesinbadtimes.com/events/',
+                blurb: 'Buddies in Bad Times Theatre creates vital Canadian ' +
+                    'theatre by developing and presenting voices that question ' +
+                    'sexual and cultural norms. Built on the political and social ' +
+                    'principles of queer liberation, Buddies supports artists and ' +
+                    'works that reflect and advance these values. As the world’s ' +
+                    'longest-running and largest queer theatre, Buddies is uniquely ' +
+                    'positioned to develop, promote, and preserve stories and ' +
+                    'perspectives that are challenging and alternative.'
             }, {
                 position: {
                     lat: 43.674842,
                     lng: -79.412820
                 },
                 title: 'Tarragon Theatre',
-                content: 'Tarragon Theatre'
+                website: 'http://tarragontheatre.com/now-playing/',
+                blurb: 'Tarragon Theatre’s mission is to create, develop and ' +
+                    'produce new plays and to provide the conditions for new work ' +
+                    'to thrive. To that end, the theatre engages the best theatre ' +
+                    'artists and craftspeople to interpret new work; presents each ' +
+                    'new work with high quality production values; provides an ' +
+                    'administrative structure to support new work; develops marketing ' +
+                    'strategies to promote new work; and continually generates an ' +
+                    'audience for new work.'
             }, {
                 position: {
                     lat: 43.648553,
