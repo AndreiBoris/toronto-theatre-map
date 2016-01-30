@@ -68,8 +68,8 @@ var TheatreMapViewModel = function() {
      * addresses into coordinates on the map.
      */
     self.addMarkers = function() {
-        // curInfoWindow is the placeholder name for all added InfoWindows
-        var curInfoWindow;
+        // tempInfoWindow is the placeholder name for all added InfoWindows
+        var tempInfoWindow;
         /**
          * mapManager.markerData holds a series of objects with the information 
          * about theatres needed to create appropriate Markers.
@@ -85,9 +85,6 @@ var TheatreMapViewModel = function() {
          *                                    InfoWindows.               
          */
         mapManager.markerData.forEach(function(markerItem, index) {
-            // If there is no title, we don't do a wikipedia ajax call.
-            var hasTitle = markerItem.title ? true : false;
-
             // Add a marker into the position 0,0, which we will later move.
             self.markers.push(new google.maps.Marker({
                 position: mapManager.nullPosition,
@@ -111,25 +108,31 @@ var TheatreMapViewModel = function() {
             }
 
             // Create an empty InfoWindow which we will fill below.
-            curInfoWindow = new google.maps.InfoWindow({
+            tempInfoWindow = new google.maps.InfoWindow({
                 content: '',
                 maxWidth: 150
             });
 
-            self.markers[index].infoWin = curInfoWindow;
+            self.markers[index].infoWin = tempInfoWindow;
             // Set up a listener on the marker that will open the corresponding
             // InfoWindow when the Marker is clicked.
             infoWindowBinder(index);
 
-            /**
-             * If we have a title, we can use that to search for information 
-             * from the wikipedia resource, otherwise we use the information 
-             * provided in the markerItem.
-             */
-            if (hasTitle) {
-                mapManager.wikipediaRequest(markerItem.title, self.markers, index);
-            } else {
-                self.markers[index].infoWin.content = markerItem.content;
+            // Here is the window we're currently making.
+            var curInfoWindow = self.markers[index].infoWin;
+
+            var title = markerItem.title;
+            var website = markerItem.website;
+            var blurb = markerItem.blurb;
+
+            // If we have all the information, we don't need to do a wiki AJAX
+            // call.
+            if (title && website && blurb){
+                mapManager.infoWindowMaker(curInfoWindow, title, website, blurb);
+            } else if (title) {
+                mapManager.infoWinWikiAJAX(title, self.markers, index);
+            } else { // If there is no title, we can't do a wikipedia AJAX call.
+                mapManager.infoWindowMaker(curInfoWindow, title, website, blurb);
             }
         });
         // Save coordinates to localStorage so that we can avoid using AJAX
@@ -212,7 +215,7 @@ var mapManager = {
      *                                        the corresponding content from the
      *                                        a mapManager.markerData item. 
      */
-    wikipediaRequest: function(nameOfTheatre, array, index) {
+    infoWinWikiAJAX: function(nameOfTheatre, array, index) {
         'use strict';
 
         var self = this;
@@ -359,7 +362,7 @@ var mapManager = {
                     lng: -79.428240
                 },
                 title: 'Storefront Theatre',
-                content: '<a href="http://thestorefronttheatre.com/">Storefront ' +
+                blurb: '<a href="http://thestorefronttheatre.com/">Storefront ' +
                     'Theatre</a><p>Storefront Theatre is an independent theatre that is ' +
                     'home of the Red One Theatre Collective.</p>'
             }, {
@@ -398,7 +401,7 @@ var mapManager = {
                 }
             }, {
                 title: 'High Park Amphitheare',
-                content: '<a href="https://www.canadianstage.com/Online/' +
+                blurb: '<a href="https://www.canadianstage.com/Online/' +
                     'default.asp?BOparam::WScontent::loadArticle::permalink=' +
                     '1314shakespeare">Shakespeare in High Park</a><p>Each ' +
                     'summer, a shakespeare show is performed at High Park ' +

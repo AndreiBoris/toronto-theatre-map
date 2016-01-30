@@ -63,7 +63,7 @@ var mapManager = {
      *                                        the corresponding content from the
      *                                        a mapManager.markerData item. 
      */
-    wikipediaRequest: function(nameOfTheatre, array, index) {
+    infoWinWikiAJAX: function(nameOfTheatre, array, index) {
         'use strict';
 
         var self = this;
@@ -210,7 +210,7 @@ var mapManager = {
                     lng: -79.428240
                 },
                 title: 'Storefront Theatre',
-                content: '<a href="http://thestorefronttheatre.com/">Storefront ' +
+                blurb: '<a href="http://thestorefronttheatre.com/">Storefront ' +
                     'Theatre</a><p>Storefront Theatre is an independent theatre that is ' +
                     'home of the Red One Theatre Collective.</p>'
             }, {
@@ -249,7 +249,7 @@ var mapManager = {
                 }
             }, {
                 title: 'High Park Amphitheare',
-                content: '<a href="https://www.canadianstage.com/Online/' +
+                blurb: '<a href="https://www.canadianstage.com/Online/' +
                     'default.asp?BOparam::WScontent::loadArticle::permalink=' +
                     '1314shakespeare">Shakespeare in High Park</a><p>Each ' +
                     'summer, a shakespeare show is performed at High Park ' +
