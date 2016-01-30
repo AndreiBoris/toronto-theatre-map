@@ -265,34 +265,35 @@ var mapManager = {
         });
     },
     /**
-     * Perform a Google Geocoding API request and apply retrieved info to Marker 
-     * stored at index of array.
-     * @param  {[type]} address   [description]
-     * @param  {[type]} viewmodel [description]
-     * @param  {[type]} index     [description]
-     * @return {[type]}           [description]
+     * Perform a Google Geocoding API request and apply retrieved coordinates 
+     * to Marker stored at index of array.
+     * @param  {string} address The real world address used to find coordinates.
+     * @param  {array}  array   An array of google.maps.Marker objects.
+     * @param  {int}    index   Determines which Marker to send coordinates to.
      */
     coordinateRequest: function(address, array, index) {
         'use strict';
-
         var self = this;
 
+        // Might be safer to have no spaces in the url.
         var formattedAddress = address.replace(/ /g, '+');
 
-        var urlCoords = ('https://maps.googleapis.com/maps/api/geocode/json?address=' +
-            formattedAddress + '&bounds=43.573936,-79.560076|43.758672,-79.275135' +
-            '&key=AIzaSyA4SAawmy-oEMzdWboD0iHk9gDmmjb61o4');
+        // The request is bounded around Toronto.
+        var urlCoords = ('https://maps.googleapis.com/maps/api/geocode/json?' +
+            'address=' + formattedAddress + '&bounds=43.573936,-79.560076|' +
+            '43.758672,-79.275135&key=AIzaSyA4SAawmy-oEMzdWboD0iHk9gDmmjb61o4');
 
-        // TODO: perform some error handling
         $.getJSON(urlCoords, function(data) {
             var lat = data.results[0].geometry.location.lat;
             var lng = data.results[0].geometry.location.lng;
+            // Set position of appropriate Marker.
             array[index].setPosition(new google.maps.LatLng(lat, lng));
+            // Update model stored in mapManager so that it can be later stored.
             self.markerData[index].position = {
                 lat: lat,
                 lng: lng
             };
-        }).error(function(e) {
+        }).error(function(e) { // Can't show the marker without coordinates.
             console.log('We experienced a failure when making the coordinate request for ' +
                 address + ' for the place called ' + self.markerData[index].title);
             array[index].setMap(null);
@@ -418,9 +419,6 @@ var mapManager = {
     }
 };
 
-/**
- * Is this safe?
- */
 mapManager.load();
 
 var mapManager = mapManager || {};
