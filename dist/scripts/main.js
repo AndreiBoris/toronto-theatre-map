@@ -307,7 +307,7 @@ var mapManager = {
         console.log('loading data');
         if (true) {
             this.markerData = [{
-                twitter: '@yyzbuddies',
+                twitter: 'yyzbuddies',
                 position: {
                     lat: 43.663346,
                     lng: -79.383107
@@ -323,7 +323,7 @@ var mapManager = {
                     'positioned to develop, promote, and preserve stories and ' +
                     'perspectives that are challenging and alternative.'
             }, {
-                twitter: '@tarragontheatre',
+                twitter: 'tarragontheatre',
                 position: {
                     lat: 43.674842,
                     lng: -79.412820
@@ -339,7 +339,7 @@ var mapManager = {
                     'strategies to promote new work; and continually generates an ' +
                     'audience for new work.'
             }, {
-                twitter: '@beyondwallsTPM',
+                twitter: 'beyondwallsTPM',
                 position: {
                     lat: 43.648553,
                     lng: -79.402584
@@ -354,7 +354,7 @@ var mapManager = {
                     'practices that support and ignite the voices of unique artists, ' +
                     'communities and audiences.'
             }, {
-                twitter: '@FactoryToronto',
+                twitter: 'FactoryToronto',
                 position: {
                     lat: 43.645531,
                     lng: -79.402690
@@ -367,7 +367,7 @@ var mapManager = {
                     'courage and resolve; toughness; tenaciousness; and strength of ' +
                     'character. Factory has grit.'
             }, {
-                twitter: '@StorefrontTO',
+                twitter: 'StorefrontTO',
                 position: {
                     lat: 43.661288,
                     lng: -79.428240
@@ -380,7 +380,7 @@ var mapManager = {
                     'groundbreaking productions, collaborative discourse and ' +
                     'community-centric support.'
             }, {
-                twitter: '@NativeEarth',
+                twitter: 'NativeEarth',
                 position: {
                     lat: 43.659961,
                     lng: -79.362607
@@ -395,7 +395,7 @@ var mapManager = {
                     'of members of the Indigenous community who actively ' + 
                     'participate in the arts.'
             }, {
-                twitter: '@canadianstage',
+                twitter: 'canadianstage',
                 title: 'Berkeley Street Theatre',
                 website: 'https://nowtoronto.com/locations/berkeley-street-theatre/',
                 blurb: 'Berkeley Street Theatre is associated with the Canadian ' +
@@ -411,7 +411,7 @@ var mapManager = {
                 }
 
             }, {
-                twitter: '@canadianstage',
+                twitter: 'canadianstage',
                 title: 'Bluma Appel Theatre',
                 content: 'Bluma Appel Theatre',
                 website: 'https://www.canadianstage.com/Online/default.asp',
@@ -427,7 +427,7 @@ var mapManager = {
                     lng: -79.375129
                 }
             }, {
-                twitter: '@Soulpepper',
+                twitter: 'Soulpepper',
                 title: 'Soulpepper Theatre Company',
                 website: 'https://www.soulpepper.ca/performances.aspx',
                 blurb: 'Central to Soulpepper’s identity is its commitment to ' + 
