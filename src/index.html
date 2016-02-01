@@ -15,30 +15,50 @@
 
 <body>
     <header>
-        <form id="search-box" data-bind="submit: moveMarker">
-            <input data-bind="value: searchText"></input>
-            <button type="submit">Search</button>
+        <form id="search-box" data-bind="submit: flipTwitter">
+            <input></input>
+            <button type="submit">Switch</button>
         </form>
     </header>
     <div id="map">
     </div>
     <div id="twitter-div">
-        <a class="twitter-timeline" 
-        href="https://twitter.com/BreathMachine/lists/toronto-theatre" 
-        data-widget-id="694233158955323392">Tweets from https://twitter.com/BreathMachine/lists/toronto-theatre
-        </a>
-        <script>
-        ! function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0],
-                p = /^http:/.test(d.location) ? 'http' : 'https';
-            if (!d.getElementById(id)) {
-                js = d.createElement(s);
-                js.id = id;
-                js.src = p + "://platform.twitter.com/widgets.js";
-                fjs.parentNode.insertBefore(js, fjs);
-            }
-        }(document, "script", "twitter-wjs");
-        </script>
+        <div id="twitter-list" data-bind="visible: twitterListMode()">
+            <a class="twitter-timeline" href="https://twitter.com/BreathMachine/lists/toronto-theatre" data-widget-id="694233158955323392">
+        Tweets from https://twitter.com/BreathMachine/lists/toronto-theatre
+            </a>
+            <script>
+            ! function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0],
+                    p = /^http:/.test(d.location) ? 'http' : 'https';
+                if (!d.getElementById(id)) {
+                    js = d.createElement(s);
+                    js.id = id;
+                    js.src = p + "://platform.twitter.com/widgets.js";
+                    fjs.parentNode.insertBefore(js, fjs);
+                }
+            }(document, "script", "twitter-wjs");
+            </script>
+        </div>
+        <div id="twitter-account" data-bind="visible: !twitterListMode()">
+            <a class="twitter-timeline" 
+            href="https://twitter.com/canadianstage" 
+            data-widget-id="694221648225001472"
+            data-screen-name="Soulpepper">
+            </a>
+            <script>
+            ! function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0],
+                    p = /^http:/.test(d.location) ? 'http' : 'https';
+                if (!d.getElementById(id)) {
+                    js = d.createElement(s);
+                    js.id = id;
+                    js.src = p + "://platform.twitter.com/widgets.js";
+                    fjs.parentNode.insertBefore(js, fjs);
+                }
+            }(document, "script", "twitter-wjs");
+            </script>
+        </div>
     </div>
     <footer>
     </footer>

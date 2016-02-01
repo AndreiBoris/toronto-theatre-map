@@ -9,7 +9,8 @@ var TheatreMapViewModel = function() {
     'use strict';
     var self = this;
 
-    self.searchText = ko.observable('');
+    // Currently displaying the twitter list rather than a particular account.
+    self.twitterListMode = ko.observable(true);
 
     /**
      * Holds all the google.maps.Marker type objects so we can easily manipulate
@@ -21,6 +22,10 @@ var TheatreMapViewModel = function() {
     self.infoWindowsContent = ko.observableArray([]);
 
     self.activeTwitter = ko.observable('');
+
+    self.flipTwitter = function() {
+        self.twitterListMode(!self.twitterListMode());
+    };
 
     /**
      * This is used inside the forEach loop in self.addMarkers. It makes sure
