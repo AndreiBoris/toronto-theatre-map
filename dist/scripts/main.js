@@ -155,6 +155,13 @@ var TheatreMapViewModel = function() {
 var tmvm = new TheatreMapViewModel();
 ko.applyBindings(tmvm);
 
+twttr.widgets.createTimeline(
+  "694221648225001472",
+  document.getElementById("twitter-account"),
+  {
+    screenName: "yyzbuddies"
+  }
+);
 var google = google || {};
 // instantiated TheatreMapViewModel from app.js
 var tmvm = tmvm || {};

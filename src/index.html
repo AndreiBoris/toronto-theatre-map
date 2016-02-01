@@ -41,10 +41,13 @@
             </script>
         </div>
         <div id="twitter-account" data-bind="visible: !twitterListMode()">
-            <a class="twitter-timeline" 
+            <!-- <a class="twitter-timeline" 
             href="https://twitter.com/canadianstage" 
             data-widget-id="694221648225001472"
-            data-screen-name="Soulpepper">
+            data-screen-name="Soulpepper"
+            data-bind="attr: {dataScreenName: activeTwitter(),
+                              href: 'https://twitter.com/' + activeTwitter()},
+                        text: 'Tweets by @' + activeTwitter()">
             </a>
             <script>
             ! function(d, s, id) {
@@ -57,11 +60,12 @@
                     fjs.parentNode.insertBefore(js, fjs);
                 }
             }(document, "script", "twitter-wjs");
-            </script>
+            </script> -->
         </div>
     </div>
     <footer>
     </footer>
+    <script src="https://platform.twitter.com/widgets.js"></script>
     <script type="text/javascript" src="dist/perm/jquery-1.12.0.min.js"></script>
     <script async type="text/javascript" src="dist/perm/bootstrap.min.js"></script>
     <script type='text/javascript' src='dist/perm/knockout-3.4.0.js'></script>
