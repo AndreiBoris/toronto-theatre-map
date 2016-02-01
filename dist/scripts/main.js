@@ -1,6 +1,7 @@
 var ko = ko || {};
 var google = google || {};
 var mapManager = mapManager || {};
+var twttr = twttr || {};
 
 /**
  * The ViewModel is a function to take advantage of the 'var self = this' idiom
@@ -23,9 +24,25 @@ var TheatreMapViewModel = function() {
 
     self.activeTwitter = ko.observable('');
 
+    self.twitterIsOpen = ko.observable(true);
+
     self.flipTwitter = function() {
         self.twitterListMode(!self.twitterListMode());
     };
+
+    self.newTwitterFeed = ko.computed(function() {
+        if (!self.twitterListMode() && self.twitterIsOpen()) {
+            console.log('Eating resources');
+            document.getElementById('twitter-account').innerHTML = '';
+            twttr.widgets.createTimeline(
+                '694221648225001472',
+                document.getElementById('twitter-account'), {
+                    screenName: self.activeTwitter()
+                }
+            );
+        }
+
+    });
 
     /**
      * This is used inside the forEach loop in self.addMarkers. It makes sure
@@ -132,7 +149,7 @@ var TheatreMapViewModel = function() {
 
             // If we have all the information, we don't need to do a wiki AJAX
             // call.
-            if (title && website && blurb){
+            if (title && website && blurb) {
                 mapManager.infoWindowMaker(curInfoWindow, title, website, blurb);
             } else if (title) {
                 mapManager.infoWinWikiAJAX(title, self.markers, index);
@@ -155,13 +172,6 @@ var TheatreMapViewModel = function() {
 var tmvm = new TheatreMapViewModel();
 ko.applyBindings(tmvm);
 
-twttr.widgets.createTimeline(
-  "694221648225001472",
-  document.getElementById("twitter-account"),
-  {
-    screenName: "yyzbuddies"
-  }
-);
 var google = google || {};
 // instantiated TheatreMapViewModel from app.js
 var tmvm = tmvm || {};
