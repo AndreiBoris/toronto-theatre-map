@@ -26,6 +26,8 @@ var TheatreMapViewModel = function() {
 
     self.twitterIsOpen = ko.observable(true);
 
+    self.twitterListNotLoaded = true;
+
     self.flipTwitter = function() {
         self.twitterListMode(!self.twitterListMode());
     };
@@ -41,7 +43,20 @@ var TheatreMapViewModel = function() {
                 }
             );
         }
+    });
 
+    self.twitterListFeed = ko.computed(function() {
+        if (self.twitterListNotLoaded && self.twitterListMode() && self.twitterIsOpen()) {
+            self.twitterListNotLoaded = false;
+            console.log('making the list for the only time');
+            twttr.widgets.createTimeline(
+                '694233158955323392',
+                document.getElementById('twitter-list'), {
+                    listOwnerScreenName: 'BreathMachine',
+                    listSlug: 'toronto-theatre'
+                }
+            );
+        }
     });
 
     /**

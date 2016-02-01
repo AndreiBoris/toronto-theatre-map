@@ -24,43 +24,8 @@
     </div>
     <div id="twitter-div" data-bind="visible: twitterIsOpen">
         <div id="twitter-list" data-bind="visible: twitterListMode()">
-            <a class="twitter-timeline" href="https://twitter.com/BreathMachine/lists/toronto-theatre" data-widget-id="694233158955323392">
-        Tweets from https://twitter.com/BreathMachine/lists/toronto-theatre
-            </a>
-            <script>
-            ! function(d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0],
-                    p = /^http:/.test(d.location) ? 'http' : 'https';
-                if (!d.getElementById(id)) {
-                    js = d.createElement(s);
-                    js.id = id;
-                    js.src = p + "://platform.twitter.com/widgets.js";
-                    fjs.parentNode.insertBefore(js, fjs);
-                }
-            }(document, "script", "twitter-wjs");
-            </script>
         </div>
         <div id="twitter-account" data-bind="visible: !twitterListMode()">
-            <!-- <a class="twitter-timeline" 
-            href="https://twitter.com/canadianstage" 
-            data-widget-id="694221648225001472"
-            data-screen-name="Soulpepper"
-            data-bind="attr: {dataScreenName: activeTwitter(),
-                              href: 'https://twitter.com/' + activeTwitter()},
-                        text: 'Tweets by @' + activeTwitter()">
-            </a>
-            <script>
-            ! function(d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0],
-                    p = /^http:/.test(d.location) ? 'http' : 'https';
-                if (!d.getElementById(id)) {
-                    js = d.createElement(s);
-                    js.id = id;
-                    js.src = p + "://platform.twitter.com/widgets.js";
-                    fjs.parentNode.insertBefore(js, fjs);
-                }
-            }(document, "script", "twitter-wjs");
-            </script> -->
         </div>
     </div>
     <footer>
