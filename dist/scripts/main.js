@@ -26,7 +26,7 @@ var TheatreMapViewModel = function() {
 
     self.twitterIsOpen = ko.observable(true);
 
-    self.twitterListNotLoaded = true;
+    self.twitterListNotLoaded = ko.observable(true);
 
     self.flipTwitter = function() {
         self.twitterListMode(!self.twitterListMode());
@@ -47,10 +47,10 @@ var TheatreMapViewModel = function() {
     });
 
     self.twitterListFeed = ko.computed(function() {
-        if (self.twitterListNotLoaded && self.twitterListMode() && self.twitterIsOpen()) {
+        if (self.twitterListNotLoaded() && self.twitterListMode() && self.twitterIsOpen()) {
             var windowHeight = screen.height;
             console.log(windowHeight);
-            self.twitterListNotLoaded = false;
+            self.twitterListNotLoaded(false);
             console.log('making the list for the only time');
             twttr.widgets.createTimeline(
                 '694233158955323392',

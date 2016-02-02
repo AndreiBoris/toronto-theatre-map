@@ -21,6 +21,9 @@
         </form>
     </header>
     <div id="list-div">
+      <ul data-bind="foreach: markers">
+        <li data-bind="text: title"></li>
+      </ul>
     </div> 
     <div id="map">
     </div>
