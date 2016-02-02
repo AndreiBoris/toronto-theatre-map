@@ -89,10 +89,16 @@ var TheatreMapViewModel = function() {
      *                      self.markers
      */
     self.openInfoWindow = function(index) {
-        self.markers().forEach(function(marker, number, allInfoWindows) {
+        self.markers().forEach(function(marker, number) {
             marker.infoWin.close();
         });
         self.markers()[index].infoWin.open(mapManager.map, self.markers()[index]);
+    };
+
+    self.closeInfoWindows = function() {
+        self.markers().forEach(function(marker, number) {
+            marker.infoWin.close();
+        });
     };
 
     // just a tester function
