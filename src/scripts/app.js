@@ -18,7 +18,7 @@ var TheatreMapViewModel = function() {
      * them through Knockout. Will probably need to switch to observableArray.
      * @type {Array}
      */
-    self.markers = [];
+    self.markers = ko.observableArray([]);
 
     self.infoWindowsContent = ko.observableArray([]);
 
@@ -68,9 +68,9 @@ var TheatreMapViewModel = function() {
      *                          created in parallel.
      */
     var infoWindowBinder = function(index) {
-        self.markers[index].addListener('click', function() {
+        self.markers()[index].addListener('click', function() {
             self.openInfoWindow(index);
-            self.activeTwitter(self.markers[index].twitterHandle);
+            self.activeTwitter(self.markers()[index].twitterHandle);
         });
     };
 
@@ -81,10 +81,10 @@ var TheatreMapViewModel = function() {
      *                      self.markers
      */
     self.openInfoWindow = function(index) {
-        self.markers.forEach(function(marker, number, allInfoWindows) {
+        self.markers().forEach(function(marker, number, allInfoWindows) {
             marker.infoWin.close();
         });
-        self.markers[index].infoWin.open(mapManager.map, self.markers[index]);
+        self.markers()[index].infoWin.open(mapManager.map, self.markers()[index]);
     };
 
     // just a tester function
@@ -139,24 +139,24 @@ var TheatreMapViewModel = function() {
              * display the Marker.
              */
             if (markerItem.position) {
-                self.markers[index].setPosition(markerItem.position);
+                self.markers()[index].setPosition(markerItem.position);
             } else if (markerItem.address) {
-                mapManager.mapPositionAJAX(markerItem.address, self.markers, index);
+                mapManager.mapPositionAJAX(markerItem.address, self.markers(), index);
             } else {
                 // Take the marker off the map.
-                self.markers[index].setMap(null);
+                self.markers()[index].setMap(null);
             }
 
             // Create an empty InfoWindow which we will fill below.
             tempInfoWindow = new google.maps.InfoWindow(mapManager.util.blankInfoWin);
 
-            self.markers[index].infoWin = tempInfoWindow;
+            self.markers()[index].infoWin = tempInfoWindow;
             // Set up a listener on the marker that will open the corresponding
             // InfoWindow when the Marker is clicked.
             infoWindowBinder(index);
 
             // Here is the window we're currently making.
-            var curInfoWindow = self.markers[index].infoWin;
+            var curInfoWindow = self.markers()[index].infoWin;
 
             var title = markerItem.title;
             var website = markerItem.website;
@@ -167,7 +167,7 @@ var TheatreMapViewModel = function() {
             if (title && website && blurb) {
                 mapManager.infoWindowMaker(curInfoWindow, title, website, blurb);
             } else if (title) {
-                mapManager.infoWinWikiAJAX(title, self.markers, index);
+                mapManager.infoWinWikiAJAX(title, self.markers(), index);
             } else { // If there is no title, we can't do a wikipedia AJAX call.
                 mapManager.infoWindowMaker(curInfoWindow, title, website, blurb);
             }
