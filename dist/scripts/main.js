@@ -104,8 +104,8 @@ var TheatreMapViewModel = function() {
         self.openInfoWindow(0);
     };
 
-    self.remoteAccess = function(element) {
-        console.log(element.title);
+    self.remoteAccess = function(theatre) {
+        self.openInfoWindow(theatre.index);
     };
 
     /**
@@ -142,7 +142,7 @@ var TheatreMapViewModel = function() {
                 map: mapManager.map,
                 title: markerItem.title,
                 twitterHandle: markerItem.twitter,
-                infoWin: null
+                index: index
             }));
 
             /**
