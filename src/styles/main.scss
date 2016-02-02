@@ -12,12 +12,24 @@ html, body {
 /*** The map needs to have a specific size in order to display. ***/
 #map {
     height: 100%;
-    width: 70%;
+    width: 50%;
+    left: 20%;
     position: absolute;
     z-index: 1; // we want the search box to appear ontop of the map
 }
 
-/***  ***/
+/*** This is only for testing purposes ***/
+#list-div {
+    position: absolute;
+    left: 0;
+    width: 20%;
+    text-align: center;
+    height: 100%;
+    background-color: white;
+    z-index: 2;
+}
+
+/*** This is only for testing purposes ***/
 #twitter-div {
     position: absolute;
     right: 0;
@@ -26,6 +38,7 @@ html, body {
     height: 100%;
     background-color: white;
     z-index: 2;
+    overflow: scroll;
 }
 
 /*** Each InfoWindow that appears when markers are clicked has a div inside them
@@ -38,7 +51,7 @@ html, body {
 
 #search-box {
     position: absolute;
-    left: 10%;
+    left: 40%;
     top: 5%;
     z-index: 2;
 }
