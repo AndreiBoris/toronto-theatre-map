@@ -105,7 +105,9 @@ var TheatreMapViewModel = function() {
     };
 
     self.remoteAccess = function(theatre) {
-        self.openInfoWindow(theatre.index);
+        var index = theatre.index;
+        self.openInfoWindow(index);
+        self.activeTwitter(self.markers()[index].twitterHandle);
     };
 
     /**
