@@ -22,7 +22,11 @@
     </header>
     <div id="list-div">
       <ul data-bind="foreach: markers">
-        <li data-bind="text: title"></li>
+        <li>
+          <button class="spaced-out" data-bind="text: title,
+          click: $root.remoteAccess"></button> 
+          <!-- <div data-bind="text: infoWin.content"></div> -->
+        </li>
       </ul>
     </div> 
     <div id="map">

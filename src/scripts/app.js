@@ -28,6 +28,8 @@ var TheatreMapViewModel = function() {
 
     self.twitterListNotLoaded = ko.observable(true);
 
+    self.crazyArray = ko.observableArray([]);
+
     self.flipTwitter = function() {
         self.twitterListMode(!self.twitterListMode());
     };
@@ -102,6 +104,10 @@ var TheatreMapViewModel = function() {
         self.openInfoWindow(0);
     };
 
+    self.remoteAccess = function(element) {
+        console.log(element.title);
+    };
+
     /**
      * Does the following :
      *     - adds all the Markers from the mapManager onto the map
@@ -130,12 +136,13 @@ var TheatreMapViewModel = function() {
          *                                    InfoWindows.               
          */
         mapManager.markerData.forEach(function(markerItem, index) {
-            // Add a marker into the position 0,0, which we will later move.
+            // Add a marker with the position 0,0, which we will later move.
             self.markers.push(new google.maps.Marker({
                 position: mapManager.util.nullPosition,
                 map: mapManager.map,
                 title: markerItem.title,
-                twitterHandle: markerItem.twitter
+                twitterHandle: markerItem.twitter,
+                infoWin: null
             }));
 
             /**
