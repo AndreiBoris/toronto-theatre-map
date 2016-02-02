@@ -165,7 +165,10 @@ var mapManager = {
                 position: {
                     lat: 43.663346,
                     lng: -79.383107
-                }
+                },
+                type: 'venue',
+                flags: ['queer', 'alternative', 'community'],
+                founded: 1978
             }, {
                 twitter: 'tarragontheatre',
                 title: 'Tarragon Theatre',
@@ -182,7 +185,10 @@ var mapManager = {
                 position: {
                     lat: 43.674842,
                     lng: -79.412820
-                }
+                },
+                type: 'venue',
+                flags: ['new work', 'Canadian'],
+                founded: 1970
             }, {
                 twitter: 'beyondwallsTPM',
                 title: 'Theatre Passe Muraille',
@@ -198,7 +204,10 @@ var mapManager = {
                 position: {
                     lat: 43.648553,
                     lng: -79.402584
-                }
+                },
+                type: 'venue',
+                flags: ['diverse', 'eclectic', 'community', 'Canadian'],
+                founded: 1968
             }, {
                 twitter: 'FactoryToronto',
                 title: 'Factory Theatre',
@@ -212,7 +221,10 @@ var mapManager = {
                 position: {
                     lat: 43.645531,
                     lng: -79.402690
-                }
+                },
+                type: 'venue',
+                flags: ['Canadian', 'grit', 'authenticity'],
+                founded: 1970
             }, {
                 twitter: 'StorefrontTO',
                 title: 'Storefront Theatre',
@@ -226,30 +238,36 @@ var mapManager = {
                 position: {
                     lat: 43.661288,
                     lng: -79.428240
-                }
+                },
+                type: 'venue',
+                flags: ['community'],
+                founded: 2013
             }, {
                 twitter: 'NativeEarth',
                 title: 'Native Earth Performing Arts',
                 website: 'http://www.nativeearth.ca/aki-studio-theatre/',
-                blurb: 'Through stage productions (theatre, dance and ' + 
-                    'multi-disciplinary art), new script development, ' + 
-                    'apprenticeships and internships, Native Earth seeks to ' + 
-                    'fulfill a community of artistic visions. It is a vision ' + 
-                    'that is inclusive and reflective of the artistic directions ' + 
-                    'of members of the Indigenous community who actively ' + 
+                blurb: 'Through stage productions (theatre, dance and ' +
+                    'multi-disciplinary art), new script development, ' +
+                    'apprenticeships and internships, Native Earth seeks to ' +
+                    'fulfill a community of artistic visions. It is a vision ' +
+                    'that is inclusive and reflective of the artistic directions ' +
+                    'of members of the Indigenous community who actively ' +
                     'participate in the arts.',
                 address: '585 Dundas St E #250, Toronto, ON M5A 2B7',
                 position: {
                     lat: 43.659961,
                     lng: -79.362607
                 },
+                type: 'venue',
+                flags: ['Aboriginal', 'community'],
+                founded: 1982
             }, {
                 twitter: 'canadianstage',
                 title: 'Berkeley Street Theatre',
                 website: 'https://nowtoronto.com/locations/berkeley-street-theatre/',
                 blurb: 'Berkeley Street Theatre is associated with the Canadian ' +
-                    'Stage Company. <br>A home for innovative live performance from ' + 
-                    'Canada and around the world,<br>Where audiences encounter ' + 
+                    'Stage Company. <br>A home for innovative live performance from ' +
+                    'Canada and around the world,<br>Where audiences encounter ' +
                     'daring productions, guided by a strong directorial vision ' +
                     '<br>Where theatre, dance, music and visual arts cohabit, clash, interrogate ' +
                     '<br>Where a bold, 21st-century aesthetic reigns',
@@ -257,16 +275,18 @@ var mapManager = {
                 position: {
                     lat: 43.650621,
                     lng: -79.363817
-                }
-
+                },
+                type: 'venue',
+                flags: ['Canadian'],
+                founded: 1987
             }, {
                 twitter: 'canadianstage',
                 title: 'Bluma Appel Theatre',
                 content: 'Bluma Appel Theatre',
                 website: 'https://www.canadianstage.com/Online/default.asp',
                 blurb: 'Bluma Appel Theatre is associated with the Canadian ' +
-                    'Stage Company. <br>A home for innovative live performance from ' + 
-                    'Canada and around the world,<br>Where audiences encounter ' + 
+                    'Stage Company. <br>A home for innovative live performance from ' +
+                    'Canada and around the world,<br>Where audiences encounter ' +
                     'daring productions, guided by a strong directorial vision ' +
                     '<br>Where theatre, dance, music and visual arts cohabit, clash, interrogate ' +
                     '<br>Where a bold, 21st-century aesthetic reigns',
@@ -274,178 +294,220 @@ var mapManager = {
                 position: {
                     lat: 43.647414,
                     lng: -79.375129
-                }
+                },
+                type: 'venue',
+                flags: ['Canadian', 'international', 'large venue'],
+                founded: 1987
             }, {
                 twitter: 'Soulpepper',
                 title: 'Soulpepper Theatre Company',
                 website: 'https://www.soulpepper.ca/performances.aspx',
-                blurb: 'Central to Soulpepper’s identity is its commitment to ' + 
-                'being a Civic Theatre - a place of belonging for artists and ' + 
-                'audiences of all ages and backgrounds. We are the largest ' + 
-                'employer of theatre artists in Toronto, and our artists live ' + 
-                'and play in this community. Our partners are our neighbours ' + 
-                'and the stories we tell are infused with our shared ' + 
-                'experiences. Soulpepper plays an intrinsic role in the ' + 
-                'cultural life of this city.',
+                blurb: 'Central to Soulpepper’s identity is its commitment to ' +
+                    'being a Civic Theatre - a place of belonging for artists and ' +
+                    'audiences of all ages and backgrounds. We are the largest ' +
+                    'employer of theatre artists in Toronto, and our artists live ' +
+                    'and play in this community. Our partners are our neighbours ' +
+                    'and the stories we tell are infused with our shared ' +
+                    'experiences. Soulpepper plays an intrinsic role in the ' +
+                    'cultural life of this city.',
                 address: '50 Tank House Lane, Toronto',
                 position: {
                     lat: 43.650860,
                     lng: -79.357452
-                }
+                },
+                type: 'venue',
+                flags: ['community', 'development'],
+                founded: 1998
             }, {
                 twitter: 'fuGENTheatre',
                 title: 'fu-GEN Theatre',
                 website: 'http://fu-gen.org/current-season/',
                 blurb: 'fu-GEN is a charitable theatre company dedicated to ' +
-                'the development of professional Asian Canadian theatre ' + 
-                'artists through the production of new and established works.',
+                    'the development of professional Asian Canadian theatre ' +
+                    'artists through the production of new and established works.',
                 address: '157 Carlton St #207, Toronto',
                 position: {
-                    lat: 43.663233, 
+                    lat: 43.663233,
                     lng: -79.372377
-                }
+                },
+                type: 'office',
+                flags: ['asian', 'education', 'Asian Canadian'],
+                founded: 2002
             }, {
                 twitter: 'CahootsTheatre',
                 title: 'Cahoots Theatre Company',
                 website: 'http://www.cahoots.ca/',
-                blurb: 'Cahoots Theatre investigates and examines the' + 
-                'complexities of diversity through the creation and ' + 
-                'production of new theatre works, development of ' + 
-                'professional artists and the engagement of communities.',
+                blurb: 'Cahoots Theatre investigates and examines the' +
+                    'complexities of diversity through the creation and ' +
+                    'production of new theatre works, development of ' +
+                    'professional artists and the engagement of communities.',
                 address: '388 Queen Street East, Unit 3, Toronto, Ontario M5A 1T3',
                 position: {
-                    lat: 43.656172, 
+                    lat: 43.656172,
                     lng: -79.363262
-                }
+                },
+                type: 'office',
+                flags: ['diverse', 'community'],
+                founded: 1986
             }, {
                 twitter: 'bcurrentLIVE',
                 title: 'b current',
                 website: 'http://bcurrent.ca/events/',
-                blurb: 'b current is the hotbed for culturally-rooted theatre ' + 
-                'development in Toronto.<br>Originally founded as a place for ' + 
-                'black artists to create, nurture, and present their new ' + 
-                'works, our company has grown to support artists from all ' + 
-                'diasporas. We strived over two decades to create space for ' + 
-                'diverse voices to be heard, always with a focus on engaging ' + 
-                'the communities from which our stories emerge.',
+                blurb: 'b current is the hotbed for culturally-rooted theatre ' +
+                    'development in Toronto.<br>Originally founded as a place for ' +
+                    'black artists to create, nurture, and present their new ' +
+                    'works, our company has grown to support artists from all ' +
+                    'diasporas. We strived over two decades to create space for ' +
+                    'diverse voices to be heard, always with a focus on engaging ' +
+                    'the communities from which our stories emerge.',
                 address: '601 Christie St #251, Toronto, ON M6G 4C7',
                 position: {
-                    lat: 43.680006, 
+                    lat: 43.680006,
                     lng: -79.423700
-                }
+                },
+                type: 'office',
+                flags: ['diverse', 'authenticity', 'culture'],
+                founded: 1991
             }, {
                 twitter: 'Videofag',
                 title: 'videofag',
                 website: 'http://www.videofag.com/#!events/ckiy',
-                blurb: 'videofag is a storefront cinema and performance lab ' + 
-                'in toronto\'s kensington market dedicated to the creation ' + 
-                'and exhibition of video, film, new media, and live art.',
+                blurb: 'videofag is a storefront cinema and performance lab ' +
+                    'in toronto\'s kensington market dedicated to the creation ' +
+                    'and exhibition of video, film, new media, and live art.',
                 address: '187 Augusta Avenue, Toronto, Ontario, M5T 2L4',
                 position: {
-                    lat: 43.653486, 
-                    lng: -79.401357 
-                }
+                    lat: 43.653486,
+                    lng: -79.401357
+                },
+                type: 'venue',
+                flags: ['multimedia', 'hub', 'alternative'],
+                founded: 2012
             }, {
                 twitter: 'YPTToronto',
                 title: 'Young People\'s Theatre',
                 website: 'http://www.youngpeoplestheatre.ca/shows-tickets/',
-                blurb: 'From the very beginning, Young Peoples Theatre ' + 
-                'established its dedication to professional productions of ' + 
-                'the highest quality – classic or contemporary – from Canada ' + 
-                'and around the world, written just for children and the ' + 
-                'people who care about them.',
+                blurb: 'From the very beginning, Young Peoples Theatre ' +
+                    'established its dedication to professional productions of ' +
+                    'the highest quality – classic or contemporary – from Canada ' +
+                    'and around the world, written just for children and the ' +
+                    'people who care about them.',
                 address: '165 Front St E, Toronto, ON M5A 3Z4, Canada',
                 position: {
-                    lat: 43.650022, 
-                    lng: -79.368883 
-                }
+                    lat: 43.650022,
+                    lng: -79.368883
+                },
+                type: 'venue',
+                flags: ['youth'],
+                founded: 1966
             }, {
                 twitter: 'TheatreDirectCa',
                 title: 'Theatre Direct',
                 website: 'http://theatredirect.ca/productions/',
-                blurb: 'Our work is driven by a belief that young people ' + 
-                'deserve truth not diversion – that they have a right to ' + 
-                'meaningful cultural content and experiences. We view our ' + 
-                'audience as thinking, feeling, complex individuals – not a ' + 
-                'market and not future audiences, but our present audience ' + 
-                'of emerging citizens that demands relevant theatre that ' + 
-                'engages all their faculties, feelings and intellect.',
+                blurb: 'Our work is driven by a belief that young people ' +
+                    'deserve truth not diversion – that they have a right to ' +
+                    'meaningful cultural content and experiences. We view our ' +
+                    'audience as thinking, feeling, complex individuals – not a ' +
+                    'market and not future audiences, but our present audience ' +
+                    'of emerging citizens that demands relevant theatre that ' +
+                    'engages all their faculties, feelings and intellect.',
                 address: '601 Christie St, Toronto, ON M6G 4C7',
                 position: {
-                    lat: 43.679979, 
-                    lng: -79.424069 
-                }
+                    lat: 43.679979,
+                    lng: -79.424069
+                },
+                type: 'office',
+                flags: ['youth'],
+                founded: 1976
             }, {
                 twitter: 'AlunaTheatre',
                 title: 'Aluna Theatre',
                 website: 'http://www.alunatheatre.ca/current-productions/',
-                blurb: 'The artistic mission of Aluna Theatre is to embrace ' + 
-                'the myriad of voices, cultures, and stories of our population, ' + 
-                'which are transforming the landscape of Canadian theatre. In ' + 
-                'our plays, works in translation, and international ' + 
-                'co-creations, people are complex individuals who exist ' + 
-                'beyond the restrictions of cultural labels.',
+                blurb: 'The artistic mission of Aluna Theatre is to embrace ' +
+                    'the myriad of voices, cultures, and stories of our population, ' +
+                    'which are transforming the landscape of Canadian theatre. In ' +
+                    'our plays, works in translation, and international ' +
+                    'co-creations, people are complex individuals who exist ' +
+                    'beyond the restrictions of cultural labels.',
                 address: '1 Wiltshire Ave #124, Toronto, ON M6N 2V7',
                 position: {
-                    lat: 43.667751, 
-                    lng: -79.449632 
-                }
+                    lat: 43.667751,
+                    lng: -79.449632
+                },
+                type: 'office',
+                flags: ['innovation', 'diverse', 'women', 'Latin Canadian'],
+                founded: 2001,
+                partners: ['The Theatre Centre']
             }, {
                 twitter: 'TGargantua',
                 title: 'Theatre Gargantua',
                 website: 'http://theatregargantua.ca/productions/',
-                blurb: 'Each of Gargantua’s productions, while being ' + 
-                'diverse in terms of subject, writing and performance ' + 
-                'styles, melds daring physicality with striking designs, ' + 
-                'underpinned by original live music and the innovative use ' + 
-                'of technology.',
+                blurb: 'Each of Gargantua’s productions, while being ' +
+                    'diverse in terms of subject, writing and performance ' +
+                    'styles, melds daring physicality with striking designs, ' +
+                    'underpinned by original live music and the innovative use ' +
+                    'of technology.',
                 address: '651 Dufferin St, Toronto, ON M6K 2B2',
                 position: {
-                    lat: 43.650239,  
+                    lat: 43.650239,
                     lng: -79.431099
-                }
+                },
+                type: 'office',
+                flags: ['innovation', 'technology', 'development',
+                    'original music'
+                ],
+                founded: 1992
             }, {
                 twitter: 'crowstheatre',
                 title: 'Crow\'s Theatre',
                 website: 'http://www.crowstheatre.com/production/in-development/',
-                blurb: 'Crow’s has a mission to ignite passionate and ' + 
-                'enduring engagement between our audiences and artists by ' + 
-                'creating, producing and promoting unforgettable theatre ' + 
-                'that examines and illuminates the pivotal narratives of ' + 
-                'our times.',
+                blurb: 'Crow’s has a mission to ignite passionate and ' +
+                    'enduring engagement between our audiences and artists by ' +
+                    'creating, producing and promoting unforgettable theatre ' +
+                    'that examines and illuminates the pivotal narratives of ' +
+                    'our times.',
                 address: '696 Queen St E #2C, Toronto, ON M4M 1G9',
                 position: {
-                    lat: 43.659415, 
-                    lng: -79.350262 
-                }
+                    lat: 43.659415,
+                    lng: -79.350262
+                },
+                type: 'venue',
+                flags: ['cultural narratives', 'development'],
+                founded: 1983
             }, {
                 twitter: 'nightwoodtheat',
                 title: 'Nightwood Theatre',
                 website: 'http://www.nightwoodtheatre.net/index.php/whats_on',
-                blurb: 'Nightwood Theatre forges creative alliances among ' + 
-                'women artists from diverse backgrounds in order to develop ' + 
-                'and produce innovative Canadian Theatre. We produce ' + 
-                'original Canadian plays and works from the contemporary ' + 
-                'international repertoire.',
+                blurb: 'Nightwood Theatre forges creative alliances among ' +
+                    'women artists from diverse backgrounds in order to develop ' +
+                    'and produce innovative Canadian Theatre. We produce ' +
+                    'original Canadian plays and works from the contemporary ' +
+                    'international repertoire.',
                 address: '15 Case Goods Lane #306, Toronto, ON M5A 3C4',
                 position: {
-                    lat: 43.649895,  
+                    lat: 43.649895,
                     lng: -79.358575
-                }
+                },
+                type: 'office',
+                flags: ['women', 'diverse', 'innovation', 'equality'],
+                founded: 1979
             }, {
                 twitter: 'obsidiantheatre',
                 title: 'Obsidian Theatre Company',
                 website: 'http://www.obsidiantheatre.com/',
-                blurb: 'Obsidian is Canada’s leading culturally diverse ' + 
-                'theatre company. Our threefold mission is to produce plays, ' + 
-                'to develop playwrights and to train emerging theatre ' + 
-                'professionals. Obsidian is passionately dedicated to the ' + 
-                'exploration, development, and production of the Black voice.',
+                blurb: 'Obsidian is Canada’s leading culturally diverse ' +
+                    'theatre company. Our threefold mission is to produce plays, ' +
+                    'to develop playwrights and to train emerging theatre ' +
+                    'professionals. Obsidian is passionately dedicated to the ' +
+                    'exploration, development, and production of the Black voice.',
                 address: '1089 Dundas St E, Toronto, ON M4M 1R9',
                 position: {
-                    lat: 43.663814, 
+                    lat: 43.663814,
                     lng: -79.343623
-                }
+                },
+                type: 'office',
+                flags: ['black', 'diverse', 'Canadian'],
+                founded: 2000
             }];
         } else {
             //this.markerData = JSON.parse(localStorage.markerData);
