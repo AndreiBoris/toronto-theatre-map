@@ -32,7 +32,7 @@ mapManager.util.alphabeticalSort = function(a, b) {
     if (a.title === b.title) {
         return 0;
     } else {
-        return a.title > b.title ? 1 : -1;
+        return a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1;
     }
 };
 
@@ -41,7 +41,7 @@ mapManager.util.alphabeticalSortReverse = function(a, b) {
     if (a.title === b.title) {
         return 0;
     } else {
-        return a.title < b.title ? 1 : -1;
+        return a.title.toLowerCase() < b.title.toLowerCase() ? 1 : -1;
     }
 };
 
