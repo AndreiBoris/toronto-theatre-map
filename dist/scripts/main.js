@@ -30,6 +30,34 @@ var TheatreMapViewModel = function() {
 
     self.crazyArray = ko.observableArray([]);
 
+    self.showVenues = ko.observable(true);
+
+    self.showOffices = ko.observable(true);
+
+    self.toggleVenues = ko.computed(function() {
+        self.markers().forEach(function(marker) {
+            if (marker.type === 'venue') {
+                if (self.showVenues()) {
+                    marker.setMap(mapManager.map);
+                } else {
+                    marker.setMap(null);
+                }
+            }
+        });
+    });
+
+    self.toggleOffices = ko.computed(function() {
+        self.markers().forEach(function(marker) {
+            if (marker.type === 'office') {
+                if (self.showOffices()) {
+                    marker.setMap(mapManager.map);
+                } else {
+                    marker.setMap(null);
+                }
+            }
+        });
+    });
+
     self.flipTwitter = function() {
         self.twitterListMode(!self.twitterListMode());
     };
@@ -151,7 +179,8 @@ var TheatreMapViewModel = function() {
                 title: markerItem.title,
                 twitterHandle: markerItem.twitter,
                 index: index,
-                icon: markerItem.icon
+                icon: markerItem.icon,
+                type: markerItem.type
             }));
 
             /**

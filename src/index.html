@@ -17,8 +17,8 @@
     <header>
         <div id="search-box">
             <!-- <input data-bind="value: activeTwitter()"></input> -->
-            <input type="checkbox">Show Venues</input>
-            <input type="checkbox">Show Offices</input>
+            <input type="checkbox" data-bind="checked: showVenues">Show Venues</input>
+            <input type="checkbox" data-bind="checked: showOffices">Show Offices</input>
             <button data-bind="click: closeInfoWindows">Close all</button>
             <button data-bind="click: flipTwitter">Switch</button>
         </div>
