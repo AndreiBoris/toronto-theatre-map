@@ -103,10 +103,16 @@ var TheatreMapViewModel = function() {
      *                          self.infoWindows and self.markers, which are 
      *                          created in parallel.
      */
-    var infoWindowBinder = function(index) {
-        self.markers()[index].addListener('click', function() {
-            self.openInfoWindow(index);
-            self.activeTwitter(self.markers()[index].twitterHandle);
+    // var infoWindowBinder = function(index) {
+    //     self.markers()[index].addListener('click', function() {
+    //         self.openInfoWindow(index);
+    //         self.activeTwitter(self.markers()[index].twitterHandle);
+    //     });
+    // };
+    var infoWindowBinder = function(marker) {
+        marker.addListener('click', function() {
+            self.openInfoWindow(marker);
+            self.activeTwitter(marker.twitterHandle);
         });
     };
 
@@ -116,15 +122,19 @@ var TheatreMapViewModel = function() {
      * @param  {int} index  Corresponds to index of self.infoWindows and 
      *                      self.markers
      */
-    self.openInfoWindow = function(index) {
-        self.markers().forEach(function(marker, number) {
-            marker.infoWin.close();
-        });
-        self.markers()[index].infoWin.open(mapManager.map, self.markers()[index]);
+    // self.openInfoWindow = function(index) {
+    //     self.markers().forEach(function(marker, number) {
+    //         marker.infoWin.close();
+    //     });
+    //     self.markers()[index].infoWin.open(mapManager.map, self.markers()[index]);
+    // };
+    self.openInfoWindow = function(theatre) {
+        self.closeInfoWindows();
+        theatre.infoWin.open(mapManager.map, theatre);
     };
 
     self.closeInfoWindows = function() {
-        self.markers().forEach(function(marker, number) {
+        self.markers().forEach(function(marker) {
             marker.infoWin.close();
         });
     };
@@ -138,10 +148,15 @@ var TheatreMapViewModel = function() {
         self.openInfoWindow(0);
     };
 
+    self.sortList = function() {
+        self.markers.sort(mapManager.util.alphabeticalSort);
+    };
+
     self.remoteAccess = function(theatre) {
-        var index = theatre.index;
-        self.openInfoWindow(index);
-        self.activeTwitter(self.markers()[index].twitterHandle);
+        //var index = theatre.index;
+        //console.log(index);
+        self.openInfoWindow(theatre);
+        self.activeTwitter(theatre.twitterHandle);
     };
 
     /**
@@ -205,7 +220,7 @@ var TheatreMapViewModel = function() {
             self.markers()[index].infoWin = tempInfoWindow;
             // Set up a listener on the marker that will open the corresponding
             // InfoWindow when the Marker is clicked.
-            infoWindowBinder(index);
+            infoWindowBinder(self.markers()[index]);
 
             // Here is the window we're currently making.
             var curInfoWindow = self.markers()[index].infoWin;

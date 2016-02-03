@@ -26,3 +26,12 @@ mapManager.util.showItem = function(marker) {
     marker.setMap(mapManager.map);
     marker.listed(true);
 };
+
+mapManager.util.alphabeticalSort = function(a, b){
+    'use strict';
+    if (a.title === b.title){
+        return 0;
+    } else {
+        return a.title > b.title ? 1 : -1;
+    }
+};
