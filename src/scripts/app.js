@@ -34,6 +34,10 @@ var TheatreMapViewModel = function() {
 
     self.showOffices = ko.observable(true);
 
+    self.filterDiverse = ko.observable(false);
+
+    self.ready = ko.observable(false);
+
     self.sortedAlpha = false;
     self.sortedFounded = false;
 
@@ -56,6 +60,22 @@ var TheatreMapViewModel = function() {
                     mapManager.util.showItem(marker);
                 } else {
                     mapManager.util.hideItem(marker);
+                }
+            }
+        });
+    });
+
+    self.filter = ko.computed(function() {
+        self.markers().forEach(function(marker) {
+            if (self.ready()) {
+                mapManager.util.showItem(marker);
+                if (self.filterDiverse()) {
+                    if (mapManager.util.inArray(marker.flags, 'diverse') === false) {
+                        console.log('hiding this');
+                        mapManager.util.hideItem(marker);
+                    } else {
+                        console.log('Don\'t hide this one!');
+                    }
                 }
             }
         });
@@ -211,7 +231,9 @@ var TheatreMapViewModel = function() {
                 icon: markerItem.icon,
                 type: markerItem.type,
                 listed: ko.observable(true),
-                founded: markerItem.founded
+                founded: markerItem.founded,
+                flags: markerItem.flags,
+                infoWin: {}
             }));
 
             /**
@@ -258,6 +280,7 @@ var TheatreMapViewModel = function() {
         // Save coordinates to localStorage so that we can avoid using AJAX
         // calls next time around. DOESN'T WORK YET.
         mapManager.store();
+        self.ready(true);
     };
 };
 

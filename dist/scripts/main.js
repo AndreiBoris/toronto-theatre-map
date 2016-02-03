@@ -34,6 +34,10 @@ var TheatreMapViewModel = function() {
 
     self.showOffices = ko.observable(true);
 
+    self.filterDiverse = ko.observable(false);
+
+    self.ready = ko.observable(false);
+
     self.sortedAlpha = false;
     self.sortedFounded = false;
 
@@ -56,6 +60,22 @@ var TheatreMapViewModel = function() {
                     mapManager.util.showItem(marker);
                 } else {
                     mapManager.util.hideItem(marker);
+                }
+            }
+        });
+    });
+
+    self.filter = ko.computed(function() {
+        self.markers().forEach(function(marker) {
+            if (self.ready()) {
+                mapManager.util.showItem(marker);
+                if (self.filterDiverse()) {
+                    if (mapManager.util.inArray(marker.flags, 'diverse') === false) {
+                        console.log('hiding this');
+                        mapManager.util.hideItem(marker);
+                    } else {
+                        console.log('Don\'t hide this one!');
+                    }
                 }
             }
         });
@@ -211,7 +231,9 @@ var TheatreMapViewModel = function() {
                 icon: markerItem.icon,
                 type: markerItem.type,
                 listed: ko.observable(true),
-                founded: markerItem.founded
+                founded: markerItem.founded,
+                flags: markerItem.flags,
+                infoWin: {}
             }));
 
             /**
@@ -258,6 +280,7 @@ var TheatreMapViewModel = function() {
         // Save coordinates to localStorage so that we can avoid using AJAX
         // calls next time around. DOESN'T WORK YET.
         mapManager.store();
+        self.ready(true);
     };
 };
 
@@ -461,7 +484,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/museum.png', 
                 type: 'venue',
-                flags: ['new work', 'Canadian'],
+                flags: [],
                 founded: 1970
             }, {
                 twitter: 'beyondwallsTPM',
@@ -481,7 +504,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/museum.png', 
                 type: 'venue',
-                flags: ['diverse', 'eclectic', 'community', 'Canadian'],
+                flags: ['diverse'],
                 founded: 1968
             }, {
                 twitter: 'FactoryToronto',
@@ -499,7 +522,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/museum.png', 
                 type: 'venue',
-                flags: ['Canadian', 'grit', 'authenticity'],
+                flags: [],
                 founded: 1970
             }, {
                 twitter: 'StorefrontTO',
@@ -517,7 +540,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/museum.png', 
                 type: 'venue',
-                flags: ['community'],
+                flags: ['indie'],
                 founded: 2013
             }, {
                 twitter: 'NativeEarth',
@@ -556,7 +579,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/museum.png', 
                 type: 'venue',
-                flags: ['Canadian'],
+                flags: [],
                 founded: 1987
             }, {
                 twitter: 'canadianstage',
@@ -576,7 +599,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/museum.png', 
                 type: 'venue',
-                flags: ['Canadian', 'international', 'large venue'],
+                flags: ['international'],
                 founded: 1987
             }, {
                 twitter: 'Soulpepper',
@@ -613,7 +636,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/city.png',
                 type: 'office',
-                flags: ['asian', 'education', 'Asian Canadian'],
+                flags: ['Asian Canadian'],
                 founded: 2002
             }, {
                 twitter: 'CahootsTheatre',
@@ -650,7 +673,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/city.png',
                 type: 'office',
-                flags: ['diverse', 'authenticity', 'culture'],
+                flags: ['diverse', 'culture'],
                 founded: 1991
             }, {
                 twitter: 'Videofag',
@@ -666,7 +689,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/museum.png', 
                 type: 'venue',
-                flags: ['multimedia', 'hub', 'alternative'],
+                flags: ['alternative'],
                 founded: 2012
             }, {
                 twitter: 'YPTToronto',
@@ -684,7 +707,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/museum.png', 
                 type: 'venue',
-                flags: ['youth'],
+                flags: ['children'],
                 founded: 1966
             }, {
                 twitter: 'TheatreDirectCa',
@@ -704,7 +727,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/city.png',
                 type: 'office',
-                flags: ['youth'],
+                flags: ['children'],
                 founded: 1976
             }, {
                 twitter: 'AlunaTheatre',
@@ -742,9 +765,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/city.png',
                 type: 'office',
-                flags: ['innovation', 'technology', 'development',
-                    'original music'
-                ],
+                flags: ['innovation', 'technology', 'development'],
                 founded: 1992
             }, {
                 twitter: 'crowstheatre',
@@ -762,7 +783,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/museum.png', 
                 type: 'venue',
-                flags: ['cultural narratives', 'development'],
+                flags: ['development'],
                 founded: 1983
             }, {
                 twitter: 'nightwoodtheat',
@@ -780,7 +801,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/city.png',
                 type: 'office',
-                flags: ['women', 'diverse', 'innovation', 'equality'],
+                flags: ['women', 'diverse', 'innovation'],
                 founded: 1979
             }, {
                 twitter: 'obsidiantheatre',
@@ -798,7 +819,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/city.png',
                 type: 'office',
-                flags: ['black', 'diverse', 'Canadian'],
+                flags: ['black', 'diverse'],
                 founded: 2000
             }];
         } else {
@@ -839,38 +860,50 @@ mapManager.util.showItem = function(marker) {
     marker.listed(true);
 };
 
-mapManager.util.alphabeticalSort = function(a, b){
+mapManager.util.alphabeticalSort = function(a, b) {
     'use strict';
-    if (a.title === b.title){
+    if (a.title === b.title) {
         return 0;
     } else {
         return a.title > b.title ? 1 : -1;
     }
 };
 
-mapManager.util.alphabeticalSortReverse = function(a, b){
+mapManager.util.alphabeticalSortReverse = function(a, b) {
     'use strict';
-    if (a.title === b.title){
+    if (a.title === b.title) {
         return 0;
     } else {
         return a.title < b.title ? 1 : -1;
     }
 };
 
-mapManager.util.foundingSort = function(a, b){
+mapManager.util.foundingSort = function(a, b) {
     'use strict';
-    if (a.founded === b.founded){
+    if (a.founded === b.founded) {
         return 0;
     } else {
         return a.founded > b.founded ? 1 : -1;
     }
 };
 
-mapManager.util.foundingSortReverse = function(a, b){
+mapManager.util.foundingSortReverse = function(a, b) {
     'use strict';
-    if (a.founded === b.founded){
+    if (a.founded === b.founded) {
         return 0;
     } else {
         return a.founded < b.founded ? 1 : -1;
     }
+};
+
+mapManager.util.inArray = function(array, sought) {
+    'use strict';
+    var length = array.length;
+    var i;
+    for (i = 0; i < length; i++) {
+        if (array[i] === sought){
+            return true;
+        }
+    }
+    return false;
 };

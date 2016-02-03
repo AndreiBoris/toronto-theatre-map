@@ -27,38 +27,50 @@ mapManager.util.showItem = function(marker) {
     marker.listed(true);
 };
 
-mapManager.util.alphabeticalSort = function(a, b){
+mapManager.util.alphabeticalSort = function(a, b) {
     'use strict';
-    if (a.title === b.title){
+    if (a.title === b.title) {
         return 0;
     } else {
         return a.title > b.title ? 1 : -1;
     }
 };
 
-mapManager.util.alphabeticalSortReverse = function(a, b){
+mapManager.util.alphabeticalSortReverse = function(a, b) {
     'use strict';
-    if (a.title === b.title){
+    if (a.title === b.title) {
         return 0;
     } else {
         return a.title < b.title ? 1 : -1;
     }
 };
 
-mapManager.util.foundingSort = function(a, b){
+mapManager.util.foundingSort = function(a, b) {
     'use strict';
-    if (a.founded === b.founded){
+    if (a.founded === b.founded) {
         return 0;
     } else {
         return a.founded > b.founded ? 1 : -1;
     }
 };
 
-mapManager.util.foundingSortReverse = function(a, b){
+mapManager.util.foundingSortReverse = function(a, b) {
     'use strict';
-    if (a.founded === b.founded){
+    if (a.founded === b.founded) {
         return 0;
     } else {
         return a.founded < b.founded ? 1 : -1;
     }
+};
+
+mapManager.util.inArray = function(array, sought) {
+    'use strict';
+    var length = array.length;
+    var i;
+    for (i = 0; i < length; i++) {
+        if (array[i] === sought){
+            return true;
+        }
+    }
+    return false;
 };

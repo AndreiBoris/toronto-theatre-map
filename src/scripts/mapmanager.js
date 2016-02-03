@@ -189,7 +189,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/museum.png', 
                 type: 'venue',
-                flags: ['new work', 'Canadian'],
+                flags: [],
                 founded: 1970
             }, {
                 twitter: 'beyondwallsTPM',
@@ -209,7 +209,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/museum.png', 
                 type: 'venue',
-                flags: ['diverse', 'eclectic', 'community', 'Canadian'],
+                flags: ['diverse'],
                 founded: 1968
             }, {
                 twitter: 'FactoryToronto',
@@ -227,7 +227,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/museum.png', 
                 type: 'venue',
-                flags: ['Canadian', 'grit', 'authenticity'],
+                flags: [],
                 founded: 1970
             }, {
                 twitter: 'StorefrontTO',
@@ -245,7 +245,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/museum.png', 
                 type: 'venue',
-                flags: ['community'],
+                flags: ['indie'],
                 founded: 2013
             }, {
                 twitter: 'NativeEarth',
@@ -284,7 +284,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/museum.png', 
                 type: 'venue',
-                flags: ['Canadian'],
+                flags: [],
                 founded: 1987
             }, {
                 twitter: 'canadianstage',
@@ -304,7 +304,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/museum.png', 
                 type: 'venue',
-                flags: ['Canadian', 'international', 'large venue'],
+                flags: ['international'],
                 founded: 1987
             }, {
                 twitter: 'Soulpepper',
@@ -341,7 +341,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/city.png',
                 type: 'office',
-                flags: ['asian', 'education', 'Asian Canadian'],
+                flags: ['Asian Canadian'],
                 founded: 2002
             }, {
                 twitter: 'CahootsTheatre',
@@ -378,7 +378,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/city.png',
                 type: 'office',
-                flags: ['diverse', 'authenticity', 'culture'],
+                flags: ['diverse', 'culture'],
                 founded: 1991
             }, {
                 twitter: 'Videofag',
@@ -394,7 +394,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/museum.png', 
                 type: 'venue',
-                flags: ['multimedia', 'hub', 'alternative'],
+                flags: ['alternative'],
                 founded: 2012
             }, {
                 twitter: 'YPTToronto',
@@ -412,7 +412,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/museum.png', 
                 type: 'venue',
-                flags: ['youth'],
+                flags: ['children'],
                 founded: 1966
             }, {
                 twitter: 'TheatreDirectCa',
@@ -432,7 +432,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/city.png',
                 type: 'office',
-                flags: ['youth'],
+                flags: ['children'],
                 founded: 1976
             }, {
                 twitter: 'AlunaTheatre',
@@ -470,9 +470,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/city.png',
                 type: 'office',
-                flags: ['innovation', 'technology', 'development',
-                    'original music'
-                ],
+                flags: ['innovation', 'technology', 'development'],
                 founded: 1992
             }, {
                 twitter: 'crowstheatre',
@@ -490,7 +488,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/museum.png', 
                 type: 'venue',
-                flags: ['cultural narratives', 'development'],
+                flags: ['development'],
                 founded: 1983
             }, {
                 twitter: 'nightwoodtheat',
@@ -508,7 +506,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/city.png',
                 type: 'office',
-                flags: ['women', 'diverse', 'innovation', 'equality'],
+                flags: ['women', 'diverse', 'innovation'],
                 founded: 1979
             }, {
                 twitter: 'obsidiantheatre',
@@ -526,7 +524,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/city.png',
                 type: 'office',
-                flags: ['black', 'diverse', 'Canadian'],
+                flags: ['black', 'diverse'],
                 founded: 2000
             }];
         } else {
