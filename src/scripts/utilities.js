@@ -13,3 +13,15 @@ mapManager.util.nullPosition = {
     lat: 0,
     lng: 0
 };
+
+mapManager.util.hideItem = function(marker) {
+    'use strict';
+    marker.setMap(null);
+    marker.listed(false);
+};
+
+mapManager.util.showItem = function(marker) {
+    'use strict';
+    marker.setMap(mapManager.map);
+    marker.listed(true);
+};

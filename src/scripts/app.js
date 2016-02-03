@@ -38,11 +38,9 @@ var TheatreMapViewModel = function() {
         self.markers().forEach(function(marker) {
             if (marker.type === 'venue') {
                 if (self.showVenues()) {
-                    marker.setMap(mapManager.map);
-                    marker.listed(true);
+                    mapManager.util.showItem(marker);
                 } else {
-                    marker.setMap(null);
-                    marker.listed(false);
+                    mapManager.util.hideItem(marker);
                 }
             }
         });
@@ -52,11 +50,9 @@ var TheatreMapViewModel = function() {
         self.markers().forEach(function(marker) {
             if (marker.type === 'office') {
                 if (self.showOffices()) {
-                    marker.setMap(mapManager.map);
-                    marker.listed(true);
+                    mapManager.util.showItem(marker);
                 } else {
-                    marker.setMap(null);
-                    marker.listed(false);
+                    mapManager.util.hideItem(marker);
                 }
             }
         });
