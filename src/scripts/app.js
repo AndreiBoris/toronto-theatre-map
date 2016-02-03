@@ -30,10 +30,6 @@ var TheatreMapViewModel = function() {
 
     self.crazyArray = ko.observableArray([]);
 
-    self.showVenues = ko.observable(true);
-
-    self.showOffices = ko.observable(true);
-
     self.filterDiverse = ko.observable(false);
     self.filterWomen = ko.observable(false);
     self.filterQueer = ko.observable(false);
@@ -46,6 +42,8 @@ var TheatreMapViewModel = function() {
     self.filterLatin = ko.observable(false);
     self.filterTechnology = ko.observable(false);
     self.filterBlack = ko.observable(false);
+    self.filterOffice = ko.observable(false);
+    self.filterVenue = ko.observable(false);
 
     self.filters = [
     {filter: self.filterDiverse, flag: 'diverse'}, 
@@ -59,7 +57,9 @@ var TheatreMapViewModel = function() {
     {filter: self.filterChildren, flag: 'children'},
     {filter: self.filterLatin, flag: 'latin'},
     {filter: self.filterTechnology, flag: 'technology'},
-    {filter: self.filterBlack, flag: 'black'}
+    {filter: self.filterBlack, flag: 'black'},
+    {filter: self.filterOffice, flag: 'office'},
+    {filter: self.filterVenue, flag: 'venue'}
     ];
 
     self.ready = ko.observable(false);
@@ -67,29 +67,29 @@ var TheatreMapViewModel = function() {
     self.sortedAlpha = false;
     self.sortedFounded = false;
 
-    self.toggleVenues = ko.computed(function() {
-        self.markers().forEach(function(marker) {
-            if (marker.type === 'venue') {
-                if (self.showVenues()) {
-                    mapManager.util.showItem(marker);
-                } else {
-                    mapManager.util.hideItem(marker);
-                }
-            }
-        });
-    });
+    // self.toggleVenues = ko.computed(function() {
+    //     self.markers().forEach(function(marker) {
+    //         if (marker.type === 'venue') {
+    //             if (self.showVenues()) {
+    //                 mapManager.util.showItem(marker);
+    //             } else {
+    //                 mapManager.util.hideItem(marker);
+    //             }
+    //         }
+    //     });
+    // });
 
-    self.toggleOffices = ko.computed(function() {
-        self.markers().forEach(function(marker) {
-            if (marker.type === 'office') {
-                if (self.showOffices()) {
-                    mapManager.util.showItem(marker);
-                } else {
-                    mapManager.util.hideItem(marker);
-                }
-            }
-        });
-    });
+    // self.toggleOffices = ko.computed(function() {
+    //     self.markers().forEach(function(marker) {
+    //         if (marker.type === 'office') {
+    //             if (self.showOffices()) {
+    //                 mapManager.util.showItem(marker);
+    //             } else {
+    //                 mapManager.util.hideItem(marker);
+    //             }
+    //         }
+    //     });
+    // });
 
     self.filter = ko.computed(function() {
         var length = self.markers().length;
