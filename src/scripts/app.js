@@ -103,12 +103,6 @@ var TheatreMapViewModel = function() {
      *                          self.infoWindows and self.markers, which are 
      *                          created in parallel.
      */
-    // var infoWindowBinder = function(index) {
-    //     self.markers()[index].addListener('click', function() {
-    //         self.openInfoWindow(index);
-    //         self.activeTwitter(self.markers()[index].twitterHandle);
-    //     });
-    // };
     var infoWindowBinder = function(marker) {
         marker.addListener('click', function() {
             self.openInfoWindow(marker);
@@ -122,12 +116,6 @@ var TheatreMapViewModel = function() {
      * @param  {int} index  Corresponds to index of self.infoWindows and 
      *                      self.markers
      */
-    // self.openInfoWindow = function(index) {
-    //     self.markers().forEach(function(marker, number) {
-    //         marker.infoWin.close();
-    //     });
-    //     self.markers()[index].infoWin.open(mapManager.map, self.markers()[index]);
-    // };
     self.openInfoWindow = function(theatre) {
         self.closeInfoWindows();
         theatre.infoWin.open(mapManager.map, theatre);
@@ -153,8 +141,6 @@ var TheatreMapViewModel = function() {
     };
 
     self.remoteAccess = function(theatre) {
-        //var index = theatre.index;
-        //console.log(index);
         self.openInfoWindow(theatre);
         self.activeTwitter(theatre.twitterHandle);
     };
@@ -239,6 +225,7 @@ var TheatreMapViewModel = function() {
                 mapManager.infoWindowMaker(curInfoWindow, title, website, blurb);
             }
         });
+        self.sortList();
         // Save coordinates to localStorage so that we can avoid using AJAX
         // calls next time around. DOESN'T WORK YET.
         mapManager.store();
