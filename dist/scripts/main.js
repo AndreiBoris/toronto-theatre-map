@@ -377,7 +377,8 @@ var mapManager = {
                     lat: 43.663346,
                     lng: -79.383107
                 },
-                icon: 'dist/images/museum.png',
+                icon: 'dist/images/museum.png', 
+                type: 'venue',
                 flags: ['queer', 'alternative', 'community'],
                 founded: 1978
             }, {
@@ -397,7 +398,8 @@ var mapManager = {
                     lat: 43.674842,
                     lng: -79.412820
                 },
-                icon: 'dist/images/museum.png',
+                icon: 'dist/images/museum.png', 
+                type: 'venue',
                 flags: ['new work', 'Canadian'],
                 founded: 1970
             }, {
@@ -416,7 +418,8 @@ var mapManager = {
                     lat: 43.648553,
                     lng: -79.402584
                 },
-                icon: 'dist/images/museum.png',
+                icon: 'dist/images/museum.png', 
+                type: 'venue',
                 flags: ['diverse', 'eclectic', 'community', 'Canadian'],
                 founded: 1968
             }, {
@@ -433,7 +436,8 @@ var mapManager = {
                     lat: 43.645531,
                     lng: -79.402690
                 },
-                icon: 'dist/images/museum.png',
+                icon: 'dist/images/museum.png', 
+                type: 'venue',
                 flags: ['Canadian', 'grit', 'authenticity'],
                 founded: 1970
             }, {
@@ -450,7 +454,8 @@ var mapManager = {
                     lat: 43.661288,
                     lng: -79.428240
                 },
-                icon: 'dist/images/museum.png',
+                icon: 'dist/images/museum.png', 
+                type: 'venue',
                 flags: ['community'],
                 founded: 2013
             }, {
@@ -469,7 +474,8 @@ var mapManager = {
                     lat: 43.659961,
                     lng: -79.362607
                 },
-                icon: 'dist/images/museum.png',
+                icon: 'dist/images/museum.png', 
+                type: 'venue',
                 flags: ['Aboriginal', 'community'],
                 founded: 1982
             }, {
@@ -487,7 +493,8 @@ var mapManager = {
                     lat: 43.650621,
                     lng: -79.363817
                 },
-                icon: 'dist/images/museum.png',
+                icon: 'dist/images/museum.png', 
+                type: 'venue',
                 flags: ['Canadian'],
                 founded: 1987
             }, {
@@ -506,7 +513,8 @@ var mapManager = {
                     lat: 43.647414,
                     lng: -79.375129
                 },
-                icon: 'dist/images/museum.png',
+                icon: 'dist/images/museum.png', 
+                type: 'venue',
                 flags: ['Canadian', 'international', 'large venue'],
                 founded: 1987
             }, {
@@ -526,7 +534,8 @@ var mapManager = {
                     lat: 43.650860,
                     lng: -79.357452
                 },
-                icon: 'dist/images/museum.png',
+                icon: 'dist/images/museum.png', 
+                type: 'venue',
                 flags: ['community', 'development'],
                 founded: 1998
             }, {
@@ -542,6 +551,7 @@ var mapManager = {
                     lng: -79.372377
                 },
                 icon: 'dist/images/city.png',
+                type: 'office',
                 flags: ['asian', 'education', 'Asian Canadian'],
                 founded: 2002
             }, {
@@ -558,6 +568,7 @@ var mapManager = {
                     lng: -79.363262
                 },
                 icon: 'dist/images/city.png',
+                type: 'office',
                 flags: ['diverse', 'community'],
                 founded: 1986
             }, {
@@ -577,6 +588,7 @@ var mapManager = {
                     lng: -79.423700
                 },
                 icon: 'dist/images/city.png',
+                type: 'office',
                 flags: ['diverse', 'authenticity', 'culture'],
                 founded: 1991
             }, {
@@ -591,7 +603,8 @@ var mapManager = {
                     lat: 43.653486,
                     lng: -79.401357
                 },
-                icon: 'dist/images/museum.png',
+                icon: 'dist/images/museum.png', 
+                type: 'venue',
                 flags: ['multimedia', 'hub', 'alternative'],
                 founded: 2012
             }, {
@@ -608,7 +621,8 @@ var mapManager = {
                     lat: 43.650022,
                     lng: -79.368883
                 },
-                icon: 'dist/images/museum.png',
+                icon: 'dist/images/museum.png', 
+                type: 'venue',
                 flags: ['youth'],
                 founded: 1966
             }, {
@@ -628,6 +642,7 @@ var mapManager = {
                     lng: -79.424069
                 },
                 icon: 'dist/images/city.png',
+                type: 'office',
                 flags: ['youth'],
                 founded: 1976
             }, {
@@ -646,6 +661,7 @@ var mapManager = {
                     lng: -79.449632
                 },
                 icon: 'dist/images/city.png',
+                type: 'office',
                 flags: ['innovation', 'diverse', 'women', 'Latin Canadian'],
                 founded: 2001,
                 partners: ['The Theatre Centre']
@@ -664,6 +680,7 @@ var mapManager = {
                     lng: -79.431099
                 },
                 icon: 'dist/images/city.png',
+                type: 'office',
                 flags: ['innovation', 'technology', 'development',
                     'original music'
                 ],
@@ -682,7 +699,8 @@ var mapManager = {
                     lat: 43.659415,
                     lng: -79.350262
                 },
-                icon: 'dist/images/museum.png',
+                icon: 'dist/images/museum.png', 
+                type: 'venue',
                 flags: ['cultural narratives', 'development'],
                 founded: 1983
             }, {
@@ -700,6 +718,7 @@ var mapManager = {
                     lng: -79.358575
                 },
                 icon: 'dist/images/city.png',
+                type: 'office',
                 flags: ['women', 'diverse', 'innovation', 'equality'],
                 founded: 1979
             }, {
@@ -717,6 +736,7 @@ var mapManager = {
                     lng: -79.343623
                 },
                 icon: 'dist/images/city.png',
+                type: 'office',
                 flags: ['black', 'diverse', 'Canadian'],
                 founded: 2000
             }];
