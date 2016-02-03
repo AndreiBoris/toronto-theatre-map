@@ -245,7 +245,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/museum.png', 
                 type: 'venue',
-                flags: ['indie'],
+                flags: [],
                 founded: 2013
             }, {
                 twitter: 'NativeEarth',
@@ -265,7 +265,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/museum.png', 
                 type: 'venue',
-                flags: ['Aboriginal', 'community'],
+                flags: ['aboriginal', 'community'],
                 founded: 1982
             }, {
                 twitter: 'canadianstage',
@@ -325,7 +325,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/museum.png', 
                 type: 'venue',
-                flags: ['community', 'development'],
+                flags: ['community'],
                 founded: 1998
             }, {
                 twitter: 'fuGENTheatre',
@@ -341,7 +341,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/city.png',
                 type: 'office',
-                flags: ['Asian Canadian'],
+                flags: ['asian'],
                 founded: 2002
             }, {
                 twitter: 'CahootsTheatre',
@@ -378,7 +378,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/city.png',
                 type: 'office',
-                flags: ['diverse', 'culture'],
+                flags: ['diverse'],
                 founded: 1991
             }, {
                 twitter: 'Videofag',
@@ -451,7 +451,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/city.png',
                 type: 'office',
-                flags: ['innovation', 'diverse', 'women', 'Latin Canadian'],
+                flags: ['diverse', 'women', 'latin'],
                 founded: 2001,
                 partners: ['The Theatre Centre']
             }, {
@@ -470,7 +470,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/city.png',
                 type: 'office',
-                flags: ['innovation', 'technology', 'development'],
+                flags: ['technology'],
                 founded: 1992
             }, {
                 twitter: 'crowstheatre',
@@ -488,7 +488,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/museum.png', 
                 type: 'venue',
-                flags: ['development'],
+                flags: [],
                 founded: 1983
             }, {
                 twitter: 'nightwoodtheat',
@@ -506,7 +506,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/city.png',
                 type: 'office',
-                flags: ['women', 'diverse', 'innovation'],
+                flags: ['women', 'diverse'],
                 founded: 1979
             }, {
                 twitter: 'obsidiantheatre',
@@ -524,7 +524,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/city.png',
                 type: 'office',
-                flags: ['black', 'diverse'],
+                flags: ['black'],
                 founded: 2000
             }];
         } else {

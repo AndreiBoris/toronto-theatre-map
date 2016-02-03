@@ -35,6 +35,17 @@ var TheatreMapViewModel = function() {
     self.showOffices = ko.observable(true);
 
     self.filterDiverse = ko.observable(false);
+    self.filterWomen = ko.observable(false);
+    self.filterQueer = ko.observable(false);
+    self.filterAlternative = ko.observable(false);
+    self.filterCommunity = ko.observable(false);
+    self.filterAboriginal = ko.observable(false);
+    self.filterInternational = ko.observable(false);
+    self.filterAsian = ko.observable(false);
+    self.filterChildren = ko.observable(false);
+    self.filterLatin = ko.observable(false);
+    self.filterTechnology = ko.observable(false);
+    self.filterBlack = ko.observable(false);
 
     self.ready = ko.observable(false);
 
@@ -71,10 +82,62 @@ var TheatreMapViewModel = function() {
                 mapManager.util.showItem(marker);
                 if (self.filterDiverse()) {
                     if (mapManager.util.inArray(marker.flags, 'diverse') === false) {
-                        console.log('hiding this');
                         mapManager.util.hideItem(marker);
-                    } else {
-                        console.log('Don\'t hide this one!');
+                    }
+                }
+                if (self.filterWomen()) {
+                    if (mapManager.util.inArray(marker.flags, 'women') === false) {
+                        mapManager.util.hideItem(marker);
+                    }
+                }
+                if (self.filterQueer()) {
+                    if (mapManager.util.inArray(marker.flags, 'queer') === false) {
+                        mapManager.util.hideItem(marker);
+                    }
+                }
+                if (self.filterAlternative()) {
+                    if (mapManager.util.inArray(marker.flags, 'alternative') === false) {
+                        mapManager.util.hideItem(marker);
+                    }
+                }
+                if (self.filterCommunity()) {
+                    if (mapManager.util.inArray(marker.flags, 'community') === false) {
+                        mapManager.util.hideItem(marker);
+                    }
+                }
+                if (self.filterAboriginal()) {
+                    if (mapManager.util.inArray(marker.flags, 'aboriginal') === false) {
+                        mapManager.util.hideItem(marker);
+                    }
+                }
+                if (self.filterInternational()) {
+                    if (mapManager.util.inArray(marker.flags, 'international') === false) {
+                        mapManager.util.hideItem(marker);
+                    }
+                }
+                if (self.filterAsian()) {
+                    if (mapManager.util.inArray(marker.flags, 'asian') === false) {
+                        mapManager.util.hideItem(marker);
+                    }
+                }
+                if (self.filterChildren()) {
+                    if (mapManager.util.inArray(marker.flags, 'children') === false) {
+                        mapManager.util.hideItem(marker);
+                    }
+                }
+                if (self.filterLatin()) {
+                    if (mapManager.util.inArray(marker.flags, 'latin') === false) {
+                        mapManager.util.hideItem(marker);
+                    }
+                }
+                if (self.filterTechnology()) {
+                    if (mapManager.util.inArray(marker.flags, 'technology') === false) {
+                        mapManager.util.hideItem(marker);
+                    }
+                }
+                if (self.filterBlack()) {
+                    if (mapManager.util.inArray(marker.flags, 'black') === false) {
+                        mapManager.util.hideItem(marker);
                     }
                 }
             }

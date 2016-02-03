@@ -35,6 +35,17 @@ var TheatreMapViewModel = function() {
     self.showOffices = ko.observable(true);
 
     self.filterDiverse = ko.observable(false);
+    self.filterWomen = ko.observable(false);
+    self.filterQueer = ko.observable(false);
+    self.filterAlternative = ko.observable(false);
+    self.filterCommunity = ko.observable(false);
+    self.filterAboriginal = ko.observable(false);
+    self.filterInternational = ko.observable(false);
+    self.filterAsian = ko.observable(false);
+    self.filterChildren = ko.observable(false);
+    self.filterLatin = ko.observable(false);
+    self.filterTechnology = ko.observable(false);
+    self.filterBlack = ko.observable(false);
 
     self.ready = ko.observable(false);
 
@@ -71,10 +82,62 @@ var TheatreMapViewModel = function() {
                 mapManager.util.showItem(marker);
                 if (self.filterDiverse()) {
                     if (mapManager.util.inArray(marker.flags, 'diverse') === false) {
-                        console.log('hiding this');
                         mapManager.util.hideItem(marker);
-                    } else {
-                        console.log('Don\'t hide this one!');
+                    }
+                }
+                if (self.filterWomen()) {
+                    if (mapManager.util.inArray(marker.flags, 'women') === false) {
+                        mapManager.util.hideItem(marker);
+                    }
+                }
+                if (self.filterQueer()) {
+                    if (mapManager.util.inArray(marker.flags, 'queer') === false) {
+                        mapManager.util.hideItem(marker);
+                    }
+                }
+                if (self.filterAlternative()) {
+                    if (mapManager.util.inArray(marker.flags, 'alternative') === false) {
+                        mapManager.util.hideItem(marker);
+                    }
+                }
+                if (self.filterCommunity()) {
+                    if (mapManager.util.inArray(marker.flags, 'community') === false) {
+                        mapManager.util.hideItem(marker);
+                    }
+                }
+                if (self.filterAboriginal()) {
+                    if (mapManager.util.inArray(marker.flags, 'aboriginal') === false) {
+                        mapManager.util.hideItem(marker);
+                    }
+                }
+                if (self.filterInternational()) {
+                    if (mapManager.util.inArray(marker.flags, 'international') === false) {
+                        mapManager.util.hideItem(marker);
+                    }
+                }
+                if (self.filterAsian()) {
+                    if (mapManager.util.inArray(marker.flags, 'asian') === false) {
+                        mapManager.util.hideItem(marker);
+                    }
+                }
+                if (self.filterChildren()) {
+                    if (mapManager.util.inArray(marker.flags, 'children') === false) {
+                        mapManager.util.hideItem(marker);
+                    }
+                }
+                if (self.filterLatin()) {
+                    if (mapManager.util.inArray(marker.flags, 'latin') === false) {
+                        mapManager.util.hideItem(marker);
+                    }
+                }
+                if (self.filterTechnology()) {
+                    if (mapManager.util.inArray(marker.flags, 'technology') === false) {
+                        mapManager.util.hideItem(marker);
+                    }
+                }
+                if (self.filterBlack()) {
+                    if (mapManager.util.inArray(marker.flags, 'black') === false) {
+                        mapManager.util.hideItem(marker);
                     }
                 }
             }
@@ -540,7 +603,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/museum.png', 
                 type: 'venue',
-                flags: ['indie'],
+                flags: [],
                 founded: 2013
             }, {
                 twitter: 'NativeEarth',
@@ -560,7 +623,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/museum.png', 
                 type: 'venue',
-                flags: ['Aboriginal', 'community'],
+                flags: ['aboriginal', 'community'],
                 founded: 1982
             }, {
                 twitter: 'canadianstage',
@@ -620,7 +683,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/museum.png', 
                 type: 'venue',
-                flags: ['community', 'development'],
+                flags: ['community'],
                 founded: 1998
             }, {
                 twitter: 'fuGENTheatre',
@@ -636,7 +699,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/city.png',
                 type: 'office',
-                flags: ['Asian Canadian'],
+                flags: ['asian'],
                 founded: 2002
             }, {
                 twitter: 'CahootsTheatre',
@@ -673,7 +736,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/city.png',
                 type: 'office',
-                flags: ['diverse', 'culture'],
+                flags: ['diverse'],
                 founded: 1991
             }, {
                 twitter: 'Videofag',
@@ -746,7 +809,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/city.png',
                 type: 'office',
-                flags: ['innovation', 'diverse', 'women', 'Latin Canadian'],
+                flags: ['diverse', 'women', 'latin'],
                 founded: 2001,
                 partners: ['The Theatre Centre']
             }, {
@@ -765,7 +828,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/city.png',
                 type: 'office',
-                flags: ['innovation', 'technology', 'development'],
+                flags: ['technology'],
                 founded: 1992
             }, {
                 twitter: 'crowstheatre',
@@ -783,7 +846,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/museum.png', 
                 type: 'venue',
-                flags: ['development'],
+                flags: [],
                 founded: 1983
             }, {
                 twitter: 'nightwoodtheat',
@@ -801,7 +864,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/city.png',
                 type: 'office',
-                flags: ['women', 'diverse', 'innovation'],
+                flags: ['women', 'diverse'],
                 founded: 1979
             }, {
                 twitter: 'obsidiantheatre',
@@ -819,7 +882,7 @@ var mapManager = {
                 },
                 icon: 'dist/images/city.png',
                 type: 'office',
-                flags: ['black', 'diverse'],
+                flags: ['black'],
                 founded: 2000
             }];
         } else {
