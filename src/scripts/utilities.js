@@ -36,11 +36,29 @@ mapManager.util.alphabeticalSort = function(a, b){
     }
 };
 
+mapManager.util.alphabeticalSortReverse = function(a, b){
+    'use strict';
+    if (a.title === b.title){
+        return 0;
+    } else {
+        return a.title < b.title ? 1 : -1;
+    }
+};
+
 mapManager.util.foundingSort = function(a, b){
     'use strict';
     if (a.founded === b.founded){
         return 0;
     } else {
         return a.founded > b.founded ? 1 : -1;
+    }
+};
+
+mapManager.util.foundingSortReverse = function(a, b){
+    'use strict';
+    if (a.founded === b.founded){
+        return 0;
+    } else {
+        return a.founded < b.founded ? 1 : -1;
     }
 };

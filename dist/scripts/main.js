@@ -34,6 +34,9 @@ var TheatreMapViewModel = function() {
 
     self.showOffices = ko.observable(true);
 
+    self.sortedAlpha = false;
+    self.sortedFounded = false;
+
     self.toggleVenues = ko.computed(function() {
         self.markers().forEach(function(marker) {
             if (marker.type === 'venue') {
@@ -137,11 +140,32 @@ var TheatreMapViewModel = function() {
     };
 
     self.sortListAlpha = function() {
-        self.markers.sort(mapManager.util.alphabeticalSort);
+        self.resetSorts('sortedAlpha');
+        if (self.sortedAlpha) {
+            self.sortedAlpha = false;
+            self.markers.sort(mapManager.util.alphabeticalSortReverse);
+        } else {
+            self.sortedAlpha = true;
+            self.markers.sort(mapManager.util.alphabeticalSort);
+        }
     };
 
     self.sortListFounding = function() {
-        self.markers.sort(mapManager.util.foundingSort);
+        self.resetSorts('sortedFounded');
+        if (self.sortedFounded) {
+            self.sortedFounded = false;
+            self.markers.sort(mapManager.util.foundingSortReverse);
+        } else {
+            self.sortedFounded = true;
+            self.markers.sort(mapManager.util.foundingSort);
+        }
+    };
+
+    self.resetSorts = function(exception) {
+        var saved = self[exception];
+        self.sortedFounded = false;
+        self.sortedAlpha = false;
+        self[exception] = saved;
     };
 
     self.remoteAccess = function(theatre) {
@@ -824,11 +848,29 @@ mapManager.util.alphabeticalSort = function(a, b){
     }
 };
 
+mapManager.util.alphabeticalSortReverse = function(a, b){
+    'use strict';
+    if (a.title === b.title){
+        return 0;
+    } else {
+        return a.title < b.title ? 1 : -1;
+    }
+};
+
 mapManager.util.foundingSort = function(a, b){
     'use strict';
     if (a.founded === b.founded){
         return 0;
     } else {
         return a.founded > b.founded ? 1 : -1;
+    }
+};
+
+mapManager.util.foundingSortReverse = function(a, b){
+    'use strict';
+    if (a.founded === b.founded){
+        return 0;
+    } else {
+        return a.founded < b.founded ? 1 : -1;
     }
 };
