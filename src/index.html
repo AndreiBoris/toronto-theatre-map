@@ -16,30 +16,19 @@
 <body>
     <header>
         <div id="search-box">
-            <!-- <input data-bind="value: activeTwitter()"></input> -->
-            <!-- <input type="checkbox" data-bind="checked: showVenues">Show Venues</input> -->
-            <!-- <input type="checkbox" data-bind="checked: showOffices">Show Offices</input> -->
             <button data-bind="click: sortListAlpha">Sort Alphabetically</button>
             <button data-bind="click: sortListFounding">Sort by Date Founded</button>
             <button data-bind="click: closeInfoWindows">Close all</button>
             <button data-bind="click: flipTwitter">Switch</button>
             <br>
-            <input type="checkbox" data-bind="checked: filterDiverse">Diverse</input>
-            <input type="checkbox" data-bind="checked: filterWomen">Women</input>
-            <input type="checkbox" data-bind="checked: filterQueer">Queer</input>
-            <input type="checkbox" data-bind="checked: filterAlternative">Alternative</input>
-            <input type="checkbox" data-bind="checked: filterCommunity">Community</input>
-            <br>
-            <input type="checkbox" data-bind="checked: filterAboriginal">Aboriginal</input>
-            <input type="checkbox" data-bind="checked: filterInternational">International</input>
-            <input type="checkbox" data-bind="checked: filterAsian">Asian-Canadian</input>
-            <input type="checkbox" data-bind="checked: filterChildren">Children</input>
-            <input type="checkbox" data-bind="checked: filterLatin">Latin-Canadian</input>
-            <br>
-            <input type="checkbox" data-bind="checked: filterTechnology">Technology</input>
-            <input type="checkbox" data-bind="checked: filterBlack">Black</input>
-            <input type="checkbox" data-bind="checked: filterOffice">Office</input>
-            <input type="checkbox" data-bind="checked: filterVenue">Venue</input>
+            <ul data-bind="foreach: filters">
+                <li>
+                    <input type="checkbox" data-bind="checked: filter">
+                    <!--ko text: flag-->
+                    <!--/ko-->
+                    </input>
+                </li>
+            </ul>
             <button data-bind="click: clearFilters">Clear Filters</button>
         </div>
     </header>

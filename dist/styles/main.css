@@ -81,6 +81,11 @@ html, body {
 }
 
 /*** This is only for testing purposes ***/
+.filter-list {
+  width: 30%;
+}
+
+/*** This is only for testing purposes ***/
 #twitter-div {
   position: absolute;
   right: 0;
