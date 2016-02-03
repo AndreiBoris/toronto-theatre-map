@@ -102,7 +102,7 @@ html, body {
 
 #search-box {
   position: absolute;
-  left: 40%;
+  left: 30%;
   top: 5%;
   z-index: 2;
 }
