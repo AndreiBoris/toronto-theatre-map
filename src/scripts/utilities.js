@@ -16,6 +16,7 @@ mapManager.util.nullPosition = {
 
 mapManager.util.hideItem = function(marker) {
     'use strict';
+    marker.infoWin.close();
     marker.setMap(null);
     marker.listed(false);
 };
