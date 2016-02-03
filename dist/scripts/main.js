@@ -136,7 +136,7 @@ var TheatreMapViewModel = function() {
         self.openInfoWindow(0);
     };
 
-    self.sortList = function() {
+    self.sortListAlpha = function() {
         self.markers.sort(mapManager.util.alphabeticalSort);
     };
 
@@ -225,7 +225,7 @@ var TheatreMapViewModel = function() {
                 mapManager.infoWindowMaker(curInfoWindow, title, website, blurb);
             }
         });
-        self.sortList();
+        self.sortListAlpha();
         // Save coordinates to localStorage so that we can avoid using AJAX
         // calls next time around. DOESN'T WORK YET.
         mapManager.store();
