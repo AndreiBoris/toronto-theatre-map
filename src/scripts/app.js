@@ -10,26 +10,26 @@ var TheatreMapViewModel = function() {
     'use strict';
     var self = this;
 
-    // Currently displaying the twitter list rather than a particular account.
-    self.twitterListMode = ko.observable(true);
-
     /**
      * Holds all the google.maps.Marker type objects so we can easily manipulate
-     * them through Knockout. Will probably need to switch to observableArray.
-     * @type {Array}
+     * them through Knockout.
      */
     self.markers = ko.observableArray([]);
 
-    self.infoWindowsContent = ko.observableArray([]);
-
+    // Currently displaying the twitter list rather than a particular account.
+    self.twitterListMode = ko.observable(true);
+    // The twitter handle of the account we want to display. A ko.computed
+    // depends on this.
     self.activeTwitter = ko.observable('');
-
+    // Determine whether to spend resources loading up twitter DOM elements
     self.twitterIsOpen = ko.observable(true);
-
+    // twitterListFeed depends on this.
     self.twitterListNotLoaded = ko.observable(true);
 
-    self.crazyArray = ko.observableArray([]);
-
+    /**
+     * These filters are connected to checkboxes on the view. If one of them is 
+     * true, only those markers that feature 
+     */
     self.filterDiverse = ko.observable(false);
     self.filterWomen = ko.observable(false);
     self.filterQueer = ko.observable(false);
@@ -66,30 +66,6 @@ var TheatreMapViewModel = function() {
 
     self.sortedAlpha = false;
     self.sortedFounded = false;
-
-    // self.toggleVenues = ko.computed(function() {
-    //     self.markers().forEach(function(marker) {
-    //         if (marker.type === 'venue') {
-    //             if (self.showVenues()) {
-    //                 mapManager.util.showItem(marker);
-    //             } else {
-    //                 mapManager.util.hideItem(marker);
-    //             }
-    //         }
-    //     });
-    // });
-
-    // self.toggleOffices = ko.computed(function() {
-    //     self.markers().forEach(function(marker) {
-    //         if (marker.type === 'office') {
-    //             if (self.showOffices()) {
-    //                 mapManager.util.showItem(marker);
-    //             } else {
-    //                 mapManager.util.hideItem(marker);
-    //             }
-    //         }
-    //     });
-    // });
 
     self.filter = ko.computed(function() {
         var length = self.markers().length;
@@ -193,10 +169,6 @@ var TheatreMapViewModel = function() {
         });
     };
 
-    // just a tester function
-    self.printSomething = function() {
-        console.log(self.infoWindowsContent());
-    };
     // just a demonstration of our ability to openInfoWindow without using click
     self.moveMarker = function() {
         self.openInfoWindow(0);
