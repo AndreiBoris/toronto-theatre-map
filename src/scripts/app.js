@@ -39,8 +39,10 @@ var TheatreMapViewModel = function() {
             if (marker.type === 'venue') {
                 if (self.showVenues()) {
                     marker.setMap(mapManager.map);
+                    marker.listed(true);
                 } else {
                     marker.setMap(null);
+                    marker.listed(false);
                 }
             }
         });
@@ -51,8 +53,10 @@ var TheatreMapViewModel = function() {
             if (marker.type === 'office') {
                 if (self.showOffices()) {
                     marker.setMap(mapManager.map);
+                    marker.listed(true);
                 } else {
                     marker.setMap(null);
+                    marker.listed(false);
                 }
             }
         });
@@ -180,7 +184,8 @@ var TheatreMapViewModel = function() {
                 twitterHandle: markerItem.twitter,
                 index: index,
                 icon: markerItem.icon,
-                type: markerItem.type
+                type: markerItem.type,
+                listed: ko.observable(true)
             }));
 
             /**

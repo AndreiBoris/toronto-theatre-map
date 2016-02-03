@@ -27,7 +27,8 @@
         <ul data-bind="foreach: markers">
             <li>
                 <button class="spaced-out" data-bind="text: title,
-          click: $root.remoteAccess"></button>
+          click: $root.remoteAccess,
+          visible: listed"></button>
                 <!-- <div data-bind="text: infoWin.content"></div> -->
             </li>
         </ul>
