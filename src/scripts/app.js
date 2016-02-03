@@ -47,16 +47,19 @@ var TheatreMapViewModel = function() {
     self.filterTechnology = ko.observable(false);
     self.filterBlack = ko.observable(false);
 
-    self.filters = [self.filterDiverse, self.filterWomen, self.filterQueer,
-        self.filterAlternative, self.filterCommunity, self.filterAboriginal,
-        self.filterInternational, self.filterAsian, self.filterChildren,
-        self.filterLatin, self.filterTechnology, self.filterBlack
-    ];
-
-    self.filterFlags = ['diverse', 'women', 'queer',
-        'alternative', 'community', 'aboriginal',
-        'international', 'asian', 'children',
-        'latin', 'technology', 'black'
+    self.filters = [
+    {filter: self.filterDiverse, flag: 'diverse'}, 
+    {filter: self.filterWomen, flag: 'women'},
+    {filter: self.filterQueer, flag: 'queer'},
+    {filter: self.filterAlternative, flag: 'alternative'},
+    {filter: self.filterCommunity, flag: 'community'},
+    {filter: self.filterAboriginal, flag: 'aboriginal'},
+    {filter: self.filterInternational, flag: 'international'},
+    {filter: self.filterAsian, flag: 'asian'},
+    {filter: self.filterChildren, flag: 'children'},
+    {filter: self.filterLatin, flag: 'latin'},
+    {filter: self.filterTechnology, flag: 'technology'},
+    {filter: self.filterBlack, flag: 'black'}
     ];
 
     self.ready = ko.observable(false);
@@ -104,8 +107,8 @@ var TheatreMapViewModel = function() {
             mapManager.util.showItem(marker);
 
             for (j = 0; j < numFilters; j++) {
-                if (self.filters[j]()) {
-                    if (mapManager.util.itemFailsFilter(marker, self.filterFlags[j])) {
+                if (self.filters[j].filter()) {
+                    if (mapManager.util.itemFailsFilter(marker, self.filters[j].flag)) {
                         break;
                     }
                 }
@@ -114,18 +117,11 @@ var TheatreMapViewModel = function() {
     });
 
     self.clearFilters = function() {
-        self.filterDiverse(false);
-        self.filterWomen(false);
-        self.filterQueer(false);
-        self.filterAlternative(false);
-        self.filterCommunity(false);
-        self.filterAboriginal(false);
-        self.filterInternational(false);
-        self.filterAsian(false);
-        self.filterChildren(false);
-        self.filterLatin(false);
-        self.filterTechnology(false);
-        self.filterBlack(false);
+        var numFilters = self.filters.length;
+        var i;
+        for (i = 0; i < numFilters; i++) {
+            self.filters[i].filter(false);
+        }
     };
 
     self.flipTwitter = function() {
