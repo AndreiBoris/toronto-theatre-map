@@ -29,7 +29,8 @@ var TheatreMapViewModel = function() {
     /**
      * These filters are connected to checkboxes on the view. If one of them is 
      * on, only the markers that pass that filter will be displayed. If filter
-     * is added here, be sure to add it to self.filters below.
+     * is added here, be sure to add it to self.filters directly below the 
+     * following block of observables.
      */
     self.filterDiverse = ko.observable(false);
     self.filterWomen = ko.observable(false);
@@ -48,6 +49,8 @@ var TheatreMapViewModel = function() {
 
     /**
      * Keeps the observable and the related flag (from the markers) in one place.
+     * If you change something here, be sure to keep it consistent with the 
+     * block of observables directly above this comment.
      */
     self.filters = [{
         filter: self.filterDiverse,
@@ -96,16 +99,24 @@ var TheatreMapViewModel = function() {
     /**
      * Runs whenever one of the filter checkboxes is changed. It filters which
      * items are visible based on varied criteria.
+     *
+     * NOTE: This function has many embedded loops.
+     * I think its acceptable in this case because it is safe, and the projected 
+     * maximum number of theatres included in this app is not likely to exceed 
+     * more than a couple hundred at any point. Should this no longer be the 
+     * case, this is probably one of the first things worth redesigning.
      */
     self.filterMarkers = ko.computed(function() {
-        var length = self.markers().length;
-        var numFilters = self.filters.length;
+        var length = self.markers().length;     // number of theatres
+        var numFilters = self.filters.length;   // number of filters
         var i, j;
-        var marker;
-        for (i = 0; i < length; i++) {
+        var marker; // makes loop easier to read
+        for (i = 0; i < length; i++) {          // check each theatre
 
-            marker = self.markers()[i];
+            marker = self.markers()[i];         // current theatre
 
+            // Here we make the theatre visible. This makes it so this function
+            // can handle both a filter being turned on and off.
             mapManager.util.showItem(marker);
 
             for (j = 0; j < numFilters; j++) {
