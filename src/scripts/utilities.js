@@ -68,9 +68,18 @@ mapManager.util.inArray = function(array, sought) {
     var length = array.length;
     var i;
     for (i = 0; i < length; i++) {
-        if (array[i] === sought){
+        if (array[i] === sought) {
             return true;
         }
+    }
+    return false;
+};
+
+mapManager.util.itemFailsFilter = function(marker, filter) {
+    'use strict';
+    if (mapManager.util.inArray(marker.flags, filter) === false) {
+        mapManager.util.hideItem(marker);
+        return true;
     }
     return false;
 };
