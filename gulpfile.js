@@ -57,7 +57,7 @@ gulp.task('clean-images', function() {
 gulp.task('images', ['clean-images'], function() {
     gulp.src('src/images/**/*')
         .pipe(imageResize({
-            width: 500
+            width: 24
         }))
         .pipe(gulp.dest('dist/images'))
         .pipe(notify({

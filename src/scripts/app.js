@@ -150,7 +150,8 @@ var TheatreMapViewModel = function() {
                 map: mapManager.map,
                 title: markerItem.title,
                 twitterHandle: markerItem.twitter,
-                index: index
+                index: index,
+                icon: markerItem.type
             }));
 
             /**
