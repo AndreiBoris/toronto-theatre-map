@@ -28,7 +28,8 @@ var TheatreMapViewModel = function() {
 
     /**
      * These filters are connected to checkboxes on the view. If one of them is 
-     * true, only those markers that feature 
+     * on, only the markers that pass that filter will be displayed. If filter
+     * is added here, be sure to add it to self.filters below.
      */
     self.filterDiverse = ko.observable(false);
     self.filterWomen = ko.observable(false);
@@ -45,38 +46,63 @@ var TheatreMapViewModel = function() {
     self.filterOffice = ko.observable(false);
     self.filterVenue = ko.observable(false);
 
-    self.filters = [
-    {filter: self.filterDiverse, flag: 'diverse'}, 
-    {filter: self.filterWomen, flag: 'women'},
-    {filter: self.filterQueer, flag: 'queer'},
-    {filter: self.filterAlternative, flag: 'alternative'},
-    {filter: self.filterCommunity, flag: 'community'},
-    {filter: self.filterAboriginal, flag: 'aboriginal'},
-    {filter: self.filterInternational, flag: 'international'},
-    {filter: self.filterAsian, flag: 'asian'},
-    {filter: self.filterChildren, flag: 'children'},
-    {filter: self.filterLatin, flag: 'latin'},
-    {filter: self.filterTechnology, flag: 'technology'},
-    {filter: self.filterBlack, flag: 'black'},
-    {filter: self.filterOffice, flag: 'office'},
-    {filter: self.filterVenue, flag: 'venue'}
-    ];
+    /**
+     * Keeps the observable and the related flag (from the markers) in one place.
+     */
+    self.filters = [{
+        filter: self.filterDiverse,
+        flag: 'diverse'
+    }, {
+        filter: self.filterWomen,
+        flag: 'women'
+    }, {
+        filter: self.filterQueer,
+        flag: 'queer'
+    }, {
+        filter: self.filterAlternative,
+        flag: 'alternative'
+    }, {
+        filter: self.filterCommunity,
+        flag: 'community'
+    }, {
+        filter: self.filterAboriginal,
+        flag: 'aboriginal'
+    }, {
+        filter: self.filterInternational,
+        flag: 'international'
+    }, {
+        filter: self.filterAsian,
+        flag: 'asian'
+    }, {
+        filter: self.filterChildren,
+        flag: 'children'
+    }, {
+        filter: self.filterLatin,
+        flag: 'latin'
+    }, {
+        filter: self.filterTechnology,
+        flag: 'technology'
+    }, {
+        filter: self.filterBlack,
+        flag: 'black'
+    }, {
+        filter: self.filterOffice,
+        flag: 'office'
+    }, {
+        filter: self.filterVenue,
+        flag: 'venue'
+    }];
 
-    self.ready = ko.observable(false);
-
-    self.sortedAlpha = false;
-    self.sortedFounded = false;
-
-    self.filter = ko.computed(function() {
+    /**
+     * Runs whenever one of the filter checkboxes is changed. It filters which
+     * items are visible based on varied criteria.
+     */
+    self.filterMarkers = ko.computed(function() {
         var length = self.markers().length;
         var numFilters = self.filters.length;
         var i, j;
         var marker;
         for (i = 0; i < length; i++) {
-
-            if (!self.ready()) {
-                break;
-            }
 
             marker = self.markers()[i];
 
@@ -98,6 +124,19 @@ var TheatreMapViewModel = function() {
         for (i = 0; i < numFilters; i++) {
             self.filters[i].filter(false);
         }
+    };
+
+    /**
+     * These booleans are used 
+     */
+    self.sortedAlpha = false;
+    self.sortedFounded = false;
+
+    self.resetSorts = function(exception) {
+        var saved = self[exception];
+        self.sortedFounded = false;
+        self.sortedAlpha = false;
+        self[exception] = saved;
     };
 
     self.flipTwitter = function() {
@@ -196,13 +235,6 @@ var TheatreMapViewModel = function() {
         }
     };
 
-    self.resetSorts = function(exception) {
-        var saved = self[exception];
-        self.sortedFounded = false;
-        self.sortedAlpha = false;
-        self[exception] = saved;
-    };
-
     self.remoteAccess = function(theatre) {
         self.openInfoWindow(theatre);
         self.activeTwitter(theatre.twitterHandle);
@@ -295,7 +327,7 @@ var TheatreMapViewModel = function() {
         // Save coordinates to localStorage so that we can avoid using AJAX
         // calls next time around. DOESN'T WORK YET.
         mapManager.store();
-        self.ready(true);
+        // self.ready(true);
     };
 };
 
