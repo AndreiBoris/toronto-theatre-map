@@ -140,6 +140,10 @@ var TheatreMapViewModel = function() {
         self.markers.sort(mapManager.util.alphabeticalSort);
     };
 
+    self.sortListFounding = function() {
+        self.markers.sort(mapManager.util.foundingSort);
+    };
+
     self.remoteAccess = function(theatre) {
         self.openInfoWindow(theatre);
         self.activeTwitter(theatre.twitterHandle);
@@ -182,7 +186,8 @@ var TheatreMapViewModel = function() {
                 index: index,
                 icon: markerItem.icon,
                 type: markerItem.type,
-                listed: ko.observable(true)
+                listed: ko.observable(true),
+                founded: markerItem.founded
             }));
 
             /**
@@ -816,5 +821,14 @@ mapManager.util.alphabeticalSort = function(a, b){
         return 0;
     } else {
         return a.title > b.title ? 1 : -1;
+    }
+};
+
+mapManager.util.foundingSort = function(a, b){
+    'use strict';
+    if (a.founded === b.founded){
+        return 0;
+    } else {
+        return a.founded > b.founded ? 1 : -1;
     }
 };

@@ -22,12 +22,14 @@
             <button data-bind="click: sortListAlpha">Sort List</button>
             <button data-bind="click: closeInfoWindows">Close all</button>
             <button data-bind="click: flipTwitter">Switch</button>
+            <br>
+            <button data-bind="click: sortListFounding">Sort Founded Date</button>
         </div>
     </header>
     <div id="list-div">
         <ul data-bind="foreach: markers">
             <li>
-                <button class="spaced-out" data-bind="text: title,
+                <button class="spaced-out" data-bind="text: title + ' ' + founded,
           click: $root.remoteAccess,
           visible: listed"></button>
                 <!-- <div data-bind="text: infoWin.content"></div> -->

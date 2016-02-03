@@ -140,6 +140,10 @@ var TheatreMapViewModel = function() {
         self.markers.sort(mapManager.util.alphabeticalSort);
     };
 
+    self.sortListFounding = function() {
+        self.markers.sort(mapManager.util.foundingSort);
+    };
+
     self.remoteAccess = function(theatre) {
         self.openInfoWindow(theatre);
         self.activeTwitter(theatre.twitterHandle);
@@ -182,7 +186,8 @@ var TheatreMapViewModel = function() {
                 index: index,
                 icon: markerItem.icon,
                 type: markerItem.type,
-                listed: ko.observable(true)
+                listed: ko.observable(true),
+                founded: markerItem.founded
             }));
 
             /**

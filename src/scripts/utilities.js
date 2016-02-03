@@ -35,3 +35,12 @@ mapManager.util.alphabeticalSort = function(a, b){
         return a.title > b.title ? 1 : -1;
     }
 };
+
+mapManager.util.foundingSort = function(a, b){
+    'use strict';
+    if (a.founded === b.founded){
+        return 0;
+    } else {
+        return a.founded > b.founded ? 1 : -1;
+    }
+};
