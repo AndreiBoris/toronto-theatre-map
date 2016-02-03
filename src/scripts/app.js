@@ -77,72 +77,103 @@ var TheatreMapViewModel = function() {
     });
 
     self.filter = ko.computed(function() {
-        self.markers().forEach(function(marker) {
+        var length = self.markers().length;
+        var i;
+        var marker;
+        for (i = 0; i < length; i++) {
+            marker = self.markers()[i];
             if (self.ready()) {
                 mapManager.util.showItem(marker);
                 if (self.filterDiverse()) {
                     if (mapManager.util.inArray(marker.flags, 'diverse') === false) {
                         mapManager.util.hideItem(marker);
+                        continue;
                     }
                 }
                 if (self.filterWomen()) {
                     if (mapManager.util.inArray(marker.flags, 'women') === false) {
                         mapManager.util.hideItem(marker);
+                        continue;
                     }
                 }
                 if (self.filterQueer()) {
                     if (mapManager.util.inArray(marker.flags, 'queer') === false) {
                         mapManager.util.hideItem(marker);
+                        continue;
                     }
                 }
                 if (self.filterAlternative()) {
                     if (mapManager.util.inArray(marker.flags, 'alternative') === false) {
                         mapManager.util.hideItem(marker);
+                        continue;
                     }
                 }
                 if (self.filterCommunity()) {
                     if (mapManager.util.inArray(marker.flags, 'community') === false) {
                         mapManager.util.hideItem(marker);
+                        continue;
                     }
                 }
                 if (self.filterAboriginal()) {
                     if (mapManager.util.inArray(marker.flags, 'aboriginal') === false) {
                         mapManager.util.hideItem(marker);
+                        continue;
                     }
                 }
                 if (self.filterInternational()) {
                     if (mapManager.util.inArray(marker.flags, 'international') === false) {
                         mapManager.util.hideItem(marker);
+                        continue;
                     }
                 }
                 if (self.filterAsian()) {
                     if (mapManager.util.inArray(marker.flags, 'asian') === false) {
                         mapManager.util.hideItem(marker);
+                        continue;
                     }
                 }
                 if (self.filterChildren()) {
                     if (mapManager.util.inArray(marker.flags, 'children') === false) {
                         mapManager.util.hideItem(marker);
+                        continue;
                     }
                 }
                 if (self.filterLatin()) {
                     if (mapManager.util.inArray(marker.flags, 'latin') === false) {
                         mapManager.util.hideItem(marker);
+                        continue;
                     }
                 }
                 if (self.filterTechnology()) {
                     if (mapManager.util.inArray(marker.flags, 'technology') === false) {
                         mapManager.util.hideItem(marker);
+                        continue;
                     }
                 }
                 if (self.filterBlack()) {
                     if (mapManager.util.inArray(marker.flags, 'black') === false) {
                         mapManager.util.hideItem(marker);
+                        continue;
                     }
                 }
             }
-        });
+        }
     });
+
+    self.clearFilters = function() {
+        self.filterDiverse(false);
+        self.filterWomen(false);
+        self.filterQueer(false);
+        self.filterAlternative(false);
+        self.filterCommunity(false);
+        self.filterAboriginal(false);
+        self.filterInternational(false);
+        self.filterAsian(false);
+        self.filterChildren(false);
+        self.filterLatin(false);
+        self.filterTechnology(false);
+        self.filterBlack(false);
+    };
 
     self.flipTwitter = function() {
         self.twitterListMode(!self.twitterListMode());
