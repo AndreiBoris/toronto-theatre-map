@@ -949,8 +949,12 @@ var mapManager = {
 
 mapManager.load();
 
-var mapManager = mapManager || {};
+/**
+ * This file is used to hold helper functions and objects in an encapsulated 
+ * way.
+ */
 
+var mapManager = mapManager || {};
 mapManager.util = mapManager.util || {};
 
 // Set InfoWindows to this before giving them relavant content.
@@ -965,19 +969,36 @@ mapManager.util.nullPosition = {
     lng: 0
 };
 
+/**
+ * Hide the marker on the map and hide the corresponding button on the list.
+ * @param  {object} marker
+ */
 mapManager.util.hideItem = function(marker) {
     'use strict';
-    marker.infoWin.close();
-    marker.setMap(null);
+    // Closing the infoWin first ensures hidden markers don't have windows open
+    // when they are shown again.
+    marker.infoWin.close();     
+    marker.setMap(null);    // Detach the marker from the map.
+    // Change the observable the view depends on when deciding whether to show
+    // the button corresponding to the marker.
     marker.listed(false);
 };
 
+/**
+ * Show the marker on the map and show the corresponding button on the list.
+ * @param  {object} marker
+ */
 mapManager.util.showItem = function(marker) {
     'use strict';
     marker.setMap(mapManager.map);
     marker.listed(true);
 };
 
+/**
+ * Sort two markers in alphabetical order based on their titles. Ignore case.
+ * @param  {object} a is a Marker object
+ * @param  {object} b is a Marker object
+ */
 mapManager.util.alphabeticalSort = function(a, b) {
     'use strict';
     if (a.title === b.title) {
@@ -987,6 +1008,12 @@ mapManager.util.alphabeticalSort = function(a, b) {
     }
 };
 
+/**
+ * Sort two markers in reverse alphabetical order based on their titles. Ignore
+ * case.
+ * @param  {object} a is a Marker object
+ * @param  {object} b is a Marker object
+ */
 mapManager.util.alphabeticalSortReverse = function(a, b) {
     'use strict';
     if (a.title === b.title) {
@@ -996,6 +1023,12 @@ mapManager.util.alphabeticalSortReverse = function(a, b) {
     }
 };
 
+/**
+ * Sort two markers in ascending order based on the year the corresponding item
+ * was founded.
+ * @param  {object} a is a Marker object
+ * @param  {object} b is a Marker object
+ */
 mapManager.util.foundingSort = function(a, b) {
     'use strict';
     if (a.founded === b.founded) {
@@ -1005,6 +1038,12 @@ mapManager.util.foundingSort = function(a, b) {
     }
 };
 
+/**
+ * Sort two markers in descending order based on the year the corresponding item
+ * was founded.
+ * @param  {object} a is a Marker object
+ * @param  {object} b is a Marker object
+ */
 mapManager.util.foundingSortReverse = function(a, b) {
     'use strict';
     if (a.founded === b.founded) {
@@ -1014,6 +1053,12 @@ mapManager.util.foundingSortReverse = function(a, b) {
     }
 };
 
+/**
+ * Determine if sought is present in the unsorted array.
+ * @param  {array}      array  
+ * @param  {primative}  sought can be any primitive to be searched for in the 
+ *                             array.
+ */
 mapManager.util.inArray = function(array, sought) {
     'use strict';
     var length = array.length;
@@ -1026,6 +1071,12 @@ mapManager.util.inArray = function(array, sought) {
     return false;
 };
 
+/**
+ * Check to see if the marker has filter in its flags attribute array.
+ * @param  {object} marker is the item we want to check
+ * @param  {string} filter is the string we need to find in the marker.flags 
+ *                         array.
+ */
 mapManager.util.itemFailsFilter = function(marker, filter) {
     'use strict';
     if (mapManager.util.inArray(marker.flags, filter) === false) {
