@@ -348,7 +348,6 @@ var TheatreMapViewModel = function() {
  */
 var tmvm = new TheatreMapViewModel();
 ko.applyBindings(tmvm);
-
 var google = google || {};
 // instantiated TheatreMapViewModel from app.js
 var tmvm = tmvm || {};
@@ -948,7 +947,6 @@ var mapManager = {
 };
 
 mapManager.load();
-
 /**
  * This file is used to hold helper functions and objects in an encapsulated 
  * way.
@@ -977,8 +975,8 @@ mapManager.util.hideItem = function(marker) {
     'use strict';
     // Closing the infoWin first ensures hidden markers don't have windows open
     // when they are shown again.
-    marker.infoWin.close();     
-    marker.setMap(null);    // Detach the marker from the map.
+    marker.infoWin.close();
+    marker.setMap(null); // Detach the marker from the map.
     // Change the observable the view depends on when deciding whether to show
     // the button corresponding to the marker.
     marker.listed(false);
@@ -1079,9 +1077,14 @@ mapManager.util.inArray = function(array, sought) {
  */
 mapManager.util.itemFailsFilter = function(marker, filter) {
     'use strict';
-    if (mapManager.util.inArray(marker.flags, filter) === false) {
-        mapManager.util.hideItem(marker);
-        return true;
+    if (mapManager.util.inArray(marker.flags, filter)) { // Marker passes filter
+        return false;
+    } else {    // Marker fails filter
+        mapManager.util.hideItem(marker);   // Hide marker and corresponding button.
+         // Call will be able to stop checking other filters for this marker, 
+         // since it has already failed this one such work is unnecessary.
+        return true;    
     }
-    return false;
+
+
 };
