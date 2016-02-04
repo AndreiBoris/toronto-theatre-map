@@ -25,7 +25,12 @@ var TheatreMapViewModel = function() {
     self.twitterIsOpen = ko.observable(true);
     // twitterListFeed depends on this.
     self.twitterListNotLoaded = ko.observable(true);
-    // Is an an InfoWindow open?
+    // Is an an InfoWindow open? The corresponding logic is naive and worth 
+    // redesigning. Currently, THIS WILL BREAK if we allow for more than one 
+    // InfoWindow to be open at any given time. It is probably worth redesigning
+    // the implementation of InfoWindows so that only one exists and we just 
+    // update its contents, seeing as how the design hinged on only one window
+    // being open.
     self.infoWindowOpen = ko.observable(false);
     /**
      * This computed depends on whether the user is using the appropriate 
@@ -188,16 +193,16 @@ var TheatreMapViewModel = function() {
                     if (mapManager.util.itemFailsFilter(marker, self.filters[j].flag)) {
                         // Since only one InfoWindow can be open at a given time
                         // we turn off the Close all Windows button
-                        self.checkInfoWindow(marker); 
+                        self.checkInfoWindow(marker);
                         break; // If an item doesn't pass the filter, we don't 
                     } // need to test the other filters.
                 }
             }
         }
     });
-    
-    self.checkInfoWindow = function(marker){
-        if (marker.infoWindowOpen){
+
+    self.checkInfoWindow = function(marker) {
+        if (marker.infoWindowOpen) {
             marker.infoWindowOpen = false;
             self.infoWindowOpen(false);
         }
@@ -289,7 +294,7 @@ var TheatreMapViewModel = function() {
         console.log('accessing');
         self.openInfoWindow(marker);
         self.activeTwitter(marker.twitterHandle);
-        self.userTwitter();
+        self.userTwitter(); // Go to the marker's corresponding twitter feed
     };
 
     /**
@@ -300,6 +305,7 @@ var TheatreMapViewModel = function() {
     self.openInfoWindow = function(marker) {
         self.closeInfoWindows();
         marker.infoWin.open(mapManager.map, marker);
+        // Allows for scanning whether any InfoWindows are open or not.
         marker.infoWindowOpen = true;
         self.infoWindowOpen(true); // observable for the enabling of a button
     };
@@ -310,7 +316,8 @@ var TheatreMapViewModel = function() {
     self.closeInfoWindows = function() {
         self.markers().forEach(function(marker) {
             marker.infoWin.close();
-            marker.infoWindowOpen = false;
+            // Allows for scanning whether any InfoWindows are open or not.
+            marker.infoWindowOpen = false; 
         });
         self.infoWindowOpen(false); // observable for the disabling of a button
     };
