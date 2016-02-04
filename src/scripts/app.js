@@ -54,46 +54,60 @@ var TheatreMapViewModel = function() {
      */
     self.filters = [{
         filter: self.filterDiverse,
-        flag: 'diverse'
+        flag: 'diverse',
+        title: 'Diversity'
     }, {
         filter: self.filterWomen,
-        flag: 'women'
+        flag: 'women',
+        title: 'Women'
     }, {
         filter: self.filterQueer,
-        flag: 'queer'
+        flag: 'queer',
+        title: 'Queer culture'
     }, {
         filter: self.filterAlternative,
-        flag: 'alternative'
+        flag: 'alternative',
+        title: 'Alternative'
     }, {
         filter: self.filterCommunity,
-        flag: 'community'
+        flag: 'community',
+        title: 'Community focused'
     }, {
         filter: self.filterAboriginal,
-        flag: 'aboriginal'
+        flag: 'aboriginal',
+        title: 'Aboriginal'
     }, {
         filter: self.filterInternational,
-        flag: 'international'
+        flag: 'international',
+        title: 'International'
     }, {
         filter: self.filterAsian,
-        flag: 'asian'
+        flag: 'asian',
+        title: 'Asian-Canadian'
     }, {
         filter: self.filterChildren,
-        flag: 'children'
+        flag: 'children',
+        title: 'Theatre for children'
     }, {
         filter: self.filterLatin,
-        flag: 'latin'
+        flag: 'latin',
+        title: 'Latin-Canadian'
     }, {
         filter: self.filterTechnology,
-        flag: 'technology'
+        flag: 'technology',
+        title: 'Technology'
     }, {
         filter: self.filterBlack,
-        flag: 'black'
+        flag: 'black',
+        title: 'Black'
     }, {
         filter: self.filterOffice,
-        flag: 'office'
+        flag: 'office',
+        title: 'Company office'
     }, {
         filter: self.filterVenue,
-        flag: 'venue'
+        flag: 'venue',
+        title: 'Theatre venue'
     }];
 
     /**
