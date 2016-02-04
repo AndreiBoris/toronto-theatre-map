@@ -322,8 +322,7 @@ var TheatreMapViewModel = function() {
                 map: mapManager.map,                    // the Google map
                 title: markerItem.title,                // important for many methods
                 twitterHandle: markerItem.twitter,      // used to access twitter feed
-                icon: markerItem.icon,
-                type: markerItem.type,
+                icon: markerItem.icon,                  // graphic on the map
                 listed: ko.observable(true),
                 founded: markerItem.founded,
                 flags: markerItem.flags,

@@ -322,8 +322,7 @@ var TheatreMapViewModel = function() {
                 map: mapManager.map,                    // the Google map
                 title: markerItem.title,                // important for many methods
                 twitterHandle: markerItem.twitter,      // used to access twitter feed
-                icon: markerItem.icon,
-                type: markerItem.type,
+                icon: markerItem.icon,                  // graphic on the map
                 listed: ko.observable(true),
                 founded: markerItem.founded,
                 flags: markerItem.flags,
@@ -558,7 +557,6 @@ var mapManager = {
                     lng: -79.383107
                 },
                 icon: 'dist/images/museum.png', 
-                type: 'Theatre venue',
                 flags: ['Queer culture', 'Alternative', 'Community focused', 'Theatre venue'],
                 founded: 1978
             }, {
@@ -579,7 +577,6 @@ var mapManager = {
                     lng: -79.412820
                 },
                 icon: 'dist/images/museum.png', 
-                type: 'Theatre venue',
                 flags: ['Theatre venue'],
                 founded: 1970
             }, {
@@ -599,7 +596,6 @@ var mapManager = {
                     lng: -79.402584
                 },
                 icon: 'dist/images/museum.png', 
-                type: 'Theatre venue',
                 flags: ['Diversity', 'Theatre venue'],
                 founded: 1968
             }, {
@@ -617,7 +613,6 @@ var mapManager = {
                     lng: -79.402690
                 },
                 icon: 'dist/images/museum.png', 
-                type: 'Theatre venue',
                 flags: ['Theatre venue'],
                 founded: 1970
             }, {
@@ -635,7 +630,6 @@ var mapManager = {
                     lng: -79.428240
                 },
                 icon: 'dist/images/museum.png', 
-                type: 'Theatre venue',
                 flags: ['Theatre venue'],
                 founded: 2013
             }, {
@@ -655,7 +649,6 @@ var mapManager = {
                     lng: -79.362607
                 },
                 icon: 'dist/images/museum.png', 
-                type: 'Theatre venue',
                 flags: ['Aboriginal', 'Community focused', 'Theatre venue'],
                 founded: 1982
             }, {
@@ -674,7 +667,6 @@ var mapManager = {
                     lng: -79.363817
                 },
                 icon: 'dist/images/museum.png', 
-                type: 'Theatre venue',
                 flags: ['Theatre venue'],
                 founded: 1987
             }, {
@@ -694,7 +686,6 @@ var mapManager = {
                     lng: -79.375129
                 },
                 icon: 'dist/images/museum.png', 
-                type: 'Theatre venue',
                 flags: ['International', 'Theatre venue'],
                 founded: 1987
             }, {
@@ -715,7 +706,6 @@ var mapManager = {
                     lng: -79.357452
                 },
                 icon: 'dist/images/museum.png', 
-                type: 'Theatre venue',
                 flags: ['Community focused', 'Theatre venue'],
                 founded: 1998
             }, {
@@ -731,7 +721,6 @@ var mapManager = {
                     lng: -79.372377
                 },
                 icon: 'dist/images/city.png',
-                type: 'Company office',
                 flags: ['Asian-Canadian', 'Company office'],
                 founded: 2002
             }, {
@@ -748,7 +737,6 @@ var mapManager = {
                     lng: -79.363262
                 },
                 icon: 'dist/images/city.png',
-                type: 'Company office',
                 flags: ['Diversity', 'Community focused', 'Company office'],
                 founded: 1986
             }, {
@@ -768,7 +756,6 @@ var mapManager = {
                     lng: -79.423700
                 },
                 icon: 'dist/images/city.png',
-                type: 'Company office',
                 flags: ['Diversity', 'Company office'],
                 founded: 1991
             }, {
@@ -784,7 +771,6 @@ var mapManager = {
                     lng: -79.401357
                 },
                 icon: 'dist/images/museum.png', 
-                type: 'Theatre venue',
                 flags: ['Alternative', 'Theatre venue'],
                 founded: 2012
             }, {
@@ -802,7 +788,6 @@ var mapManager = {
                     lng: -79.368883
                 },
                 icon: 'dist/images/museum.png', 
-                type: 'Theatre venue',
                 flags: ['Theatre for children', 'Theatre venue'],
                 founded: 1966
             }, {
@@ -822,7 +807,6 @@ var mapManager = {
                     lng: -79.424069
                 },
                 icon: 'dist/images/city.png',
-                type: 'Company office',
                 flags: ['Theatre for children', 'Company office'],
                 founded: 1976
             }, {
@@ -841,7 +825,6 @@ var mapManager = {
                     lng: -79.449632
                 },
                 icon: 'dist/images/city.png',
-                type: 'Company office',
                 flags: ['Diversity', 'Women', 'Latin-Canadian', 'Company office'],
                 founded: 2001
             }, {
@@ -859,7 +842,6 @@ var mapManager = {
                     lng: -79.431099
                 },
                 icon: 'dist/images/city.png',
-                type: 'Company office',
                 flags: ['Technology', 'Company office'],
                 founded: 1992
             }, {
@@ -877,7 +859,6 @@ var mapManager = {
                     lng: -79.350262
                 },
                 icon: 'dist/images/museum.png', 
-                type: 'Theatre venue',
                 flags: ['Theatre venue'],
                 founded: 1983
             }, {
@@ -895,7 +876,6 @@ var mapManager = {
                     lng: -79.358575
                 },
                 icon: 'dist/images/city.png',
-                type: 'Company office',
                 flags: ['Women', 'Diversity', 'Company office'],
                 founded: 1979
             }, {
@@ -913,14 +893,13 @@ var mapManager = {
                     lng: -79.343623
                 },
                 icon: 'dist/images/city.png',
-                type: 'Company office',
                 flags: ['Black', 'Company office'],
                 founded: 2000
             },{
                 twitter: 'bradsucks',
                 title: 'Brad Sucks',
                 website: 'http://www.bradsucks.net/',
-                address: '500 Bathurst Street',
+                address: '1 Bathurst Street',
                 flags: ['Company office'],
                 founded: 2001
             }];
