@@ -368,7 +368,7 @@ var TheatreMapViewModel = function() {
             if (title && website && blurb) {
                 mapManager.infoWindowMaker(curInfoWindow, title, website, blurb);
             } else if (title) {
-                mapManager.infoWinWikiAJAX(title, self.markers(), index);
+                mapManager.infoWinWikiAJAX(self.markers()[index], website, blurb);
             } else { // If there is no title, we can't do a wikipedia AJAX call.
                 mapManager.infoWindowMaker(curInfoWindow, title, website, blurb);
             }
@@ -446,14 +446,14 @@ var mapManager = {
      *                                        the corresponding content from the
      *                                        a mapManager.markerData item. 
      */
-    infoWinWikiAJAX: function(nameOfTheatre, array, index) {
+    infoWinWikiAJAX: function(marker, fallbackWebsite, fallbackBlurp) {
         'use strict';
 
         console.log('running wiki AJAX');
 
         var self = this;
 
-        var formattedName = nameOfTheatre.replace(/ /g, '_');
+        var formattedName = marker.title.replace(/ /g, '_');
 
         // Only try find 1 article (specified by the &limit=1 part)
         var urlWiki = ('https://en.wikipedia.org/w/api.php?action=opensearch&' +
@@ -465,7 +465,7 @@ var mapManager = {
          */
         var wikipediaRequestTimeout = setTimeout(function() {
             // Fall back on whatever content is provided by markerData.
-            array[index].infoWin.setContent(self.markerData[index].content);
+            marker.infoWin.setContent(fallbackBlurp);
             return;
         }, 5000);
 
@@ -477,17 +477,17 @@ var mapManager = {
                 clearTimeout(wikipediaRequestTimeout);
                 // We either found 1 article or we found 0, hence the boolean.
                 var wikiFound = data[1].length;
-                var infoWindow = array[index].infoWin;
+                var infoWindow = marker.infoWin;
                 var title, website, blurb;
                 if (wikiFound) {
                     website = data[3][0];
                     blurb = data[2][0];
                 } else {
                     // Fall back on whatever content is provided by markerData.
-                    website = self.markerData[index].website;
-                    blurb = self.markerData[index].blurb;
+                    website = fallbackWebsite;
+                    blurb = fallbackBlurp;
                 }
-                self.infoWindowMaker(infoWindow, nameOfTheatre, website, blurb);
+                self.infoWindowMaker(infoWindow, marker.title, website, blurb);
             }
         });
     },
@@ -522,7 +522,7 @@ var mapManager = {
             // };
         }).error(function(e) { // Can't show the marker without coordinates.
             console.log('We experienced a failure when making the coordinate request for ' +
-                address + ' for the place called ' + self.markerData[index].title);
+                address + ' for the place called ' + marker.title);
             marker.setMap(null);
         });
     },

@@ -368,7 +368,7 @@ var TheatreMapViewModel = function() {
             if (title && website && blurb) {
                 mapManager.infoWindowMaker(curInfoWindow, title, website, blurb);
             } else if (title) {
-                mapManager.infoWinWikiAJAX(title, self.markers(), index);
+                mapManager.infoWinWikiAJAX(self.markers()[index], website, blurb);
             } else { // If there is no title, we can't do a wikipedia AJAX call.
                 mapManager.infoWindowMaker(curInfoWindow, title, website, blurb);
             }
