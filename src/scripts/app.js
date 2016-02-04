@@ -165,6 +165,17 @@ var TheatreMapViewModel = function() {
         flag: 'Theatre venue'
     }];
 
+    self.filterClicked = ko.computed(function() {
+        var length = self.filters.length;
+        var i;
+        for (i = 0; i < length; i++) {
+            if (self.filters[i].filter()){
+                return true;
+            }
+        }
+        return false;
+    });
+
     /**
      * Runs whenever one of the filter checkboxes is changed. It filters which
      * items are visible based on varied criteria.
