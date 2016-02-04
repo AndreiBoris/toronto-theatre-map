@@ -18,7 +18,8 @@
         <div id="search-box">
             <button data-bind="click: sortListAlpha">Sort Alphabetically</button>
             <button data-bind="click: sortListFounding">Sort by Date Founded</button>
-            <button data-bind="click: closeInfoWindows">Close all</button>
+            <button data-bind=" click: closeInfoWindows,
+                                enable: infoWindowOpen">Close all</button>
             <button data-bind=" click: listTwitter,
                                 enable: !twitterListView()">Back to Twitter list view</button>
             <br>

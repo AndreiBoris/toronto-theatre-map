@@ -25,7 +25,8 @@ var TheatreMapViewModel = function() {
     self.twitterIsOpen = ko.observable(true);
     // twitterListFeed depends on this.
     self.twitterListNotLoaded = ko.observable(true);
-
+    // Is an an InfoWindow open?
+    self.infoWindowOpen = ko.observable(false);
     /**
      * This computed depends on whether the user is using the appropriate 
      * Twitter view and on what the selected twitter account is. If the view
@@ -37,7 +38,7 @@ var TheatreMapViewModel = function() {
      */
     self.newTwitterFeed = ko.computed(function() {
         if (!self.twitterListView() && self.twitterIsOpen()) {
-            console.log('Eating resources'); // DEBUGGING
+            console.log('Active twitter account is ' + self.activeTwitter()); // DEBUGGING
             // Clear div for generation of new twitter feed.
             document.getElementById('twitter-account').innerHTML = '';
             // Use twttr library to create new user timeline
@@ -185,12 +186,22 @@ var TheatreMapViewModel = function() {
             for (j = 0; j < numFilters; j++) { // cycle through each filter
                 if (self.filters[j].filter()) { // the filter is turned on
                     if (mapManager.util.itemFailsFilter(marker, self.filters[j].flag)) {
+                        // Since only one InfoWindow can be open at a given time
+                        // we turn off the Close all Windows button
+                        self.checkInfoWindow(marker); 
                         break; // If an item doesn't pass the filter, we don't 
                     } // need to test the other filters.
                 }
             }
         }
     });
+    
+    self.checkInfoWindow = function(marker){
+        if (marker.infoWindowOpen){
+            marker.infoWindowOpen = false;
+            self.infoWindowOpen(false);
+        }
+    };
 
     /**
      * This is connected to a button the view that allows users to reset the 
@@ -275,6 +286,7 @@ var TheatreMapViewModel = function() {
      * @param  {Object} marker to access
      */
     self.accessMarker = function(marker) {
+        console.log('accessing');
         self.openInfoWindow(marker);
         self.activeTwitter(marker.twitterHandle);
         self.userTwitter();
@@ -288,6 +300,8 @@ var TheatreMapViewModel = function() {
     self.openInfoWindow = function(marker) {
         self.closeInfoWindows();
         marker.infoWin.open(mapManager.map, marker);
+        marker.infoWindowOpen = true;
+        self.infoWindowOpen(true); // observable for the enabling of a button
     };
 
     /**
@@ -296,7 +310,9 @@ var TheatreMapViewModel = function() {
     self.closeInfoWindows = function() {
         self.markers().forEach(function(marker) {
             marker.infoWin.close();
+            marker.infoWindowOpen = false;
         });
+        self.infoWindowOpen(false); // observable for the disabling of a button
     };
 
     /**
@@ -424,7 +440,8 @@ var mapManager = {
             listed: ko.observable(true),
             founded: markerItem.founded, // Company's founding year
             flags: markerItem.flags, // Categories for filters
-            infoWin: {} // placeholder
+            infoWin: {}, // placeholder
+            infoWindowOpen: false
         }));
     },
 

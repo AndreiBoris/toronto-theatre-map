@@ -62,7 +62,8 @@ var mapManager = {
             listed: ko.observable(true),
             founded: markerItem.founded, // Company's founding year
             flags: markerItem.flags, // Categories for filters
-            infoWin: {} // placeholder
+            infoWin: {}, // placeholder
+            infoWindowOpen: false
         }));
     },
 
