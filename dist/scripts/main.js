@@ -54,60 +54,46 @@ var TheatreMapViewModel = function() {
      */
     self.filters = [{
         filter: self.filterDiverse,
-        flag: 'diverse',
-        title: 'Diversity'
+        flag: 'Diversity'
     }, {
         filter: self.filterWomen,
-        flag: 'women',
-        title: 'Women'
+        flag: 'Women'
     }, {
         filter: self.filterQueer,
-        flag: 'queer',
-        title: 'Queer culture'
+        flag: 'Queer culture'
     }, {
         filter: self.filterAlternative,
-        flag: 'alternative',
-        title: 'Alternative'
+        flag: 'Alternative'
     }, {
         filter: self.filterCommunity,
-        flag: 'community',
-        title: 'Community focused'
+        flag: 'Community focused'
     }, {
         filter: self.filterAboriginal,
-        flag: 'aboriginal',
-        title: 'Aboriginal'
+        flag: 'Aboriginal'
     }, {
         filter: self.filterInternational,
-        flag: 'international',
-        title: 'International'
+        flag: 'International'
     }, {
         filter: self.filterAsian,
-        flag: 'asian',
-        title: 'Asian-Canadian'
+        flag: 'Asian-Canadian'
     }, {
         filter: self.filterChildren,
-        flag: 'children',
-        title: 'Theatre for children'
+        flag: 'Theatre for children'
     }, {
         filter: self.filterLatin,
-        flag: 'latin',
-        title: 'Latin-Canadian'
+        flag: 'Latin-Canadian'
     }, {
         filter: self.filterTechnology,
-        flag: 'technology',
-        title: 'Technology'
+        flag: 'Technology'
     }, {
         filter: self.filterBlack,
-        flag: 'black',
-        title: 'Black'
+        flag: 'Black'
     }, {
         filter: self.filterOffice,
-        flag: 'office',
-        title: 'Company office'
+        flag: 'Company office'
     }, {
         filter: self.filterVenue,
-        flag: 'venue',
-        title: 'Theatre venue'
+        flag: 'Theatre venue'
     }];
 
     /**
@@ -121,23 +107,23 @@ var TheatreMapViewModel = function() {
      * case, this is probably one of the first things worth redesigning.
      */
     self.filterMarkers = ko.computed(function() {
-        var length = self.markers().length;     // number of theatres
-        var numFilters = self.filters.length;   // number of filters
+        var length = self.markers().length; // number of theatres
+        var numFilters = self.filters.length; // number of filters
         var i, j;
         var marker; // makes loop easier to read
-        for (i = 0; i < length; i++) {          // check each theatre
+        for (i = 0; i < length; i++) { // check each theatre
 
-            marker = self.markers()[i];         // current theatre
+            marker = self.markers()[i]; // current theatre
 
             // Here we make the theatre visible. This makes it so this function
             // can handle both a filter being turned on and off.
             mapManager.util.showItem(marker);
 
-            for (j = 0; j < numFilters; j++) {
-                if (self.filters[j].filter()) {
+            for (j = 0; j < numFilters; j++) { // cycle through each filter
+                if (self.filters[j].filter()) { // the filter is turned on
                     if (mapManager.util.itemFailsFilter(marker, self.filters[j].flag)) {
-                        break;
-                    }
+                        break; // If an item doesn't pass the filter, we don't 
+                    } // need to test the other filters.
                 }
             }
         }
@@ -534,8 +520,8 @@ var mapManager = {
                     lng: -79.383107
                 },
                 icon: 'dist/images/museum.png', 
-                type: 'venue',
-                flags: ['queer', 'alternative', 'community', 'venue'],
+                type: 'Theatre venue',
+                flags: ['Queer culture', 'Alternative', 'Community focused', 'Theatre venue'],
                 founded: 1978
             }, {
                 twitter: 'tarragontheatre',
@@ -555,8 +541,8 @@ var mapManager = {
                     lng: -79.412820
                 },
                 icon: 'dist/images/museum.png', 
-                type: 'venue',
-                flags: ['venue'],
+                type: 'Theatre venue',
+                flags: ['Theatre venue'],
                 founded: 1970
             }, {
                 twitter: 'beyondwallsTPM',
@@ -575,8 +561,8 @@ var mapManager = {
                     lng: -79.402584
                 },
                 icon: 'dist/images/museum.png', 
-                type: 'venue',
-                flags: ['diverse', 'venue'],
+                type: 'Theatre venue',
+                flags: ['Diversity', 'Theatre venue'],
                 founded: 1968
             }, {
                 twitter: 'FactoryToronto',
@@ -593,8 +579,8 @@ var mapManager = {
                     lng: -79.402690
                 },
                 icon: 'dist/images/museum.png', 
-                type: 'venue',
-                flags: ['venue'],
+                type: 'Theatre venue',
+                flags: ['Theatre venue'],
                 founded: 1970
             }, {
                 twitter: 'StorefrontTO',
@@ -611,8 +597,8 @@ var mapManager = {
                     lng: -79.428240
                 },
                 icon: 'dist/images/museum.png', 
-                type: 'venue',
-                flags: ['venue'],
+                type: 'Theatre venue',
+                flags: ['Theatre venue'],
                 founded: 2013
             }, {
                 twitter: 'NativeEarth',
@@ -631,8 +617,8 @@ var mapManager = {
                     lng: -79.362607
                 },
                 icon: 'dist/images/museum.png', 
-                type: 'venue',
-                flags: ['aboriginal', 'community', 'venue'],
+                type: 'Theatre venue',
+                flags: ['Aboriginal', 'Community focused', 'Theatre venue'],
                 founded: 1982
             }, {
                 twitter: 'canadianstage',
@@ -650,8 +636,8 @@ var mapManager = {
                     lng: -79.363817
                 },
                 icon: 'dist/images/museum.png', 
-                type: 'venue',
-                flags: ['venue'],
+                type: 'Theatre venue',
+                flags: ['Theatre venue'],
                 founded: 1987
             }, {
                 twitter: 'canadianstage',
@@ -670,8 +656,8 @@ var mapManager = {
                     lng: -79.375129
                 },
                 icon: 'dist/images/museum.png', 
-                type: 'venue',
-                flags: ['international', 'venue'],
+                type: 'Theatre venue',
+                flags: ['International', 'Theatre venue'],
                 founded: 1987
             }, {
                 twitter: 'Soulpepper',
@@ -691,8 +677,8 @@ var mapManager = {
                     lng: -79.357452
                 },
                 icon: 'dist/images/museum.png', 
-                type: 'venue',
-                flags: ['community', 'venue'],
+                type: 'Theatre venue',
+                flags: ['Community focused', 'Theatre venue'],
                 founded: 1998
             }, {
                 twitter: 'fuGENTheatre',
@@ -707,8 +693,8 @@ var mapManager = {
                     lng: -79.372377
                 },
                 icon: 'dist/images/city.png',
-                type: 'office',
-                flags: ['asian', 'office'],
+                type: 'Company office',
+                flags: ['Asian-Canadian', 'Company office'],
                 founded: 2002
             }, {
                 twitter: 'CahootsTheatre',
@@ -724,8 +710,8 @@ var mapManager = {
                     lng: -79.363262
                 },
                 icon: 'dist/images/city.png',
-                type: 'office',
-                flags: ['diverse', 'community', 'office'],
+                type: 'Company office',
+                flags: ['Diversity', 'Community focused', 'Company office'],
                 founded: 1986
             }, {
                 twitter: 'bcurrentLIVE',
@@ -744,8 +730,8 @@ var mapManager = {
                     lng: -79.423700
                 },
                 icon: 'dist/images/city.png',
-                type: 'office',
-                flags: ['diverse', 'office'],
+                type: 'Company office',
+                flags: ['Diversity', 'Company office'],
                 founded: 1991
             }, {
                 twitter: 'Videofag',
@@ -760,8 +746,8 @@ var mapManager = {
                     lng: -79.401357
                 },
                 icon: 'dist/images/museum.png', 
-                type: 'venue',
-                flags: ['alternative', 'venue'],
+                type: 'Theatre venue',
+                flags: ['Alternative', 'Theatre venue'],
                 founded: 2012
             }, {
                 twitter: 'YPTToronto',
@@ -778,8 +764,8 @@ var mapManager = {
                     lng: -79.368883
                 },
                 icon: 'dist/images/museum.png', 
-                type: 'venue',
-                flags: ['children', 'venue'],
+                type: 'Theatre venue',
+                flags: ['Theatre for children', 'Theatre venue'],
                 founded: 1966
             }, {
                 twitter: 'TheatreDirectCa',
@@ -798,8 +784,8 @@ var mapManager = {
                     lng: -79.424069
                 },
                 icon: 'dist/images/city.png',
-                type: 'office',
-                flags: ['children', 'office'],
+                type: 'Company office',
+                flags: ['Theatre for children', 'Company office'],
                 founded: 1976
             }, {
                 twitter: 'AlunaTheatre',
@@ -817,10 +803,9 @@ var mapManager = {
                     lng: -79.449632
                 },
                 icon: 'dist/images/city.png',
-                type: 'office',
-                flags: ['diverse', 'women', 'latin', 'office'],
-                founded: 2001,
-                partners: ['The Theatre Centre']
+                type: 'Company office',
+                flags: ['Diversity', 'Women', 'Latin-Canadian', 'Company office'],
+                founded: 2001
             }, {
                 twitter: 'TGargantua',
                 title: 'Theatre Gargantua',
@@ -836,8 +821,8 @@ var mapManager = {
                     lng: -79.431099
                 },
                 icon: 'dist/images/city.png',
-                type: 'office',
-                flags: ['technology', 'office'],
+                type: 'Company office',
+                flags: ['Technology', 'Company office'],
                 founded: 1992
             }, {
                 twitter: 'crowstheatre',
@@ -854,8 +839,8 @@ var mapManager = {
                     lng: -79.350262
                 },
                 icon: 'dist/images/museum.png', 
-                type: 'venue',
-                flags: ['venue'],
+                type: 'Theatre venue',
+                flags: ['Theatre venue'],
                 founded: 1983
             }, {
                 twitter: 'nightwoodtheat',
@@ -872,8 +857,8 @@ var mapManager = {
                     lng: -79.358575
                 },
                 icon: 'dist/images/city.png',
-                type: 'office',
-                flags: ['women', 'diverse', 'office'],
+                type: 'Company office',
+                flags: ['Women', 'Diversity', 'Company office'],
                 founded: 1979
             }, {
                 twitter: 'obsidiantheatre',
@@ -890,8 +875,8 @@ var mapManager = {
                     lng: -79.343623
                 },
                 icon: 'dist/images/city.png',
-                type: 'office',
-                flags: ['black', 'office'],
+                type: 'Company office',
+                flags: ['Black', 'Company office'],
                 founded: 2000
             }];
         } else {

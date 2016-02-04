@@ -54,60 +54,46 @@ var TheatreMapViewModel = function() {
      */
     self.filters = [{
         filter: self.filterDiverse,
-        flag: 'diverse',
-        title: 'Diversity'
+        flag: 'Diversity'
     }, {
         filter: self.filterWomen,
-        flag: 'women',
-        title: 'Women'
+        flag: 'Women'
     }, {
         filter: self.filterQueer,
-        flag: 'queer',
-        title: 'Queer culture'
+        flag: 'Queer culture'
     }, {
         filter: self.filterAlternative,
-        flag: 'alternative',
-        title: 'Alternative'
+        flag: 'Alternative'
     }, {
         filter: self.filterCommunity,
-        flag: 'community',
-        title: 'Community focused'
+        flag: 'Community focused'
     }, {
         filter: self.filterAboriginal,
-        flag: 'aboriginal',
-        title: 'Aboriginal'
+        flag: 'Aboriginal'
     }, {
         filter: self.filterInternational,
-        flag: 'international',
-        title: 'International'
+        flag: 'International'
     }, {
         filter: self.filterAsian,
-        flag: 'asian',
-        title: 'Asian-Canadian'
+        flag: 'Asian-Canadian'
     }, {
         filter: self.filterChildren,
-        flag: 'children',
-        title: 'Theatre for children'
+        flag: 'Theatre for children'
     }, {
         filter: self.filterLatin,
-        flag: 'latin',
-        title: 'Latin-Canadian'
+        flag: 'Latin-Canadian'
     }, {
         filter: self.filterTechnology,
-        flag: 'technology',
-        title: 'Technology'
+        flag: 'Technology'
     }, {
         filter: self.filterBlack,
-        flag: 'black',
-        title: 'Black'
+        flag: 'Black'
     }, {
         filter: self.filterOffice,
-        flag: 'office',
-        title: 'Company office'
+        flag: 'Company office'
     }, {
         filter: self.filterVenue,
-        flag: 'venue',
-        title: 'Theatre venue'
+        flag: 'Theatre venue'
     }];
 
     /**
@@ -121,23 +107,23 @@ var TheatreMapViewModel = function() {
      * case, this is probably one of the first things worth redesigning.
      */
     self.filterMarkers = ko.computed(function() {
-        var length = self.markers().length;     // number of theatres
-        var numFilters = self.filters.length;   // number of filters
+        var length = self.markers().length; // number of theatres
+        var numFilters = self.filters.length; // number of filters
         var i, j;
         var marker; // makes loop easier to read
-        for (i = 0; i < length; i++) {          // check each theatre
+        for (i = 0; i < length; i++) { // check each theatre
 
-            marker = self.markers()[i];         // current theatre
+            marker = self.markers()[i]; // current theatre
 
             // Here we make the theatre visible. This makes it so this function
             // can handle both a filter being turned on and off.
             mapManager.util.showItem(marker);
 
-            for (j = 0; j < numFilters; j++) {
-                if (self.filters[j].filter()) {
+            for (j = 0; j < numFilters; j++) { // cycle through each filter
+                if (self.filters[j].filter()) { // the filter is turned on
                     if (mapManager.util.itemFailsFilter(marker, self.filters[j].flag)) {
-                        break;
-                    }
+                        break; // If an item doesn't pass the filter, we don't 
+                    } // need to test the other filters.
                 }
             }
         }
