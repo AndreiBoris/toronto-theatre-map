@@ -307,24 +307,21 @@ var TheatreMapViewModel = function() {
          * mapManager.markerData holds a series of objects with the information 
          * about theatres needed to create appropriate Markers.
          * 
-         * @param  {object} markerData        An object holding information 
-         *                                    about a theatre venue.
+         * @param  {object} markerData        An object holding data for a 
+         *                                    marker.
          *                                    
-         * @param  {int}    index             The position in the array we're 
-         *                                    on, this is useful for the AJAX 
-         *                                    calls we make that use the indices 
-         *                                    to asynchronously apply retrieved 
-         *                                    data to the correct Markers and 
-         *                                    InfoWindows.               
+         * @param  {int}    index             This is useful for giving the 
+         *                                    markers each an ID and for 
+         *                                    referring to the current marker
+         *                                    being added to self.markers               
          */
         mapManager.markerData.forEach(function(markerItem, index) {
-            // Add a marker with the position 0,0, which we will later move.
+            // Store marker in an observable array self.markers.
             self.markers.push(new google.maps.Marker({
-                position: mapManager.util.nullPosition,
-                map: mapManager.map,
-                title: markerItem.title,
-                twitterHandle: markerItem.twitter,
-                index: index,
+                position: mapManager.util.nullPosition, // 0,0 placeholder
+                map: mapManager.map,                    // the Google map
+                title: markerItem.title,                // important for many methods
+                twitterHandle: markerItem.twitter,      // used to access twitter feed
                 icon: markerItem.icon,
                 type: markerItem.type,
                 listed: ko.observable(true),
