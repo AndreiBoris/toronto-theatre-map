@@ -1,6 +1,7 @@
 var google = google || {};
 // instantiated TheatreMapViewModel from app.js
 var tmvm = tmvm || {};
+var ko = ko || {};
 
 /**
  * mapManager is responsible for holding the map, markers data, and 
@@ -40,6 +41,70 @@ var mapManager = {
          * populated when mapManager.load() is run at the bottom of this file.
          */
         tmvm.addMarkers();
+    },
+
+    /**
+     * Adds a marker to an array using the data in a markerItem object.
+     * @param  {object} markerItem holds the data needed to create a marker
+     * @param  {array}  array      is an observableArray of markers in the
+     *                             TheatreMapViewModel
+     */
+    pushMarker: function(markerItem, array) {
+        'use strict';
+        array.push(new google.maps.Marker({
+            position: this.util.nullPosition, // 0,0 placeholder
+            map: this.map, // the Google map
+            title: markerItem.title, // important for many methods
+            twitterHandle: markerItem.twitter, // used to access twitter feed
+            icon: markerItem.icon, // graphic on the map
+            // The 'listed' observable manages whether the marker's 
+            // corresponding button on the list is visible or not
+            listed: ko.observable(true),
+            founded: markerItem.founded, // Company's founding year
+            flags: markerItem.flags, // Categories for filters
+            infoWin: {} // placeholder
+        }));
+    },
+
+    /**
+     * If the position coordinates exist, use those. Otherwise, use the address 
+     * and make a Google Maps Geocoding call to find the corresponding 
+     * coordinates. Failing those two things, we can't display the Marker.
+     */
+    adjustPosition: function(marker, markerItem) {
+        'use strict';
+        var position = markerItem.position;
+        var address = markerItem.address;
+        if (position) {
+            marker.setPosition(position);
+        } else if (address) {
+            this.mapPositionAJAX(marker, address);
+        } else {
+            // Take the marker off the map.
+            marker.setMap(null);
+        }
+
+    },
+
+    /**
+     * Fill an InfoWindow associated with marker using available data.
+     * @param {object} marker  The marker corresponding to the InfoWindow.
+     * @param {string} title   The title to display.
+     * @param {string} website The website that the title should link to.
+     * @param {string} blurb   The description corresponding to the marker.
+     */
+    setInfoWindow: function(marker, title, website, blurb) {
+        'use strict';
+        if (title && website && blurb) { // we have all the data already
+            // Fill the InfoWindow with all the important data.
+            this.infoWindowMaker(marker.infoWin, title, website, blurb);
+        } else if (title) { // we have the title, so we can look up missing data
+            // Make a call to the Wikipedia API to retrieve a website and/or blurb.
+            this.infoWinWikiAJAX(marker, website, blurb);
+        } else { // If there is no title, we can't do a wikipedia AJAX call.
+            // FIll the InfoWindow as best as we can.
+            this.infoWindowMaker(marker.infoWin, title, website, blurb);
+        }
     },
 
     /**
@@ -99,6 +164,7 @@ var mapManager = {
             }
         });
     },
+
     /**
      * Perform a Google Geocoding API request and apply retrieved coordinates 
      * to Marker stored at index of array.
@@ -106,7 +172,7 @@ var mapManager = {
      * @param  {array}  array   An array of google.maps.Marker objects.
      * @param  {int}    index   Determines which Marker to send coordinates to.
      */
-    mapPositionAJAX: function(address, marker) {
+    mapPositionAJAX: function(marker, address) {
         'use strict';
         var self = this;
 
@@ -134,19 +200,27 @@ var mapManager = {
             marker.setMap(null);
         });
     },
+
+    /**
+     * Fill the content of infoWindow.
+     * @param  {object} infoWindow The InfoWindow we want to fill.
+     * @param  {string} title      The title of the associated marker.
+     * @param  {string} website    The website the title should link to.
+     * @param  {string} blurb      The description to include.
+     */
     infoWindowMaker: function(infoWindow, title, website, blurb) {
         'use strict';
         var content = '<div class="info-window"><h4><a href="' + website + '">' +
             title +
             '</a></h4>' +
             '<p>' + blurb + '</p></div>';
-        infoWindow.setContent(content);
+        infoWindow.setContent(content); // Apply the formatted content.
     },
-    store: function() {
-        'use strict';
-        console.log('storing data');
-        localStorage.markerData = JSON.stringify(this.markerData);
-    },
+    // store: function() {
+    //     'use strict';
+    //     console.log('storing data');
+    //     localStorage.markerData = JSON.stringify(this.markerData);
+    // },
     load: function() {
         'use strict';
         console.log('loading data');
@@ -168,7 +242,7 @@ var mapManager = {
                     lat: 43.663346,
                     lng: -79.383107
                 },
-                icon: 'dist/images/museum.png', 
+                icon: 'dist/images/museum.png',
                 flags: ['Queer culture', 'Alternative', 'Community focused', 'Theatre venue'],
                 founded: 1978
             }, {
@@ -188,7 +262,7 @@ var mapManager = {
                     lat: 43.674842,
                     lng: -79.412820
                 },
-                icon: 'dist/images/museum.png', 
+                icon: 'dist/images/museum.png',
                 flags: ['Theatre venue'],
                 founded: 1970
             }, {
@@ -207,7 +281,7 @@ var mapManager = {
                     lat: 43.648553,
                     lng: -79.402584
                 },
-                icon: 'dist/images/museum.png', 
+                icon: 'dist/images/museum.png',
                 flags: ['Diversity', 'Theatre venue'],
                 founded: 1968
             }, {
@@ -224,7 +298,7 @@ var mapManager = {
                     lat: 43.645531,
                     lng: -79.402690
                 },
-                icon: 'dist/images/museum.png', 
+                icon: 'dist/images/museum.png',
                 flags: ['Theatre venue'],
                 founded: 1970
             }, {
@@ -241,7 +315,7 @@ var mapManager = {
                     lat: 43.661288,
                     lng: -79.428240
                 },
-                icon: 'dist/images/museum.png', 
+                icon: 'dist/images/museum.png',
                 flags: ['Theatre venue'],
                 founded: 2013
             }, {
@@ -260,7 +334,7 @@ var mapManager = {
                     lat: 43.659961,
                     lng: -79.362607
                 },
-                icon: 'dist/images/museum.png', 
+                icon: 'dist/images/museum.png',
                 flags: ['Aboriginal', 'Community focused', 'Theatre venue'],
                 founded: 1982
             }, {
@@ -278,7 +352,7 @@ var mapManager = {
                     lat: 43.650621,
                     lng: -79.363817
                 },
-                icon: 'dist/images/museum.png', 
+                icon: 'dist/images/museum.png',
                 flags: ['Theatre venue'],
                 founded: 1987
             }, {
@@ -297,7 +371,7 @@ var mapManager = {
                     lat: 43.647414,
                     lng: -79.375129
                 },
-                icon: 'dist/images/museum.png', 
+                icon: 'dist/images/museum.png',
                 flags: ['International', 'Theatre venue'],
                 founded: 1987
             }, {
@@ -317,7 +391,7 @@ var mapManager = {
                     lat: 43.650860,
                     lng: -79.357452
                 },
-                icon: 'dist/images/museum.png', 
+                icon: 'dist/images/museum.png',
                 flags: ['Community focused', 'Theatre venue'],
                 founded: 1998
             }, {
@@ -382,7 +456,7 @@ var mapManager = {
                     lat: 43.653486,
                     lng: -79.401357
                 },
-                icon: 'dist/images/museum.png', 
+                icon: 'dist/images/museum.png',
                 flags: ['Alternative', 'Theatre venue'],
                 founded: 2012
             }, {
@@ -399,9 +473,16 @@ var mapManager = {
                     lat: 43.650022,
                     lng: -79.368883
                 },
-                icon: 'dist/images/museum.png', 
+                icon: 'dist/images/museum.png',
                 flags: ['Theatre for children', 'Theatre venue'],
                 founded: 1966
+            }, {
+                twitter: 'bradsucks',
+                title: 'Brad Sucks',
+                website: 'http://www.bradsucks.net/',
+                address: '1 Bathurst Street',
+                flags: ['Company office'],
+                founded: 2001
             }, {
                 twitter: 'TheatreDirectCa',
                 title: 'Theatre Direct',
@@ -470,7 +551,7 @@ var mapManager = {
                     lat: 43.659415,
                     lng: -79.350262
                 },
-                icon: 'dist/images/museum.png', 
+                icon: 'dist/images/museum.png',
                 flags: ['Theatre venue'],
                 founded: 1983
             }, {
@@ -507,13 +588,6 @@ var mapManager = {
                 icon: 'dist/images/city.png',
                 flags: ['Black', 'Company office'],
                 founded: 2000
-            },{
-                twitter: 'bradsucks',
-                title: 'Brad Sucks',
-                website: 'http://www.bradsucks.net/',
-                address: '1 Bathurst Street',
-                flags: ['Company office'],
-                founded: 2001
             }];
         } else {
             //this.markerData = JSON.parse(localStorage.markerData);

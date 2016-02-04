@@ -300,9 +300,10 @@ var TheatreMapViewModel = function() {
      * is incomplete information in each markerItem.
      */
     self.addMarkers = function() {
-        // tempInfoWindow is the placeholder for all InfoWindows added to the 
-        // markers
-        var tempInfoWindow;
+        var curMarker;  // The marker currently being added.
+        var title;      // Title of marker.
+        var website;    // Website associated with marker.
+        var blurb;      // Description associated with marker.
         /**
          * mapManager.markerData holds a series of objects with the information 
          * about theatres needed to create appropriate Markers.
@@ -310,70 +311,32 @@ var TheatreMapViewModel = function() {
          * @param  {object} markerData        An object holding data for a 
          *                                    marker.
          *                                    
-         * @param  {int}    index             This is useful for giving the 
-         *                                    markers each an ID and for 
-         *                                    referring to the current marker
-         *                                    being added to self.markers               
+         * @param  {int}    index             Used to set curMarker             
          */
         mapManager.markerData.forEach(function(markerItem, index) {
             // Store marker in an observable array self.markers.
-            self.markers.push(new google.maps.Marker({
-                position: mapManager.util.nullPosition, // 0,0 placeholder
-                map: mapManager.map,                    // the Google map
-                title: markerItem.title,                // important for many methods
-                twitterHandle: markerItem.twitter,      // used to access twitter feed
-                icon: markerItem.icon,                  // graphic on the map
-                listed: ko.observable(true),
-                founded: markerItem.founded,
-                flags: markerItem.flags,
-                infoWin: {}
-            }));
-
-            /**
-             * If the markerItem has coordinates, use those. If it has an
-             * address, we can make a Google Maps Geocoding call to find the 
-             * corresponding coordinates. Failing those two things, we can't 
-             * display the Marker.
-             */
-            if (markerItem.position) {
-                self.markers()[index].setPosition(markerItem.position);
-            } else if (markerItem.address) {
-                mapManager.mapPositionAJAX(markerItem.address, self.markers()[index]);
-            } else {
-                // Take the marker off the map.
-                self.markers()[index].setMap(null);
-            }
-
-            // Create an empty InfoWindow which we will fill below.
-            tempInfoWindow = new google.maps.InfoWindow(mapManager.util.blankInfoWin);
-
-            self.markers()[index].infoWin = tempInfoWindow;
+            mapManager.pushMarker(markerItem, self.markers);
+            curMarker = self.markers()[index]; // Marker that was just pushed
+            // Move the marker to the correct position on the map.
+            mapManager.adjustPosition(curMarker, markerItem);
+            // Add a blank InfoWindow to curMarker to be filled below.
+            curMarker.infoWin = new google.maps.InfoWindow(mapManager.util.blankInfoWin);
             // Set up a listener on the marker that will open the corresponding
             // InfoWindow when the Marker is clicked.
-            infoWindowBinder(self.markers()[index]);
-
-            // Here is the window we're currently making.
-            var curInfoWindow = self.markers()[index].infoWin;
-
-            var title = markerItem.title;
-            var website = markerItem.website;
-            var blurb = markerItem.blurb;
-
-            // If we have all the information, we don't need to do a wiki AJAX
-            // call.
-            if (title && website && blurb) {
-                mapManager.infoWindowMaker(curInfoWindow, title, website, blurb);
-            } else if (title) {
-                mapManager.infoWinWikiAJAX(self.markers()[index], website, blurb);
-            } else { // If there is no title, we can't do a wikipedia AJAX call.
-                mapManager.infoWindowMaker(curInfoWindow, title, website, blurb);
-            }
+            infoWindowBinder(curMarker);
+            // These variables are set for readability.
+            title = markerItem.title;
+            website = markerItem.website;
+            blurb = markerItem.blurb;
+            // Fill the corresponding InfoWindow with the data we have.
+            mapManager.setInfoWindow(curMarker, title, website, blurb);
         });
+        // Sort the list of markers in alphabetical order such that the buttons
+        // corresponding to the markers will be displayed in this way on the View
         self.sortListAlpha();
         // Save coordinates to localStorage so that we can avoid using AJAX
         // calls next time around. DOESN'T WORK YET.
-        mapManager.store();
-        // self.ready(true);
+        // mapManager.store();
     };
 };
 
