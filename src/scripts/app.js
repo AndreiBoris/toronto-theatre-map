@@ -27,6 +27,75 @@ var TheatreMapViewModel = function() {
     self.twitterListNotLoaded = ko.observable(true);
 
     /**
+     * This computed depends on whether the user is using the appropriate 
+     * Twitter view and on what the selected twitter account is. If the view
+     * is opened, or the account is changed, a new twitter feed for that 
+     * account is added to the #twitter-account div.
+     *
+     * Both this and the twitterListFeed below occupy the same #twitter-div but
+     * only one is visible at any given time.
+     */
+    self.newTwitterFeed = ko.computed(function() {
+        if (!self.twitterListMode() && self.twitterIsOpen()) {
+            console.log('Eating resources'); // DEBUGGING
+            // Clear div for generation of new twitter feed.
+            document.getElementById('twitter-account').innerHTML = '';
+            // Use twttr library to create new user timeline
+            twttr.widgets.createTimeline(
+                '694221648225001472', // widget ID made on my Twitter account
+                document.getElementById('twitter-account'), { // target div
+                    screenName: self.activeTwitter(), // observable
+                    tweetLimit: 5 // Prevents excessive bandwidth use 
+                }
+            );
+        }
+    });
+
+    /**
+     * This computed depends on whether the twitter list has already been loaded
+     * or not. It generates a feed to a twitter list containing all the featured
+     * theatre companies.
+     */
+    self.twitterListFeed = ko.computed(function() {
+        // If twitter is not open, we shouldn't waste cycles or bandwidth.
+        if (self.twitterListNotLoaded() && self.twitterListMode() && self.twitterIsOpen()) {
+            self.twitterListNotLoaded(false); // Prevents waste of bandwidth.
+            console.log('making the list for the only time'); // DEBUGGING
+            // Use twttr library to create new list timeline
+            twttr.widgets.createTimeline(
+                '694233158955323392', // widget ID made on my Twitter account
+                document.getElementById('twitter-list'), { // target div
+                    listOwnerScreenName: 'BreathMachine', // List-holding account
+                    listSlug: 'toronto-theatre', // Name of twitter list
+                    tweetLimit: 10 // Prevents excessive bandwidth use.
+                }
+            );
+        }
+    });
+
+    /**
+     * Turn off twitterListMode so that individual Twitter accounts can be 
+     * viewed.
+     */
+    self.userTwitter = function() {
+        self.twitterListMode(false);
+    };
+
+    /**
+     * Turn on twitterListMode so that all Twitter account can be viewed at 
+     * the same time.
+     */
+    self.listTwitter = function() {
+        self.twitterListMode(true);
+    };
+
+    // This switches from user view to list view on Twitter. This is probably
+    // going to be replaced in some way in a later version.
+    self.flipTwitter = function() {
+        self.twitterListMode(!self.twitterListMode());
+    };
+
+    /**
      * These filters are connected to checkboxes on the view. If one of them is 
      * on, only the markers that pass that filter will be displayed. If filter
      * is added here, be sure to add it to self.filters directly below the 
@@ -193,59 +262,6 @@ var TheatreMapViewModel = function() {
         self[exception] = saved;
     };
 
-    // This switches from user view to list view on Twitter. This is probably
-    // going to be replaced in some way in a later version.
-    self.flipTwitter = function() {
-        self.twitterListMode(!self.twitterListMode());
-    };
-
-    /**
-     * This computed depends on whether the user is using the appropriate 
-     * Twitter view and on what the selected twitter account is. If the view
-     * is opened, or the account is changed, a new twitter feed for that 
-     * account is added to the #twitter-account div.
-     *
-     * Both this and the twitterListFeed below occupy the same #twitter-div but
-     * only one is visible at any given time.
-     */
-    self.newTwitterFeed = ko.computed(function() {
-        if (!self.twitterListMode() && self.twitterIsOpen()) {
-            console.log('Eating resources'); // DEBUGGING
-            // Clear div for generation of new twitter feed.
-            document.getElementById('twitter-account').innerHTML = '';
-            // Use twttr library to create new user timeline
-            twttr.widgets.createTimeline(
-                '694221648225001472', // widget ID made on my Twitter account
-                document.getElementById('twitter-account'), { // target div
-                    screenName: self.activeTwitter(), // observable
-                    tweetLimit: 5 // Prevents excessive bandwidth use 
-                }
-            );
-        }
-    });
-
-    /**
-     * This computed depends on whether the twitter list has already been loaded
-     * or not. It generates a feed to a twitter list containing all the featured
-     * theatre companies.
-     */
-    self.twitterListFeed = ko.computed(function() {
-        // If twitter is not open, we shouldn't waste cycles or bandwidth.
-        if (self.twitterListNotLoaded() && self.twitterListMode() && self.twitterIsOpen()) {
-            self.twitterListNotLoaded(false); // Prevents waste of bandwidth.
-            console.log('making the list for the only time'); // DEBUGGING
-            // Use twttr library to create new list timeline
-            twttr.widgets.createTimeline(
-                '694233158955323392', // widget ID made on my Twitter account
-                document.getElementById('twitter-list'), { // target div
-                    listOwnerScreenName: 'BreathMachine', // List-holding account
-                    listSlug: 'toronto-theatre', // Name of twitter list
-                    tweetLimit: 10 // Prevents excessive bandwidth use.
-                }
-            );
-        }
-    });
-
     /**
      * This is used inside the forEach loop in self.addMarkers. It makes sure
      * that the listeners are bound to the correct markers and that the 
@@ -267,6 +283,7 @@ var TheatreMapViewModel = function() {
     self.accessMarker = function(marker) {
         self.openInfoWindow(marker);
         self.activeTwitter(marker.twitterHandle);
+        self.userTwitter();
     };
 
     /**
@@ -300,10 +317,10 @@ var TheatreMapViewModel = function() {
      * is incomplete information in each markerItem.
      */
     self.addMarkers = function() {
-        var curMarker;  // The marker currently being added.
-        var title;      // Title of marker.
-        var website;    // Website associated with marker.
-        var blurb;      // Description associated with marker.
+        var curMarker; // The marker currently being added.
+        var title; // Title of marker.
+        var website; // Website associated with marker.
+        var blurb; // Description associated with marker.
         /**
          * mapManager.markerData holds a series of objects with the information 
          * about theatres needed to create appropriate Markers.
