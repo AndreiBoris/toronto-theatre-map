@@ -129,20 +129,63 @@ var TheatreMapViewModel = function() {
         }
     });
 
+    /**
+     * This is connected to a button the view that allows users to reset the 
+     * filters such that all the items are back on the screen.
+     */
     self.clearFilters = function() {
         var numFilters = self.filters.length;
         var i;
         for (i = 0; i < numFilters; i++) {
-            self.filters[i].filter(false);
+            self.filters[i].filter(false); // set the observable to 'false'
+        }
+    };
+
+    // These are used to sort first forwards and then backwards.
+    self.sortedAlpha = false;
+    self.sortedFounded = false;
+
+    /**
+     * Sort alphabetically. First from a-z then from z-a. Case-insensitive.
+     */
+    self.sortListAlpha = function() {
+        self.resetSorts('sortedAlpha'); // reset all sort orders but 'sortedAlpha'
+        if (self.sortedAlpha) { // then sort from z-a
+            self.sortedAlpha = false; // next time sort a-z
+            self.markers.sort(mapManager.util.alphabeticalSortReverse); // sort z-a
+        } else {
+            self.sortedAlpha = true; // next time sort from z-a
+            self.markers.sort(mapManager.util.alphabeticalSort); // sort a-z
         }
     };
 
     /**
-     * These booleans are used 
+     * Sort by date that the company was founded. First from earliest to latest
+     * and then from latest to earliest.
      */
-    self.sortedAlpha = false;
-    self.sortedFounded = false;
+    self.sortListFounding = function() {
+        self.resetSorts('sortedFounded'); // reset all sort orders but 'sortedFounded'
+        if (self.sortedFounded) { // then sort from latest to earliest
+            self.sortedFounded = false; // next time sort from earliest to latest
+            // sort from latest to earliest
+            self.markers.sort(mapManager.util.foundingSortReverse);
+        } else {
+            self.sortedFounded = true; // next time sort from latest to earliest
+            // sort from earliest to latest
+            self.markers.sort(mapManager.util.foundingSort);
+        }
+    };
 
+    /**
+     * This is designed in such a way as to be easily scalable should other 
+     * sort orders be introduced. It resets all sort order except for the one 
+     * entered into the argument.
+     *
+     * The function allows for consistent behaviour from the sorts. Ex. the 
+     * alphabetical sort will always sort from a-z first.
+     * @param  {string} exception this identifies the sort parameter that we 
+     *                            want to leave unchanged. 
+     */
     self.resetSorts = function(exception) {
         var saved = self[exception];
         self.sortedFounded = false;
@@ -150,40 +193,56 @@ var TheatreMapViewModel = function() {
         self[exception] = saved;
     };
 
+    // This switches from user view to list view on Twitter. This is probably
+    // going to be replaced in some way in a later version.
     self.flipTwitter = function() {
         self.twitterListMode(!self.twitterListMode());
     };
 
+    /**
+     * This computed depends on whether the user is using the appropriate 
+     * Twitter view and on what the selected twitter account is. If the view
+     * is opened, or the account is changed, a new twitter feed for that 
+     * account is added to the #twitter-account div.
+     *
+     * Both this and the twitterListFeed below occupy the same #twitter-div but
+     * only one is visible at any given time.
+     */
     self.newTwitterFeed = ko.computed(function() {
         if (!self.twitterListMode() && self.twitterIsOpen()) {
-            console.log('Eating resources');
+            console.log('Eating resources'); // DEBUGGING
+            // Clear div for generation of new twitter feed.
             document.getElementById('twitter-account').innerHTML = '';
+            // Use twttr library to create new user timeline
             twttr.widgets.createTimeline(
-                '694221648225001472',
-                document.getElementById('twitter-account'), {
-                    screenName: self.activeTwitter(),
-                    tweetLimit: 5
+                '694221648225001472', // widget ID made on my Twitter account
+                document.getElementById('twitter-account'), { // target div
+                    screenName: self.activeTwitter(), // observable
+                    tweetLimit: 5 // Prevents excessive bandwidth use 
                 }
             );
         }
     });
 
+    /**
+     * This computed depends on whether the twitter list has already been loaded
+     * or not. It generates a feed to a twitter list containing all the featured
+     * theatre companies.
+     */
     self.twitterListFeed = ko.computed(function() {
+        // If twitter is not open, we shouldn't waste cycles or bandwidth.
         if (self.twitterListNotLoaded() && self.twitterListMode() && self.twitterIsOpen()) {
-            var windowHeight = screen.height;
-            console.log(windowHeight);
-            self.twitterListNotLoaded(false);
-            console.log('making the list for the only time');
+            self.twitterListNotLoaded(false); // Prevents waste of bandwidth.
+            console.log('making the list for the only time'); // DEBUGGING
+            // Use twttr library to create new list timeline
             twttr.widgets.createTimeline(
-                '694233158955323392',
-                document.getElementById('twitter-list'), {
-                    listOwnerScreenName: 'BreathMachine',
-                    listSlug: 'toronto-theatre',
-                    tweetLimit: 10
+                '694233158955323392', // widget ID made on my Twitter account
+                document.getElementById('twitter-list'), { // target div
+                    listOwnerScreenName: 'BreathMachine', // List-holding account
+                    listSlug: 'toronto-theatre', // Name of twitter list
+                    tweetLimit: 10 // Prevents excessive bandwidth use.
                 }
             );
-            document.getElementById('twitter-div').style.height = windowHeight;
-            document.getElementById('twitter-list').style.height = windowHeight;
         }
     });
 
@@ -191,75 +250,54 @@ var TheatreMapViewModel = function() {
      * This is used inside the forEach loop in self.addMarkers. It makes sure
      * that the listeners are bound to the correct markers and that the 
      * InfoWindows open when the markers are clicked.
-     * @param  {int} index      This corresponds to the index number of the
-     *                          self.infoWindows and self.markers, which are 
-     *                          created in parallel.
+     * @param  {object} marker  This is the marker that we want to create a 
+     *                          binding for.
      */
     var infoWindowBinder = function(marker) {
         marker.addListener('click', function() {
-            self.openInfoWindow(marker);
-            self.activeTwitter(marker.twitterHandle);
+            self.accessMarker(marker);
         });
     };
 
     /**
-     * Close all InfoWindows and open the one that is at position index in 
-     * self.infoWindows. 
-     * @param  {int} index  Corresponds to index of self.infoWindows and 
-     *                      self.markers
+     * Open the marker and set the observable holding the active twitter account
+     * to the value stored in it.
+     * @param  {Object} marker to access
      */
-    self.openInfoWindow = function(theatre) {
-        self.closeInfoWindows();
-        theatre.infoWin.open(mapManager.map, theatre);
+    self.accessMarker = function(marker) {
+        self.openInfoWindow(marker);
+        self.activeTwitter(marker.twitterHandle);
     };
 
+    /**
+     * Close all InfoWindows and open the one that is attached to the marker
+     * @param  {object} marker  This is the marker containing the InfoWindow 
+     *                          to be opened.
+     */
+    self.openInfoWindow = function(marker) {
+        self.closeInfoWindows();
+        marker.infoWin.open(mapManager.map, marker);
+    };
+
+    /**
+     * Avoid crowding the map with open windows.
+     */
     self.closeInfoWindows = function() {
         self.markers().forEach(function(marker) {
             marker.infoWin.close();
         });
     };
 
-    // just a demonstration of our ability to openInfoWindow without using click
-    self.moveMarker = function() {
-        self.openInfoWindow(0);
-    };
-
-    self.sortListAlpha = function() {
-        self.resetSorts('sortedAlpha');
-        if (self.sortedAlpha) {
-            self.sortedAlpha = false;
-            self.markers.sort(mapManager.util.alphabeticalSortReverse);
-        } else {
-            self.sortedAlpha = true;
-            self.markers.sort(mapManager.util.alphabeticalSort);
-        }
-    };
-
-    self.sortListFounding = function() {
-        self.resetSorts('sortedFounded');
-        if (self.sortedFounded) {
-            self.sortedFounded = false;
-            self.markers.sort(mapManager.util.foundingSortReverse);
-        } else {
-            self.sortedFounded = true;
-            self.markers.sort(mapManager.util.foundingSort);
-        }
-    };
-
-    self.remoteAccess = function(theatre) {
-        self.openInfoWindow(theatre);
-        self.activeTwitter(theatre.twitterHandle);
-    };
-
     /**
      * Does the following :
      *     - adds all the Markers from the mapManager onto the map
      *     - adds the InfoWindows 
-     *     - binds the InfoWindows to clicks on corresponding Markers
+     *     - binds the InfoWindows to open on clicks on corresponding Markers
      *     
-     * We make a AJAX calls to find wikipedia resources for the InfoWindows and, 
-     * when necessary, calls to Google Maps geocoding API in order to translate 
-     * addresses into coordinates on the map.
+     * When necessary, makeAJAX calls to find wikipedia resources for the 
+     * InfoWindows and calls to Google Maps geocoding API in order to translate 
+     * addresses into coordinates on the map. These calls only happen if there
+     * is incomplete information in each markerItem.
      */
     self.addMarkers = function() {
         // tempInfoWindow is the placeholder name for all added InfoWindows
