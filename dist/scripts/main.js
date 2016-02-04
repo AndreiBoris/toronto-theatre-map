@@ -17,7 +17,7 @@ var TheatreMapViewModel = function() {
     self.markers = ko.observableArray([]);
 
     // Currently displaying the twitter list rather than a particular account.
-    self.twitterListMode = ko.observable(true);
+    self.twitterListView = ko.observable(true);
     // The twitter handle of the account we want to display. A ko.computed
     // depends on this.
     self.activeTwitter = ko.observable('');
@@ -36,7 +36,7 @@ var TheatreMapViewModel = function() {
      * only one is visible at any given time.
      */
     self.newTwitterFeed = ko.computed(function() {
-        if (!self.twitterListMode() && self.twitterIsOpen()) {
+        if (!self.twitterListView() && self.twitterIsOpen()) {
             console.log('Eating resources'); // DEBUGGING
             // Clear div for generation of new twitter feed.
             document.getElementById('twitter-account').innerHTML = '';
@@ -58,7 +58,7 @@ var TheatreMapViewModel = function() {
      */
     self.twitterListFeed = ko.computed(function() {
         // If twitter is not open, we shouldn't waste cycles or bandwidth.
-        if (self.twitterListNotLoaded() && self.twitterListMode() && self.twitterIsOpen()) {
+        if (self.twitterListNotLoaded() && self.twitterListView() && self.twitterIsOpen()) {
             self.twitterListNotLoaded(false); // Prevents waste of bandwidth.
             console.log('making the list for the only time'); // DEBUGGING
             // Use twttr library to create new list timeline
@@ -74,25 +74,19 @@ var TheatreMapViewModel = function() {
     });
 
     /**
-     * Turn off twitterListMode so that individual Twitter accounts can be 
+     * Turn off twitterListView so that individual Twitter accounts can be 
      * viewed.
      */
     self.userTwitter = function() {
-        self.twitterListMode(false);
+        self.twitterListView(false);
     };
 
     /**
-     * Turn on twitterListMode so that all Twitter account can be viewed at 
+     * Turn on twitterListView so that all Twitter account can be viewed at 
      * the same time.
      */
     self.listTwitter = function() {
-        self.twitterListMode(true);
-    };
-
-    // This switches from user view to list view on Twitter. This is probably
-    // going to be replaced in some way in a later version.
-    self.flipTwitter = function() {
-        self.twitterListMode(!self.twitterListMode());
+        self.twitterListView(true);
     };
 
     /**

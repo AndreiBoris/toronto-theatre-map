@@ -9,6 +9,10 @@ html, body {
     padding: 0; 
 }
 
+button:disabled {
+    background-color: #ccc;
+}
+
 /*** The map needs to have a specific size in order to display. ***/
 #map {
     height: 100%;
