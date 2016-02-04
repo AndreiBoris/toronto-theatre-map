@@ -300,7 +300,8 @@ var TheatreMapViewModel = function() {
      * is incomplete information in each markerItem.
      */
     self.addMarkers = function() {
-        // tempInfoWindow is the placeholder name for all added InfoWindows
+        // tempInfoWindow is the placeholder for all InfoWindows added to the 
+        // markers
         var tempInfoWindow;
         /**
          * mapManager.markerData holds a series of objects with the information 
@@ -341,7 +342,7 @@ var TheatreMapViewModel = function() {
             if (markerItem.position) {
                 self.markers()[index].setPosition(markerItem.position);
             } else if (markerItem.address) {
-                mapManager.mapPositionAJAX(markerItem.address, self.markers(), index);
+                mapManager.mapPositionAJAX(markerItem.address, self.markers()[index]);
             } else {
                 // Take the marker off the map.
                 self.markers()[index].setMap(null);
@@ -448,6 +449,8 @@ var mapManager = {
     infoWinWikiAJAX: function(nameOfTheatre, array, index) {
         'use strict';
 
+        console.log('running wiki AJAX');
+
         var self = this;
 
         var formattedName = nameOfTheatre.replace(/ /g, '_');
@@ -495,7 +498,7 @@ var mapManager = {
      * @param  {array}  array   An array of google.maps.Marker objects.
      * @param  {int}    index   Determines which Marker to send coordinates to.
      */
-    mapPositionAJAX: function(address, array, index) {
+    mapPositionAJAX: function(address, marker) {
         'use strict';
         var self = this;
 
@@ -511,16 +514,16 @@ var mapManager = {
             var lat = data.results[0].geometry.location.lat;
             var lng = data.results[0].geometry.location.lng;
             // Set position of appropriate Marker.
-            array[index].setPosition(new google.maps.LatLng(lat, lng));
+            marker.setPosition(new google.maps.LatLng(lat, lng));
             // Update model stored in mapManager so that it can be later stored.
-            self.markerData[index].position = {
-                lat: lat,
-                lng: lng
-            };
+            // self.markerData[index].position = {
+            //     lat: lat,
+            //     lng: lng
+            // };
         }).error(function(e) { // Can't show the marker without coordinates.
             console.log('We experienced a failure when making the coordinate request for ' +
                 address + ' for the place called ' + self.markerData[index].title);
-            array[index].setMap(null);
+            marker.setMap(null);
         });
     },
     infoWindowMaker: function(infoWindow, title, website, blurb) {
@@ -916,6 +919,13 @@ var mapManager = {
                 type: 'Company office',
                 flags: ['Black', 'Company office'],
                 founded: 2000
+            },{
+                twitter: 'bradsucks',
+                title: 'Brad Sucks',
+                website: 'http://www.bradsucks.net/',
+                address: '500 Bathurst Street',
+                flags: ['Company office'],
+                founded: 2001
             }];
         } else {
             //this.markerData = JSON.parse(localStorage.markerData);
