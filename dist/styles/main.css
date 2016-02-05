@@ -107,6 +107,17 @@ button:disabled {
   transition: 0.15s;
 }
 
+#twitter-tab-highlight {
+  opacity: 0;
+  position: absolute;
+  z-index: 4;
+  transition: 0.15s;
+}
+
+.highlight {
+  border: 3px solid yellow;
+}
+
 .twitter-tab-off {
   right: 1.5%;
 }

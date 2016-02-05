@@ -145,9 +145,37 @@ mapManager.util.itemFailsFilter = function(marker, filter) {
 mapManager.util.resizeTwitterTab = function() {
     'use strict';
     var tab = $('#twitter-tab');
+    var tabHL = $('#twitter-tab-highlight');
     var screenHeight = screen.height;
     console.log('The screen height is ' + screenHeight); // DEBUG
     tab.css({'top': screenHeight / 3});
+    tabHL.css({'top': screenHeight / 3});
 };
 
 mapManager.util.resizeTwitterTab();
+
+mapManager.util.fading = false;
+
+mapManager.util.highlight = $('#twitter-tab-highlight');
+
+mapManager.util.curOpacity = 0;
+
+mapManager.util.twitterGlow = function() {
+    'use strict';
+    if (mapManager.util.fading){
+        mapManager.util.curOpacity -= 0.01;
+        mapManager.util.highlight.css('opacity', mapManager.util.curOpacity);
+        if (mapManager.util.curOpacity <= 0){
+            mapManager.util.fading = false;
+        }
+    } else {
+        mapManager.util.curOpacity += 0.01;
+        mapManager.util.highlight.css('opacity', mapManager.util.curOpacity);
+        if (mapManager.util.curOpacity >= 1){
+            mapManager.util.fading = true;
+        }
+    }
+    window.requestAnimationFrame(mapManager.util.twitterGlow);
+};
+
+window.requestAnimationFrame(mapManager.util.twitterGlow);

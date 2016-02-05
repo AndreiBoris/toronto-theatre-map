@@ -29,17 +29,20 @@ var TheatreMapViewModel = function() {
     self.slideTwitter = function() {
         var twitterDiv = document.getElementById('twitter-div');
         var twitterTab = document.getElementById('twitter-tab');
+        var twitterTabHL = document.getElementById('twitter-tab-highlight');
         if (self.twitterIsOpen()) { // then close it
             console.log('Closing twitter.'); // DEBUG
             self.twitterIsOpen(false); // Don't load anything to Twitter
             twitterDiv.className = 'twitter-off'; // Place the off screen
             twitterTab.className = 'twitter-tab-off'; // Place the off screen
+            twitterTabHL.className = 'twitter-tab-off'
         } else { // open twitter
             console.log('Opening twitter.'); // DEBUG
             self.twitterIsOpen(true); // Load things into Twitter
             twitterDiv.className = 'twitter-on'; // Place div on screen
             self.determineNeedToReload(); // May need to replace loaded DOM element
             twitterTab.className = 'twitter-tab-on'; // Place the off screen
+            twitterTabHL.className = 'twitter-tab-on'
         }
 
     };
@@ -1309,9 +1312,37 @@ mapManager.util.itemFailsFilter = function(marker, filter) {
 mapManager.util.resizeTwitterTab = function() {
     'use strict';
     var tab = $('#twitter-tab');
+    var tabHL = $('#twitter-tab-highlight');
     var screenHeight = screen.height;
     console.log('The screen height is ' + screenHeight); // DEBUG
     tab.css({'top': screenHeight / 3});
+    tabHL.css({'top': screenHeight / 3});
 };
 
 mapManager.util.resizeTwitterTab();
+
+mapManager.util.fading = false;
+
+mapManager.util.highlight = $('#twitter-tab-highlight');
+
+mapManager.util.curOpacity = 0;
+
+mapManager.util.twitterGlow = function() {
+    'use strict';
+    if (mapManager.util.fading){
+        mapManager.util.curOpacity -= 0.01;
+        mapManager.util.highlight.css('opacity', mapManager.util.curOpacity);
+        if (mapManager.util.curOpacity <= 0){
+            mapManager.util.fading = false;
+        }
+    } else {
+        mapManager.util.curOpacity += 0.01;
+        mapManager.util.highlight.css('opacity', mapManager.util.curOpacity);
+        if (mapManager.util.curOpacity >= 1){
+            mapManager.util.fading = true;
+        }
+    }
+    window.requestAnimationFrame(mapManager.util.twitterGlow);
+};
+
+window.requestAnimationFrame(mapManager.util.twitterGlow);
