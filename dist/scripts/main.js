@@ -18,36 +18,60 @@ var TheatreMapViewModel = function() {
 
     // Currently displaying the twitter list rather than a particular account.
     self.twitterListView = ko.observable(true);
-    // The twitter handle of the account we want to display. A ko.computed
-    // depends on this.
-    self.activeTwitter = ko.observable('');
+    
     // Determine whether to spend resources loading up twitter DOM elements
     self.twitterIsOpen = ko.observable(false);
     
     self.slideTwitter = function() {
         var twitterDiv = document.getElementById('twitter-div');
         if (self.twitterIsOpen()){
+            console.log('Closing twitter.');
             self.twitterIsOpen(false);
             twitterDiv.className = 'twitter-off';
         } else {
+            console.log('Opening twitter.');
             self.twitterIsOpen(true);
             twitterDiv.className = 'twitter-on';
+            self.determineNeedToReload();
         }
         
     };
 
-    self.currentTwitterListLong = ko.observable(true);
+    // The twitter handle of the account we want to display. A ko.computed
+    // depends on this.
+    self.activeTwitter = ko.observable('');
+    self.lastTwitterUser = ko.observable('');
+    self.newTwitterUser = ko.computed(function(){
+        var result = self.activeTwitter() !== self.lastTwitterUser();
+        console.log('We have a new twitter user? ' + result);
+        return (self.activeTwitter() !== self.lastTwitterUser());
+    });
+
+
+    self.currentTwitterListLong = ko.observable(NaN);
+    self.currentTwitterUserLong = ko.observable(NaN);
 
     self.twitterLong = ko.observable(false);
 
     self.needTwitterListReload = ko.observable(true);
+    self.needTwitterUserReload = ko.observable(true);
 
     self.determineNeedToReload = function(){
-        self.twitterLong(!self.twitterLong());
-        var a = self.currentTwitterListLong();
-        var b = self.twitterLong();
-        self.needTwitterListReload((a && !b) || (!a && b));
+        console.log('Determining need to reload.');
+        var longList = self.currentTwitterListLong();
+        var longUser = self.currentTwitterUserLong();
+        var longTwitter = self.twitterLong();
+        console.log('longList: ' + longList);
+        console.log('longUser: ' + longUser);
+        console.log('longTwitter: ' + longTwitter);
+        var listResult = (longList && !longTwitter) || (!longList && longTwitter);
+        var userResult = (longUser && !longTwitter) || (!longUser && longTwitter);
+        console.log('Current need to reload twitter list: ' + listResult);
+        console.log('Current need to reload twitter user: ' + userResult);
+        self.needTwitterListReload((longList && !longTwitter) || (!longList && longTwitter));
+        self.needTwitterUserReload((longUser && !longTwitter) || (!longUser && longTwitter));
     };
+
 
     // Is an an InfoWindow open? The corresponding logic is naive and worth 
     // redesigning. Currently, THIS WILL BREAK if we allow for more than one 
@@ -66,13 +90,17 @@ var TheatreMapViewModel = function() {
      * only one is visible at any given time.
      */
     self.newTwitterFeed = ko.computed(function() {
-        if (!self.twitterListView() && self.twitterIsOpen()) {
-            console.log('Accessing the user and eating resources.'); // DEBUGGING
+        if (self.twitterIsOpen() && !self.twitterListView() && 
+            (self.needTwitterUserReload() || self.newTwitterUser())) {
+            self.needTwitterUserReload(false);
+            self.lastTwitterUser(self.activeTwitter());
+            console.log('LOADING NEW TWITTER USER.'); // DEBUGGING
             console.log('Active twitter account is ' + self.activeTwitter()); // DEBUGGING
             // Clear div for generation of new twitter feed.
             document.getElementById('twitter-account').innerHTML = '';
             // Use twttr library to create new user timeline
             if (self.twitterLong()) {
+                self.currentTwitterUserLong(true);
                 twttr.widgets.createTimeline(
                     '694221648225001472', // widget ID made on my Twitter account
                     document.getElementById('twitter-account'), { // target div
@@ -80,6 +108,7 @@ var TheatreMapViewModel = function() {
                     }
                 );
             } else {
+                self.currentTwitterUserLong(false);
                 twttr.widgets.createTimeline(
                     '694221648225001472', // widget ID made on my Twitter account
                     document.getElementById('twitter-account'), { // target div
@@ -99,10 +128,10 @@ var TheatreMapViewModel = function() {
     self.twitterListFeed = ko.computed(function() {
         // If twitter is not open, we shouldn't waste cycles or bandwidth.
         if (self.needTwitterListReload() && self.twitterListView() && self.twitterIsOpen()) {
-            self.needTwitterListReload = ko.observable(false);
+            self.needTwitterListReload(false);
             // Clear div for generation of new twitter feed.
             document.getElementById('twitter-list').innerHTML = '';
-            console.log('Making the list and eating resources.'); // DEBUGGING
+            console.log('LOADING NEW TWITTER LIST.'); // DEBUGGING
             // Use twttr library to create new list timeline
             if (self.twitterLong()) {
                 self.currentTwitterListLong(true);
@@ -129,7 +158,9 @@ var TheatreMapViewModel = function() {
     });
 
     self.toggleTwitterLength = function() {
+        console.log('Toggling twitter length.');
         self.twitterLong(!self.twitterLong());
+        self.determineNeedToReload();
     };
 
     /**
@@ -359,6 +390,7 @@ var TheatreMapViewModel = function() {
         self.openInfoWindow(marker);
         self.activeTwitter(marker.twitterHandle);
         self.userTwitter(); // Go to the marker's corresponding twitter feed
+        self.determineNeedToReload();
     };
 
     /**
