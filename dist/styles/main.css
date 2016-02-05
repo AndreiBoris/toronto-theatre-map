@@ -101,6 +101,20 @@ button:disabled {
   transition: 0.15s;
 }
 
+#twitter-tab {
+  position: absolute;
+  z-index: 3;
+  transition: 0.15s;
+}
+
+.twitter-tab-off {
+  right: 1.5%;
+}
+
+.twitter-tab-on {
+  right: 29.5%;
+}
+
 .twitter-on {
   right: 0%;
 }

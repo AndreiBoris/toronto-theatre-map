@@ -136,6 +136,18 @@ mapManager.util.itemFailsFilter = function(marker, filter) {
          // since it has already failed this one such work is unnecessary.
         return true;    
     }
-
-
 };
+
+/**
+ * Resize the twitter tab appropriately according to the screen height. This 
+ * gets run as soon as the app is loaded.
+ */
+mapManager.util.resizeTwitterTab = function() {
+    'use strict';
+    var tab = $('#twitter-tab');
+    var screenHeight = screen.height;
+    console.log('The screen height is ' + screenHeight); // DEBUG
+    tab.css({'top': screenHeight / 3});
+};
+
+mapManager.util.resizeTwitterTab();

@@ -28,15 +28,18 @@ var TheatreMapViewModel = function() {
      */
     self.slideTwitter = function() {
         var twitterDiv = document.getElementById('twitter-div');
+        var twitterTab = document.getElementById('twitter-tab');
         if (self.twitterIsOpen()) { // then close it
             console.log('Closing twitter.'); // DEBUG
             self.twitterIsOpen(false); // Don't load anything to Twitter
             twitterDiv.className = 'twitter-off'; // Place the off screen
+            twitterTab.className = 'twitter-tab-off'; // Place the off screen
         } else { // open twitter
             console.log('Opening twitter.'); // DEBUG
             self.twitterIsOpen(true); // Load things into Twitter
             twitterDiv.className = 'twitter-on'; // Place div on screen
             self.determineNeedToReload(); // May need to replace loaded DOM element
+            twitterTab.className = 'twitter-tab-on'; // Place the off screen
         }
 
     };

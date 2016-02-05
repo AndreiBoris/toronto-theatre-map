@@ -54,10 +54,10 @@ gulp.task('clean-images', function() {
 });
 
 // Resize images
-gulp.task('images', ['clean-images'], function() {
-    gulp.src('src/images/**/*')
+gulp.task('images', function() {
+    gulp.src('src/images/twitter-tab*')
         .pipe(imageResize({
-            width: 24
+            width: 60
         }))
         .pipe(gulp.dest('dist/images'))
         .pipe(notify({
@@ -67,7 +67,7 @@ gulp.task('images', ['clean-images'], function() {
 
 // Clean
 gulp.task('clean', function() {
-    return del(['dist/styles', 'dist/scripts', 'dist/images', './index.html']);
+    return del(['dist/styles', 'dist/scripts', './index.html']);
 });
 
 
