@@ -160,22 +160,4 @@ mapManager.util.highlight = $('#twitter-tab-highlight');
 
 mapManager.util.curOpacity = 0;
 
-mapManager.util.twitterGlow = function() {
-    'use strict';
-    if (mapManager.util.fading){
-        mapManager.util.curOpacity -= 0.01;
-        mapManager.util.highlight.css('opacity', mapManager.util.curOpacity);
-        if (mapManager.util.curOpacity <= 0){
-            mapManager.util.fading = false;
-        }
-    } else {
-        mapManager.util.curOpacity += 0.01;
-        mapManager.util.highlight.css('opacity', mapManager.util.curOpacity);
-        if (mapManager.util.curOpacity >= 1){
-            mapManager.util.fading = true;
-        }
-    }
-    window.requestAnimationFrame(mapManager.util.twitterGlow);
-};
-
-window.requestAnimationFrame(mapManager.util.twitterGlow);
+mapManager.util.requestID = '';

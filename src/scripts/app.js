@@ -35,14 +35,15 @@ var TheatreMapViewModel = function() {
             self.twitterIsOpen(false); // Don't load anything to Twitter
             twitterDiv.className = 'twitter-off'; // Place the off screen
             twitterTab.className = 'twitter-tab-off'; // Place the off screen
-            twitterTabHL.className = 'twitter-tab-off'
+            twitterTabHL.className = 'twitter-tab-off';
         } else { // open twitter
+            self.stopGlow();
             console.log('Opening twitter.'); // DEBUG
             self.twitterIsOpen(true); // Load things into Twitter
             twitterDiv.className = 'twitter-on'; // Place div on screen
             self.determineNeedToReload(); // May need to replace loaded DOM element
             twitterTab.className = 'twitter-tab-on'; // Place the off screen
-            twitterTabHL.className = 'twitter-tab-on'
+            twitterTabHL.className = 'twitter-tab-on';
         }
 
     };
@@ -54,9 +55,12 @@ var TheatreMapViewModel = function() {
      * Determine whether the loaded twitter user matches the selected one
      */
     self.newTwitterUser = ko.computed(function() {
-        var result = self.activeTwitter() !== self.lastTwitterUser(); // DEBUG
+        var result = self.activeTwitter() !== self.lastTwitterUser();
+        if (result) {
+            self.startGlow();
+        }
         console.log('We have a new twitter user? ' + result); // DEBUG
-        return (self.activeTwitter() !== self.lastTwitterUser());
+        return result;
     });
 
     /**
@@ -124,6 +128,9 @@ var TheatreMapViewModel = function() {
             (!longUser && longTwitter));
         self.needTwitterListReload((longList && !longTwitter) ||
             (!longList && longTwitter));
+        if (self.needTwitterUserReload() || self.needTwitterListReload()) {
+            self.startGlow();
+        }
     };
 
     /**
@@ -134,9 +141,9 @@ var TheatreMapViewModel = function() {
         console.log('Toggling twitter length.');
         self.twitterLong(!self.twitterLong()); // Toggle feed type requested.
         // User-readable string about requested feed type.
-        self.updateTwitterLengthIndicator(); 
+        self.updateTwitterLengthIndicator();
         // A change to requested feed type might require a reload.
-        self.determineNeedToReload(); 
+        self.determineNeedToReload();
     };
 
     /**
@@ -167,6 +174,43 @@ var TheatreMapViewModel = function() {
         self.twitterListView(true);
     };
 
+    self.startGlow = function() {
+        if (!self.twitterIsOpen()) {
+            window.requestAnimationFrame(self.twitterGlow);
+        }
+    };
+
+    self.stopGlow = function() {
+        if (mapManager.util.requestID) {
+            window.cancelAnimationFrame(mapManager.util.requestID);
+            mapManager.util.fading = false;
+            mapManager.util.curOpacity = 0;
+            mapManager.util.highlight.css('opacity', 0);
+        }
+    };
+
+    self.twitterGlow = function() {
+        if (self.twitterIsOpen()){
+            console.log('Yes, twitter is open so we should stop this');
+            window.cancelAnimationFrame(mapManager.util.requestID);
+            return;
+        }
+        if (mapManager.util.fading) {
+            mapManager.util.curOpacity -= 0.01;
+            mapManager.util.highlight.css('opacity', mapManager.util.curOpacity);
+            if (mapManager.util.curOpacity <= 0) {
+                mapManager.util.fading = false;
+            }
+        } else {
+            mapManager.util.curOpacity += 0.01;
+            mapManager.util.highlight.css('opacity', mapManager.util.curOpacity);
+            if (mapManager.util.curOpacity >= 1) {
+                mapManager.util.fading = true;
+            }
+        }
+        mapManager.util.requestID = window.requestAnimationFrame(self.twitterGlow);
+    };
+
     /**
      * This computed depends on whether the user is using the appropriate 
      * Twitter view and on what the selected twitter account is. If the view
@@ -182,9 +226,9 @@ var TheatreMapViewModel = function() {
             (self.needTwitterUserReload() || self.newTwitterUser())) {
             // Faster than running determineNeedToReload. We know the current 
             // loaded feed is the same as the requested one.
-            self.needTwitterUserReload(false); 
+            self.needTwitterUserReload(false);
             // Make the computed newTwitterUser false.
-            self.lastTwitterUser(self.activeTwitter()); 
+            self.lastTwitterUser(self.activeTwitter());
             console.log('LOADING NEW TWITTER USER.'); // DEBUG
             console.log('Active twitter account is ' + self.activeTwitter()); // DEBUG
             // Clear div for generation of new twitter feed.
