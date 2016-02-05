@@ -18,13 +18,13 @@ var TheatreMapViewModel = function() {
 
     // Currently displaying the twitter list rather than a particular account.
     self.twitterListView = ko.observable(true);
-    
+
     // Determine whether to spend resources loading up twitter DOM elements
     self.twitterIsOpen = ko.observable(false);
-    
+
     self.slideTwitter = function() {
         var twitterDiv = document.getElementById('twitter-div');
-        if (self.twitterIsOpen()){
+        if (self.twitterIsOpen()) {
             console.log('Closing twitter.');
             self.twitterIsOpen(false);
             twitterDiv.className = 'twitter-off';
@@ -34,14 +34,14 @@ var TheatreMapViewModel = function() {
             twitterDiv.className = 'twitter-on';
             self.determineNeedToReload();
         }
-        
+
     };
 
     // The twitter handle of the account we want to display. A ko.computed
     // depends on this.
     self.activeTwitter = ko.observable('');
     self.lastTwitterUser = ko.observable('');
-    self.newTwitterUser = ko.computed(function(){
+    self.newTwitterUser = ko.computed(function() {
         var result = self.activeTwitter() !== self.lastTwitterUser();
         console.log('We have a new twitter user? ' + result);
         return (self.activeTwitter() !== self.lastTwitterUser());
@@ -56,7 +56,11 @@ var TheatreMapViewModel = function() {
     self.needTwitterListReload = ko.observable(true);
     self.needTwitterUserReload = ko.observable(true);
 
-    self.determineNeedToReload = function(){
+    self.twitterLengthIndicator = ko.observable('Short');
+
+    self.firstListLoad = true;
+
+    self.determineNeedToReload = function() {
         console.log('Determining need to reload.');
         var longList = self.currentTwitterListLong();
         var longUser = self.currentTwitterUserLong();
@@ -72,14 +76,37 @@ var TheatreMapViewModel = function() {
         self.needTwitterUserReload((longUser && !longTwitter) || (!longUser && longTwitter));
     };
 
+    self.toggleTwitterLength = function() {
+        console.log('Toggling twitter length.');
+        self.twitterLong(!self.twitterLong());
+        self.updateTwitterLengthIndicator();
+        self.determineNeedToReload();
+    };
 
-    // Is an an InfoWindow open? The corresponding logic is naive and worth 
-    // redesigning. Currently, THIS WILL BREAK if we allow for more than one 
-    // InfoWindow to be open at any given time. It is probably worth redesigning
-    // the implementation of InfoWindows so that only one exists and we just 
-    // update its contents, seeing as how the design hinged on only one window
-    // being open.
-    self.infoWindowOpen = ko.observable(false);
+    self.updateTwitterLengthIndicator = function() {
+        if (self.twitterLong()){
+            self.twitterLengthIndicator('Long');
+        } else {
+            self.twitterLengthIndicator('Short');
+        }
+    };
+
+    /**
+     * Turn off twitterListView so that individual Twitter accounts can be 
+     * viewed.
+     */
+    self.userTwitter = function() {
+        self.twitterListView(false);
+    };
+
+    /**
+     * Turn on twitterListView so that all Twitter account can be viewed at 
+     * the same time.
+     */
+    self.listTwitter = function() {
+        self.twitterListView(true);
+    };
+
     /**
      * This computed depends on whether the user is using the appropriate 
      * Twitter view and on what the selected twitter account is. If the view
@@ -90,7 +117,7 @@ var TheatreMapViewModel = function() {
      * only one is visible at any given time.
      */
     self.newTwitterFeed = ko.computed(function() {
-        if (self.twitterIsOpen() && !self.twitterListView() && 
+        if (self.twitterIsOpen() && !self.twitterListView() &&
             (self.needTwitterUserReload() || self.newTwitterUser())) {
             self.needTwitterUserReload(false);
             self.lastTwitterUser(self.activeTwitter());
@@ -127,7 +154,9 @@ var TheatreMapViewModel = function() {
      */
     self.twitterListFeed = ko.computed(function() {
         // If twitter is not open, we shouldn't waste cycles or bandwidth.
-        if (self.needTwitterListReload() && self.twitterListView() && self.twitterIsOpen()) {
+        if (self.twitterIsOpen() && self.twitterListView() && 
+            (self.firstListLoad || self.needTwitterListReload())) {
+            self.firstListLoad = false;
             self.needTwitterListReload(false);
             // Clear div for generation of new twitter feed.
             document.getElementById('twitter-list').innerHTML = '';
@@ -157,27 +186,13 @@ var TheatreMapViewModel = function() {
         }
     });
 
-    self.toggleTwitterLength = function() {
-        console.log('Toggling twitter length.');
-        self.twitterLong(!self.twitterLong());
-        self.determineNeedToReload();
-    };
-
-    /**
-     * Turn off twitterListView so that individual Twitter accounts can be 
-     * viewed.
-     */
-    self.userTwitter = function() {
-        self.twitterListView(false);
-    };
-
-    /**
-     * Turn on twitterListView so that all Twitter account can be viewed at 
-     * the same time.
-     */
-    self.listTwitter = function() {
-        self.twitterListView(true);
-    };
+    // Is an an InfoWindow open? The corresponding logic is naive and worth 
+    // redesigning. Currently, THIS WILL BREAK if we allow for more than one 
+    // InfoWindow to be open at any given time. It is probably worth redesigning
+    // the implementation of InfoWindows so that only one exists and we just 
+    // update its contents, seeing as how the design hinged on only one window
+    // being open.
+    self.infoWindowOpen = ko.observable(false);
 
     /**
      * These filters are connected to checkboxes on the view. If one of them is 
