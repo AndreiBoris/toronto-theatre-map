@@ -23,7 +23,10 @@ var TheatreMapViewModel = function() {
     self.activeTwitter = ko.observable('');
     // Determine whether to spend resources loading up twitter DOM elements
     self.twitterIsOpen = ko.observable(true);
-    // twitterListFeed depends on this.
+    
+    self.slideTwitter = function() {
+
+    };
 
     self.currentTwitterListLong = ko.observable(true);
 
@@ -386,23 +389,17 @@ var TheatreMapViewModel = function() {
      * is incomplete information in each markerItem.
      */
     self.addMarkers = function() {
-        var curMarker; // The marker currently being added.
-        var title; // Title of marker.
-        var website; // Website associated with marker.
-        var blurb; // Description associated with marker.
         /**
          * mapManager.markerData holds a series of objects with the information 
          * about theatres needed to create appropriate Markers.
-         * 
          * @param  {object} markerData        An object holding data for a 
-         *                                    marker.
-         *                                    
+         *                                    marker.                                 
          * @param  {int}    index             Used to set curMarker             
          */
         mapManager.markerData.forEach(function(markerItem, index) {
             // Store marker in an observable array self.markers.
             mapManager.pushMarker(markerItem, self.markers);
-            curMarker = self.markers()[index]; // Marker that was just pushed
+            var curMarker = self.markers()[index]; // Marker that was just pushed
             // Move the marker to the correct position on the map.
             mapManager.adjustPosition(curMarker, markerItem);
             // Add a blank InfoWindow to curMarker to be filled below.
@@ -411,9 +408,9 @@ var TheatreMapViewModel = function() {
             // InfoWindow when the Marker is clicked.
             infoWindowBinder(curMarker);
             // These variables are set for readability.
-            title = markerItem.title;
-            website = markerItem.website;
-            blurb = markerItem.blurb;
+            var title = markerItem.title; // Title of marker.
+            var website = markerItem.website; // Website associated with marker.
+            var blurb = markerItem.blurb; // Description associated with marker.
             // Fill the corresponding InfoWindow with the data we have.
             mapManager.setInfoWindow(curMarker, title, website, blurb);
         });
