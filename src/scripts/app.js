@@ -24,7 +24,20 @@ var TheatreMapViewModel = function() {
     // Determine whether to spend resources loading up twitter DOM elements
     self.twitterIsOpen = ko.observable(true);
     // twitterListFeed depends on this.
-    self.twitterListNotLoaded = ko.observable(true);
+
+    self.currentTwitterListLong = ko.observable(true);
+
+    self.twitterLong = ko.observable(false);
+
+    self.needTwitterListReload = ko.observable(true);
+
+    self.determineNeedToReload = function(){
+        self.twitterLong(!self.twitterLong());
+        var a = self.currentTwitterListLong();
+        var b = self.twitterLong();
+        self.needTwitterListReload((a && !b) || (!a && b));
+    };
+
     // Is an an InfoWindow open? The corresponding logic is naive and worth 
     // redesigning. Currently, THIS WILL BREAK if we allow for more than one 
     // InfoWindow to be open at any given time. It is probably worth redesigning
@@ -47,13 +60,22 @@ var TheatreMapViewModel = function() {
             // Clear div for generation of new twitter feed.
             document.getElementById('twitter-account').innerHTML = '';
             // Use twttr library to create new user timeline
-            twttr.widgets.createTimeline(
-                '694221648225001472', // widget ID made on my Twitter account
-                document.getElementById('twitter-account'), { // target div
-                    screenName: self.activeTwitter(), // observable
-                    tweetLimit: 5 // Prevents excessive bandwidth use 
-                }
-            );
+            if (self.twitterLong()) {
+                twttr.widgets.createTimeline(
+                    '694221648225001472', // widget ID made on my Twitter account
+                    document.getElementById('twitter-account'), { // target div
+                        screenName: self.activeTwitter(), // observable 
+                    }
+                );
+            } else {
+                twttr.widgets.createTimeline(
+                    '694221648225001472', // widget ID made on my Twitter account
+                    document.getElementById('twitter-account'), { // target div
+                        screenName: self.activeTwitter(), // observable
+                        tweetLimit: 5 // Prevents excessive bandwidth use 
+                    }
+                );
+            }
         }
     });
 
@@ -64,20 +86,39 @@ var TheatreMapViewModel = function() {
      */
     self.twitterListFeed = ko.computed(function() {
         // If twitter is not open, we shouldn't waste cycles or bandwidth.
-        if (self.twitterListNotLoaded() && self.twitterListView() && self.twitterIsOpen()) {
-            self.twitterListNotLoaded(false); // Prevents waste of bandwidth.
-            console.log('making the list for the only time'); // DEBUGGING
+        if (self.needTwitterListReload() && self.twitterListView() && self.twitterIsOpen()) {
+            self.needTwitterListReload = ko.observable(false);
+            // Clear div for generation of new twitter feed.
+            document.getElementById('twitter-list').innerHTML = '';
+            console.log('Making the list and eating resources.'); // DEBUGGING
             // Use twttr library to create new list timeline
-            twttr.widgets.createTimeline(
-                '694233158955323392', // widget ID made on my Twitter account
-                document.getElementById('twitter-list'), { // target div
-                    listOwnerScreenName: 'BreathMachine', // List-holding account
-                    listSlug: 'toronto-theatre', // Name of twitter list
-                    tweetLimit: 10 // Prevents excessive bandwidth use.
-                }
-            );
+            if (self.twitterLong()) {
+                self.currentTwitterListLong(true);
+                twttr.widgets.createTimeline(
+                    '694233158955323392', // widget ID made on my Twitter account
+                    document.getElementById('twitter-list'), { // target div
+                        listOwnerScreenName: 'BreathMachine', // List-holding account
+                        listSlug: 'toronto-theatre', // Name of twitter list
+                    }
+                );
+            } else {
+                self.currentTwitterListLong(false);
+                twttr.widgets.createTimeline(
+                    '694233158955323392', // widget ID made on my Twitter account
+                    document.getElementById('twitter-list'), { // target div
+                        listOwnerScreenName: 'BreathMachine', // List-holding account
+                        listSlug: 'toronto-theatre', // Name of twitter list
+                        tweetLimit: 10 // Prevents excessive bandwidth use.
+                    }
+                );
+            }
+
         }
     });
+
+    self.toggleTwitterLength = function() {
+        self.twitterLong(!self.twitterLong());
+    };
 
     /**
      * Turn off twitterListView so that individual Twitter accounts can be 
@@ -169,7 +210,7 @@ var TheatreMapViewModel = function() {
         var length = self.filters.length;
         var i;
         for (i = 0; i < length; i++) {
-            if (self.filters[i].filter()){
+            if (self.filters[i].filter()) {
                 return true;
             }
         }
@@ -328,7 +369,7 @@ var TheatreMapViewModel = function() {
         self.markers().forEach(function(marker) {
             marker.infoWin.close();
             // Allows for scanning whether any InfoWindows are open or not.
-            marker.infoWindowOpen = false; 
+            marker.infoWindowOpen = false;
         });
         self.infoWindowOpen(false); // observable for the disabling of a button
     };
