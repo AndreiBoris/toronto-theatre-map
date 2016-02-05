@@ -53,44 +53,92 @@ var TheatreMapViewModel = function() {
         return (self.activeTwitter() !== self.lastTwitterUser());
     });
 
-    // The following two observables are changed when 
+    /**
+     * The following two variables keep track of the kind of Twitter feeds that 
+     * are currently loaded. Short feeds save bandwidth by only allowing recent
+     * posts to be loaded. Long feeds allow users to scroll down to display a 
+     * limitless number of posts. 
+     */
     self.currentTwitterListLong = false;
     self.currentTwitterUserLong = false;
 
+    /**
+     * The length of Twitter feed that the user wants to see. Default is to show 
+     * the short feed.
+     */
     self.twitterLong = ko.observable(false);
 
-    self.needTwitterListReload = ko.observable(true);
+    /**
+     * These observables are used by the computed newTwitterUserFeed and 
+     * newTwitterListFeed to determine whether to run and load new feeds.
+     * Both of these are changed by determineNeedToReload which gets run
+     * whenever there might be a difference between the current requested and 
+     * current loaded Twitter feed. Default is true for both as initially no
+     * Twitter feed is loaded, though this is nominal, since 
+     * determineNeedToReload gets run when twitter is first opened.
+     */
     self.needTwitterUserReload = ko.observable(true);
+    self.needTwitterListReload = ko.observable(true);
 
+    /**
+     * This is to tell the user if the Twitter feed is long or short. It is 
+     * updated by updateTwitterLengthIndicator.
+     */
     self.twitterLengthIndicator = ko.observable('Short');
 
+    /**
+     * If the twitter list feed has never been loaded before, it should be 
+     * loaded whenever the user requests it.
+     */
     self.firstListLoad = true;
 
+    /**
+     * Update needTwitterUserReload and needTwitterListReload depending on 
+     * whether the currently loaded feed type matches the requested feed type.
+     * This function is called whenever any change is done to the Twitter 
+     * portion of the app. There were some issues regarding using a computed 
+     * for this purpose that I did not fully understand so this solution was 
+     * chosen.
+     */
     self.determineNeedToReload = function() {
-        console.log('Determining need to reload.');
-        var longList = self.currentTwitterListLong;
-        var longUser = self.currentTwitterUserLong;
-        var longTwitter = self.twitterLong();
-        console.log('longList: ' + longList);
-        console.log('longUser: ' + longUser);
-        console.log('longTwitter: ' + longTwitter);
-        var listResult = (longList && !longTwitter) || (!longList && longTwitter);
-        var userResult = (longUser && !longTwitter) || (!longUser && longTwitter);
-        console.log('Current need to reload twitter list: ' + listResult);
-        console.log('Current need to reload twitter user: ' + userResult);
-        self.needTwitterListReload((longList && !longTwitter) || (!longList && longTwitter));
-        self.needTwitterUserReload((longUser && !longTwitter) || (!longUser && longTwitter));
+        // The following three variables are created for readability.
+        var longUser = self.currentTwitterUserLong; // Loaded user feed
+        var longList = self.currentTwitterListLong; // Loaded list feed
+        var longTwitter = self.twitterLong(); // Requested feed type
+        console.log('Determining need to reload.'); // DEBUG
+        console.log('longList: ' + longList); // DEBUG
+        console.log('longUser: ' + longUser); // DEBUG
+        console.log('longTwitter: ' + longTwitter); // DEBUG
+        var listResult = (longList && !longTwitter) || (!longList && longTwitter); // DEBUG
+        var userResult = (longUser && !longTwitter) || (!longUser && longTwitter); // DEBUG
+        console.log('Current need to reload twitter list: ' + listResult); // DEBUG
+        console.log('Current need to reload twitter user: ' + userResult); // DEBUG
+        // If the requested and loaded feeds don't match, a reload is required.
+        self.needTwitterUserReload((longUser && !longTwitter) ||
+            (!longUser && longTwitter));
+        self.needTwitterListReload((longList && !longTwitter) ||
+            (!longList && longTwitter));
     };
 
+    /**
+     * Toggled by user interaction on the view. Changes whether a short or long
+     * feed should be requested.
+     */
     self.toggleTwitterLength = function() {
         console.log('Toggling twitter length.');
-        self.twitterLong(!self.twitterLong());
-        self.updateTwitterLengthIndicator();
-        self.determineNeedToReload();
+        self.twitterLong(!self.twitterLong()); // Toggle feed type requested.
+        // User-readable string about requested feed type.
+        self.updateTwitterLengthIndicator(); 
+        // A change to requested feed type might require a reload.
+        self.determineNeedToReload(); 
     };
 
+    /**
+     * Change user-readable indicator about the currently requested Twitter feed
+     * length.
+     */
     self.updateTwitterLengthIndicator = function() {
-        if (self.twitterLong()){
+        if (self.twitterLong()) { // Check the observable regarded feed length
             self.twitterLengthIndicator('Long');
         } else {
             self.twitterLengthIndicator('Short');
@@ -116,23 +164,27 @@ var TheatreMapViewModel = function() {
     /**
      * This computed depends on whether the user is using the appropriate 
      * Twitter view and on what the selected twitter account is. If the view
-     * is opened, or the account is changed, a new twitter feed for that 
-     * account is added to the #twitter-account div.
+     * is opened, the account is changed, or a different feed length is
+     * requested, a new twitter feed for that account is added to the 
+     * #twitter-account div.
      *
      * Both this and the twitterListFeed below occupy the same #twitter-div but
      * only one is visible at any given time.
      */
-    self.newTwitterFeed = ko.computed(function() {
+    self.newTwitterUserFeed = ko.computed(function() {
         if (self.twitterIsOpen() && !self.twitterListView() &&
             (self.needTwitterUserReload() || self.newTwitterUser())) {
-            self.needTwitterUserReload(false);
-            self.lastTwitterUser(self.activeTwitter());
-            console.log('LOADING NEW TWITTER USER.'); // DEBUGGING
-            console.log('Active twitter account is ' + self.activeTwitter()); // DEBUGGING
+            // Faster than running determineNeedToReload. We know the current 
+            // loaded feed is the same as the requested one.
+            self.needTwitterUserReload(false); 
+            // Make the computed newTwitterUser false.
+            self.lastTwitterUser(self.activeTwitter()); 
+            console.log('LOADING NEW TWITTER USER.'); // DEBUG
+            console.log('Active twitter account is ' + self.activeTwitter()); // DEBUG
             // Clear div for generation of new twitter feed.
             document.getElementById('twitter-account').innerHTML = '';
             // Use twttr library to create new user timeline
-            if (self.twitterLong()) {
+            if (self.twitterLong()) { // Load a long, limitless feed.
                 self.currentTwitterUserLong = true;
                 twttr.widgets.createTimeline(
                     '694221648225001472', // widget ID made on my Twitter account
@@ -140,7 +192,7 @@ var TheatreMapViewModel = function() {
                         screenName: self.activeTwitter(), // observable 
                     }
                 );
-            } else {
+            } else { // Load only the 5 most recent tweets.
                 self.currentTwitterUserLong = false;
                 twttr.widgets.createTimeline(
                     '694221648225001472', // widget ID made on my Twitter account
@@ -154,19 +206,24 @@ var TheatreMapViewModel = function() {
     });
 
     /**
-     * This computed depends on whether the twitter list has already been loaded
-     * or not. It generates a feed to a twitter list containing all the featured
-     * theatre companies.
+     * This computed will only perform its function if Twitter is open and set 
+     * to display the Twitter list view. Those two conditions met, it will run 
+     * if its the first time the list feed is being loaded, or if the requested
+     * feed type is different from the loaded feed type.
      */
-    self.twitterListFeed = ko.computed(function() {
+    self.newTwitterListFeed = ko.computed(function() {
         // If twitter is not open, we shouldn't waste cycles or bandwidth.
-        if (self.twitterIsOpen() && self.twitterListView() && 
+        if (self.twitterIsOpen() && self.twitterListView() &&
             (self.firstListLoad || self.needTwitterListReload())) {
+            // Only first load doesn't account for difference between the 
+            // loaded and requested feed types.
             self.firstListLoad = false;
+            // Faster than running determineNeedToReload. We know the current 
+            // loaded feed is the same as the requested one.
             self.needTwitterListReload(false);
             // Clear div for generation of new twitter feed.
             document.getElementById('twitter-list').innerHTML = '';
-            console.log('LOADING NEW TWITTER LIST.'); // DEBUGGING
+            console.log('LOADING NEW TWITTER LIST.'); // DEBUG
             // Use twttr library to create new list timeline
             if (self.twitterLong()) {
                 self.currentTwitterListLong = true;
@@ -308,7 +365,8 @@ var TheatreMapViewModel = function() {
                 if (self.filters[j].filter()) { // the filter is turned on
                     if (mapManager.util.itemFailsFilter(marker, self.filters[j].flag)) {
                         // Since only one InfoWindow can be open at a given time
-                        // we turn off the Close all Windows button
+                        // we turn off the Close all Windows button if a 
+                        // filtered marker had its open.
                         self.checkInfoWindow(marker);
                         break; // If an item doesn't pass the filter, we don't 
                     } // need to test the other filters.
@@ -317,10 +375,17 @@ var TheatreMapViewModel = function() {
         }
     });
 
+    /**
+     * If the marker has its InfoWindow open we tell the marker that we are 
+     * closing the window and report that all InfoWindows are now closed so the 
+     * button to close the InfoWindow in the view is disabled. This only gets 
+     * called by filterMarkers. NOTE: This doesn't actually close the 
+     * InfoWindow, that action is performed by hideItem in itemFailsFilter.
+     */
     self.checkInfoWindow = function(marker) {
-        if (marker.infoWindowOpen) {
-            marker.infoWindowOpen = false;
-            self.infoWindowOpen(false);
+        if (marker.infoWindowOpen) { // Marker's info window is open.
+            marker.infoWindowOpen = false; // Tell the marker the window is closed.
+            self.infoWindowOpen(false); // Tell the view that no windows are open.
         }
     };
 
