@@ -22,10 +22,18 @@ var TheatreMapViewModel = function() {
     // depends on this.
     self.activeTwitter = ko.observable('');
     // Determine whether to spend resources loading up twitter DOM elements
-    self.twitterIsOpen = ko.observable(true);
+    self.twitterIsOpen = ko.observable(false);
     
     self.slideTwitter = function() {
-
+        var twitterDiv = document.getElementById('twitter-div');
+        if (self.twitterIsOpen()){
+            self.twitterIsOpen(false);
+            twitterDiv.className = 'twitter-off';
+        } else {
+            self.twitterIsOpen(true);
+            twitterDiv.className = 'twitter-on';
+        }
+        
     };
 
     self.currentTwitterListLong = ko.observable(true);
@@ -59,6 +67,7 @@ var TheatreMapViewModel = function() {
      */
     self.newTwitterFeed = ko.computed(function() {
         if (!self.twitterListView() && self.twitterIsOpen()) {
+            console.log('Accessing the user and eating resources.'); // DEBUGGING
             console.log('Active twitter account is ' + self.activeTwitter()); // DEBUGGING
             // Clear div for generation of new twitter feed.
             document.getElementById('twitter-account').innerHTML = '';

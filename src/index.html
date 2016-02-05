@@ -49,10 +49,10 @@
     </div>
     <div id="map">
     </div>
-    <div id="twitter-div" data-bind="visible: twitterIsOpen">
-        <div id="twitter-list" data-bind="visible: twitterListView()">
+    <div class="twitter-off" id="twitter-div">
+        <div id="twitter-list" data-bind="visible: twitterListView() && twitterIsOpen">
         </div>
-        <div id="twitter-account" data-bind="visible: !twitterListView()">
+        <div id="twitter-account" data-bind="visible: !twitterListView() && twitterIsOpen">
         </div>
     </div>
     <footer id="footer">

@@ -67,7 +67,7 @@ button:disabled {
 /*** The map needs to have a specific size in order to display. ***/
 #map {
   height: 100%;
-  width: 50%;
+  width: 80%;
   left: 20%;
   position: absolute;
   z-index: 1;
@@ -92,13 +92,21 @@ button:disabled {
 /*** This is only for testing purposes ***/
 #twitter-div {
   position: absolute;
-  right: 0;
   width: 30%;
   text-align: center;
   height: 100%;
   background-color: white;
   z-index: 2;
   overflow: scroll;
+  transition: 0.15s;
+}
+
+.twitter-on {
+  right: 0%;
+}
+
+.twitter-off {
+  right: -28%;
 }
 
 /*** Each InfoWindow that appears when markers are clicked has a div inside them
