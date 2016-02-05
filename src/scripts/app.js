@@ -16,40 +16,46 @@ var TheatreMapViewModel = function() {
      */
     self.markers = ko.observableArray([]);
 
-    // Currently displaying the twitter list rather than a particular account.
-    self.twitterListView = ko.observable(true);
-
-    // Determine whether to spend resources loading up twitter DOM elements
+    // To determine whether to spend resources loading up twitter DOM elements
     self.twitterIsOpen = ko.observable(false);
 
+    // To determine whether to load the twitter list or a particular account.
+    self.twitterListView = ko.observable(true);
+
+    /**
+     * Slide the twitter pane in and out of view, enabling/disabling its drain 
+     * on resources.
+     */
     self.slideTwitter = function() {
         var twitterDiv = document.getElementById('twitter-div');
-        if (self.twitterIsOpen()) {
-            console.log('Closing twitter.');
-            self.twitterIsOpen(false);
-            twitterDiv.className = 'twitter-off';
-        } else {
-            console.log('Opening twitter.');
-            self.twitterIsOpen(true);
-            twitterDiv.className = 'twitter-on';
-            self.determineNeedToReload();
+        if (self.twitterIsOpen()) { // then close it
+            console.log('Closing twitter.'); // DEBUG
+            self.twitterIsOpen(false); // Don't load anything to Twitter
+            twitterDiv.className = 'twitter-off'; // Place the off screen
+        } else { // open twitter
+            console.log('Opening twitter.'); // DEBUG
+            self.twitterIsOpen(true); // Load things into Twitter
+            twitterDiv.className = 'twitter-on'; // Place div on screen
+            self.determineNeedToReload(); // May need to replace loaded DOM element
         }
 
     };
 
-    // The twitter handle of the account we want to display. A ko.computed
-    // depends on this.
-    self.activeTwitter = ko.observable('');
-    self.lastTwitterUser = ko.observable('');
+    self.activeTwitter = ko.observable(''); // current Twitter user selected
+    self.lastTwitterUser = ko.observable(''); // current Twitter user loaded
+
+    /**
+     * Determine whether the loaded twitter user matches the selected one
+     */
     self.newTwitterUser = ko.computed(function() {
-        var result = self.activeTwitter() !== self.lastTwitterUser();
-        console.log('We have a new twitter user? ' + result);
+        var result = self.activeTwitter() !== self.lastTwitterUser(); // DEBUG
+        console.log('We have a new twitter user? ' + result); // DEBUG
         return (self.activeTwitter() !== self.lastTwitterUser());
     });
 
-
-    self.currentTwitterListLong = ko.observable(NaN);
-    self.currentTwitterUserLong = ko.observable(NaN);
+    // The following two observables are changed when 
+    self.currentTwitterListLong = false;
+    self.currentTwitterUserLong = false;
 
     self.twitterLong = ko.observable(false);
 
@@ -62,8 +68,8 @@ var TheatreMapViewModel = function() {
 
     self.determineNeedToReload = function() {
         console.log('Determining need to reload.');
-        var longList = self.currentTwitterListLong();
-        var longUser = self.currentTwitterUserLong();
+        var longList = self.currentTwitterListLong;
+        var longUser = self.currentTwitterUserLong;
         var longTwitter = self.twitterLong();
         console.log('longList: ' + longList);
         console.log('longUser: ' + longUser);
@@ -127,7 +133,7 @@ var TheatreMapViewModel = function() {
             document.getElementById('twitter-account').innerHTML = '';
             // Use twttr library to create new user timeline
             if (self.twitterLong()) {
-                self.currentTwitterUserLong(true);
+                self.currentTwitterUserLong = true;
                 twttr.widgets.createTimeline(
                     '694221648225001472', // widget ID made on my Twitter account
                     document.getElementById('twitter-account'), { // target div
@@ -135,7 +141,7 @@ var TheatreMapViewModel = function() {
                     }
                 );
             } else {
-                self.currentTwitterUserLong(false);
+                self.currentTwitterUserLong = false;
                 twttr.widgets.createTimeline(
                     '694221648225001472', // widget ID made on my Twitter account
                     document.getElementById('twitter-account'), { // target div
@@ -163,7 +169,7 @@ var TheatreMapViewModel = function() {
             console.log('LOADING NEW TWITTER LIST.'); // DEBUGGING
             // Use twttr library to create new list timeline
             if (self.twitterLong()) {
-                self.currentTwitterListLong(true);
+                self.currentTwitterListLong = true;
                 twttr.widgets.createTimeline(
                     '694233158955323392', // widget ID made on my Twitter account
                     document.getElementById('twitter-list'), { // target div
@@ -172,7 +178,7 @@ var TheatreMapViewModel = function() {
                     }
                 );
             } else {
-                self.currentTwitterListLong(false);
+                self.currentTwitterListLong = false;
                 twttr.widgets.createTimeline(
                     '694233158955323392', // widget ID made on my Twitter account
                     document.getElementById('twitter-list'), { // target div
