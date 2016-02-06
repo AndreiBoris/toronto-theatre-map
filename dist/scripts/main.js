@@ -23,7 +23,6 @@ var TheatreMapViewModel = function() {
     self.twitterListView = ko.observable(true);
 
     self.$twitterDiv = $('#twitter-div');
-    self.$twitterTab = $('#twitter-tab');
     self.$twitterTabHL = $('#twitter-tab-highlight');
     self.$twitterTabBack = $('#twitter-tab-back');
     self.$twitterTabAll = $('.tab-image');
@@ -40,7 +39,7 @@ var TheatreMapViewModel = function() {
             self.$twitterTabAll.addClass('twitter-tab-off'); // Move the tab as well
             self.$twitterDiv.removeClass('twitter-on');
             self.$twitterTabAll.removeClass('twitter-tab-on');
-            self.$twitterTabBack.css('opacity', 0);
+            self.$twitterTabBack.css('opacity', 0); // Show Twitter logo.
         } else { // open twitter
             console.log('Opening twitter.'); // DEBUG
             self.twitterIsOpen(true); // Load things into Twitter
@@ -49,7 +48,7 @@ var TheatreMapViewModel = function() {
             self.$twitterTabAll.addClass('twitter-tab-on'); // Move the tab as well
             self.$twitterDiv.removeClass('twitter-off');
             self.$twitterTabAll.removeClass('twitter-tab-off');
-            self.$twitterTabBack.css('opacity', 1);
+            self.$twitterTabBack.css('opacity', 1); // Show back button.
 
         }
 
@@ -136,7 +135,8 @@ var TheatreMapViewModel = function() {
         self.needTwitterListReload((longList && !longTwitter) ||
             (!longList && longTwitter));
         if (self.needTwitterUserReload() || self.needTwitterListReload()) {
-            self.startGlow();
+            // If there is some change worth reloading, tab should glow to indicate this.
+            self.startGlow(); 
         }
     };
 
