@@ -74,7 +74,8 @@ var mapManager = {
             flags: markerItem.flags, // Categories for filters
             //infoWin: {}, // placeholder
             //infoWindowOpen: false
-            blurb: ''
+            blurb: '',
+            address: markerItem.address
         }));
     },
 

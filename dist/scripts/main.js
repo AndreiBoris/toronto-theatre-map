@@ -124,6 +124,16 @@ var TheatreMapViewModel = function() {
     self.currentTitle = ko.observable('');
     self.currentWebsite = ko.observable('');
     self.currentBlurb = ko.observable('');
+    self.currentAddress = ko.observable('');
+
+    self.currentInfo = ko.computed(function() {
+        var content = '<div><span class="info-title">' + 
+        self.currentTitle() +
+        '</span><br>' +
+        self.currentAddress() +
+        '</div>';
+        return content;
+    });
 
     self.currentDisplay = ko.computed(function() {
         var content = '<div class="current-display"><h4><a href="' +
@@ -131,7 +141,9 @@ var TheatreMapViewModel = function() {
             self.currentTitle() +
             '</a></h4>' +
             '<p>' +
-            self.currentBlurb() + '</p></div>';
+            self.currentBlurb() + '</p>' + 
+            '<p>' + 
+            self.currentAddress() + '</div>';
         return content;
     });
 
@@ -683,7 +695,8 @@ var TheatreMapViewModel = function() {
         self.currentTitle(marker.title);
         self.currentWebsite(marker.website);
         self.currentBlurb(marker.blurb);
-        self.infoWindow.setContent(self.currentTitle());
+        self.currentAddress(marker.address);
+        self.infoWindow.setContent(self.currentInfo());
         self.openInfoWindow(marker);
         self.activeTwitter(marker.twitterHandle);
         self.userTwitter(); // Twitter should go into user, rather than list, mode
@@ -720,7 +733,7 @@ var TheatreMapViewModel = function() {
      * Avoid crowding the map with open windows.
      */
     self.closeInfoWindows = function() {
-        self.infoWindow.close()
+        self.infoWindow.close();
         // self.markers().forEach(function(marker) {
         //     marker.infoWin.close();
         //     // Allows for scanning whether any InfoWindows are open or not.
@@ -871,7 +884,8 @@ var mapManager = {
             flags: markerItem.flags, // Categories for filters
             //infoWin: {}, // placeholder
             //infoWindowOpen: false
-            blurb: ''
+            blurb: '',
+            address: markerItem.address
         }));
     },
 
