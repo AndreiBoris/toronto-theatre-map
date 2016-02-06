@@ -16,11 +16,7 @@ var TheatreMapViewModel = function() {
      */
     self.markers = ko.observableArray([]);
 
-    // To determine whether to spend resources loading up twitter DOM elements
-    self.twitterIsOpen = ko.observable(false);
-
-    // To determine whether to load the twitter list or a particular account.
-    self.twitterListView = ko.observable(true);
+    self.listIsOpen = ko.observable(false);
 
     self.$listDiv = $('#list-div');
     //self.$listTabHL = $('#list-tab-highlight');
@@ -28,8 +24,31 @@ var TheatreMapViewModel = function() {
     self.$listTabAll = $('.list-tab-image');
 
     self.slideList = function() {
-
+        if (self.listIsOpen()) { // then close it
+            console.log('Closing list.'); // DEBUG
+            self.listIsOpen(false); // Don't load anything to Twitter
+            self.$listDiv.addClass('right-div-off'); // Place the div offscreen
+            self.$listTabAll.addClass('tab-off'); // Move the tab as well
+            self.$listDiv.removeClass('right-div-on');
+            self.$listTabAll.removeClass('tab-on');
+            self.$listTabBack.css('opacity', 0); // Show Twitter logo.
+        } else { // open list
+            console.log('Opening list.'); // DEBUG
+            self.listIsOpen(true); // Load things into Twitter
+            self.determineNeedToReload(); // May need to replace loaded DOM element
+            self.$listDiv.addClass('right-div-on'); // Place the div onscreen
+            self.$listTabAll.addClass('tab-on'); // Move the tab as well
+            self.$listDiv.removeClass('right-div-off');
+            self.$listTabAll.removeClass('tab-off');
+            self.$listTabBack.css('opacity', 1); // Show back button.
+        }
     };
+
+    // To determine whether to spend resources loading up twitter DOM elements
+    self.twitterIsOpen = ko.observable(false);
+
+    // To determine whether to load the twitter list or a particular account.
+    self.twitterListView = ko.observable(true);
 
     self.$twitterDiv = $('#twitter-div');
     self.$twitterTabHL = $('#twitter-tab-highlight');
@@ -46,19 +65,18 @@ var TheatreMapViewModel = function() {
             self.twitterIsOpen(false); // Don't load anything to Twitter
             self.$twitterDiv.addClass('right-div-off'); // Place the div offscreen
             self.$twitterTabAll.addClass('tab-off'); // Move the tab as well
-            self.$twitterDiv.removeClass('twitter-on');
+            self.$twitterDiv.removeClass('right-div-on');
             self.$twitterTabAll.removeClass('tab-on');
             self.$twitterTabBack.css('opacity', 0); // Show Twitter logo.
         } else { // open twitter
             console.log('Opening twitter.'); // DEBUG
             self.twitterIsOpen(true); // Load things into Twitter
             self.determineNeedToReload(); // May need to replace loaded DOM element
-            self.$twitterDiv.addClass('twitter-on'); // Place the div onscreen
+            self.$twitterDiv.addClass('right-div-on'); // Place the div onscreen
             self.$twitterTabAll.addClass('tab-on'); // Move the tab as well
             self.$twitterDiv.removeClass('right-div-off');
             self.$twitterTabAll.removeClass('tab-off');
             self.$twitterTabBack.css('opacity', 1); // Show back button.
-
         }
 
     };
@@ -145,7 +163,7 @@ var TheatreMapViewModel = function() {
             (!longList && longTwitter));
         if (self.needTwitterUserReload() || self.needTwitterListReload()) {
             // If there is some change worth reloading, tab should glow to indicate this.
-            self.startGlow(); 
+            self.startGlow();
         }
     };
 
