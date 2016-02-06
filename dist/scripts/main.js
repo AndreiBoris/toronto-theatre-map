@@ -304,9 +304,8 @@ var TheatreMapViewModel = function() {
             self.stopGlow(); // Reset corresponding variables.
         }
         if (self.filterIsOpen() && self.glowingFilter) {
-            console.log('List is open. Stop the list tab from glowing.');
-            self.glowingFilter = false;
-            self.stopGlow(); // Reset corresponding variables.
+            console.log('Filter is open. Reset the filter tab glow.');
+            //self.stopGlow(); // Reset corresponding variables.
         }
         if (self.glowingTwitter) {
             if (self.glowingTwitterFading) { // Decrease opacity.
@@ -344,7 +343,8 @@ var TheatreMapViewModel = function() {
                 }
             }
         }
-        if (self.glowingFilter) {
+        if (self.glowingFilter && !self.filterIsOpen()) {
+            console.log('filter is glowing');
             if (self.glowingFilterFading) { // Decrease opacity.
                 self.glowingFilterOpacity -= 0.01; // Track opacity in variable.
                 // Set opacity.
@@ -538,9 +538,12 @@ var TheatreMapViewModel = function() {
         var i;
         for (i = 0; i < length; i++) {
             if (self.filters[i].filter()) {
+                self.glowingFilter = true;
                 return true;
             }
         }
+        self.glowingFilter = false;
+        self.stopGlow();
         return false;
     });
 
