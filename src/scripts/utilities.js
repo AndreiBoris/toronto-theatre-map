@@ -24,9 +24,6 @@ mapManager.util.nullPosition = {
  */
 mapManager.util.hideItem = function(marker) {
     'use strict';
-    // Closing the infoWin first ensures hidden markers don't have windows open
-    // when they are shown again.
-    marker.infoWin.close();
     marker.setMap(null); // Detach the marker from the map.
     // Change the observable the view depends on when deciding whether to show
     // the button corresponding to the marker.

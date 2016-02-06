@@ -680,13 +680,14 @@ var TheatreMapViewModel = function() {
         if (self.listIsOpen() && mapManager.util.screenWidth < 700) {
             self.slideList(); // close list div on small screen when accessing
         }
-        self.openInfoWindow(marker);
-        self.activeTwitter(marker.twitterHandle);
-        self.userTwitter(); // Go to the marker's corresponding twitter feed
-        self.determineNeedToReload(); // We might have a new twitter feed to load
         self.currentTitle(marker.title);
         self.currentWebsite(marker.website);
         self.currentBlurb(marker.blurb);
+        self.infoWindow.setContent(self.currentTitle());
+        self.openInfoWindow(marker);
+        self.activeTwitter(marker.twitterHandle);
+        self.userTwitter(); // Twitter should go into user, rather than list, mode
+        self.determineNeedToReload(); // We might have a new twitter feed to load
     };
 
     /**
@@ -709,7 +710,7 @@ var TheatreMapViewModel = function() {
      */
     self.openInfoWindow = function(marker) {
         self.closeInfoWindows();
-        marker.infoWin.open(mapManager.map, marker);
+        self.infoWindow.open(mapManager.map, marker);
         // Allows for scanning whether any InfoWindows are open or not.
         //marker.infoWindowOpen = true;
         //self.infoWindowOpen(true); // observable for the enabling of a button
@@ -719,15 +720,16 @@ var TheatreMapViewModel = function() {
      * Avoid crowding the map with open windows.
      */
     self.closeInfoWindows = function() {
-        self.markers().forEach(function(marker) {
-            marker.infoWin.close();
-            // Allows for scanning whether any InfoWindows are open or not.
-            //marker.infoWindowOpen = false;
-        });
+        self.infoWindow.close()
+        // self.markers().forEach(function(marker) {
+        //     marker.infoWin.close();
+        //     // Allows for scanning whether any InfoWindows are open or not.
+        //     //marker.infoWindowOpen = false;
+        // });
         //self.infoWindowOpen(false); // observable for the disabling of a button
     };
 
-    self.infoWindow = {}''
+    self.infoWindow = {};
 
     /**
      * Does the following :
@@ -755,10 +757,10 @@ var TheatreMapViewModel = function() {
             // Move the marker to the correct position on the map.
             mapManager.adjustPosition(curMarker, markerItem);
             // Add a blank InfoWindow to curMarker to be filled below.
-            curMarker.infoWin = new google.maps.InfoWindow(mapManager.util.blankInfoWin);
+            //curMarker.infoWin = new google.maps.InfoWindow(mapManager.util.blankInfoWin);
             // Set up a listener on the marker that will open the corresponding
             // InfoWindow when the Marker is clicked.
-            curMarker.infoWin.setContent(curMarker.title);
+            //curMarker.infoWin.setContent(curMarker.title);
             infoWindowBinder(curMarker);
             // These variables are set for readability.
             var title = markerItem.title; // Title of marker.
@@ -774,6 +776,7 @@ var TheatreMapViewModel = function() {
         // Save coordinates to localStorage so that we can avoid using AJAX
         // calls next time around. DOESN'T WORK YET.
         // mapManager.store();
+        self.infoWindow = new google.maps.InfoWindow(mapManager.util.blankInfoWin);
         /**
          * Begin the glow animation on the tabs, indicating some update to
          * particular tab. Updates are handled separately through the 
@@ -1448,9 +1451,6 @@ mapManager.util.nullPosition = {
  */
 mapManager.util.hideItem = function(marker) {
     'use strict';
-    // Closing the infoWin first ensures hidden markers don't have windows open
-    // when they are shown again.
-    marker.infoWin.close();
     marker.setMap(null); // Detach the marker from the map.
     // Change the observable the view depends on when deciding whether to show
     // the button corresponding to the marker.
