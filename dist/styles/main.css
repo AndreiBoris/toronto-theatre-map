@@ -54,7 +54,8 @@ table {
   border-spacing: 0;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -84,6 +85,10 @@ button:disabled {
   z-index: 2;
 }
 
+.right-divs {
+  position: absolute;
+}
+
 /*** This is only for testing purposes ***/
 .filter-list {
   width: 30%;
@@ -92,11 +97,8 @@ button:disabled {
 /*** This is only for testing purposes ***/
 #twitter-div {
   position: absolute;
-  width: 30%;
-  text-align: center;
   height: 100%;
   background-color: white;
-  z-index: 2;
   overflow: scroll;
   transition: 0.15s;
 }
@@ -129,16 +131,9 @@ button:disabled {
   right: -0.5%;
 }
 
-.twitter-tab-on {
-  right: 29.5%;
-}
-
 .twitter-on {
   right: 0%;
-}
-
-.twitter-off {
-  right: -30%;
+  z-index: 2;
 }
 
 /*** Each InfoWindow that appears when markers are clicked has a div inside them
@@ -170,8 +165,29 @@ button:disabled {
   width: 100%;
 }
 
-/* @media only screen and (max-width: 500px) {
-    body {
-        background-color: lightblue;
-    }
-} */
+@media only screen and (min-width: 700px) {
+  #twitter-div {
+    width: 30%;
+  }
+
+  .twitter-tab-on {
+    right: 29.5%;
+  }
+
+  .twitter-off {
+    right: -30%;
+  }
+}
+@media only screen and (max-width: 700px) {
+  #twitter-div {
+    width: 90%;
+  }
+
+  .twitter-tab-on {
+    right: 89.5%;
+  }
+
+  .twitter-off {
+    right: -90%;
+  }
+}

@@ -1386,5 +1386,18 @@ mapManager.util.resizeTwitterTab = function() {
     $twitterTabs.css({'top': screenHeight / 3});
 };
 
+/**
+ * We perform responsive design by 
+ * @return {[type]} [description]
+ */
+mapManager.util.responsiveTabs = function() {
+    'use strict';
+    var screenWidth = screen.width;
+    console.log('The screen width is ' + screenWidth); // DEBUG
+};
+
 // Position twitter tab as soon as page loads.
 mapManager.util.resizeTwitterTab();
+
+// Read screen width to correctly position the sliding tabs
+mapManager.util.responsiveTabs();

@@ -14,61 +14,61 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
-            <header>
-                <div id="search-box">
-                    <!-- <button data-bind="click: sortListAlpha">Sort Alphabetically</button>
+    <!-- <header>
+        <div id="search-box">
+            <button data-bind="click: sortListAlpha">Sort Alphabetically</button>
             <button data-bind="click: sortListFounding">Sort by Date Founded</button>
             <button data-bind=" click: closeInfoWindows,
                                 enable: infoWindowOpen">Close info window</button>
             <button data-bind=" click: listTwitter,
                                 enable: !twitterListView()">Back to Twitter list view</button>
-            <br> -->
-                    <ul data-bind="foreach: filters">
-                        <li>
-                            <input type="checkbox" data-bind="checked: filter">
-                            <!--ko text: flag-->
-                            <!--/ko-->
-                            </input>
-                        </li>
-                    </ul>
-                    <!-- <button data-bind="click: clearFilters, enable: filterClicked">Clear Filters</button>
+            <br>
+            <button data-bind="click: clearFilters, enable: filterClicked">Clear Filters</button>
             <button data-bind="click: toggleTwitterLength">Toggle Long Twitter List</button>
             <br>
             <button data-bind="click: slideTwitter">Toggle Twitter</button>
             <span data-bind="text: twitterLengthIndicator"></span>
-            <button data-bind="click: startGlow">Start glow</button> -->
-                </div>
-            </header>
-            <div id="list-div">
-                <ul data-bind="foreach: markers">
-                    <li>
-                        <button class="spaced-out" data-bind="text: title + ' ' + founded,
+            <button data-bind="click: startGlow">Start glow</button>
+        </div>
+    </header> -->
+    <div id="map">
+    </div>
+    <!-- Here we have the list div and the corresponding information -->
+    <div class="twitter-off right-divs" id="list-div">
+        <ul data-bind="foreach: markers">
+            <li>
+                <button class="spaced-out" data-bind="text: title + ' ' + founded,
           click: $root.accessMarker,
           visible: listed"></button>
-                        <!-- <div data-bind="text: infoWin.content"></div> -->
-                    </li>
-                </ul>
-            </div>
-            <div id="map">
-            </div>
-            <!-- Here we have all the tabs necessary for the Twitter div -->
-            <img id="twitter-tab" class="twitter-tab-off twitter-tab-image" src="dist/images/twitter-tab-narrow.png"></img>
-            <img id="twitter-tab-highlight" class="twitter-tab-off twitter-tab-image" src="dist/images/twitter-tab-highlight-narrow.png"></img>
-            <img id="twitter-tab-back" class="twitter-tab-off twitter-tab-image" data-bind="click: slideTwitter" src="dist/images/twitter-tab-back-narrow.png"></img>
-            <div class="twitter-off" id="twitter-div">
-                <div id="twitter-list" data-bind="visible: twitterListView() && twitterIsOpen">
-                </div>
-                <div id="twitter-account" data-bind="visible: !twitterListView() && twitterIsOpen">
-                </div>
-            </div>
-            <footer id="footer">
-                <div>Icon made by <a href="http://www.icomoon.io" title="Icomoon">Icomoon</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
-                <div>Icon made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
-            </footer>
+                <!-- <div data-bind="text: infoWin.content"></div> -->
+            </li>
+        </ul>
+    </div>
+    <!-- Here we have all the tabs necessary for the Twitter div -->
+    <img id="twitter-tab" class="twitter-tab-off twitter-tab-image" src="dist/images/twitter-tab-narrow.png"></img>
+    <img id="twitter-tab-highlight" class="twitter-tab-off twitter-tab-image" src="dist/images/twitter-tab-highlight-narrow.png"></img>
+    <img id="twitter-tab-back" class="twitter-tab-off twitter-tab-image" data-bind="click: slideTwitter" src="dist/images/twitter-tab-back-narrow.png"></img>
+    <div class="twitter-off" id="twitter-div">
+        <div id="twitter-list" data-bind="visible: twitterListView() && twitterIsOpen">
+        </div>
+        <div id="twitter-account" data-bind="visible: !twitterListView() && twitterIsOpen">
         </div>
     </div>
+    <!-- Here we have the filter div -->
+    <div>
+        <ul data-bind="foreach: filters">
+            <li>
+                <input type="checkbox" data-bind="checked: filter">
+                <!--ko text: flag-->
+                <!--/ko-->
+                </input>
+            </li>
+        </ul>
+    </div>
+    <footer id="footer">
+<div>Icon made by <a href="http://www.icomoon.io" title="Icomoon">Icomoon</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
+<div>Icon made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
+    </footer>
     <script src="https://platform.twitter.com/widgets.js"></script>
     <script type="text/javascript" src="dist/perm/jquery-1.12.0.min.js"></script>
     <script async type="text/javascript" src="dist/perm/bootstrap.min.js"></script>

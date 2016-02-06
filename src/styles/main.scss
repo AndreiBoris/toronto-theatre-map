@@ -1,19 +1,24 @@
 /* Imports */
-/***  ***/
-@import 'imports/reset';
 
+
+/***  ***/
+
+@import 'imports/reset';
 // Right from the Google Maps API example to get the map to display
-html, body { 
-    height: 100%; 
-    margin: 0; 
-    padding: 0; 
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 button:disabled {
     background-color: #ccc;
 }
 
+
 /*** The map needs to have a specific size in order to display. ***/
+
 #map {
     height: 100%;
     width: 80%;
@@ -22,7 +27,9 @@ button:disabled {
     z-index: 1; // we want the search box to appear ontop of the map
 }
 
+
 /*** This is only for testing purposes ***/
+
 #list-div {
     position: absolute;
     left: 0;
@@ -33,19 +40,25 @@ button:disabled {
     z-index: 2;
 }
 
+.right-divs {
+    position: absolute;
+}
+
+
 /*** This is only for testing purposes ***/
+
 .filter-list {
     width: 30%;
 }
 
+
 /*** This is only for testing purposes ***/
+
 #twitter-div {
     position: absolute;
-    width: 30%;
-    text-align: center;
+    // width: 30%;
     height: 100%;
     background-color: white;
-    z-index: 2;
     overflow: scroll;
     transition: 0.15s;
 }
@@ -70,7 +83,6 @@ button:disabled {
     transition: 0.15s;
 }
 
-
 .highlight {
     border: 3px solid yellow;
 }
@@ -80,19 +92,22 @@ button:disabled {
 }
 
 .twitter-tab-on {
-    right: 29.5%;
+    // right: 29.5%;
 }
 
 .twitter-on {
     right: 0%;
+    z-index: 2;
 }
 
 .twitter-off {
-    right: -30%;
+    // right: -30%;
 }
+
 
 /*** Each InfoWindow that appears when markers are clicked has a div inside them
     with this class. ***/
+
 .info-window {
     font-size: 1.2em;
     height: 150px;
@@ -106,7 +121,9 @@ button:disabled {
     z-index: 2;
 }
 
+
 /*** This is just for testing ***/
+
 .spaced-out {
     margin: 0.3em 0;
 }
@@ -120,8 +137,26 @@ button:disabled {
     width: 100%;
 }
 
-/* @media only screen and (max-width: 500px) {
-    body {
-        background-color: lightblue;
+@media only screen and (min-width: 700px) {
+    #twitter-div { 
+        width: 30%;
     }
-} */
+    .twitter-tab-on {
+        right: 29.5%;
+    }
+    .twitter-off {
+        right: -30%;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    #twitter-div { 
+        width: 90%;
+    }
+    .twitter-tab-on {
+        right: 89.5%;
+    }
+    .twitter-off {
+        right: -90%;
+    }
+}
