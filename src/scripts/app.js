@@ -33,17 +33,16 @@ var TheatreMapViewModel = function() {
         if (self.twitterIsOpen()) { // then close it
             console.log('Closing twitter.'); // DEBUG
             self.twitterIsOpen(false); // Don't load anything to Twitter
-            twitterDiv.className = 'twitter-off'; // Place the off screen
-            twitterTab.className = 'twitter-tab-off'; // Place the off screen
-            twitterTabHL.className = 'twitter-tab-off';
+            twitterDiv.className = 'twitter-off'; // Place the div offscreen
+            twitterTab.className = 'twitter-tab-off'; // Move the tab as well
+            twitterTabHL.className = 'twitter-tab-off'; // Move the tab as well
         } else { // open twitter
-            self.stopGlow();
             console.log('Opening twitter.'); // DEBUG
             self.twitterIsOpen(true); // Load things into Twitter
             twitterDiv.className = 'twitter-on'; // Place div on screen
             self.determineNeedToReload(); // May need to replace loaded DOM element
-            twitterTab.className = 'twitter-tab-on'; // Place the off screen
-            twitterTabHL.className = 'twitter-tab-on';
+            twitterTab.className = 'twitter-tab-on'; // Move the tab as well
+            twitterTabHL.className = 'twitter-tab-on'; // Move the tab as well
         }
 
     };
@@ -174,40 +173,52 @@ var TheatreMapViewModel = function() {
         self.twitterListView(true);
     };
 
+    /**
+     * Begin the Twitter glow animation on the tab, indicating some update to 
+     * the Twitter feed.
+     */
     self.startGlow = function() {
-        if (!self.twitterIsOpen()) {
-            window.requestAnimationFrame(self.twitterGlow);
+        if (!self.twitterIsOpen()) { // If the twitter div is open, don't.
+            window.requestAnimationFrame(self.twitterGlow); // Start glow.
         }
     };
 
+    /**
+     * Reset the glow animation variables.
+     */
     self.stopGlow = function() {
-        if (mapManager.util.requestID) {
-            window.cancelAnimationFrame(mapManager.util.requestID);
-            mapManager.util.fading = false;
-            mapManager.util.curOpacity = 0;
-            mapManager.util.highlight.css('opacity', 0);
-        }
+        mapManager.util.fading = false; // Glow begins by brightning, not fading.
+        mapManager.util.$highlight.css('opacity', 0); // Set to transparent.
+        mapManager.util.curOpacity = 0; // Transparency tracking variable.
     };
 
+    /**
+     * Animation for the twitter glow that indicates there is new content in the 
+     * Twitter div.
+     */
     self.twitterGlow = function() {
-        if (self.twitterIsOpen()){
-            console.log('Yes, twitter is open so we should stop this');
-            window.cancelAnimationFrame(mapManager.util.requestID);
-            return;
+        if (self.twitterIsOpen()) { // Stop the animation if Twitter is open.
+            console.log('Twitter is open. Stop the notification tab from glowing.');
+            self.stopGlow(); // Reset corresponding variables.
+            return; // Stop animation.
         }
-        if (mapManager.util.fading) {
-            mapManager.util.curOpacity -= 0.01;
-            mapManager.util.highlight.css('opacity', mapManager.util.curOpacity);
-            if (mapManager.util.curOpacity <= 0) {
-                mapManager.util.fading = false;
+        if (mapManager.util.fading) { // Decrease opacity.
+            mapManager.util.curOpacity -= 0.01; // Track opacity in variable.
+            // Set opacity.
+            mapManager.util.$highlight.css('opacity', mapManager.util.curOpacity);
+            if (mapManager.util.curOpacity <= 0) { // Reached endpoint.
+                mapManager.util.fading = false; // Switch to increasing opacity.
             }
-        } else {
-            mapManager.util.curOpacity += 0.01;
-            mapManager.util.highlight.css('opacity', mapManager.util.curOpacity);
-            if (mapManager.util.curOpacity >= 1) {
-                mapManager.util.fading = true;
+        } else { // The tab is brighting. Increase opacity.
+            mapManager.util.curOpacity += 0.01; // Track opacity in variable.
+            // Set opacity.
+            mapManager.util.$highlight.css('opacity', mapManager.util.curOpacity);
+            // Go beyond 1.0 to pause at brightest point.
+            if (mapManager.util.curOpacity >= 1.3) { 
+                mapManager.util.fading = true; // Switch to decreasing opacity.
             }
         }
+        // Keep animating.
         mapManager.util.requestID = window.requestAnimationFrame(self.twitterGlow);
     };
 

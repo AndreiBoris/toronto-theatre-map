@@ -145,18 +145,21 @@ mapManager.util.itemFailsFilter = function(marker, filter) {
 mapManager.util.resizeTwitterTab = function() {
     'use strict';
     var tab = $('#twitter-tab');
-    var tabHL = $('#twitter-tab-highlight');
+    var $tabHL = $('#twitter-tab-highlight');
     var screenHeight = screen.height;
     console.log('The screen height is ' + screenHeight); // DEBUG
     tab.css({'top': screenHeight / 3});
-    tabHL.css({'top': screenHeight / 3});
+    $tabHL.css({'top': screenHeight / 3});
 };
 
+// Position twitter tab as soon as page loads.
 mapManager.util.resizeTwitterTab();
 
+// The twitter tab bright image is currently fading.
 mapManager.util.fading = false;
 
-mapManager.util.highlight = $('#twitter-tab-highlight');
+// The highlighted twitter tab jQuery element.
+mapManager.util.$highlight = $('#twitter-tab-highlight');
 
 mapManager.util.curOpacity = 0;
 
