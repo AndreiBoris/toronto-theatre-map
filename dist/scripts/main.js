@@ -190,7 +190,8 @@ var TheatreMapViewModel = function() {
         self.needTwitterListReload((longList && !longTwitter) ||
             (!longList && longTwitter));
         if (self.needTwitterUserReload() || self.needTwitterListReload()) {
-            // If there is some change worth reloading, tab should glow to indicate this.
+            // If there is some change worth reloading, twitter tab should glow 
+            // to indicate this.
             self.startGlow();
         }
     };
@@ -605,12 +606,12 @@ var TheatreMapViewModel = function() {
         console.log('Accessing marker.');
         console.log('The screen width is ' + mapManager.util.screenWidth);
         if (self.listIsOpen() && mapManager.util.screenWidth < 700){
-            self.slideList(); // close list tab on small screen when accessing
+            self.slideList(); // close list div on small screen when accessing
         }
         self.openInfoWindow(marker);
         self.activeTwitter(marker.twitterHandle);
         self.userTwitter(); // Go to the marker's corresponding twitter feed
-        self.determineNeedToReload();
+        self.determineNeedToReload(); // We might have a new twitter feed to load
     };
 
     /**
