@@ -84,15 +84,15 @@ button:disabled {
     @extend .tab-back;
 }
 
-#options-tab {
+#filter-tab {
     @extend .tab-plain;
 }
 
-#options-tab-highlight {
+#filter-tab-highlight {
     @extend .tab-highlight;
 }
 
-#options-tab-back {
+#filter-tab-back {
     @extend .tab-back;
 }
 

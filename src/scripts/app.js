@@ -44,31 +44,31 @@ var TheatreMapViewModel = function() {
         }
     };
 
-    self.optionsIsOpen = ko.observable(false);
+    self.filterIsOpen = ko.observable(false);
 
-    self.$optionsDiv = $('#options-div');
-    self.$optionsTabHL = $('#options-tab-highlight');
-    self.$optionsTabBack = $('#options-tab-back');
-    self.$optionsTabAll = $('.options-tab-image');
+    self.$filterDiv = $('#filter-div');
+    self.$filterTabHL = $('#filter-tab-highlight');
+    self.$filterTabBack = $('#filter-tab-back');
+    self.$filterTabAll = $('.filter-tab-image');
 
-    self.slideOptions = function() {
-        if (self.optionsIsOpen()) { // then close it
-            console.log('Closing options.'); // DEBUG
-            self.optionsIsOpen(false);
-            self.$optionsDiv.addClass('right-div-off'); // Place the div offscreen
-            self.$optionsTabAll.addClass('tab-off'); // Move the tab as well
-            self.$optionsDiv.removeClass('right-div-on');
-            self.$optionsTabAll.removeClass('tab-on');
-            self.$optionsTabBack.css('opacity', 0); // Show List label.
-        } else { // open options
-            console.log('Opening options.'); // DEBUG
-            self.optionsIsOpen(true);
+    self.slideFilter = function() {
+        if (self.filterIsOpen()) { // then close it
+            console.log('Closing filter.'); // DEBUG
+            self.filterIsOpen(false);
+            self.$filterDiv.addClass('right-div-off'); // Place the div offscreen
+            self.$filterTabAll.addClass('tab-off'); // Move the tab as well
+            self.$filterDiv.removeClass('right-div-on');
+            self.$filterTabAll.removeClass('tab-on');
+            self.$filterTabBack.css('opacity', 0); // Show List label.
+        } else { // open filter
+            console.log('Opening filter.'); // DEBUG
+            self.filterIsOpen(true);
             self.determineNeedToReload(); // May need to replace loaded DOM element
-            self.$optionsDiv.addClass('right-div-on'); // Place the div onscreen
-            self.$optionsTabAll.addClass('tab-on'); // Move the tab as well
-            self.$optionsDiv.removeClass('right-div-off');
-            self.$optionsTabAll.removeClass('tab-off');
-            self.$optionsTabBack.css('opacity', 1); // Show back button.
+            self.$filterDiv.addClass('right-div-on'); // Place the div onscreen
+            self.$filterTabAll.addClass('tab-on'); // Move the tab as well
+            self.$filterDiv.removeClass('right-div-off');
+            self.$filterTabAll.removeClass('tab-off');
+            self.$filterTabBack.css('opacity', 1); // Show back button.
         }
     };
 

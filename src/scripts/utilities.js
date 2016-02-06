@@ -146,12 +146,12 @@ mapManager.util.repositionTabs = function() {
     'use strict';
     var $twitterTabs = $('.twitter-tab-image');
     var $listTabs = $('.list-tab-image');
-    var $optionsTabs = $('.options-tab-image');
+    var $filterTabs = $('.filter-tab-image');
     var screenHeight = screen.height;
     console.log('The screen height is ' + screenHeight); // DEBUG
     $listTabs.css({'top': screenHeight * 0.1});
     $twitterTabs.css({'top': screenHeight * 0.3});
-    $optionsTabs.css({'top': screenHeight * 0.5});
+    $filterTabs.css({'top': screenHeight * 0.5});
 };
 
 // Position twitter tab as soon as page loads.

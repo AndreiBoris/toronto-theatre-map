@@ -55,14 +55,11 @@
         <div id="twitter-account" data-bind="visible: !twitterListView() && twitterIsOpen">
         </div>
     </div>
-    <!-- Here we have the options div -->
-    <img id="options-tab" class="tab-off options-tab-image" 
-    src="dist/images/options-tab.png"></img>
-    <img id="options-tab-highlight" class="tab-off options-tab-image" 
-    src="dist/images/options-tab-highlight.png"></img>
-    <img id="options-tab-back" class="tab-off options-tab-image" 
-    data-bind="click: slideOptions" src="dist/images/tab-back.png"></img>
-    <div id="options-div" class="right-div-off right-divs">
+    <!-- Here we have the filter div -->
+    <img id="filter-tab" class="tab-off filter-tab-image" src="dist/images/filter-tab.png"></img>
+    <img id="filter-tab-highlight" class="tab-off filter-tab-image" src="dist/images/filter-tab-highlight.png"></img>
+    <img id="filter-tab-back" class="tab-off filter-tab-image" data-bind="click: slideFilter" src="dist/images/tab-back.png"></img>
+    <div id="filter-div" class="right-div-off right-divs">
         <ul data-bind="foreach: filters">
             <li>
                 <input type="checkbox" data-bind="checked: filter">
@@ -76,7 +73,8 @@
     <footer id="footer">
         <div>Icon made by <a href="http://www.icomoon.io" title="Icomoon">Icomoon</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
         <div>Icon made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
-        <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>             is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
+        <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
+        <div>Icons made by <a href="http://www.flaticon.com/authors/icomoon" title="Icomoon">Icomoon</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
     </footer>
     <script src="https://platform.twitter.com/widgets.js"></script>
     <script type="text/javascript" src="dist/perm/jquery-1.12.0.min.js"></script>
