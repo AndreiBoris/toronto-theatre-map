@@ -15,6 +15,12 @@ button:disabled {
     background-color: #ccc;
 }
 
+#search-box {
+    position:absolute;
+    z-index: 2;
+    left: 10%;
+    top: 5%;
+}
 
 /*** The map needs to have a specific size in order to display. ***/
 

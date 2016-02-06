@@ -14,22 +14,12 @@
 </head>
 
 <body>
-    <!-- <header>
+    <header>
         <div id="search-box">
-            <button data-bind="click: sortListAlpha">Sort Alphabetically</button>
-            <button data-bind="click: sortListFounding">Sort by Date Founded</button>
             <button data-bind=" click: closeInfoWindows,
                                 enable: infoWindowOpen">Close info window</button>
-            <button data-bind=" click: listTwitter,
-                                enable: !twitterListView()">Back to Twitter list view</button>
-            <br>
-            <button data-bind="click: toggleTwitterLength">Toggle Long Twitter List</button>
-            <br>
-            <button data-bind="click: slideTwitter">Toggle Twitter</button>
-            <span data-bind="text: twitterLengthIndicator"></span>
-            <button data-bind="click: startGlow">Start glow</button>
         </div>
-    </header> -->
+    </header>
     <div id="map">
     </div>
     <!-- Here we have the list div and the corresponding information -->
@@ -37,6 +27,8 @@
     <img id="list-tab-highlight" class="tab-off list-tab-image" src="dist/images/list-tab-highlight.png"></img>
     <img id="list-tab-back" class="tab-off list-tab-image" data-bind="click: slideList" src="dist/images/tab-back.png"></img>
     <div id="list-div" class="right-divs right-div-off">
+        <button data-bind="click: sortListAlpha">Sort Alphabetically</button>
+        <button data-bind="click: sortListFounding">Sort by Date Founded</button>
         <ul data-bind="foreach: markers">
             <li>
                 <button class="spaced-out" data-bind="text: title + ' ' + founded,
@@ -50,6 +42,10 @@
     <img id="twitter-tab-highlight" class="tab-off twitter-tab-image" src="dist/images/twitter-tab-highlight.png"></img>
     <img id="twitter-tab-back" class="tab-off twitter-tab-image" data-bind="click: slideTwitter" src="dist/images/tab-back.png"></img>
     <div id="twitter-div" class="right-div-off right-divs">
+        <button data-bind=" click: listTwitter,
+                                enable: !twitterListView()">Back to Twitter list view</button>
+        <button data-bind="click: toggleTwitterLength">Toggle Long Twitter List</button>
+        <span data-bind="text: twitterLengthIndicator"></span>
         <div id="twitter-list" data-bind="visible: twitterListView() && twitterIsOpen">
         </div>
         <div id="twitter-account" data-bind="visible: !twitterListView() && twitterIsOpen">
