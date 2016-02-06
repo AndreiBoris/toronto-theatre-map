@@ -118,7 +118,7 @@ var TheatreMapViewModel = function() {
     self.newTwitterUser = ko.computed(function() {
         var result = self.activeTwitter() !== self.lastTwitterUser();
         if (result) {
-            self.startGlow();
+            self.glowingTwitter = true;
         }
         console.log('We have a new twitter user? ' + result); // DEBUG
         return result;
@@ -192,7 +192,7 @@ var TheatreMapViewModel = function() {
         if (self.needTwitterUserReload() || self.needTwitterListReload()) {
             // If there is some change worth reloading, twitter tab should glow 
             // to indicate this.
-            self.startGlow();
+            self.glowingTwitter = true;
         }
     };
 
@@ -238,58 +238,133 @@ var TheatreMapViewModel = function() {
     };
 
     /**
-     * Begin the Twitter glow animation on the tab, indicating some update to 
-     * the Twitter feed.
+     * Begin the glow animation on the tabs, indicating some update to
+     * particular tab. Updates are handled separately through the 
+     * self.glowing* variables.
      */
     self.startGlow = function() {
-        if (!self.twitterIsOpen()) { // If the twitter div is open, don't.
-            window.requestAnimationFrame(self.twitterGlow); // Start glow.
-        }
+        window.requestAnimationFrame(self.glowAnimation); // Start glow.
     };
 
     /**
      * Reset the glow animation variables.
      */
     self.stopGlow = function() {
-        self.fading = false; // Glow begins by brightning, not fading.
-        self.$twitterTabHL.css('opacity', 0); // Set to transparent.
-        self.curOpacity = 0; // Transparency tracking variable.
+        if (!self.glowingTwitter) {
+            self.glowingTwitterFading = false; // Glow begins like this.
+            self.$twitterTabHL.css('opacity', 0); // Set to transparent.
+            self.glowingTwitterOpacity = 0; // Transparency tracking variable.
+        }
+        if (!self.glowingList) {
+            self.glowingTwitterFading = false; // Glow begins like this.
+            self.$listTabHL.css('opacity', 0); // Set to transparent.
+            self.glowingTwitterOpacity = 0; // Transparency tracking variable.
+        }
+        if (!self.glowingFilter) {
+            self.glowingTwitterFading = false; // Glow begins like this.
+            self.$filterTabHL.css('opacity', 0); // Set to transparent.
+            self.glowingTwitterOpacity = 0; // Transparency tracking variable.
+        }
+
     };
 
+    self.glowingTwitter = false;
     // The twitter tab bright image is currently fading.
-    self.fading = false;
+    self.glowingTwitterFading = false;
+    // Opacity tracking self.$listTabHL
+    self.glowingTwitterOpacity = 0;
 
-    // Opacity tracking $self.$highlight
-    self.curOpacity = 0;
+
+    self.glowingList = false;
+    // The twitter tab bright image is currently fading.
+    self.glowingListFading = false;
+    // Opacity tracking self.$listTabHL
+    self.glowingListOpacity = 0;
+
+    self.glowingFilter = false;
+    // The twitter tab bright image is currently fading.
+    self.glowingFilterFading = false;
+    // Opacity tracking self.$listTabHL
+    self.glowingFilterOpacity = 0;
 
     /**
      * Animation for the twitter glow that indicates there is new content in the 
      * Twitter div.
      */
-    self.twitterGlow = function() {
-        if (self.twitterIsOpen()) { // Stop the animation if Twitter is open.
-            console.log('Twitter is open. Stop the notification tab from glowing.');
+    self.glowAnimation = function() {
+        // Stop the Twitter glow if Twitter is open.
+        if (self.twitterIsOpen() && self.glowingTwitter) {
+            console.log('Twitter is open. Stop the twitter tab from glowing.');
+            self.glowingTwitter = false;
             self.stopGlow(); // Reset corresponding variables.
-            return; // Stop animation.
         }
-        if (self.fading) { // Decrease opacity.
-            self.curOpacity -= 0.01; // Track opacity in variable.
-            // Set opacity.
-            self.$twitterTabHL.css('opacity', self.curOpacity);
-            if (self.curOpacity <= 0) { // Reached endpoint.
-                self.fading = false; // Switch to increasing opacity.
-            }
-        } else { // The tab is brighting. Increase opacity.
-            self.curOpacity += 0.01; // Track opacity in variable.
-            // Set opacity.
-            self.$twitterTabHL.css('opacity', self.curOpacity);
-            // Go beyond 1.0 to pause at brightest point.
-            if (self.curOpacity >= 1.3) {
-                self.fading = true; // Switch to decreasing opacity.
+        if (self.listIsOpen() && self.glowingList) {
+            console.log('List is open. Stop the list tab from glowing.');
+            self.glowingList = false;
+            self.stopGlow(); // Reset corresponding variables.
+        }
+        if (self.filterIsOpen() && self.glowingFilter) {
+            console.log('List is open. Stop the list tab from glowing.');
+            self.glowingFilter = false;
+            self.stopGlow(); // Reset corresponding variables.
+        }
+        if (self.glowingTwitter) {
+            if (self.glowingTwitterFading) { // Decrease opacity.
+                self.glowingTwitterOpacity -= 0.01; // Track opacity in variable.
+                // Set opacity.
+                self.$twitterTabHL.css('opacity', self.glowingTwitterOpacity);
+                if (self.glowingTwitterOpacity <= 0) { // Reached endpoint.
+                    self.glowingTwitterFading = false; // Switch to increasing opacity.
+                }
+            } else { // The tab is brighting. Increase opacity.
+                self.glowingTwitterOpacity += 0.01; // Track opacity in variable.
+                // Set opacity.
+                self.$twitterTabHL.css('opacity', self.glowingTwitterOpacity);
+                // Go beyond 1.0 to pause at brightest point.
+                if (self.glowingTwitterOpacity >= 1.3) {
+                    self.glowingTwitterFading = true; // Switch to decreasing opacity.
+                }
             }
         }
+        if (self.glowingList) {
+            if (self.glowingListFading) { // Decrease opacity.
+                self.glowingListOpacity -= 0.01; // Track opacity in variable.
+                // Set opacity.
+                self.$listTabHL.css('opacity', self.glowingListOpacity);
+                if (self.glowingListOpacity <= 0) { // Reached endpoint.
+                    self.glowingListFading = false; // Switch to increasing opacity.
+                }
+            } else { // The tab is brighting. Increase opacity.
+                self.glowingListOpacity += 0.01; // Track opacity in variable.
+                // Set opacity.
+                self.$listTabHL.css('opacity', self.glowingListOpacity);
+                // Go beyond 1.0 to pause at brightest point.
+                if (self.glowingListOpacity >= 1.3) {
+                    self.glowingListFading = true; // Switch to decreasing opacity.
+                }
+            }
+        }
+        if (self.glowingFilter) {
+            if (self.glowingFilterFading) { // Decrease opacity.
+                self.glowingFilterOpacity -= 0.01; // Track opacity in variable.
+                // Set opacity.
+                self.$filterTabHL.css('opacity', self.glowingFilterOpacity);
+                if (self.glowingFilterOpacity <= 0) { // Reached endpoint.
+                    self.glowingFilterFading = false; // Switch to increasing opacity.
+                }
+            } else { // The tab is brighting. Increase opacity.
+                self.glowingFilterOpacity += 0.01; // Track opacity in variable.
+                // Set opacity.
+                self.$filterTabHL.css('opacity', self.glowingFilterOpacity);
+                // Go beyond 1.0 to pause at brightest point.
+                if (self.glowingFilterOpacity >= 1.3) {
+                    self.glowingFilterFading = true; // Switch to decreasing opacity.
+                }
+            }
+        }
+
         // Keep animating.
-        window.requestAnimationFrame(self.twitterGlow);
+        window.requestAnimationFrame(self.glowAnimation);
     };
 
     /**
@@ -605,7 +680,7 @@ var TheatreMapViewModel = function() {
     self.accessMarker = function(marker) {
         console.log('Accessing marker.');
         console.log('The screen width is ' + mapManager.util.screenWidth);
-        if (self.listIsOpen() && mapManager.util.screenWidth < 700){
+        if (self.listIsOpen() && mapManager.util.screenWidth < 700) {
             self.slideList(); // close list div on small screen when accessing
         }
         self.openInfoWindow(marker);
@@ -682,6 +757,7 @@ var TheatreMapViewModel = function() {
         // Save coordinates to localStorage so that we can avoid using AJAX
         // calls next time around. DOESN'T WORK YET.
         // mapManager.store();
+        self.startGlow();
     };
 };
 
