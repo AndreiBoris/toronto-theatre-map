@@ -16,30 +16,50 @@ var TheatreMapViewModel = function() {
      */
     self.markers = ko.observableArray([]);
 
+    /**
+     * Track whether each respective div is open.
+     */
     self.listIsOpen = ko.observable(false);
+    self.filterIsOpen = ko.observable(false);
+    self.twitterIsOpen = ko.observable(false);
 
+    /**
+     * Required to support slide and glow animations
+     */
     self.$listDiv = $('#list-div');
     self.$listTabHL = $('#list-tab-highlight');
     self.$listTabBack = $('#list-tab-back');
     self.$listTabAll = $('.list-tab-image');
 
+    self.$filterDiv = $('#filter-div');
+    self.$filterTabHL = $('#filter-tab-highlight');
+    self.$filterTabBack = $('#filter-tab-back');
+    self.$filterTabAll = $('.filter-tab-image');
+
+    self.$twitterDiv = $('#twitter-div');
+    self.$twitterTabHL = $('#twitter-tab-highlight');
+    self.$twitterTabBack = $('#twitter-tab-back');
+    self.$twitterTabAll = $('.twitter-tab-image');
+
+    /**
+     * Slide the div with the list of theatres on and off screen.
+     */
     self.slideList = function() {
-        if (self.listIsOpen()) { // then close it
+        if (self.listIsOpen()) { // Then close it
             console.log('Closing list.'); // DEBUG
-            if (self.glowingList){
-                self.glowingList = false;
-                self.stopGlow();
-            }
-            self.listIsOpen(false);
+            self.listIsOpen(false); // Update value for other uses
             self.$listDiv.addClass('right-div-off'); // Place the div offscreen
             self.$listTabAll.addClass('tab-off'); // Move the tab as well
             self.$listDiv.removeClass('right-div-on');
             self.$listTabAll.removeClass('tab-on');
-            self.$listTabBack.css('opacity', 0); // Show List label.
+            self.$listTabBack.css('opacity', 0); // Show list label.
         } else { // open list
+            if (self.glowingList) { // Shouldn't glow if the div is open.
+                self.glowingList = false; // Update for glowAnimation
+                self.stopGlow(); // Reset default glow values
+            }
             console.log('Opening list.'); // DEBUG
-            self.listIsOpen(true);
-            self.determineNeedToReload(); // May need to replace loaded DOM element
+            self.listIsOpen(true); // Update value for other uses
             self.$listDiv.addClass('right-div-on'); // Place the div onscreen
             self.$listTabAll.addClass('tab-on'); // Move the tab as well
             self.$listDiv.removeClass('right-div-off');
@@ -48,12 +68,7 @@ var TheatreMapViewModel = function() {
         }
     };
 
-    self.filterIsOpen = ko.observable(false);
 
-    self.$filterDiv = $('#filter-div');
-    self.$filterTabHL = $('#filter-tab-highlight');
-    self.$filterTabBack = $('#filter-tab-back');
-    self.$filterTabAll = $('.filter-tab-image');
 
     self.slideFilter = function() {
         if (self.filterIsOpen()) { // then close it
@@ -67,7 +82,6 @@ var TheatreMapViewModel = function() {
         } else { // open filter
             console.log('Opening filter.'); // DEBUG
             self.filterIsOpen(true);
-            self.determineNeedToReload(); // May need to replace loaded DOM element
             self.$filterDiv.addClass('right-div-on'); // Place the div onscreen
             self.$filterTabAll.addClass('tab-on'); // Move the tab as well
             self.$filterDiv.removeClass('right-div-off');
@@ -76,16 +90,10 @@ var TheatreMapViewModel = function() {
         }
     };
 
-    // To determine whether to spend resources loading up twitter DOM elements
-    self.twitterIsOpen = ko.observable(false);
-
     // To determine whether to load the twitter list or a particular account.
     self.twitterListView = ko.observable(true);
 
-    self.$twitterDiv = $('#twitter-div');
-    self.$twitterTabHL = $('#twitter-tab-highlight');
-    self.$twitterTabBack = $('#twitter-tab-back');
-    self.$twitterTabAll = $('.twitter-tab-image');
+
 
     /**
      * Slide the twitter pane in and out of view, enabling/disabling its drain 
