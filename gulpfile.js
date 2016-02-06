@@ -55,9 +55,9 @@ gulp.task('clean-images', function() {
 
 // Resize images
 gulp.task('images', function() {
-    gulp.src('src/images/twitter-tab*')
+    gulp.src('src/images/twitter-tab*narrow.png')
         .pipe(imageResize({
-            width: 60
+            width: 40
         }))
         .pipe(gulp.dest('dist/images'))
         .pipe(notify({
