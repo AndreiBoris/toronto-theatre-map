@@ -634,7 +634,7 @@ var TheatreMapViewModel = function() {
                         // Since only one InfoWindow can be open at a given time
                         // we turn off the Close all Windows button if a 
                         // filtered marker had its open.
-                        self.checkInfoWindow(marker);
+                        //self.checkInfoWindow(marker);
                         break; // If an item doesn't pass the filter, we don't 
                     } // need to test the other filters.
                 }
@@ -648,7 +648,7 @@ var TheatreMapViewModel = function() {
     // the implementation of InfoWindows so that only one exists and we just 
     // update its contents, seeing as how the design hinged on only one window
     // being open.
-    self.infoWindowOpen = ko.observable(false);
+    //self.infoWindowOpen = ko.observable(false);
 
     /**
      * If the marker has its InfoWindow open we tell the marker that we are 
@@ -657,12 +657,12 @@ var TheatreMapViewModel = function() {
      * called by filterMarkers. NOTE: This doesn't actually close the 
      * InfoWindow, that action is performed by hideItem in itemFailsFilter.
      */
-    self.checkInfoWindow = function(marker) {
-        if (marker.infoWindowOpen) { // Marker's info window is open.
-            marker.infoWindowOpen = false; // Tell the marker the window is closed.
-            self.infoWindowOpen(false); // Tell the view that no windows are open.
-        }
-    };
+    // self.checkInfoWindow = function(marker) {
+    //     if (marker.infoWindowOpen) { // Marker's info window is open.
+    //         marker.infoWindowOpen = false; // Tell the marker the window is closed.
+    //         self.infoWindowOpen(false); // Tell the view that no windows are open.
+    //     }
+    // };
 
     /**
      * Open the marker and set the observable holding the active twitter account
@@ -703,8 +703,8 @@ var TheatreMapViewModel = function() {
         self.closeInfoWindows();
         marker.infoWin.open(mapManager.map, marker);
         // Allows for scanning whether any InfoWindows are open or not.
-        marker.infoWindowOpen = true;
-        self.infoWindowOpen(true); // observable for the enabling of a button
+        //marker.infoWindowOpen = true;
+        //self.infoWindowOpen(true); // observable for the enabling of a button
     };
 
     /**
@@ -714,9 +714,9 @@ var TheatreMapViewModel = function() {
         self.markers().forEach(function(marker) {
             marker.infoWin.close();
             // Allows for scanning whether any InfoWindows are open or not.
-            marker.infoWindowOpen = false;
+            //marker.infoWindowOpen = false;
         });
-        self.infoWindowOpen(false); // observable for the disabling of a button
+        //self.infoWindowOpen(false); // observable for the disabling of a button
     };
 
     /**
@@ -763,6 +763,7 @@ var TheatreMapViewModel = function() {
         // calls next time around. DOESN'T WORK YET.
         // mapManager.store();
         self.startGlow();
+        // Set up listener on all Info Windows 
     };
 };
 
