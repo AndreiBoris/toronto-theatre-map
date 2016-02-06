@@ -1,5 +1,4 @@
 /* Imports */
-/***  ***/
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -125,10 +124,6 @@ button:disabled {
   overflow: scroll;
 }
 
-/*** This is just for testing ***/
-/* .spaced-out {
-    margin: 0.3em 0;
-} */
 #footer {
   z-index: 3;
   text-align: center;

@@ -1,9 +1,8 @@
 /* Imports */
 
-
-/***  ***/
-
 @import 'imports/reset';
+
+
 // Right from the Google Maps API example to get the map to display
 html,
 body {
@@ -89,17 +88,9 @@ button:disabled {
     right: -0.5%;
 }
 
-.twitter-tab-on {
-    // right: 29.5%;
-}
-
 .right-div-on {
     right: 0%;
     z-index: 4;
-}
-
-.twitter-off {
-    // right: -30%;
 }
 
 
@@ -111,20 +102,6 @@ button:disabled {
     height: 150px;
     overflow: scroll;
 }
-
-// #search-box {
-//     position: absolute;
-//     left: 20%;
-//     top: 5%;
-//     z-index: 2;
-// }
-
-/*** This is just for testing ***/
-
-
-/* .spaced-out {
-    margin: 0.3em 0;
-} */
 
 #footer {
     z-index: 3;
