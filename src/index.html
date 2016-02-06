@@ -34,28 +34,28 @@
     <div id="map">
     </div>
     <!-- Here we have the list div and the corresponding information -->
-    <div class="right-div-off right-divs" id="list-div">
+    <img id="list-tab-back" class="right-divs right-div-off" data-bind="click: slideTwitter" src="dist/images/twitter-tab-back-narrow.png"></img>
+    <div id="list-div" class="">
         <ul data-bind="foreach: markers">
             <li>
                 <button class="spaced-out" data-bind="text: title + ' ' + founded,
           click: $root.accessMarker,
           visible: listed"></button>
-                <!-- <div data-bind="text: infoWin.content"></div> -->
             </li>
         </ul>
     </div>
     <!-- Here we have all the tabs necessary for the Twitter div -->
-    <img id="twitter-tab" class="twitter-tab-off twitter-tab-image" src="dist/images/twitter-tab-narrow.png"></img>
-    <img id="twitter-tab-highlight" class="twitter-tab-off twitter-tab-image" src="dist/images/twitter-tab-highlight-narrow.png"></img>
-    <img id="twitter-tab-back" class="twitter-tab-off twitter-tab-image" data-bind="click: slideTwitter" src="dist/images/twitter-tab-back-narrow.png"></img>
-    <div class="right-div-off right-divs" id="twitter-div">
+    <img id="twitter-tab" class="tab-off twitter-tab-image" src="dist/images/twitter-tab-narrow.png"></img>
+    <img id="twitter-tab-highlight" class="tab-off twitter-tab-image" src="dist/images/twitter-tab-highlight-narrow.png"></img>
+    <img id="twitter-tab-back" class="tab-off twitter-tab-image" data-bind="click: slideTwitter" src="dist/images/twitter-tab-back-narrow.png"></img>
+    <div id="twitter-div" class="right-div-off right-divs">
         <div id="twitter-list" data-bind="visible: twitterListView() && twitterIsOpen">
         </div>
         <div id="twitter-account" data-bind="visible: !twitterListView() && twitterIsOpen">
         </div>
     </div>
     <!-- Here we have the filter div -->
-    <div class="right-div-off right-divs">
+    <div class="">
         <ul data-bind="foreach: filters">
             <li>
                 <input type="checkbox" data-bind="checked: filter">
@@ -66,8 +66,8 @@
         </ul>
     </div>
     <footer id="footer">
-<div>Icon made by <a href="http://www.icomoon.io" title="Icomoon">Icomoon</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
-<div>Icon made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
+        <div>Icon made by <a href="http://www.icomoon.io" title="Icomoon">Icomoon</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
+        <div>Icon made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
     </footer>
     <script src="https://platform.twitter.com/widgets.js"></script>
     <script type="text/javascript" src="dist/perm/jquery-1.12.0.min.js"></script>

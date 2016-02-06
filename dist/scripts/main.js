@@ -36,7 +36,7 @@ var TheatreMapViewModel = function() {
             console.log('Closing twitter.'); // DEBUG
             self.twitterIsOpen(false); // Don't load anything to Twitter
             self.$twitterDiv.addClass('right-div-off'); // Place the div offscreen
-            self.$twitterTabAll.addClass('twitter-tab-off'); // Move the tab as well
+            self.$twitterTabAll.addClass('tab-off'); // Move the tab as well
             self.$twitterDiv.removeClass('twitter-on');
             self.$twitterTabAll.removeClass('twitter-tab-on');
             self.$twitterTabBack.css('opacity', 0); // Show Twitter logo.
@@ -47,7 +47,7 @@ var TheatreMapViewModel = function() {
             self.$twitterDiv.addClass('twitter-on'); // Place the div onscreen
             self.$twitterTabAll.addClass('twitter-tab-on'); // Move the tab as well
             self.$twitterDiv.removeClass('right-div-off');
-            self.$twitterTabAll.removeClass('twitter-tab-off');
+            self.$twitterTabAll.removeClass('tab-off');
             self.$twitterTabBack.css('opacity', 1); // Show back button.
 
         }
