@@ -605,7 +605,7 @@ var TheatreMapViewModel = function() {
         console.log('Accessing marker.');
         console.log('The screen width is ' + mapManager.util.screenWidth);
         if (self.listIsOpen() && mapManager.util.screenWidth < 700){
-            self.slideList();
+            self.slideList(); // close list tab on small screen when accessing
         }
         self.openInfoWindow(marker);
         self.activeTwitter(marker.twitterHandle);
