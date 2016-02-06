@@ -68,39 +68,18 @@ button:disabled {
 /*** The map needs to have a specific size in order to display. ***/
 #map {
   height: 100%;
-  width: 80%;
-  left: 20%;
+  width: 100%;
   position: absolute;
   z-index: 1;
 }
 
-/*** This is only for testing purposes ***/
-#list-div {
-  position: absolute;
-  left: 0;
-  width: 20%;
-  text-align: center;
-  height: 100%;
-  background-color: white;
-  z-index: 2;
-}
-
 .right-divs {
   position: absolute;
-}
-
-/*** This is only for testing purposes ***/
-.filter-list {
-  width: 30%;
-}
-
-/*** This is only for testing purposes ***/
-#twitter-div {
-  position: absolute;
-  height: 100%;
-  background-color: white;
+  z-index: 2;
   overflow: scroll;
   transition: 0.15s;
+  height: 100%;
+  background-color: white;
 }
 
 #twitter-tab {
@@ -133,7 +112,6 @@ button:disabled {
 
 .twitter-on {
   right: 0%;
-  z-index: 2;
 }
 
 /*** Each InfoWindow that appears when markers are clicked has a div inside them
@@ -144,18 +122,10 @@ button:disabled {
   overflow: scroll;
 }
 
-#search-box {
-  position: absolute;
-  left: 20%;
-  top: 5%;
-  z-index: 2;
-}
-
 /*** This is just for testing ***/
-.spaced-out {
-  margin: 0.3em 0;
-}
-
+/* .spaced-out {
+    margin: 0.3em 0;
+} */
 #footer {
   z-index: 3;
   text-align: center;
@@ -166,7 +136,7 @@ button:disabled {
 }
 
 @media only screen and (min-width: 700px) {
-  #twitter-div {
+  .right-divs {
     width: 30%;
   }
 
@@ -174,12 +144,12 @@ button:disabled {
     right: 29.5%;
   }
 
-  .twitter-off {
+  .right-div-off {
     right: -30%;
   }
 }
 @media only screen and (max-width: 700px) {
-  #twitter-div {
+  .right-divs {
     width: 90%;
   }
 
@@ -187,7 +157,7 @@ button:disabled {
     right: 89.5%;
   }
 
-  .twitter-off {
+  .right-div-off {
     right: -90%;
   }
 }

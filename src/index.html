@@ -34,7 +34,7 @@
     <div id="map">
     </div>
     <!-- Here we have the list div and the corresponding information -->
-    <div class="twitter-off right-divs" id="list-div">
+    <div class="right-div-off right-divs" id="list-div">
         <ul data-bind="foreach: markers">
             <li>
                 <button class="spaced-out" data-bind="text: title + ' ' + founded,
@@ -48,14 +48,14 @@
     <img id="twitter-tab" class="twitter-tab-off twitter-tab-image" src="dist/images/twitter-tab-narrow.png"></img>
     <img id="twitter-tab-highlight" class="twitter-tab-off twitter-tab-image" src="dist/images/twitter-tab-highlight-narrow.png"></img>
     <img id="twitter-tab-back" class="twitter-tab-off twitter-tab-image" data-bind="click: slideTwitter" src="dist/images/twitter-tab-back-narrow.png"></img>
-    <div class="twitter-off" id="twitter-div">
+    <div class="right-div-off right-divs" id="twitter-div">
         <div id="twitter-list" data-bind="visible: twitterListView() && twitterIsOpen">
         </div>
         <div id="twitter-account" data-bind="visible: !twitterListView() && twitterIsOpen">
         </div>
     </div>
     <!-- Here we have the filter div -->
-    <div>
+    <div class="right-div-off right-divs">
         <ul data-bind="foreach: filters">
             <li>
                 <input type="checkbox" data-bind="checked: filter">

@@ -21,46 +21,18 @@ button:disabled {
 
 #map {
     height: 100%;
-    width: 80%;
-    left: 20%;
+    width: 100%;
     position: absolute;
-    z-index: 1; // we want the search box to appear ontop of the map
-}
-
-
-/*** This is only for testing purposes ***/
-
-#list-div {
-    position: absolute;
-    left: 0;
-    width: 20%;
-    text-align: center;
-    height: 100%;
-    background-color: white;
-    z-index: 2;
+    z-index: 1; // we was the right-divs to appear over the map
 }
 
 .right-divs {
     position: absolute;
-}
-
-
-/*** This is only for testing purposes ***/
-
-.filter-list {
-    width: 30%;
-}
-
-
-/*** This is only for testing purposes ***/
-
-#twitter-div {
-    position: absolute;
-    // width: 30%;
-    height: 100%;
-    background-color: white;
+    z-index: 2;
     overflow: scroll;
     transition: 0.15s;
+    height: 100%;
+    background-color: white;
 }
 
 #twitter-tab {
@@ -97,7 +69,6 @@ button:disabled {
 
 .twitter-on {
     right: 0%;
-    z-index: 2;
 }
 
 .twitter-off {
@@ -114,19 +85,19 @@ button:disabled {
     overflow: scroll;
 }
 
-#search-box {
-    position: absolute;
-    left: 20%;
-    top: 5%;
-    z-index: 2;
-}
+// #search-box {
+//     position: absolute;
+//     left: 20%;
+//     top: 5%;
+//     z-index: 2;
+// }
 
 
 /*** This is just for testing ***/
 
-.spaced-out {
+/* .spaced-out {
     margin: 0.3em 0;
-}
+} */
 
 #footer {
     z-index: 3;
@@ -138,25 +109,25 @@ button:disabled {
 }
 
 @media only screen and (min-width: 700px) {
-    #twitter-div { 
+    .right-divs { 
         width: 30%;
     }
     .twitter-tab-on {
         right: 29.5%;
     }
-    .twitter-off {
+    .right-div-off {
         right: -30%;
     }
 }
 
 @media only screen and (max-width: 700px) {
-    #twitter-div { 
+    .right-divs { 
         width: 90%;
     }
     .twitter-tab-on {
         right: 89.5%;
     }
-    .twitter-off {
+    .right-div-off {
         right: -90%;
     }
 }
