@@ -26,6 +26,10 @@ var TheatreMapViewModel = function() {
     self.slideList = function() {
         if (self.listIsOpen()) { // then close it
             console.log('Closing list.'); // DEBUG
+            if (self.glowingList){
+                self.glowingList = false;
+                self.stopGlow();
+            }
             self.listIsOpen(false);
             self.$listDiv.addClass('right-div-off'); // Place the div offscreen
             self.$listTabAll.addClass('tab-off'); // Move the tab as well
@@ -552,16 +556,18 @@ var TheatreMapViewModel = function() {
      * items are visible based on varied criteria.
      *
      * NOTE: This function has many embedded loops.
-     * I think its acceptable in this case because it is safe, and the projected 
-     * maximum number of theatres included in this app is not likely to exceed 
-     * more than a couple hundred at any point. Should this no longer be the 
-     * case, this is probably one of the first things worth redesigning.
+     * I think its acceptable in this case because it is safe (the function will 
+     * be executed correctly, though expensively!), and the projected maximum 
+     * number of theatres included in this app is not likely to exceed more than 
+     * a couple hundred at any point. Should this no longer be the case, this 
+     * is probably one of the first things worth redesigning.
      */
     self.filterMarkers = ko.computed(function() {
         var length = self.markers().length; // number of theatres
         var numFilters = self.filters.length; // number of filters
         var i, j;
         var marker; // makes loop easier to read
+        self.glowingList = true;
         for (i = 0; i < length; i++) { // check each theatre
 
             marker = self.markers()[i]; // current theatre
