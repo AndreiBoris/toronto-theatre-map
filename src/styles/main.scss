@@ -116,10 +116,9 @@ button:disabled {
 /*** Each InfoWindow that appears when markers are clicked has a div inside them
     with this class. ***/
 
-.info-window {
+.current-display {
+    margin: 0.5em;
     font-size: 1.2em;
-    height: 150px;
-    overflow: scroll;
 }
 
 #footer {

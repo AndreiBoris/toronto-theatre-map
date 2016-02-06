@@ -126,7 +126,7 @@ var TheatreMapViewModel = function() {
     self.currentBlurb = ko.observable('');
 
     self.currentDisplay = ko.computed(function() {
-        var content = '<div class="info-window"><h4><a href="' +
+        var content = '<div class="current-display"><h4><a href="' +
             self.currentWebsite() + '">' +
             self.currentTitle() +
             '</a></h4>' +
