@@ -36,12 +36,7 @@ button:disabled {
     background-color: white;
 }
 
-#list-tab-back {
-    opacity: 1; // DEBUG
-    position: absolute;
-    z-index: 5;
-    transition: 0.15s;
-}
+
 
 .tab-plain {
     position: absolute;
@@ -63,6 +58,18 @@ button:disabled {
     transition: 0.15s;
 }
 
+#list-tab {
+    @extend .tab-plain;
+}
+
+#list-tab-highlight {
+    @extend .tab-highlight;
+}
+
+#list-tab-back {
+    @extend .tab-back;
+}
+
 #twitter-tab {
     @extend .tab-plain;
 }
@@ -73,10 +80,6 @@ button:disabled {
 
 #twitter-tab-back {
     @extend .tab-back;
-}
-
-.highlight {
-    border: 3px solid yellow;
 }
 
 .tab-off {

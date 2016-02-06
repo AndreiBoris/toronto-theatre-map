@@ -34,7 +34,9 @@
     <div id="map">
     </div>
     <!-- Here we have the list div and the corresponding information -->
-    <img id="list-tab-back" class="tab-off list-tab-image" data-bind="click: slideList" src="dist/images/twitter-tab-back-narrow.png"></img>
+    <img id="list-tab" class="tab-off list-tab-image" src="dist/images/list-tab.png"></img>
+    <img id="list-tab-highlight" class="tab-off list-tab-image" src="dist/images/list-tab-highlight.png"></img>
+    <img id="list-tab-back" class="tab-off list-tab-image" data-bind="click: slideList" src="dist/images/tab-back.png"></img>
     <div id="list-div" class="right-divs right-div-off">
         <ul data-bind="foreach: markers">
             <li>
@@ -45,9 +47,9 @@
         </ul>
     </div>
     <!-- Here we have all the tabs necessary for the Twitter div -->
-    <img id="twitter-tab" class="tab-off twitter-tab-image" src="dist/images/twitter-tab-narrow.png"></img>
-    <img id="twitter-tab-highlight" class="tab-off twitter-tab-image" src="dist/images/twitter-tab-highlight-narrow.png"></img>
-    <img id="twitter-tab-back" class="tab-off twitter-tab-image" data-bind="click: slideTwitter" src="dist/images/twitter-tab-back-narrow.png"></img>
+    <img id="twitter-tab" class="tab-off twitter-tab-image" src="dist/images/twitter-tab.png"></img>
+    <img id="twitter-tab-highlight" class="tab-off twitter-tab-image" src="dist/images/twitter-tab-highlight.png"></img>
+    <img id="twitter-tab-back" class="tab-off twitter-tab-image" data-bind="click: slideTwitter" src="dist/images/tab-back.png"></img>
     <div id="twitter-div" class="right-div-off right-divs">
         <div id="twitter-list" data-bind="visible: twitterListView() && twitterIsOpen">
         </div>

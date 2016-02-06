@@ -83,35 +83,24 @@ button:disabled {
   background-color: white;
 }
 
-#list-tab-back {
-  opacity: 1;
-  position: absolute;
-  z-index: 5;
-  transition: 0.15s;
-}
-
-.tab-plain, #twitter-tab {
+.tab-plain, #list-tab, #twitter-tab {
   position: absolute;
   z-index: 3;
   transition: 0.15s;
 }
 
-.tab-highlight, #twitter-tab-highlight {
+.tab-highlight, #list-tab-highlight, #twitter-tab-highlight {
   opacity: 0;
   position: absolute;
   z-index: 4;
   transition: 0.15s;
 }
 
-.tab-back, #twitter-tab-back {
+.tab-back, #list-tab-back, #twitter-tab-back {
   opacity: 0;
   position: absolute;
   z-index: 5;
   transition: 0.15s;
-}
-
-.highlight {
-  border: 3px solid yellow;
 }
 
 .tab-off {
