@@ -22,6 +22,15 @@ var TheatreMapViewModel = function() {
     // To determine whether to load the twitter list or a particular account.
     self.twitterListView = ko.observable(true);
 
+    self.$listDiv = $('#list-div');
+    //self.$listTabHL = $('#list-tab-highlight');
+    self.$listTabBack = $('#list-tab-back');
+    self.$listTabAll = $('.list-tab-image');
+
+    self.slideList = function() {
+
+    };
+
     self.$twitterDiv = $('#twitter-div');
     self.$twitterTabHL = $('#twitter-tab-highlight');
     self.$twitterTabBack = $('#twitter-tab-back');
@@ -38,14 +47,14 @@ var TheatreMapViewModel = function() {
             self.$twitterDiv.addClass('right-div-off'); // Place the div offscreen
             self.$twitterTabAll.addClass('tab-off'); // Move the tab as well
             self.$twitterDiv.removeClass('twitter-on');
-            self.$twitterTabAll.removeClass('twitter-tab-on');
+            self.$twitterTabAll.removeClass('tab-on');
             self.$twitterTabBack.css('opacity', 0); // Show Twitter logo.
         } else { // open twitter
             console.log('Opening twitter.'); // DEBUG
             self.twitterIsOpen(true); // Load things into Twitter
             self.determineNeedToReload(); // May need to replace loaded DOM element
             self.$twitterDiv.addClass('twitter-on'); // Place the div onscreen
-            self.$twitterTabAll.addClass('twitter-tab-on'); // Move the tab as well
+            self.$twitterTabAll.addClass('tab-on'); // Move the tab as well
             self.$twitterDiv.removeClass('right-div-off');
             self.$twitterTabAll.removeClass('tab-off');
             self.$twitterTabBack.css('opacity', 1); // Show back button.
@@ -669,6 +678,12 @@ var mapManager = {
                 style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
                 position: google.maps.ControlPosition.LEFT_BOTTOM
             },
+            zoomControlOptions: {
+                position: google.maps.ControlPosition.LEFT_TOP
+            },
+            streetViewControlOptions: {
+                position: google.maps.ControlPosition.TOP_LEFT
+            }
         });
 
         /**
@@ -1234,6 +1249,7 @@ var mapManager = {
 };
 
 mapManager.load();
+
 /**
  * This file is used to hold helper functions and objects in an encapsulated 
  * way.

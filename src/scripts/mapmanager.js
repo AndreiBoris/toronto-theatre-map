@@ -33,6 +33,12 @@ var mapManager = {
                 style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
                 position: google.maps.ControlPosition.LEFT_BOTTOM
             },
+            zoomControlOptions: {
+                position: google.maps.ControlPosition.LEFT_TOP
+            },
+            streetViewControlOptions: {
+                position: google.maps.ControlPosition.TOP_LEFT
+            }
         });
 
         /**

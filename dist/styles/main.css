@@ -83,20 +83,27 @@ button:disabled {
   background-color: white;
 }
 
-#twitter-tab {
+#list-tab-back {
+  opacity: 1;
+  position: absolute;
+  z-index: 5;
+  transition: 0.15s;
+}
+
+.tab-plain, #twitter-tab {
   position: absolute;
   z-index: 3;
   transition: 0.15s;
 }
 
-#twitter-tab-highlight {
+.tab-highlight, #twitter-tab-highlight {
   opacity: 0;
   position: absolute;
   z-index: 4;
   transition: 0.15s;
 }
 
-#twitter-tab-back {
+.tab-back, #twitter-tab-back {
   opacity: 0;
   position: absolute;
   z-index: 5;
@@ -141,7 +148,7 @@ button:disabled {
     width: 30%;
   }
 
-  .twitter-tab-on {
+  .tab-on {
     right: 29.5%;
   }
 
@@ -154,7 +161,7 @@ button:disabled {
     width: 90%;
   }
 
-  .twitter-tab-on {
+  .tab-on {
     right: 89.5%;
   }
 
