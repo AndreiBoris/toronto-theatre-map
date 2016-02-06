@@ -121,6 +121,20 @@ var TheatreMapViewModel = function() {
 
     };
 
+    self.currentTitle = ko.observable('');
+    self.currentWebsite = ko.observable('');
+    self.currentBlurb = ko.observable('');
+
+    self.currentDisplay = ko.computed(function() {
+        var content = '<div class="info-window"><h4><a href="' +
+            self.currentWebsite() + '">' +
+            self.currentTitle() +
+            '</a></h4>' +
+            '<p>' +
+            self.currentBlurb() + '</p></div>';
+        return content;
+    });
+
     self.activeTwitter = ko.observable(''); // current Twitter user selected
     self.lastTwitterUser = ko.observable(''); // current Twitter user loaded
 
@@ -670,6 +684,9 @@ var TheatreMapViewModel = function() {
         self.activeTwitter(marker.twitterHandle);
         self.userTwitter(); // Go to the marker's corresponding twitter feed
         self.determineNeedToReload(); // We might have a new twitter feed to load
+        self.currentTitle(marker.title);
+        self.currentWebsite(marker.website);
+        self.currentBlurb(marker.blurb);
     };
 
     /**
@@ -1018,6 +1035,7 @@ var mapManager = {
             '<p>' + blurb + '</p></div>';
         infoWindow.setContent(content); // Apply the formatted content.
     },
+
     // store: function() {
     //     'use strict';
     //     console.log('storing data');

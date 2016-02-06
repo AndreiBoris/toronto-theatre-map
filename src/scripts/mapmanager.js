@@ -244,6 +244,7 @@ var mapManager = {
             '<p>' + blurb + '</p></div>';
         infoWindow.setContent(content); // Apply the formatted content.
     },
+
     // store: function() {
     //     'use strict';
     //     console.log('storing data');
