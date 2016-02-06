@@ -22,40 +22,34 @@ var TheatreMapViewModel = function() {
     // To determine whether to load the twitter list or a particular account.
     self.twitterListView = ko.observable(true);
 
+    self.$twitterDiv = $('#twitter-div');
+    self.$twitterTab = $('#twitter-tab');
+    self.$twitterTabHL = $('#twitter-tab-highlight');
+    self.$twitterTabBack = $('#twitter-tab-back');
+    self.$twitterTabAll = $('.tab-image');
+
     /**
      * Slide the twitter pane in and out of view, enabling/disabling its drain 
      * on resources.
      */
     self.slideTwitter = function() {
-        var $twitterDiv = $('#twitter-div');
-        var $twitterTab = $('#twitter-tab');
-        var $twitterTabHL = $('#twitter-tab-highlight');
-        var $twitterTabBack = $('#twitter-tab-back');
         if (self.twitterIsOpen()) { // then close it
             console.log('Closing twitter.'); // DEBUG
             self.twitterIsOpen(false); // Don't load anything to Twitter
-            $twitterDiv.addClass('twitter-off'); // Place the div offscreen
-            $twitterTab.addClass('twitter-tab-off'); // Move the tab as well
-            $twitterTabHL.addClass('twitter-tab-off'); // Move the tab as well
-            $twitterTabBack.addClass('twitter-tab-off'); // Move the tab as well
-            $twitterDiv.removeClass('twitter-on'); 
-            $twitterTab.removeClass('twitter-tab-on'); 
-            $twitterTabHL.removeClass('twitter-tab-on'); 
-            $twitterTabBack.removeClass('twitter-tab-on'); 
-            $twitterTabBack.css('opacity', 0);
+            self.$twitterDiv.addClass('twitter-off'); // Place the div offscreen
+            self.$twitterTabAll.addClass('twitter-tab-off'); // Move the tab as well
+            self.$twitterDiv.removeClass('twitter-on');
+            self.$twitterTabAll.removeClass('twitter-tab-on');
+            self.$twitterTabBack.css('opacity', 0);
         } else { // open twitter
             console.log('Opening twitter.'); // DEBUG
             self.twitterIsOpen(true); // Load things into Twitter
             self.determineNeedToReload(); // May need to replace loaded DOM element
-            $twitterDiv.addClass('twitter-on'); // Place the div onscreen
-            $twitterTab.addClass('twitter-tab-on'); // Move the tab as well
-            $twitterTabHL.addClass('twitter-tab-on'); // Move the tab as well
-            $twitterTabBack.addClass('twitter-tab-on'); // Move the tab as well
-            $twitterDiv.removeClass('twitter-off'); 
-            $twitterTab.removeClass('twitter-tab-off'); 
-            $twitterTabHL.removeClass('twitter-tab-off');
-            $twitterTabBack.removeClass('twitter-tab-off'); 
-            $twitterTabBack.css('opacity', 1);
+            self.$twitterDiv.addClass('twitter-on'); // Place the div onscreen
+            self.$twitterTabAll.addClass('twitter-tab-on'); // Move the tab as well
+            self.$twitterDiv.removeClass('twitter-off');
+            self.$twitterTabAll.removeClass('twitter-tab-off');
+            self.$twitterTabBack.css('opacity', 1);
 
         }
 
@@ -201,10 +195,16 @@ var TheatreMapViewModel = function() {
      * Reset the glow animation variables.
      */
     self.stopGlow = function() {
-        mapManager.util.fading = false; // Glow begins by brightning, not fading.
-        mapManager.util.$highlight.css('opacity', 0); // Set to transparent.
-        mapManager.util.curOpacity = 0; // Transparency tracking variable.
+        self.fading = false; // Glow begins by brightning, not fading.
+        self.$twitterTabHL.css('opacity', 0); // Set to transparent.
+        self.curOpacity = 0; // Transparency tracking variable.
     };
+
+    // The twitter tab bright image is currently fading.
+    self.fading = false;
+
+    // Opacity tracking $self.$highlight
+    self.curOpacity = 0;
 
     /**
      * Animation for the twitter glow that indicates there is new content in the 
@@ -216,20 +216,20 @@ var TheatreMapViewModel = function() {
             self.stopGlow(); // Reset corresponding variables.
             return; // Stop animation.
         }
-        if (mapManager.util.fading) { // Decrease opacity.
-            mapManager.util.curOpacity -= 0.01; // Track opacity in variable.
+        if (self.fading) { // Decrease opacity.
+            self.curOpacity -= 0.01; // Track opacity in variable.
             // Set opacity.
-            mapManager.util.$highlight.css('opacity', mapManager.util.curOpacity);
-            if (mapManager.util.curOpacity <= 0) { // Reached endpoint.
-                mapManager.util.fading = false; // Switch to increasing opacity.
+            self.$twitterTabHL.css('opacity', self.curOpacity);
+            if (self.curOpacity <= 0) { // Reached endpoint.
+                self.fading = false; // Switch to increasing opacity.
             }
         } else { // The tab is brighting. Increase opacity.
-            mapManager.util.curOpacity += 0.01; // Track opacity in variable.
+            self.curOpacity += 0.01; // Track opacity in variable.
             // Set opacity.
-            mapManager.util.$highlight.css('opacity', mapManager.util.curOpacity);
+            self.$twitterTabHL.css('opacity', self.curOpacity);
             // Go beyond 1.0 to pause at brightest point.
-            if (mapManager.util.curOpacity >= 1.3) { 
-                mapManager.util.fading = true; // Switch to decreasing opacity.
+            if (self.curOpacity >= 1.3) {
+                self.fading = true; // Switch to decreasing opacity.
             }
         }
         // Keep animating.

@@ -156,12 +156,3 @@ mapManager.util.resizeTwitterTab = function() {
 
 // Position twitter tab as soon as page loads.
 mapManager.util.resizeTwitterTab();
-
-// The twitter tab bright image is currently fading.
-mapManager.util.fading = false;
-
-// The highlighted twitter tab jQuery element.
-mapManager.util.$highlight = $('#twitter-tab-highlight');
-
-// Opacity tracking $mapManager.util.$highlight
-mapManager.util.curOpacity = 0;
