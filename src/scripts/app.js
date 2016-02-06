@@ -739,13 +739,14 @@ var TheatreMapViewModel = function() {
             curMarker.infoWin = new google.maps.InfoWindow(mapManager.util.blankInfoWin);
             // Set up a listener on the marker that will open the corresponding
             // InfoWindow when the Marker is clicked.
+            curMarker.infoWin.setContent(curMarker.title);
             infoWindowBinder(curMarker);
             // These variables are set for readability.
             var title = markerItem.title; // Title of marker.
             var website = markerItem.website; // Website associated with marker.
             var blurb = markerItem.blurb; // Description associated with marker.
             // Fill the corresponding InfoWindow with the data we have.
-            mapManager.setInfoWindow(curMarker, title, website, blurb);
+            mapManager.setDescription(curMarker, title, website, blurb);
         });
         // Sort the list of markers in alphabetical order such that the buttons
         // corresponding to the markers will be displayed in this way on the View

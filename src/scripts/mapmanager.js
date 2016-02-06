@@ -73,7 +73,8 @@ var mapManager = {
             founded: markerItem.founded, // Company's founding year
             flags: markerItem.flags, // Categories for filters
             infoWin: {}, // placeholder
-            infoWindowOpen: false
+            //infoWindowOpen: false
+            blurb: ''
         }));
     },
 
@@ -104,17 +105,21 @@ var mapManager = {
      * @param {string} website The website that the title should link to.
      * @param {string} blurb   The description corresponding to the marker.
      */
-    setInfoWindow: function(marker, title, website, blurb) {
+    setDescription: function(marker, title, website, blurb) {
         'use strict';
         if (title && website && blurb) { // we have all the data already
             // Fill the InfoWindow with all the important data.
-            this.infoWindowMaker(marker.infoWin, title, website, blurb);
+            // this.infoWindowMaker(marker.infoWin, title, website, blurb);
+            marker.website = website;
+            marker.blurb = blurb;
         } else if (title) { // we have the title, so we can look up missing data
             // Make a call to the Wikipedia API to retrieve a website and/or blurb.
-            this.infoWinWikiAJAX(marker, website, blurb);
+            this.markerDataAjax(marker, website, blurb);
         } else { // If there is no title, we can't do a wikipedia AJAX call.
             // FIll the InfoWindow as best as we can.
-            this.infoWindowMaker(marker.infoWin, title, website, blurb);
+            // this.infoWindowMaker(marker.infoWin, title, website, blurb);
+            marker.website = website;
+            marker.blurb = blurb;
         }
     },
 
@@ -130,7 +135,7 @@ var mapManager = {
      *                                        the corresponding content from the
      *                                        a mapManager.markerData item. 
      */
-    infoWinWikiAJAX: function(marker, fallbackWebsite, fallbackBlurp) {
+    markerDataAjax: function(marker, fallbackWebsite, fallbackBlurp) {
         'use strict';
 
         console.log('running wiki AJAX');
@@ -149,7 +154,9 @@ var mapManager = {
          */
         var wikipediaRequestTimeout = setTimeout(function() {
             // Fall back on whatever content is provided by markerData.
-            marker.infoWin.setContent(fallbackBlurp);
+            // marker.infoWin.setContent(fallbackBlurp);
+            marker.website = fallbackWebsite;
+            marker.blurb = fallbackBlurp;
             return;
         }, 5000);
 
@@ -159,17 +166,17 @@ var mapManager = {
             success: function(data) {
                 // Cancel the timeout since AJAX request is successful.
                 clearTimeout(wikipediaRequestTimeout);
-                // We either found 1 article or we found 0, hence the boolean.
-                var wikiFound = data[1].length;
+                var wikiFound = data[1].length; // Max of 1.
                 var infoWindow = marker.infoWin;
                 var title, website, blurb;
+                // We either found 1 article or we found 0, hence the boolean.
                 if (wikiFound) {
-                    if (!fallbackWebsite){
+                    if (!fallbackWebsite) {
                         website = data[3][0];
                     } else {
                         website = fallbackWebsite;
                     }
-                    if (!fallbackBlurp){
+                    if (!fallbackBlurp) {
                         blurb = data[2][0];
                     } else {
                         blurb = fallbackBlurp;
@@ -179,7 +186,9 @@ var mapManager = {
                     website = fallbackWebsite;
                     blurb = fallbackBlurp;
                 }
-                self.infoWindowMaker(infoWindow, marker.title, website, blurb);
+                // self.infoWindowMaker(infoWindow, marker.title, website, blurb);
+                marker.website = website;
+                marker.blurb = blurb;
             }
         });
     },
