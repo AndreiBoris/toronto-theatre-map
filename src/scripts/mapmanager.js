@@ -164,8 +164,16 @@ var mapManager = {
                 var infoWindow = marker.infoWin;
                 var title, website, blurb;
                 if (wikiFound) {
-                    website = data[3][0];
-                    blurb = data[2][0];
+                    if (!fallbackWebsite){
+                        website = data[3][0];
+                    } else {
+                        website = fallbackWebsite;
+                    }
+                    if (!fallbackBlurp){
+                        blurb = data[2][0];
+                    } else {
+                        blurb = fallbackBlurp;
+                    }
                 } else {
                     // Fall back on whatever content is provided by markerData.
                     website = fallbackWebsite;

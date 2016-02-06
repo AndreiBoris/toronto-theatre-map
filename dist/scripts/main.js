@@ -452,14 +452,6 @@ var TheatreMapViewModel = function() {
         }
     });
 
-    // Is an an InfoWindow open? The corresponding logic is naive and worth 
-    // redesigning. Currently, THIS WILL BREAK if we allow for more than one 
-    // InfoWindow to be open at any given time. It is probably worth redesigning
-    // the implementation of InfoWindows so that only one exists and we just 
-    // update its contents, seeing as how the design hinged on only one window
-    // being open.
-    self.infoWindowOpen = ko.observable(false);
-
     /**
      * These filters are connected to checkboxes on the view. If one of them is 
      * on, only the markers that pass that filter will be displayed. If filter
@@ -548,59 +540,6 @@ var TheatreMapViewModel = function() {
     });
 
     /**
-     * Runs whenever one of the filter checkboxes is changed. It filters which
-     * items are visible based on varied criteria.
-     *
-     * NOTE: This function has many embedded loops.
-     * I think its acceptable in this case because it is safe (the function will 
-     * be executed correctly, though expensively!), and the projected maximum 
-     * number of theatres included in this app is not likely to exceed more than 
-     * a couple hundred at any point. Should this no longer be the case, this 
-     * is probably one of the first things worth redesigning.
-     */
-    self.filterMarkers = ko.computed(function() {
-        var length = self.markers().length; // number of theatres
-        var numFilters = self.filters.length; // number of filters
-        var i, j;
-        var marker; // makes loop easier to read
-        self.glowingList = true;
-        for (i = 0; i < length; i++) { // check each theatre
-
-            marker = self.markers()[i]; // current theatre
-
-            // Here we make the theatre visible. This makes it so this function
-            // can handle both a filter being turned on and off.
-            mapManager.util.showItem(marker);
-
-            for (j = 0; j < numFilters; j++) { // cycle through each filter
-                if (self.filters[j].filter()) { // the filter is turned on
-                    if (mapManager.util.itemFailsFilter(marker, self.filters[j].flag)) {
-                        // Since only one InfoWindow can be open at a given time
-                        // we turn off the Close all Windows button if a 
-                        // filtered marker had its open.
-                        self.checkInfoWindow(marker);
-                        break; // If an item doesn't pass the filter, we don't 
-                    } // need to test the other filters.
-                }
-            }
-        }
-    });
-
-    /**
-     * If the marker has its InfoWindow open we tell the marker that we are 
-     * closing the window and report that all InfoWindows are now closed so the 
-     * button to close the InfoWindow in the view is disabled. This only gets 
-     * called by filterMarkers. NOTE: This doesn't actually close the 
-     * InfoWindow, that action is performed by hideItem in itemFailsFilter.
-     */
-    self.checkInfoWindow = function(marker) {
-        if (marker.infoWindowOpen) { // Marker's info window is open.
-            marker.infoWindowOpen = false; // Tell the marker the window is closed.
-            self.infoWindowOpen(false); // Tell the view that no windows are open.
-        }
-    };
-
-    /**
      * This is connected to a button the view that allows users to reset the 
      * filters such that all the items are back on the screen.
      */
@@ -665,16 +604,64 @@ var TheatreMapViewModel = function() {
     };
 
     /**
-     * This is used inside the forEach loop in self.addMarkers. It makes sure
-     * that the listeners are bound to the correct markers and that the 
-     * InfoWindows open when the markers are clicked.
-     * @param  {object} marker  This is the marker that we want to create a 
-     *                          binding for.
+     * Runs whenever one of the filter checkboxes is changed. It filters which
+     * items are visible based on varied criteria.
+     *
+     * NOTE: This function has many embedded loops.
+     * I think its acceptable in this case because it is safe (the function will 
+     * be executed correctly, though expensively!), and the projected maximum 
+     * number of theatres included in this app is not likely to exceed more than 
+     * a couple hundred at any point. Should this no longer be the case, this 
+     * is probably one of the first things worth redesigning.
      */
-    var infoWindowBinder = function(marker) {
-        marker.addListener('click', function() {
-            self.accessMarker(marker);
-        });
+    self.filterMarkers = ko.computed(function() {
+        var length = self.markers().length; // number of theatres
+        var numFilters = self.filters.length; // number of filters
+        var i, j;
+        var marker; // makes loop easier to read
+        self.glowingList = true;
+        for (i = 0; i < length; i++) { // check each theatre
+
+            marker = self.markers()[i]; // current theatre
+
+            // Here we make the theatre visible. This makes it so this function
+            // can handle both a filter being turned on and off.
+            mapManager.util.showItem(marker);
+
+            for (j = 0; j < numFilters; j++) { // cycle through each filter
+                if (self.filters[j].filter()) { // the filter is turned on
+                    if (mapManager.util.itemFailsFilter(marker, self.filters[j].flag)) {
+                        // Since only one InfoWindow can be open at a given time
+                        // we turn off the Close all Windows button if a 
+                        // filtered marker had its open.
+                        self.checkInfoWindow(marker);
+                        break; // If an item doesn't pass the filter, we don't 
+                    } // need to test the other filters.
+                }
+            }
+        }
+    });
+
+    // Is an an InfoWindow open? The corresponding logic is naive and worth 
+    // redesigning. Currently, THIS WILL BREAK if we allow for more than one 
+    // InfoWindow to be open at any given time. It is probably worth redesigning
+    // the implementation of InfoWindows so that only one exists and we just 
+    // update its contents, seeing as how the design hinged on only one window
+    // being open.
+    self.infoWindowOpen = ko.observable(false);
+
+    /**
+     * If the marker has its InfoWindow open we tell the marker that we are 
+     * closing the window and report that all InfoWindows are now closed so the 
+     * button to close the InfoWindow in the view is disabled. This only gets 
+     * called by filterMarkers. NOTE: This doesn't actually close the 
+     * InfoWindow, that action is performed by hideItem in itemFailsFilter.
+     */
+    self.checkInfoWindow = function(marker) {
+        if (marker.infoWindowOpen) { // Marker's info window is open.
+            marker.infoWindowOpen = false; // Tell the marker the window is closed.
+            self.infoWindowOpen(false); // Tell the view that no windows are open.
+        }
     };
 
     /**
@@ -692,6 +679,19 @@ var TheatreMapViewModel = function() {
         self.activeTwitter(marker.twitterHandle);
         self.userTwitter(); // Go to the marker's corresponding twitter feed
         self.determineNeedToReload(); // We might have a new twitter feed to load
+    };
+
+    /**
+     * This is used inside the forEach loop in self.addMarkers. It makes sure
+     * that the listeners are bound to the correct markers and that the 
+     * InfoWindows open when the markers are clicked.
+     * @param  {object} marker  This is the marker that we want to create a 
+     *                          binding for.
+     */
+    var infoWindowBinder = function(marker) {
+        marker.addListener('click', function() {
+            self.accessMarker(marker);
+        });
     };
 
     /**
@@ -941,8 +941,16 @@ var mapManager = {
                 var infoWindow = marker.infoWin;
                 var title, website, blurb;
                 if (wikiFound) {
-                    website = data[3][0];
-                    blurb = data[2][0];
+                    if (!fallbackWebsite){
+                        website = data[3][0];
+                    } else {
+                        website = fallbackWebsite;
+                    }
+                    if (!fallbackBlurp){
+                        blurb = data[2][0];
+                    } else {
+                        blurb = fallbackBlurp;
+                    }
                 } else {
                     // Fall back on whatever content is provided by markerData.
                     website = fallbackWebsite;
