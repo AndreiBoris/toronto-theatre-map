@@ -26,20 +26,20 @@ var TheatreMapViewModel = function() {
     /**
      * Required to support slide and glow animations
      */
-    self.$listDiv = $('#list-div');
-    self.$listTabHL = $('#list-tab-highlight');
-    self.$listTabBack = $('#list-tab-back');
-    self.$listTabAll = $('.list-tab-image');
+    self.$divList = $('#list-div');
+    self.$tabHLList = $('#list-tab-highlight');
+    self.$tabBackList = $('#list-tab-back');
+    self.$tabAllList = $('.list-tab-image');
 
-    self.$filterDiv = $('#filter-div');
-    self.$filterTabHL = $('#filter-tab-highlight');
-    self.$filterTabBack = $('#filter-tab-back');
-    self.$filterTabAll = $('.filter-tab-image');
+    self.$divFilter = $('#filter-div');
+    self.$tabHLFilter = $('#filter-tab-highlight');
+    self.$tabBackFilter = $('#filter-tab-back');
+    self.$tabAllFilter = $('.filter-tab-image');
 
-    self.$twitterDiv = $('#twitter-div');
-    self.$twitterTabHL = $('#twitter-tab-highlight');
-    self.$twitterTabBack = $('#twitter-tab-back');
-    self.$twitterTabAll = $('.twitter-tab-image');
+    self.$divTwitter = $('#twitter-div');
+    self.$tabHLTwitter = $('#twitter-tab-highlight');
+    self.$tabBackTwitter = $('#twitter-tab-back');
+    self.$tabAllTwitter = $('.twitter-tab-image');
 
     /**
      * Slide the div with the list of theatres on and off screen.
@@ -48,11 +48,11 @@ var TheatreMapViewModel = function() {
         if (self.listIsOpen()) { // Then close it
             console.log('Closing list.'); // DEBUG
             self.listIsOpen(false); // Update value for other uses
-            self.$listDiv.addClass('right-div-off'); // Place the div offscreen
-            self.$listTabAll.addClass('tab-off'); // Move the tab as well
-            self.$listDiv.removeClass('right-div-on');
-            self.$listTabAll.removeClass('tab-on');
-            self.$listTabBack.css('opacity', 0); // Show list label.
+            self.$divList.addClass('right-div-off'); // Place the div offscreen
+            self.$tabAllList.addClass('tab-off'); // Move the tab as well
+            self.$divList.removeClass('right-div-on');
+            self.$tabAllList.removeClass('tab-on');
+            self.$tabBackList.css('opacity', 0); // Show list label.
         } else { // open list
             if (self.glowingList) { // Shouldn't glow if the div is open.
                 self.glowingList = false; // Update for glowAnimation
@@ -60,11 +60,11 @@ var TheatreMapViewModel = function() {
             }
             console.log('Opening list.'); // DEBUG
             self.listIsOpen(true); // Update value for other uses
-            self.$listDiv.addClass('right-div-on'); // Place the div onscreen
-            self.$listTabAll.addClass('tab-on'); // Move the tab as well
-            self.$listDiv.removeClass('right-div-off');
-            self.$listTabAll.removeClass('tab-off');
-            self.$listTabBack.css('opacity', 1); // Show back button.
+            self.$divList.addClass('right-div-on'); // Place the div onscreen
+            self.$tabAllList.addClass('tab-on'); // Move the tab as well
+            self.$divList.removeClass('right-div-off');
+            self.$tabAllList.removeClass('tab-off');
+            self.$tabBackList.css('opacity', 1); // Show back button.
         }
     };
 
@@ -74,19 +74,19 @@ var TheatreMapViewModel = function() {
         if (self.filterIsOpen()) { // then close it
             console.log('Closing filter.'); // DEBUG
             self.filterIsOpen(false);
-            self.$filterDiv.addClass('right-div-off'); // Place the div offscreen
-            self.$filterTabAll.addClass('tab-off'); // Move the tab as well
-            self.$filterDiv.removeClass('right-div-on');
-            self.$filterTabAll.removeClass('tab-on');
-            self.$filterTabBack.css('opacity', 0); // Show List label.
+            self.$divFilter.addClass('right-div-off'); // Place the div offscreen
+            self.$tabAllFilter.addClass('tab-off'); // Move the tab as well
+            self.$divFilter.removeClass('right-div-on');
+            self.$tabAllFilter.removeClass('tab-on');
+            self.$tabBackFilter.css('opacity', 0); // Show List label.
         } else { // open filter
             console.log('Opening filter.'); // DEBUG
             self.filterIsOpen(true);
-            self.$filterDiv.addClass('right-div-on'); // Place the div onscreen
-            self.$filterTabAll.addClass('tab-on'); // Move the tab as well
-            self.$filterDiv.removeClass('right-div-off');
-            self.$filterTabAll.removeClass('tab-off');
-            self.$filterTabBack.css('opacity', 1); // Show back button.
+            self.$divFilter.addClass('right-div-on'); // Place the div onscreen
+            self.$tabAllFilter.addClass('tab-on'); // Move the tab as well
+            self.$divFilter.removeClass('right-div-off');
+            self.$tabAllFilter.removeClass('tab-off');
+            self.$tabBackFilter.css('opacity', 1); // Show back button.
         }
     };
 
@@ -103,20 +103,20 @@ var TheatreMapViewModel = function() {
         if (self.twitterIsOpen()) { // then close it
             console.log('Closing twitter.'); // DEBUG
             self.twitterIsOpen(false); // Don't load anything to Twitter
-            self.$twitterDiv.addClass('right-div-off'); // Place the div offscreen
-            self.$twitterTabAll.addClass('tab-off'); // Move the tab as well
-            self.$twitterDiv.removeClass('right-div-on');
-            self.$twitterTabAll.removeClass('tab-on');
-            self.$twitterTabBack.css('opacity', 0); // Show Twitter logo.
+            self.$divTwitter.addClass('right-div-off'); // Place the div offscreen
+            self.$tabAllTwitter.addClass('tab-off'); // Move the tab as well
+            self.$divTwitter.removeClass('right-div-on');
+            self.$tabAllTwitter.removeClass('tab-on');
+            self.$tabBackTwitter.css('opacity', 0); // Show Twitter logo.
         } else { // open twitter
             console.log('Opening twitter.'); // DEBUG
             self.twitterIsOpen(true); // Load things into Twitter
             self.determineNeedToReload(); // May need to replace loaded DOM element
-            self.$twitterDiv.addClass('right-div-on'); // Place the div onscreen
-            self.$twitterTabAll.addClass('tab-on'); // Move the tab as well
-            self.$twitterDiv.removeClass('right-div-off');
-            self.$twitterTabAll.removeClass('tab-off');
-            self.$twitterTabBack.css('opacity', 1); // Show back button.
+            self.$divTwitter.addClass('right-div-on'); // Place the div onscreen
+            self.$tabAllTwitter.addClass('tab-on'); // Move the tab as well
+            self.$divTwitter.removeClass('right-div-off');
+            self.$tabAllTwitter.removeClass('tab-off');
+            self.$tabBackTwitter.css('opacity', 1); // Show back button.
         }
 
     };
@@ -259,22 +259,23 @@ var TheatreMapViewModel = function() {
     };
 
     /**
-     * Reset the glow animation variables.
+     * Reset the glow animation variables for all tabs that are no longer 
+     * glowing.
      */
     self.stopGlow = function() {
-        if (!self.glowingTwitter) {
+        if (!self.glowingTwitter) { // Reset Twitter tab.
             self.glowingTwitterFading = false; // Glow begins like this.
-            self.$twitterTabHL.css('opacity', 0); // Set to transparent.
+            self.$tabHLTwitter.css('opacity', 0); // Set to transparent.
             self.glowingTwitterOpacity = 0; // Transparency tracking variable.
         }
-        if (!self.glowingList) {
+        if (!self.glowingList) { // Reset list tab
             self.glowingTwitterFading = false; // Glow begins like this.
-            self.$listTabHL.css('opacity', 0); // Set to transparent.
+            self.$tabHLList.css('opacity', 0); // Set to transparent.
             self.glowingTwitterOpacity = 0; // Transparency tracking variable.
         }
-        if (!self.glowingFilter) {
+        if (self.filterIsOpen()) { // Reset filter tab.
             self.glowingTwitterFading = false; // Glow begins like this.
-            self.$filterTabHL.css('opacity', 0); // Set to transparent.
+            self.$tabHLFilter.css('opacity', 0); // Set to transparent.
             self.glowingTwitterOpacity = 0; // Transparency tracking variable.
         }
 
@@ -283,25 +284,25 @@ var TheatreMapViewModel = function() {
     self.glowingTwitter = false;
     // The twitter tab bright image is currently fading.
     self.glowingTwitterFading = false;
-    // Opacity tracking self.$listTabHL
+    // Opacity tracking self.$tabHLList
     self.glowingTwitterOpacity = 0;
 
 
     self.glowingList = false;
     // The twitter tab bright image is currently fading.
     self.glowingListFading = false;
-    // Opacity tracking self.$listTabHL
+    // Opacity tracking self.$tabHLList
     self.glowingListOpacity = 0;
 
     self.glowingFilter = false;
     // The twitter tab bright image is currently fading.
     self.glowingFilterFading = false;
-    // Opacity tracking self.$listTabHL
+    // Opacity tracking self.$tabHLList
     self.glowingFilterOpacity = 0;
 
     /**
-     * Animation for the twitter glow that indicates there is new content in the 
-     * Twitter div.
+     * Animation for the  glow that indicates there is new content in the any of
+     * the right side divs.
      */
     self.glowAnimation = function() {
         // Stop the Twitter glow if Twitter is open.
@@ -310,73 +311,57 @@ var TheatreMapViewModel = function() {
             self.glowingTwitter = false;
             self.stopGlow(); // Reset corresponding variables.
         }
+        // Stop the list glow if the list is open.
         if (self.listIsOpen() && self.glowingList) {
             console.log('List is open. Stop the list tab from glowing.');
             self.glowingList = false;
             self.stopGlow(); // Reset corresponding variables.
         }
+        // Reset filter glow variables if filter is open.
         if (self.filterIsOpen() && self.glowingFilter) {
             console.log('Filter is open. Reset the filter tab glow.');
-            //self.stopGlow(); // Reset corresponding variables.
+            self.stopGlow(); // Reset corresponding variables.
         }
-        if (self.glowingTwitter) {
-            if (self.glowingTwitterFading) { // Decrease opacity.
-                self.glowingTwitterOpacity -= 0.01; // Track opacity in variable.
-                // Set opacity.
-                self.$twitterTabHL.css('opacity', self.glowingTwitterOpacity);
-                if (self.glowingTwitterOpacity <= 0) { // Reached endpoint.
-                    self.glowingTwitterFading = false; // Switch to increasing opacity.
-                }
-            } else { // The tab is brighting. Increase opacity.
-                self.glowingTwitterOpacity += 0.01; // Track opacity in variable.
-                // Set opacity.
-                self.$twitterTabHL.css('opacity', self.glowingTwitterOpacity);
-                // Go beyond 1.0 to pause at brightest point.
-                if (self.glowingTwitterOpacity >= 1.3) {
-                    self.glowingTwitterFading = true; // Switch to decreasing opacity.
-                }
-            }
+        if (self.glowingTwitter) { // Glow when some change occured.
+            self.animateGlowTab('Twitter');
         }
-        if (self.glowingList) {
-            if (self.glowingListFading) { // Decrease opacity.
-                self.glowingListOpacity -= 0.01; // Track opacity in variable.
-                // Set opacity.
-                self.$listTabHL.css('opacity', self.glowingListOpacity);
-                if (self.glowingListOpacity <= 0) { // Reached endpoint.
-                    self.glowingListFading = false; // Switch to increasing opacity.
-                }
-            } else { // The tab is brighting. Increase opacity.
-                self.glowingListOpacity += 0.01; // Track opacity in variable.
-                // Set opacity.
-                self.$listTabHL.css('opacity', self.glowingListOpacity);
-                // Go beyond 1.0 to pause at brightest point.
-                if (self.glowingListOpacity >= 1.3) {
-                    self.glowingListFading = true; // Switch to decreasing opacity.
-                }
-            }
+        if (self.glowingList) { // Glow when some change occured.
+            self.animateGlowTab('List');
         }
+        // Glow when any filter is on and the filter tab isn't already open. 
+        // Since the filter tab doesn't stop glowing by opening the tab, we have 
+        // to do a slightly different testing condition.
         if (self.glowingFilter && !self.filterIsOpen()) {
-            console.log('filter is glowing');
-            if (self.glowingFilterFading) { // Decrease opacity.
-                self.glowingFilterOpacity -= 0.01; // Track opacity in variable.
-                // Set opacity.
-                self.$filterTabHL.css('opacity', self.glowingFilterOpacity);
-                if (self.glowingFilterOpacity <= 0) { // Reached endpoint.
-                    self.glowingFilterFading = false; // Switch to increasing opacity.
-                }
-            } else { // The tab is brighting. Increase opacity.
-                self.glowingFilterOpacity += 0.01; // Track opacity in variable.
-                // Set opacity.
-                self.$filterTabHL.css('opacity', self.glowingFilterOpacity);
-                // Go beyond 1.0 to pause at brightest point.
-                if (self.glowingFilterOpacity >= 1.3) {
-                    self.glowingFilterFading = true; // Switch to decreasing opacity.
-                }
-            }
+            self.animateGlowTab('Filter');
         }
-
         // Keep animating.
         window.requestAnimationFrame(self.glowAnimation);
+    };
+
+    /**
+     * This is used to make the right side tabs glow. Since all the 
+     * corresponding variables are named in a consistent way, we can do this to
+     * keep things dry.
+     * @param  {string} type is a string starting with a capital letter that 
+     *                       denotes the type of tab that we are animating
+     */
+    self.animateGlowTab = function(type) {
+        if (self['glowing' + type + 'Fading']) { // Decrease opacity.
+            self['glowing' + type + 'Opacity'] -= 0.01; // Track opacity in variable.
+            // Set opacity.
+            self['$tabHL' + type].css('opacity', self['glowing' + type + 'Opacity']);
+            if (self['glowing' + type + 'Opacity'] <= 0) { // Reached endpoint.
+                self['glowing' + type + 'Fading'] = false; // Switch to increasing opacity.
+            }
+        } else { // The tab is brighting. Increase opacity.
+            self['glowing' + type + 'Opacity'] += 0.01; // Track opacity in variable.
+            // Set opacity.
+            self['$tabHL' + type].css('opacity', self['glowing' + type + 'Opacity']);
+            // Go beyond 1.0 to pause at brightest point.
+            if (self['glowing' + type + 'Opacity'] >= 1.3) {
+                self['glowing' + type + 'Fading'] = true; // Switch to decreasing opacity.
+            }
+        }
     };
 
     /**
@@ -545,17 +530,20 @@ var TheatreMapViewModel = function() {
         flag: 'Theatre venue'
     }];
 
+    /**
+     * Here we determine whether the Reset Filters button should be enabled.
+     */
     self.filterClicked = ko.computed(function() {
         var length = self.filters.length;
         var i;
         for (i = 0; i < length; i++) {
             if (self.filters[i].filter()) {
-                self.glowingFilter = true;
+                self.glowingFilter = true; // If filters are set, glow.
                 return true;
             }
         }
-        self.glowingFilter = false;
-        self.stopGlow();
+        self.glowingFilter = false; // If no filters are set, don't glow.
+        self.stopGlow(); // Reset glow defaults.
         return false;
     });
 
