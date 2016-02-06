@@ -144,12 +144,14 @@ mapManager.util.itemFailsFilter = function(marker, filter) {
  */
 mapManager.util.resizeTwitterTab = function() {
     'use strict';
-    var tab = $('#twitter-tab');
+    var $tab = $('#twitter-tab');
     var $tabHL = $('#twitter-tab-highlight');
+    var $tabBack = $('#twitter-tab-back');
     var screenHeight = screen.height;
     console.log('The screen height is ' + screenHeight); // DEBUG
-    tab.css({'top': screenHeight / 3});
+    $tab.css({'top': screenHeight / 3});
     $tabHL.css({'top': screenHeight / 3});
+    $tabBack.css({'top': screenHeight / 3});
 };
 
 // Position twitter tab as soon as page loads.

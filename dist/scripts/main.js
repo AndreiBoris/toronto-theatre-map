@@ -27,22 +27,36 @@ var TheatreMapViewModel = function() {
      * on resources.
      */
     self.slideTwitter = function() {
-        var twitterDiv = document.getElementById('twitter-div');
-        var twitterTab = document.getElementById('twitter-tab');
-        var twitterTabHL = document.getElementById('twitter-tab-highlight');
+        var $twitterDiv = $('#twitter-div');
+        var $twitterTab = $('#twitter-tab');
+        var $twitterTabHL = $('#twitter-tab-highlight');
+        var $twitterTabBack = $('#twitter-tab-back');
         if (self.twitterIsOpen()) { // then close it
             console.log('Closing twitter.'); // DEBUG
             self.twitterIsOpen(false); // Don't load anything to Twitter
-            twitterDiv.className = 'twitter-off'; // Place the div offscreen
-            twitterTab.className = 'twitter-tab-off'; // Move the tab as well
-            twitterTabHL.className = 'twitter-tab-off'; // Move the tab as well
+            $twitterDiv.addClass('twitter-off'); // Place the div offscreen
+            $twitterTab.addClass('twitter-tab-off'); // Move the tab as well
+            $twitterTabHL.addClass('twitter-tab-off'); // Move the tab as well
+            $twitterTabBack.addClass('twitter-tab-off'); // Move the tab as well
+            $twitterDiv.removeClass('twitter-on'); 
+            $twitterTab.removeClass('twitter-tab-on'); 
+            $twitterTabHL.removeClass('twitter-tab-on'); 
+            $twitterTabBack.removeClass('twitter-tab-on'); 
+            $twitterTabBack.css('opacity', 0);
         } else { // open twitter
             console.log('Opening twitter.'); // DEBUG
             self.twitterIsOpen(true); // Load things into Twitter
-            twitterDiv.className = 'twitter-on'; // Place div on screen
             self.determineNeedToReload(); // May need to replace loaded DOM element
-            twitterTab.className = 'twitter-tab-on'; // Move the tab as well
-            twitterTabHL.className = 'twitter-tab-on'; // Move the tab as well
+            $twitterDiv.addClass('twitter-on'); // Place the div onscreen
+            $twitterTab.addClass('twitter-tab-on'); // Move the tab as well
+            $twitterTabHL.addClass('twitter-tab-on'); // Move the tab as well
+            $twitterTabBack.addClass('twitter-tab-on'); // Move the tab as well
+            $twitterDiv.removeClass('twitter-off'); 
+            $twitterTab.removeClass('twitter-tab-off'); 
+            $twitterTabHL.removeClass('twitter-tab-off');
+            $twitterTabBack.removeClass('twitter-tab-off'); 
+            $twitterTabBack.css('opacity', 1);
+
         }
 
     };
@@ -1366,12 +1380,14 @@ mapManager.util.itemFailsFilter = function(marker, filter) {
  */
 mapManager.util.resizeTwitterTab = function() {
     'use strict';
-    var tab = $('#twitter-tab');
+    var $tab = $('#twitter-tab');
     var $tabHL = $('#twitter-tab-highlight');
+    var $tabBack = $('#twitter-tab-back');
     var screenHeight = screen.height;
     console.log('The screen height is ' + screenHeight); // DEBUG
-    tab.css({'top': screenHeight / 3});
+    $tab.css({'top': screenHeight / 3});
     $tabHL.css({'top': screenHeight / 3});
+    $tabBack.css({'top': screenHeight / 3});
 };
 
 // Position twitter tab as soon as page loads.
