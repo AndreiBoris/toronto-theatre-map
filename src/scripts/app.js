@@ -790,6 +790,7 @@ var TheatreMapViewModel = function() {
         // calls next time around. DOESN'T WORK YET.
         // mapManager.store();
         self.infoWindow = new google.maps.InfoWindow(mapManager.util.blankInfoWin);
+        self.glowingList = false;
         /**
          * Begin the glow animation on the tabs, indicating some update to
          * particular tab. Updates are handled separately through the 
