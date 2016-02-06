@@ -219,7 +219,7 @@ var TheatreMapViewModel = function() {
             }
         }
         // Keep animating.
-        mapManager.util.requestID = window.requestAnimationFrame(self.twitterGlow);
+        window.requestAnimationFrame(self.twitterGlow);
     };
 
     /**

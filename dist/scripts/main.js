@@ -219,7 +219,7 @@ var TheatreMapViewModel = function() {
             }
         }
         // Keep animating.
-        mapManager.util.requestID = window.requestAnimationFrame(self.twitterGlow);
+        window.requestAnimationFrame(self.twitterGlow);
     };
 
     /**
@@ -1383,6 +1383,5 @@ mapManager.util.fading = false;
 // The highlighted twitter tab jQuery element.
 mapManager.util.$highlight = $('#twitter-tab-highlight');
 
+// Opacity tracking $mapManager.util.$highlight
 mapManager.util.curOpacity = 0;
-
-mapManager.util.requestID = '';
