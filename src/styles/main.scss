@@ -36,7 +36,10 @@ button:disabled {
     background-color: white;
 }
 
-
+/* This is just for testing */
+#list-div{
+    text-align: center;
+}
 
 .tab-plain {
     position: absolute;
@@ -92,6 +95,7 @@ button:disabled {
 
 .right-div-on {
     right: 0%;
+    z-index: 4;
 }
 
 .twitter-off {

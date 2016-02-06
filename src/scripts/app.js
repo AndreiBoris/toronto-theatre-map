@@ -26,15 +26,15 @@ var TheatreMapViewModel = function() {
     self.slideList = function() {
         if (self.listIsOpen()) { // then close it
             console.log('Closing list.'); // DEBUG
-            self.listIsOpen(false); // Don't load anything to Twitter
+            self.listIsOpen(false);
             self.$listDiv.addClass('right-div-off'); // Place the div offscreen
             self.$listTabAll.addClass('tab-off'); // Move the tab as well
             self.$listDiv.removeClass('right-div-on');
             self.$listTabAll.removeClass('tab-on');
-            self.$listTabBack.css('opacity', 0); // Show Twitter logo.
+            self.$listTabBack.css('opacity', 0); // Show List label.
         } else { // open list
             console.log('Opening list.'); // DEBUG
-            self.listIsOpen(true); // Load things into Twitter
+            self.listIsOpen(true);
             self.determineNeedToReload(); // May need to replace loaded DOM element
             self.$listDiv.addClass('right-div-on'); // Place the div onscreen
             self.$listTabAll.addClass('tab-on'); // Move the tab as well

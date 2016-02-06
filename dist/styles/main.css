@@ -83,6 +83,11 @@ button:disabled {
   background-color: white;
 }
 
+/* This is just for testing */
+#list-div {
+  text-align: center;
+}
+
 .tab-plain, #list-tab, #twitter-tab {
   position: absolute;
   z-index: 3;
@@ -109,6 +114,7 @@ button:disabled {
 
 .right-div-on {
   right: 0%;
+  z-index: 4;
 }
 
 /*** Each InfoWindow that appears when markers are clicked has a div inside them
