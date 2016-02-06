@@ -727,6 +727,8 @@ var TheatreMapViewModel = function() {
         //self.infoWindowOpen(false); // observable for the disabling of a button
     };
 
+    self.infoWindow = {}''
+
     /**
      * Does the following :
      *     - adds all the Markers from the mapManager onto the map
@@ -765,6 +767,7 @@ var TheatreMapViewModel = function() {
             // Fill the corresponding InfoWindow with the data we have.
             mapManager.setDescription(curMarker, title, website, blurb);
         });
+        
         // Sort the list of markers in alphabetical order such that the buttons
         // corresponding to the markers will be displayed in this way on the View
         self.sortListAlpha();
@@ -863,7 +866,7 @@ var mapManager = {
             listed: ko.observable(true),
             founded: markerItem.founded, // Company's founding year
             flags: markerItem.flags, // Categories for filters
-            infoWin: {}, // placeholder
+            //infoWin: {}, // placeholder
             //infoWindowOpen: false
             blurb: ''
         }));
@@ -958,7 +961,7 @@ var mapManager = {
                 // Cancel the timeout since AJAX request is successful.
                 clearTimeout(wikipediaRequestTimeout);
                 var wikiFound = data[1].length; // Max of 1.
-                var infoWindow = marker.infoWin;
+                // var infoWindow = marker.infoWin;
                 var title, website, blurb;
                 // We either found 1 article or we found 0, hence the boolean.
                 if (wikiFound) {
@@ -1026,15 +1029,16 @@ var mapManager = {
      * @param  {string} title      The title of the associated marker.
      * @param  {string} website    The website the title should link to.
      * @param  {string} blurb      The description to include.
+     * THIS IS NOT CURRENTLY BEING USED AT ALL
      */
-    infoWindowMaker: function(infoWindow, title, website, blurb) {
-        'use strict';
-        var content = '<div class="info-window"><h4><a href="' + website + '">' +
-            title +
-            '</a></h4>' +
-            '<p>' + blurb + '</p></div>';
-        infoWindow.setContent(content); // Apply the formatted content.
-    },
+    // infoWindowMaker: function(infoWindow, title, website, blurb) {
+    //     'use strict';
+    //     var content = '<div class="info-window"><h4><a href="' + website + '">' +
+    //         title +
+    //         '</a></h4>' +
+    //         '<p>' + blurb + '</p></div>';
+    //     infoWindow.setContent(content); // Apply the formatted content.
+    // },
 
     // store: function() {
     //     'use strict';
