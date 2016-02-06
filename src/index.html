@@ -23,7 +23,6 @@
             <button data-bind=" click: listTwitter,
                                 enable: !twitterListView()">Back to Twitter list view</button>
             <br>
-            <button data-bind="click: clearFilters, enable: filterClicked">Clear Filters</button>
             <button data-bind="click: toggleTwitterLength">Toggle Long Twitter List</button>
             <br>
             <button data-bind="click: slideTwitter">Toggle Twitter</button>
@@ -56,8 +55,14 @@
         <div id="twitter-account" data-bind="visible: !twitterListView() && twitterIsOpen">
         </div>
     </div>
-    <!-- Here we have the filter div -->
-    <div class="">
+    <!-- Here we have the options div -->
+    <img id="options-tab" class="tab-off options-tab-image" 
+    src="dist/images/options-tab.png"></img>
+    <img id="options-tab-highlight" class="tab-off options-tab-image" 
+    src="dist/images/options-tab-highlight.png"></img>
+    <img id="options-tab-back" class="tab-off options-tab-image" 
+    data-bind="click: slideOptions" src="dist/images/tab-back.png"></img>
+    <div id="options-div" class="right-div-off right-divs">
         <ul data-bind="foreach: filters">
             <li>
                 <input type="checkbox" data-bind="checked: filter">
@@ -66,6 +71,7 @@
                 </input>
             </li>
         </ul>
+        <button data-bind="click: clearFilters, enable: filterClicked">Clear Filters</button>
     </div>
     <footer id="footer">
         <div>Icon made by <a href="http://www.icomoon.io" title="Icomoon">Icomoon</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>

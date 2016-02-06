@@ -84,6 +84,18 @@ button:disabled {
     @extend .tab-back;
 }
 
+#options-tab {
+    @extend .tab-plain;
+}
+
+#options-tab-highlight {
+    @extend .tab-highlight;
+}
+
+#options-tab-back {
+    @extend .tab-back;
+}
+
 .tab-off {
     right: -0.5%;
 }

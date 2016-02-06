@@ -19,7 +19,7 @@ var TheatreMapViewModel = function() {
     self.listIsOpen = ko.observable(false);
 
     self.$listDiv = $('#list-div');
-    //self.$listTabHL = $('#list-tab-highlight');
+    self.$listTabHL = $('#list-tab-highlight');
     self.$listTabBack = $('#list-tab-back');
     self.$listTabAll = $('.list-tab-image');
 
@@ -41,6 +41,34 @@ var TheatreMapViewModel = function() {
             self.$listDiv.removeClass('right-div-off');
             self.$listTabAll.removeClass('tab-off');
             self.$listTabBack.css('opacity', 1); // Show back button.
+        }
+    };
+
+    self.optionsIsOpen = ko.observable(false);
+
+    self.$optionsDiv = $('#options-div');
+    self.$optionsTabHL = $('#options-tab-highlight');
+    self.$optionsTabBack = $('#options-tab-back');
+    self.$optionsTabAll = $('.options-tab-image');
+
+    self.slideOptions = function() {
+        if (self.optionsIsOpen()) { // then close it
+            console.log('Closing options.'); // DEBUG
+            self.optionsIsOpen(false);
+            self.$optionsDiv.addClass('right-div-off'); // Place the div offscreen
+            self.$optionsTabAll.addClass('tab-off'); // Move the tab as well
+            self.$optionsDiv.removeClass('right-div-on');
+            self.$optionsTabAll.removeClass('tab-on');
+            self.$optionsTabBack.css('opacity', 0); // Show List label.
+        } else { // open options
+            console.log('Opening options.'); // DEBUG
+            self.optionsIsOpen(true);
+            self.determineNeedToReload(); // May need to replace loaded DOM element
+            self.$optionsDiv.addClass('right-div-on'); // Place the div onscreen
+            self.$optionsTabAll.addClass('tab-on'); // Move the tab as well
+            self.$optionsDiv.removeClass('right-div-off');
+            self.$optionsTabAll.removeClass('tab-off');
+            self.$optionsTabBack.css('opacity', 1); // Show back button.
         }
     };
 
@@ -1416,10 +1444,12 @@ mapManager.util.repositionTabs = function() {
     'use strict';
     var $twitterTabs = $('.twitter-tab-image');
     var $listTabs = $('.list-tab-image');
+    var $optionsTabs = $('.options-tab-image');
     var screenHeight = screen.height;
     console.log('The screen height is ' + screenHeight); // DEBUG
     $listTabs.css({'top': screenHeight * 0.1});
     $twitterTabs.css({'top': screenHeight * 0.3});
+    $optionsTabs.css({'top': screenHeight * 0.5});
 };
 
 // Position twitter tab as soon as page loads.

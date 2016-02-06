@@ -87,20 +87,20 @@ button:disabled {
   text-align: center;
 }
 
-.tab-plain, #list-tab, #twitter-tab {
+.tab-plain, #list-tab, #twitter-tab, #options-tab {
   position: absolute;
   z-index: 3;
   transition: 0.15s;
 }
 
-.tab-highlight, #list-tab-highlight, #twitter-tab-highlight {
+.tab-highlight, #list-tab-highlight, #twitter-tab-highlight, #options-tab-highlight {
   opacity: 0;
   position: absolute;
   z-index: 4;
   transition: 0.15s;
 }
 
-.tab-back, #list-tab-back, #twitter-tab-back {
+.tab-back, #list-tab-back, #twitter-tab-back, #options-tab-back {
   opacity: 0;
   position: absolute;
   z-index: 5;
