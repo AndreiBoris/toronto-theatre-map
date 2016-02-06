@@ -25,7 +25,7 @@ var TheatreMapViewModel = function() {
     self.$twitterDiv = $('#twitter-div');
     self.$twitterTabHL = $('#twitter-tab-highlight');
     self.$twitterTabBack = $('#twitter-tab-back');
-    self.$twitterTabAll = $('.tab-image');
+    self.$twitterTabAll = $('.twitter-tab-image');
 
     /**
      * Slide the twitter pane in and out of view, enabling/disabling its drain 
@@ -1380,14 +1380,10 @@ mapManager.util.itemFailsFilter = function(marker, filter) {
  */
 mapManager.util.resizeTwitterTab = function() {
     'use strict';
-    var $tab = $('#twitter-tab');
-    var $tabHL = $('#twitter-tab-highlight');
-    var $tabBack = $('#twitter-tab-back');
+    var $twitterTabs = $('.twitter-tab-image');
     var screenHeight = screen.height;
     console.log('The screen height is ' + screenHeight); // DEBUG
-    $tab.css({'top': screenHeight / 3});
-    $tabHL.css({'top': screenHeight / 3});
-    $tabBack.css({'top': screenHeight / 3});
+    $twitterTabs.css({'top': screenHeight / 3});
 };
 
 // Position twitter tab as soon as page loads.

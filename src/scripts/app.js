@@ -25,7 +25,7 @@ var TheatreMapViewModel = function() {
     self.$twitterDiv = $('#twitter-div');
     self.$twitterTabHL = $('#twitter-tab-highlight');
     self.$twitterTabBack = $('#twitter-tab-back');
-    self.$twitterTabAll = $('.tab-image');
+    self.$twitterTabAll = $('.twitter-tab-image');
 
     /**
      * Slide the twitter pane in and out of view, enabling/disabling its drain 
