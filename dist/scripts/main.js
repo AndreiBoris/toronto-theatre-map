@@ -602,7 +602,11 @@ var TheatreMapViewModel = function() {
      * @param  {Object} marker to access
      */
     self.accessMarker = function(marker) {
-        console.log('accessing');
+        console.log('Accessing marker.');
+        console.log('The screen width is ' + mapManager.util.screenWidth);
+        if (self.listIsOpen() && mapManager.util.screenWidth < 700){
+            self.slideList();
+        }
         self.openInfoWindow(marker);
         self.activeTwitter(marker.twitterHandle);
         self.userTwitter(); // Go to the marker's corresponding twitter feed
@@ -712,6 +716,10 @@ var mapManager = {
             lat: 43.657899,
             lng: -79.3782433
         };
+
+        // Keep a tab on the screen width in order to determine certain 
+        // responsive features.
+        this.util.screenWidth = screen.width;
 
         // Create a Map object and specify the DOM element for display.
         this.map = new google.maps.Map(document.getElementById('map'), {

@@ -22,6 +22,10 @@ var mapManager = {
             lng: -79.3782433
         };
 
+        // Keep a tab on the screen width in order to determine certain 
+        // responsive features.
+        this.util.screenWidth = screen.width;
+
         // Create a Map object and specify the DOM element for display.
         this.map = new google.maps.Map(document.getElementById('map'), {
             center: startingMapPosition,
