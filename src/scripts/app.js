@@ -250,15 +250,6 @@ var TheatreMapViewModel = function() {
     };
 
     /**
-     * Begin the glow animation on the tabs, indicating some update to
-     * particular tab. Updates are handled separately through the 
-     * self.glowing* variables.
-     */
-    self.startGlow = function() {
-        window.requestAnimationFrame(self.glowAnimation); // Start glow.
-    };
-
-    /**
      * Reset the glow animation variables for all tabs that are no longer 
      * glowing.
      */
@@ -762,8 +753,12 @@ var TheatreMapViewModel = function() {
         // Save coordinates to localStorage so that we can avoid using AJAX
         // calls next time around. DOESN'T WORK YET.
         // mapManager.store();
-        self.startGlow();
-        // Set up listener on all Info Windows 
+        /**
+         * Begin the glow animation on the tabs, indicating some update to
+         * particular tab. Updates are handled separately through the 
+         * self.glowing* variables.
+         */
+        window.requestAnimationFrame(self.glowAnimation);
     };
 };
 
