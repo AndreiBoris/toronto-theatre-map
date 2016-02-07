@@ -14,11 +14,10 @@
 </head>
 
 <body>
-    <header>
-        <div id="search-box">
-            <button data-bind=" click: closeInfoWindows">Close info window</button>
-        </div>
-    </header>
+    <div id="info-div "class="left-divs">
+        <div id="info-box" data-bind="html: currentDisplay"></div>
+        <button data-bind=" click: closeInfoWindows">Dismiss</button>
+    </div>
     <div id="map">
     </div>
     <!-- Here we have the list div and the corresponding information -->
@@ -64,7 +63,6 @@
             </li>
         </ul>
         <button data-bind="click: clearFilters, enable: filterClicked">Clear Filters</button>
-        <div data-bind="html: currentDisplay"></div>
     </div>
     <footer id="footer">
         <div>Icon made by <a href="http://www.icomoon.io" title="Icomoon">Icomoon</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>

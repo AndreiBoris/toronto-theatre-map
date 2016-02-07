@@ -65,13 +65,6 @@ button:disabled {
   background-color: #ccc;
 }
 
-#search-box {
-  position: absolute;
-  z-index: 2;
-  left: 10%;
-  top: 5%;
-}
-
 /*** The map needs to have a specific size in order to display. ***/
 #map {
   height: 100%;
@@ -80,14 +73,21 @@ button:disabled {
   z-index: 1;
 }
 
-.right-divs {
+.off-screen, .left-divs, .right-divs {
   position: absolute;
   z-index: 2;
   overflow: scroll;
   transition: 0.15s;
   top: 0;
-  height: 100%;
   background-color: white;
+}
+
+.left-divs {
+  height: 30%;
+}
+
+.right-divs {
+  height: 100%;
 }
 
 /* This is just for testing */
@@ -128,7 +128,6 @@ button:disabled {
     with this class. ***/
 .current-display {
   margin: 0.5em;
-  font-size: 1.2em;
 }
 
 .info-title {
@@ -150,6 +149,10 @@ button:disabled {
     width: 30%;
   }
 
+  .left-divs {
+    width: 50%;
+  }
+
   .tab-on {
     right: 29.5%;
   }
@@ -159,7 +162,7 @@ button:disabled {
   }
 }
 @media only screen and (max-width: 700px) {
-  .right-divs {
+  .off-screen, .left-divs, .right-divs {
     width: 90%;
   }
 
