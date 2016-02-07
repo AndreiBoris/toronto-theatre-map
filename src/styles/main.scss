@@ -109,6 +109,11 @@ button:disabled {
     right: -0.5%;
 }
 
+.left-div-on {
+    left: 0%;
+    z-index: 6; // Needs to be on top of the tabs from the other right-divs
+}
+
 .right-div-on {
     right: 0%;
     z-index: 6; // Needs to be on top of the tabs from the other right-divs
@@ -149,6 +154,9 @@ button:disabled {
     .right-div-off {
         right: -30%;
     }
+    .left-div-off {
+        left: -50%;
+    }
 }
 
 @media only screen and (max-width: 700px) {
@@ -160,5 +168,8 @@ button:disabled {
     }
     .right-div-off {
         right: -90%;
+    }
+    .left-div-off {
+        left: -90%;
     }
 }

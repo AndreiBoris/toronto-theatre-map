@@ -698,9 +698,27 @@ var TheatreMapViewModel = function() {
         self.currentAddress(marker.address);
         self.infoWindow.setContent(self.currentInfo());
         self.openInfoWindow(marker);
+        self.openLeftDiv();
         self.activeTwitter(marker.twitterHandle);
         self.userTwitter(); // Twitter should go into user, rather than list, mode
         self.determineNeedToReload(); // We might have a new twitter feed to load
+    };
+
+    self.$divInfo = $('#info-div');
+
+    self.openLeftDiv = function() {
+        self.$divInfo.addClass('left-div-on');
+        self.$divInfo.removeClass('left-div-off');
+    };
+
+    self.closeLeftDiv = function() {
+        self.$divInfo.addClass('left-div-off');
+        self.$divInfo.removeClass('left-div-on');
+    };
+
+    self.closeMarkerInfo = function() {
+        self.closeLeftDiv();
+        self.closeInfoWindows();
     };
 
     /**
@@ -722,7 +740,7 @@ var TheatreMapViewModel = function() {
      *                          to be opened.
      */
     self.openInfoWindow = function(marker) {
-        self.closeInfoWindows();
+        //self.closeInfoWindows();
         self.infoWindow.open(mapManager.map, marker);
         // Allows for scanning whether any InfoWindows are open or not.
         //marker.infoWindowOpen = true;
