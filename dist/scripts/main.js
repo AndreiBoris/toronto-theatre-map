@@ -692,6 +692,8 @@ var TheatreMapViewModel = function() {
         if (self.listIsOpen() && mapManager.util.screenWidth < 700) {
             self.slideList(); // close list div on small screen when accessing
         }
+        mapManager.map.panTo(marker.getPosition());
+        mapManager.map.panBy(x: 0, y: 0.01);
         self.currentTitle(marker.title);
         self.currentWebsite(marker.website);
         self.currentBlurb(marker.blurb);
