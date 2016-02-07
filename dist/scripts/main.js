@@ -127,11 +127,11 @@ var TheatreMapViewModel = function() {
     self.currentAddress = ko.observable('');
 
     self.currentInfo = ko.computed(function() {
-        var content = '<div><span class="info-title">' + 
-        self.currentTitle() +
-        '</span><br>' +
-        self.currentAddress() +
-        '</div>';
+        var content = '<div><span class="info-title">' +
+            self.currentTitle() +
+            '</span><br>' +
+            self.currentAddress() +
+            '</div>';
         return content;
     });
 
@@ -141,8 +141,8 @@ var TheatreMapViewModel = function() {
             self.currentTitle() +
             '</a></h4>' +
             '<p>' +
-            self.currentBlurb() + '</p>' + 
-            '<p>' + 
+            self.currentBlurb() + '</p>' +
+            '<p>' +
             self.currentAddress() + '</div>';
         return content;
     });
@@ -709,6 +709,17 @@ var TheatreMapViewModel = function() {
     self.openLeftDiv = function() {
         self.$divInfo.addClass('left-div-on');
         self.$divInfo.removeClass('left-div-off');
+        if (mapManager.util.screenWidth < 700) {
+            if (self.listIsOpen()) {
+                self.slideList();
+            }
+            if (self.twitterIsOpen()) {
+                self.slideTwitter();
+            }
+            if (self.filterIsOpen()) {
+                self.slideFilter();
+            }
+        }
     };
 
     self.closeLeftDiv = function() {
@@ -800,7 +811,7 @@ var TheatreMapViewModel = function() {
             // Fill the corresponding InfoWindow with the data we have.
             mapManager.setDescription(curMarker, title, website, blurb);
         });
-        
+
         // Sort the list of markers in alphabetical order such that the buttons
         // corresponding to the markers will be displayed in this way on the View
         self.sortListAlpha();
