@@ -111,7 +111,7 @@ button:disabled {
 .tab-back, #list-tab-back, #twitter-tab-back, #filter-tab-back {
   opacity: 0;
   position: absolute;
-  z-index: 5;
+  z-index: 7;
   transition: 0.15s;
 }
 
@@ -133,8 +133,10 @@ button:disabled {
     with this class. ***/
 .current-display {
   margin: 0.5em;
+}
+
+#info-box {
   overflow: scroll;
-  height: 100%;
 }
 
 .info-title {
