@@ -849,10 +849,10 @@ var mapManager = {
                 position: google.maps.ControlPosition.LEFT_BOTTOM
             },
             zoomControlOptions: {
-                position: google.maps.ControlPosition.LEFT_TOP
+                position: google.maps.ControlPosition.LEFT_CENTER
             },
             streetViewControlOptions: {
-                position: google.maps.ControlPosition.TOP_LEFT
+                position: google.maps.ControlPosition.LEFT_CENTER
             }
         });
 
