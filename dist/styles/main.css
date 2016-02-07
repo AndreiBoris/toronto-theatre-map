@@ -121,7 +121,7 @@ button:disabled {
 
 .right-div-on {
   right: 0%;
-  z-index: 4;
+  z-index: 6;
 }
 
 /*** Each InfoWindow that appears when markers are clicked has a div inside them

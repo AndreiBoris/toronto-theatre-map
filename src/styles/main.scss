@@ -109,7 +109,7 @@ button:disabled {
 
 .right-div-on {
     right: 0%;
-    z-index: 4;
+    z-index: 6; // Needs to be on top of the tabs from the other right-divs
 }
 
 
