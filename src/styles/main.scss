@@ -42,6 +42,9 @@ button:disabled {
     border: 1px solid gray;
     font-size: 1.3em;
     font-weight: bold;
+    color: white;
+    cursor: pointer;
+    cursor: hand;
 }
 
 /*** The map needs to have a specific size in order to display. ***/
