@@ -65,6 +65,36 @@ button:disabled {
   background-color: #ccc;
 }
 
+.button-flex {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.button-flex :hover {
+  border: 2px solid black;
+  font-size: 1.5em;
+  padding-top: 10px;
+}
+
+.button-red {
+  background: linear-gradient(red, yellow);
+  box-shadow: 2px 2px 6px red inset;
+}
+
+.button-yellow {
+  background: linear-gradient(green, teal);
+  box-shadow: 2px 2px 6px green inset;
+}
+
+.button-50 {
+  width: 50%;
+  padding-top: 13px;
+  height: 50px;
+  border: 1px solid gray;
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
 /*** The map needs to have a specific size in order to display. ***/
 #map {
   height: 100%;

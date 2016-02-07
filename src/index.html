@@ -26,8 +26,14 @@
     <img id="list-tab-highlight" class="tab-off list-tab-image" src="dist/images/list-tab-highlight.png"></img>
     <img id="list-tab-back" class="tab-off list-tab-image" data-bind="click: slideList" src="dist/images/tab-back.png"></img>
     <div id="list-div" class="right-divs right-div-off">
-        <button data-bind="click: sortListAlpha">Sort Alphabetically</button>
-        <button data-bind="click: sortListFounding">Sort by Date Founded</button>
+        <div class="button-flex">
+            <div href="" class="button-50 button-red" data-bind="click: sortListAlpha">
+            Alphabetical
+            </div>
+            <div href="" class="button-50 button-yellow" data-bind="click: sortListFounding">
+            Date Founded
+            </div>
+        </div>
         <ul data-bind="foreach: markers">
             <li>
                 <button class="spaced-out" data-bind="text: title + ' ' + founded,
