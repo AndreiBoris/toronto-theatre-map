@@ -142,7 +142,7 @@ var TheatreMapViewModel = function() {
             '</a></h4>' +
             '<p>' +
             self.currentBlurb() + '</p>' +
-            '<p>' +
+            '<br>' +
             self.currentAddress() + '</div>';
         return content;
     });

@@ -76,7 +76,6 @@ button:disabled {
 .off-screen, .left-divs, .right-divs {
   position: absolute;
   z-index: 2;
-  overflow: scroll;
   transition: 0.15s;
   top: 0;
   background-color: white;
@@ -88,6 +87,7 @@ button:disabled {
 
 .right-divs {
   height: 100%;
+  overflow: scroll;
 }
 
 /* This is just for testing */
@@ -133,6 +133,8 @@ button:disabled {
     with this class. ***/
 .current-display {
   margin: 0.5em;
+  overflow: scroll;
+  height: 100%;
 }
 
 .info-title {

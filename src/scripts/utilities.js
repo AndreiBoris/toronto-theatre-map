@@ -127,11 +127,11 @@ mapManager.util.itemFailsFilter = function(marker, filter) {
     'use strict';
     if (mapManager.util.inArray(marker.flags, filter)) { // Marker passes filter
         return false;
-    } else {    // Marker fails filter
-        mapManager.util.hideItem(marker);   // Hide marker and corresponding button.
-         // Call will be able to stop checking other filters for this marker, 
-         // since it has already failed this one such work is unnecessary.
-        return true;    
+    } else { // Marker fails filter
+        mapManager.util.hideItem(marker); // Hide marker and corresponding button.
+        // Call will be able to stop checking other filters for this marker, 
+        // since it has already failed this one such work is unnecessary.
+        return true;
     }
 };
 
@@ -146,9 +146,28 @@ mapManager.util.repositionTabs = function() {
     var $filterTabs = $('.filter-tab-image');
     var screenHeight = screen.height;
     console.log('The screen height is ' + screenHeight); // DEBUG
-    $listTabs.css({'top': screenHeight * 0.1});
-    $twitterTabs.css({'top': screenHeight * 0.3});
-    $filterTabs.css({'top': screenHeight * 0.5});
+    if (screenHeight >= 600) {
+        $listTabs.css({
+            'top': screenHeight * 0.1
+        });
+        $twitterTabs.css({
+            'top': screenHeight * 0.3
+        });
+        $filterTabs.css({
+            'top': screenHeight * 0.5
+        });
+    } else {
+        $listTabs.css({
+            'top': 0
+        });
+        $twitterTabs.css({
+            'top': screenHeight * 0.4
+        });
+        $filterTabs.css({
+            'top': screenHeight * 0.7
+        });
+    }
+
 };
 
 // Position twitter tab as soon as page loads.
