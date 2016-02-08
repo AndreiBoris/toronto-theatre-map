@@ -571,6 +571,7 @@ var TheatreMapViewModel = function() {
     // These are used to sort first forwards and then backwards.
     self.sortedAlpha = false;
     self.sortedFounded = false;
+    self.currentSort = ko.observable('');
 
     /**
      * Sort alphabetically. First from a-z then from z-a. Case-insensitive.
@@ -580,10 +581,13 @@ var TheatreMapViewModel = function() {
         if (self.sortedAlpha) { // then sort from z-a
             self.sortedAlpha = false; // next time sort a-z
             self.markers.sort(mapManager.util.alphabeticalSortReverse); // sort z-a
+            self.currentSort('alpha-reverse');
         } else {
             self.sortedAlpha = true; // next time sort from z-a
             self.markers.sort(mapManager.util.alphabeticalSort); // sort a-z
+            self.currentSort('alpha');
         }
+        console.log(self.currentSort());
     };
 
     /**
@@ -596,11 +600,14 @@ var TheatreMapViewModel = function() {
             self.sortedFounded = false; // next time sort from earliest to latest
             // sort from latest to earliest
             self.markers.sort(mapManager.util.foundingSortReverse);
+            self.currentSort('date-reverse');
         } else {
             self.sortedFounded = true; // next time sort from latest to earliest
             // sort from earliest to latest
             self.markers.sort(mapManager.util.foundingSort);
+            self.currentSort('date');
         }
+        console.log(self.currentSort());
     };
 
     /**
