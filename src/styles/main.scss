@@ -1,8 +1,6 @@
 /* Imports */
 
 @import 'imports/reset';
-
-
 // Right from the Google Maps API example to get the map to display
 html,
 body {
@@ -16,14 +14,36 @@ button:disabled {
     background-color: #ccc;
 }
 
+.button-hover {
+    border: 2px solid black;
+    font-size: 1.5em;
+    padding-top: 10px;
+}
+
 .button-flex {
     display: flex;
     text-align: center;
-    :hover{
-        border: 2px solid black;
-        font-size: 1.5em;
-        padding-top: 10px;
+    :hover {
+        @extend .button-hover;
     }
+}
+
+.button-list-flex h4:hover,
+.button-list-flex p:hover,
+.button-list-flex span:hover {
+    border: none;
+}
+
+.button-list-flex {
+    display: flex;
+    flex-direction: column;
+    :hover {
+        border: 2px solid black;
+    }
+}
+
+.button-list {
+    margin: 0.2em 0;
 }
 
 .button-red {
@@ -36,17 +56,26 @@ button:disabled {
     box-shadow: 2px 2px 6px green inset;
 }
 
-.button-50 {
-    width: 50%;
-    padding-top: 13px;
-    height: 50px;
+.button-all {
     border: 1px solid gray;
-    font-size: 1.3em;
-    font-weight: bold;
-    color: white;
     cursor: pointer;
     cursor: hand;
 }
+
+.button-90 {
+    @extend .button-all;
+}
+
+.button-50 {
+    @extend .button-all;
+    width: 50%;
+    padding-top: 13px;
+    height: 50px;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: white;
+}
+
 
 /*** The map needs to have a specific size in order to display. ***/
 
@@ -76,8 +105,10 @@ button:disabled {
     overflow: scroll;
 }
 
+
 /* This is just for testing */
-#list-div{
+
+#list-div {
     ul {
         margin-left: 1em;
     }

@@ -34,9 +34,9 @@
             Date Founded
             </div>
         </div>
-        <ul data-bind="foreach: markers">
-            <li data-bind="visible: listed, click: $root.accessMarker">
-                <h4 data-bind="text: title"></h4>
+        <ul class="button-list-flex" data-bind="foreach: markers">
+            <li class="button-90 button-list" data-bind="visible: listed, click: $root.accessMarker">
+                <h4 class="bolded-text" data-bind="text: title"></h4>
                 <p>Date founded: <span data-bind="text: founded"></span></p>
                 <p>Address: <span data-bind="text: address"></span></p>
             </li>

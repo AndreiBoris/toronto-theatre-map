@@ -65,16 +65,39 @@ button:disabled {
   background-color: #ccc;
 }
 
+.button-hover, .button-flex :hover {
+  border: 2px solid black;
+  font-size: 1.5em;
+  padding-top: 10px;
+}
+
 .button-flex {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   text-align: center;
 }
-.button-flex :hover {
+
+.button-list-flex h4:hover,
+.button-list-flex p:hover,
+.button-list-flex span:hover {
+  border: none;
+}
+
+.button-list-flex {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.button-list-flex :hover {
   border: 2px solid black;
-  font-size: 1.5em;
-  padding-top: 10px;
+}
+
+.button-list {
+  margin: 0.2em 0;
 }
 
 .button-red {
@@ -87,16 +110,19 @@ button:disabled {
   box-shadow: 2px 2px 6px green inset;
 }
 
+.button-all, .button-90, .button-50 {
+  border: 1px solid gray;
+  cursor: pointer;
+  cursor: hand;
+}
+
 .button-50 {
   width: 50%;
   padding-top: 13px;
   height: 50px;
-  border: 1px solid gray;
   font-size: 1.3em;
   font-weight: bold;
   color: white;
-  cursor: pointer;
-  cursor: hand;
 }
 
 /*** The map needs to have a specific size in order to display. ***/
