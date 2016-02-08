@@ -14,7 +14,6 @@ button:disabled {
     background-color: #ccc; // Differentiate look of disabled buttons.
 }
 
-
 /*** Animate sort buttons in the list div when hovering over them ***/
 
 .button-hover {
@@ -232,7 +231,7 @@ the height of current display the same effect would not result. ***/
 }
 
 
-/*** ***/
+/*** The title of each theatre in the Info Windows appearing on markers ***/
 
 .info-title {
     font-weight: bold;
@@ -240,16 +239,7 @@ the height of current display the same effect would not result. ***/
 }
 
 
-/*** ***/
 
-#footer {
-    z-index: 3;
-    text-align: center;
-    position: absolute;
-    bottom: 0;
-    height: 5%;
-    width: 100%;
-}
 
 
 /*** ***/

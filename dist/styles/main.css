@@ -230,20 +230,10 @@ the height of current display the same effect would not result. ***/
   height: 80%;
 }
 
-/*** ***/
+/*** The title of each theatre in the Info Windows appearing on markers ***/
 .info-title {
   font-weight: bold;
   font-size: 1.15em;
-}
-
-/*** ***/
-#footer {
-  z-index: 3;
-  text-align: center;
-  position: absolute;
-  bottom: 0;
-  height: 5%;
-  width: 100%;
 }
 
 /*** ***/
