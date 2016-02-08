@@ -157,6 +157,7 @@ var TheatreMapViewModel = function() {
             self.glowingTwitter = true;
         }
         console.log('We have a new twitter user? ' + result); // DEBUG
+        console.log(self.glowingTwitter);
         return result;
     });
 
@@ -805,7 +806,7 @@ var TheatreMapViewModel = function() {
          * Since this is only run when the app loads, we don't want to have it 
          * set off the glow on the Twitter tab.
          */
-        self.glowingTwitter(false);
+        self.glowingTwitter = false;
         self.stopGlow();
     };
 
