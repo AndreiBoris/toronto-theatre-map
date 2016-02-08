@@ -136,7 +136,7 @@ var TheatreMapViewModel = function() {
     });
 
     self.currentDisplay = ko.computed(function() {
-        var content = '<div class="current-display"><h4><a href="' +
+        var content = '<div class="current-display"><h4><a target="_blank" href="' +
             self.currentWebsite() + '">' +
             self.currentTitle() +
             '</a></h4>' +
