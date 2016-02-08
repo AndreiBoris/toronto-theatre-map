@@ -35,10 +35,10 @@
             </div>
         </div>
         <ul class="button-list-flex" data-bind="foreach: markers">
-            <li class="button-90 button-list" data-bind="visible: listed, click: $root.accessMarker">
-                <h4 class="bolded-text" data-bind="text: title"></h4>
-                <p>Date founded: <span data-bind="text: founded"></span></p>
-                <p>Address: <span data-bind="text: address"></span></p>
+            <li class="button-list" data-bind="visible: listed, click: $root.accessMarker">
+                <h4 class="bolded-text list-title" data-bind="text: title"></h4>
+                <p>Date founded: <span class="bolded-text" data-bind="text: founded"></span></p>
+                <p>Address: <span class="bolded-text" data-bind="text: address"></span></p>
             </li>
         </ul>
     </div>
