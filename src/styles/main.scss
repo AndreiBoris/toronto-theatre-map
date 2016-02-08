@@ -1,4 +1,6 @@
-/* Imports */
+/*********************
+General
+*********************/
 
 @import 'imports/reset';
 // Right from the Google Maps API example to get the map to display
@@ -8,66 +10,6 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden; // Disallow scrolling to see offscreen elements on mobile.
-}
-
-button:disabled {
-    background-color: #ccc; // Differentiate look of disabled buttons.
-}
-
-/*** Animate sort buttons in the list div when hovering over them ***/
-
-.button-hover {
-    border: 2px solid black;
-    padding-top: 10px;
-}
-
-
-/*** Sort buttons at the top of list div styles ***/
-
-.button-flex {
-    display: flex;
-    text-align: center;
-    :hover {
-        @extend .button-hover;
-    }
-}
-
-
-/*** Don't allow the children of button-list-flex to also generate borders when
-hovering over any of them specifically. ***/
-
-.button-list-flex h4:hover,
-.button-list-flex p:hover,
-.button-list-flex span:hover {
-    border: none;
-}
-
-
-/*** The div for the buttons for each theatre in the list div ***/
-
-.button-list-flex {
-    display: flex;
-    flex-direction: column;
-    :hover {
-        background-color: #e6e6e6;
-        border: 2px solid black;
-    }
-}
-
-
-/*** Background for alphabetical sort button in list div ***/
-
-.button-red {
-    background: linear-gradient(red, yellow);
-    box-shadow: 2px 2px 6px red inset;
-}
-
-
-/*** Background for date founded sort button in list div ***/
-
-.button-yellow {
-    background: linear-gradient(green, teal);
-    box-shadow: 2px 2px 6px green inset;
 }
 
 
@@ -80,25 +22,9 @@ hovering over any of them specifically. ***/
 }
 
 
-/*** Buttons for each theatre in the list div ***/
-
-.button-list {
-    @extend .button-all;
-    margin: 0.2em 0; // Separate the buttons
-}
-
-
-/*** Buttons at the top of list div for sorting. In flexbox. ***/
-
-.button-50 {
-    @extend .button-all;
-    width: 50%;
-    padding-top: 13px;
-    height: 50px;
-    font-size: 1.3em;
-    font-weight: bold;
-    color: white; // Need background color or else text is invisible.
-}
+/*********************
+Map
+*********************/
 
 
 /*** The map needs to have a specific size in order to display. ***/
@@ -109,6 +35,11 @@ hovering over any of them specifically. ***/
     position: absolute;
     z-index: 1; // Map is behind everything else that appears.
 }
+
+
+/*********************
+Off screen
+*********************/
 
 
 /*** How long offscreen elements take to move on and off ***/
@@ -127,7 +58,7 @@ media queries. ***/
 }
 
 
-/*** The div that pops out when a marker is accessed  ***/
+/*** The display div that pops out when a marker is accessed  ***/
 
 .left-divs {
     @extend .off-screen;
@@ -144,11 +75,27 @@ media queries. ***/
 }
 
 
-/*** Keep the buttons from colliding with the tab on the left of them ***/
+/*** Right div is on screen ***/
 
-#list-div ul {
-    margin-left: 1em;
+.right-div-on {
+    right: 0%;
+    /*** z-index needs to be higher than .tab-back otherwise those tabs are 
+        clickable through the right-div ***/
+    z-index: 6;
 }
+
+
+/*** Left div is on screen ***/
+
+.left-div-on {
+    left: 0%;
+    z-index: 2; // Above the map but not above anything else.
+}
+
+
+/*********************
+Tabs
+*********************/
 
 
 /*** All the right-div tabs for moving the divs on and off screen ***/
@@ -185,7 +132,7 @@ z-index. ***/
     opacity: 0;
     /*** z-index has to be higher than left-div-on so that it is still clickable
         if the left-div is also open ***/
-    z-index: 5; 
+    z-index: 5;
 }
 
 
@@ -196,22 +143,10 @@ z-index. ***/
 }
 
 
-/*** Left div is on screen ***/
+/*********************
+Display div
+*********************/
 
-.left-div-on {
-    left: 0%;
-    z-index: 2; // Above the map but not above anything else.
-}
-
-
-/*** ***/
-
-.right-div-on {
-    right: 0%;
-    /*** Needs to be higher than .tab-back otherwise those tabs are clickable 
-        through the right-div ***/
-    z-index: 6;
-}
 
 /*** This is the information in the left div that gets loaded from each marker 
 ***/
@@ -221,7 +156,7 @@ z-index. ***/
 }
 
 
-/*** This is the div inclosing .current-display. We make sure that we can scroll
+/*** This is the div enclosing .current-display. We make sure that we can scroll
 through the current display and that the buttons stay at the bottom. If we made
 the height of current display the same effect would not result. ***/
 
@@ -231,11 +166,88 @@ the height of current display the same effect would not result. ***/
 }
 
 
-/*** Title of each theatre in the Info Windows appearing on markers ***/
+/*********************
+List div
+*********************/
 
-.info-title {
+
+/*** Animate sort buttons in the list div when hovering over them ***/
+
+.button-hover {
+    border: 2px solid black;
+    padding-top: 10px;
+}
+
+
+/*** Sort buttons at the top of list div styles ***/
+
+.button-flex {
+    display: flex;
+    text-align: center;
+    :hover {
+        @extend .button-hover;
+    }
+}
+
+
+/*** Buttons at the top of list div for sorting. In flexbox. ***/
+
+.button-50 {
+    @extend .button-all;
+    width: 50%;
+    padding-top: 13px;
+    height: 50px;
+    font-size: 1.3em;
     font-weight: bold;
-    font-size: 1.15em;
+    color: white; // Need background color or else text is invisible.
+}
+
+
+/*** Background for alphabetical sort button in list div ***/
+
+.button-red {
+    background: linear-gradient(red, yellow);
+    box-shadow: 2px 2px 6px red inset;
+}
+
+
+/*** Background for date founded sort button in list div ***/
+
+.button-yellow {
+    background: linear-gradient(green, teal);
+    box-shadow: 2px 2px 6px green inset;
+}
+
+
+/*** The div for the buttons for each theatre in the list div ***/
+
+.button-list-flex {
+    margin-left: 0.25em;
+    display: flex;
+    flex-direction: column;
+    :hover {
+        background-color: #e6e6e6;
+        border: 1px solid black;
+    }
+}
+
+
+/*** Don't allow the children of button-list-flex to also generate borders when
+hovering over any of them specifically. ***/
+
+.button-list-flex h4:hover,
+.button-list-flex p:hover,
+.button-list-flex span:hover {
+    border: none;
+}
+
+
+/*** Buttons for each theatre in the list div ***/
+
+.button-list-item {
+    @extend .button-all;
+    margin: 0.2em 0; // Separate the buttons
+    padding: 0.1em;
 }
 
 
@@ -251,6 +263,43 @@ the height of current display the same effect would not result. ***/
 .bolded-text {
     font-weight: bold;
 }
+
+
+/*********************
+Twitter div
+*********************/
+
+
+/*********************
+Filter div
+*********************/
+
+
+/*********************
+Info Windows
+*********************/
+
+
+/*** Title of each theatre in the Info Windows appearing on markers ***/
+
+.info-title {
+    font-weight: bold;
+    font-size: 1.15em;
+}
+
+
+/*********************
+Temporary
+*********************/
+
+button:disabled {
+    background-color: #ccc; // Differentiate look of disabled buttons.
+}
+
+
+/*********************
+Media Queries
+*********************/
 
 
 /*** For large displays ***/
