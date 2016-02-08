@@ -231,7 +231,7 @@ the height of current display the same effect would not result. ***/
 }
 
 
-/*** The title of each theatre in the Info Windows appearing on markers ***/
+/*** Title of each theatre in the Info Windows appearing on markers ***/
 
 .info-title {
     font-weight: bold;
@@ -239,26 +239,24 @@ the height of current display the same effect would not result. ***/
 }
 
 
-
-
-
-/*** ***/
+/*** Title of each theatre in the list div ***/
 
 .list-title {
     font-size: 1.2em;
 }
 
 
-/*** ***/
+/*** Used for list div theatres ***/
 
 .bolded-text {
     font-weight: bold;
 }
 
 
-/*** ***/
+/*** For large displays ***/
 
 @media only screen and (min-width: 700px) {
+    /*** Take up less space with the divs that start offscreen. ***/
     .right-divs {
         width: 30%;
     }
@@ -277,9 +275,10 @@ the height of current display the same effect would not result. ***/
 }
 
 
-/*** ***/
+/*** For small displays ***/
 
 @media only screen and (max-width: 700px) {
+    /*** Take up more space with the divs that start offscreen. ***/
     .off-screen {
         width: 90%;
     }
