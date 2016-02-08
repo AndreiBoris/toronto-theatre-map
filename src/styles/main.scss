@@ -16,11 +16,13 @@ body {
 /*** All buttons inherit this class ***/
 
 .button-all {
-    border: 1px solid gray;
     cursor: pointer;
     cursor: hand;
 }
 
+.scroll-div {
+    overflow: auto;
+}
 
 /*********************
 Map
@@ -71,7 +73,6 @@ media queries. ***/
 .right-divs {
     @extend .off-screen;
     height: 100%;
-    overflow: auto;
 }
 
 
@@ -225,6 +226,7 @@ List div
     margin-left: 0.25em;
     display: flex;
     flex-direction: column;
+    height: 90%;
     :hover {
         background-color: #e6e6e6;
         border: 1px solid black;
@@ -247,16 +249,32 @@ hovering over any of them specifically. ***/
 .button-list-item {
     @extend .button-all;
     margin: 0.2em 0; // Separate the buttons
-    padding: 0.1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    min-height: 4em;
+    border-bottom: 1px solid black;
+}
+
+.inside-list {
+    margin-left: 0.5em;
 }
 
 
 /*** Title of each theatre in the list div ***/
 
-.list-title {
-    font-size: 1.2em;
+.text-center {
+    text-align: center;
 }
 
+.list-title {
+    font-size: 1.5em;
+    @extend .text-center;
+}
+
+.bump-size {
+    font-size: 1.15em;
+}
 
 /*** Used for list div theatres ***/
 

@@ -65,9 +65,12 @@ body {
 
 /*** All buttons inherit this class ***/
 .button-all, .button-50, .button-list-item {
-  border: 1px solid gray;
   cursor: pointer;
   cursor: hand;
+}
+
+.scroll-div {
+  overflow: auto;
 }
 
 /*********************
@@ -103,7 +106,6 @@ media queries. ***/
 /*** The list, twitter and filter divs ***/
 .right-divs {
   height: 100%;
-  overflow: auto;
 }
 
 /*** Right div is on screen ***/
@@ -220,6 +222,7 @@ List div
   -webkit-flex-direction: column;
       -ms-flex-direction: column;
           flex-direction: column;
+  height: 90%;
 }
 .button-list-flex :hover {
   background-color: #e6e6e6;
@@ -237,12 +240,34 @@ hovering over any of them specifically. ***/
 /*** Buttons for each theatre in the list div ***/
 .button-list-item {
   margin: 0.2em 0;
-  padding: 0.1em;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-justify-content: space-around;
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
+  min-height: 4em;
+  border-bottom: 1px solid black;
+}
+
+.inside-list {
+  margin-left: 0.5em;
 }
 
 /*** Title of each theatre in the list div ***/
+.text-center, .list-title {
+  text-align: center;
+}
+
 .list-title {
-  font-size: 1.2em;
+  font-size: 1.5em;
+}
+
+.bump-size {
+  font-size: 1.15em;
 }
 
 /*** Used for list div theatres ***/
