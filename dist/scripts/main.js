@@ -696,6 +696,7 @@ var TheatreMapViewModel = function() {
         self.currentWebsite(marker.website);
         self.currentBlurb(marker.blurb);
         self.currentAddress(marker.address);
+        mapManager.map.panTo(marker.getPosition());
         self.openInfoWindow(marker);
         self.infoWindow.setContent(self.currentInfo());
         self.openLeftDiv();
@@ -757,12 +758,14 @@ var TheatreMapViewModel = function() {
         // var position = self.infoWindow.getPosition();
         // console.log(position);
         self.infoWindow.open(mapManager.map, marker);
-        console.log('The screen height is ' + screen.height);
-        if (screen.height < 400) {
-            mapManager.map.panBy(0, -100);
-        } else {
-            mapManager.map.panBy(0, -60);
-        }
+        mapManager.map.panBy(0, -160);
+        // console.log('The screen height is ' + screen.height);
+        // if (screen.height < 400) {
+        //     console.log('GOING');
+        //     mapManager.map.panBy(0, -300);
+        // } else {
+        //     mapManager.map.panBy(0, -160);
+        // }
         // Allows for scanning whether any InfoWindows are open or not.
         //marker.infoWindowOpen = true;
         //self.infoWindowOpen(true); // observable for the enabling of a button
