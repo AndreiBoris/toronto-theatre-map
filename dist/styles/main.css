@@ -177,6 +177,10 @@ the height of current display the same effect would not result. ***/
 /*********************
 List div
 *********************/
+#list-div {
+  border-left: 1px solid #d9d9d9;
+}
+
 /*** Animate sort buttons in the list div when hovering over them ***/
 .button-hover, .button-flex :hover {
   border: 2px solid black;
