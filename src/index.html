@@ -35,10 +35,10 @@
             </div>
         </div>
         <ul data-bind="foreach: markers">
-            <li>
+            <li data-bind="visible: listed">
+                <h4 data-bind="text: title"></h4>
                 <button class="spaced-out" data-bind="text: title + ' ' + founded,
-          click: $root.accessMarker,
-          visible: listed"></button>
+          click: $root.accessMarker"></button>
             </li>
         </ul>
     </div>

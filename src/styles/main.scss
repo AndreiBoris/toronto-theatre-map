@@ -18,6 +18,7 @@ button:disabled {
 
 .button-flex {
     display: flex;
+    text-align: center;
     :hover{
         border: 2px solid black;
         font-size: 1.5em;
@@ -77,7 +78,9 @@ button:disabled {
 
 /* This is just for testing */
 #list-div{
-    text-align: center;
+    ul {
+        margin-left: 1em;
+    }
 }
 
 .tab-plain {
