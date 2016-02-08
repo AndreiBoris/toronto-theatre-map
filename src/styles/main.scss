@@ -14,13 +14,17 @@ button:disabled {
     background-color: #ccc; // Differentiate look of disabled buttons.
 }
 
+
 /*** Animate sort buttons in the list div when hovering over them ***/
+
 .button-hover {
-    border: 2px solid black; 
+    border: 2px solid black;
     padding-top: 10px;
 }
 
+
 /*** Sort buttons at the top of list div styles ***/
+
 .button-flex {
     display: flex;
     text-align: center;
@@ -29,15 +33,19 @@ button:disabled {
     }
 }
 
+
 /*** Don't allow the children of button-list-flex to also generate borders when
 hovering over any of them specifically. ***/
+
 .button-list-flex h4:hover,
 .button-list-flex p:hover,
 .button-list-flex span:hover {
     border: none;
 }
 
+
 /*** The div for the buttons for each theatre in the list div ***/
+
 .button-list-flex {
     display: flex;
     flex-direction: column;
@@ -48,33 +56,41 @@ hovering over any of them specifically. ***/
 }
 
 
-
 /*** Background for alphabetical sort button in list div ***/
+
 .button-red {
     background: linear-gradient(red, yellow);
     box-shadow: 2px 2px 6px red inset;
 }
 
+
 /*** Background for date founded sort button in list div ***/
+
 .button-yellow {
     background: linear-gradient(green, teal);
     box-shadow: 2px 2px 6px green inset;
 }
 
+
 /*** All buttons inherit this class ***/
+
 .button-all {
     border: 1px solid gray;
     cursor: pointer;
     cursor: hand;
 }
 
+
 /*** Buttons for each theatre in the list div ***/
+
 .button-list {
     @extend .button-all;
     margin: 0.2em 0; // Separate the buttons
 }
 
+
 /*** Buttons at the top of list div for sorting. In flexbox. ***/
+
 .button-50 {
     @extend .button-all;
     width: 50%;
@@ -87,6 +103,7 @@ hovering over any of them specifically. ***/
 
 
 /*** The map needs to have a specific size in order to display. ***/
+
 #map {
     height: 100%;
     width: 100%;
@@ -94,11 +111,14 @@ hovering over any of them specifically. ***/
     z-index: 1; // Map is behind everything else that appears.
 }
 
+
 /*** How long offscreen elements take to move on and off ***/
+
 $transition-time: 0.35s;
 
 /*** Both left-divs and right-divs inherit this. The width is determined in 
 media queries. ***/
+
 .off-screen {
     position: absolute;
     z-index: 2; // Should always be over the map.
@@ -107,13 +127,17 @@ media queries. ***/
     background-color: white;
 }
 
-/*** The div that pops out when the  ***/
+
+/*** The div that pops out when a marker is accessed  ***/
+
 .left-divs {
     @extend .off-screen;
     height: 30%;
 }
 
-/*** ***/
+
+/*** The list, twitter and filter divs ***/
+
 .right-divs {
     @extend .off-screen;
     height: 100%;
@@ -121,86 +145,62 @@ media queries. ***/
 }
 
 
-/* This is just for testing */
+/*** Keep the buttons from colliding with the tab on the left of them ***/
 
-#list-div {
-    ul {
-        margin-left: 1em;
-    }
+#list-div ul {
+    margin-left: 1em;
 }
 
-/*** ***/
+/*** All the right-div tabs for moving the divs on and off screen ***/
+.tab-all {
+    position: absolute;
+    transition: $transition-time;
+}
+
+
+/***  ***/
+
 .tab-plain {
-    position: absolute;
+    @extend .tab-all;
     z-index: 3;
-    transition: $transition-time;
 }
 
+
 /*** ***/
+
 .tab-highlight {
+    @extend .tab-all;
     opacity: 0;
-    position: absolute;
     z-index: 4;
-    transition: $transition-time;
 }
 
+
 /*** ***/
+
 .tab-back {
+    @extend .tab-all;
     opacity: 0;
-    position: absolute;
     z-index: 7;
-    transition: $transition-time;
 }
+
 
 /*** ***/
-#list-tab {
-    @extend .tab-plain;
-}
 
-#list-tab-highlight {
-    @extend .tab-highlight;
-}
-
-#list-tab-back {
-    @extend .tab-back;
-}
-
-#twitter-tab {
-    @extend .tab-plain;
-}
-
-#twitter-tab-highlight {
-    @extend .tab-highlight;
-}
-
-#twitter-tab-back {
-    @extend .tab-back;
-}
-
-#filter-tab {
-    @extend .tab-plain;
-}
-
-#filter-tab-highlight {
-    @extend .tab-highlight;
-}
-
-#filter-tab-back {
-    @extend .tab-back;
-}
-
-/*** ***/
 .tab-off {
     right: -0.5%;
 }
 
+
 /*** ***/
+
 .left-div-on {
     left: 0%;
     z-index: 6; // Needs to be on top of the tabs from the other right-divs
 }
 
+
 /*** ***/
+
 .right-div-on {
     right: 0%;
     z-index: 6; // Needs to be on top of the tabs from the other right-divs
@@ -210,24 +210,32 @@ media queries. ***/
 /*** Each InfoWindow that appears when markers are clicked has a div inside them
     with this class. ***/
 
+
 /*** ***/
+
 .current-display {
     margin: 0.5em;
 }
 
+
 /*** ***/
+
 #info-box {
     overflow: auto;
     height: 80%;
 }
 
+
 /*** ***/
+
 .info-title {
     font-weight: bold;
     font-size: 1.15em;
 }
 
+
 /*** ***/
+
 #footer {
     z-index: 3;
     text-align: center;
@@ -237,17 +245,23 @@ media queries. ***/
     width: 100%;
 }
 
+
 /*** ***/
+
 .list-title {
     font-size: 1.2em;
 }
 
+
 /*** ***/
-.bolded-text{
+
+.bolded-text {
     font-weight: bold;
 }
 
+
 /*** ***/
+
 @media only screen and (min-width: 700px) {
     .right-divs {
         width: 30%;
@@ -266,7 +280,9 @@ media queries. ***/
     }
 }
 
+
 /*** ***/
+
 @media only screen and (max-width: 700px) {
     .off-screen {
         width: 90%;

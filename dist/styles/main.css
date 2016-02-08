@@ -154,46 +154,45 @@ media queries. ***/
   background-color: white;
 }
 
-/*** The div that pops out when the  ***/
+/*** The div that pops out when a marker is accessed  ***/
 .left-divs {
   height: 30%;
 }
 
-/*** ***/
+/*** The list, twitter and filter divs ***/
 .right-divs {
   height: 100%;
   overflow: auto;
 }
 
-/* This is just for testing */
+/*** Keep the buttons from colliding with the tab on the left of them ***/
 #list-div ul {
   margin-left: 1em;
 }
 
-/*** ***/
-.tab-plain, #list-tab, #twitter-tab, #filter-tab {
+/*** All the right-div tabs for moving the divs on and off screen ***/
+.tab-all, .tab-plain, .tab-highlight, .tab-back {
   position: absolute;
+  transition: 0.35s;
+}
+
+/***  ***/
+.tab-plain {
   z-index: 3;
-  transition: 0.35s;
 }
 
 /*** ***/
-.tab-highlight, #list-tab-highlight, #twitter-tab-highlight, #filter-tab-highlight {
+.tab-highlight {
   opacity: 0;
-  position: absolute;
   z-index: 4;
-  transition: 0.35s;
 }
 
 /*** ***/
-.tab-back, #list-tab-back, #twitter-tab-back, #filter-tab-back {
+.tab-back {
   opacity: 0;
-  position: absolute;
   z-index: 7;
-  transition: 0.35s;
 }
 
-/*** ***/
 /*** ***/
 .tab-off {
   right: -0.5%;
