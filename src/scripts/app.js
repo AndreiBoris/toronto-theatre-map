@@ -93,8 +93,6 @@ var TheatreMapViewModel = function() {
     // To determine whether to load the twitter list or a particular account.
     self.twitterListView = ko.observable(true);
 
-
-
     /**
      * Slide the twitter pane in and out of view, enabling/disabling its drain 
      * on resources.
@@ -257,6 +255,10 @@ var TheatreMapViewModel = function() {
         } else {
             self.twitterLengthIndicator('Short');
         }
+    };
+
+    self.switchTwitter = function() {
+        self.twitterListView(!self.twitterListView());
     };
 
     /**
@@ -791,6 +793,22 @@ var TheatreMapViewModel = function() {
         //self.infoWindowOpen(false); // observable for the disabling of a button
     };
 
+    /**
+     * Picks a random twitter account from the set of markers and makes it the 
+     * initial active twitter in the Twitter div.
+     */
+    self.pickRandomTwitter = function() {
+        var num = self.markers().length;
+        var choice = Math.floor((Math.random() * num))
+        self.activeTwitter(self.markers()[choice].twitterHandle);
+        /**
+         * Since this is only run when the app loads, we don't want to have it 
+         * set off the glow on the Twitter tab.
+         */
+        self.glowingTwitter(false);
+        self.stopGlow();
+    };
+
     self.infoWindow = {};
 
     /**
@@ -840,6 +858,7 @@ var TheatreMapViewModel = function() {
         // mapManager.store();
         self.infoWindow = new google.maps.InfoWindow(mapManager.util.blankInfoWin);
         self.glowingList = false;
+        self.pickRandomTwitter();
         /**
          * Begin the glow animation on the tabs, indicating some update to
          * particular tab. Updates are handled separately through the 

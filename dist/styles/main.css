@@ -63,10 +63,61 @@ body {
   overflow: hidden;
 }
 
+/*** Buttons at the top of right divs sorting. In flexbox. ***/
+.button-50 {
+  width: 50%;
+  padding-top: 13px;
+  height: 50px;
+  font-size: 1.3em;
+  font-weight: bold;
+  color: white;
+}
+
 /*** All buttons inherit this class ***/
 .button-all, .button-50, .button-list-item {
   cursor: pointer;
   cursor: hand;
+}
+
+/*** Animate buttons when hovering over them ***/
+.button-hover, .button-flex :hover {
+  border: 2px solid black;
+}
+
+/*** Sort buttons at the top of list div styles ***/
+.button-flex {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: center;
+}
+
+.no-border:hover {
+  border: none;
+}
+
+/*** Background for alphabetical sort button in list div ***/
+.button-red {
+  background: linear-gradient(red, yellow);
+  box-shadow: 2px 2px 6px red inset;
+}
+
+/*** Background for date founded sort button in list div ***/
+.button-green {
+  background: linear-gradient(green, teal);
+  box-shadow: 2px 2px 6px green inset;
+}
+
+/*** Background for combined feed button in twitter div ***/
+.button-blue {
+  background: linear-gradient(blue, silver);
+  box-shadow: 2px 2px 6px blue inset;
+}
+
+/*** Background for expand feed button in twitter div ***/
+.button-pink {
+  background: linear-gradient(pink, violet);
+  box-shadow: 2px 2px 6px pink inset;
 }
 
 .scroll-div {
@@ -179,42 +230,6 @@ List div
 *********************/
 #list-div {
   border-left: 1px solid #d9d9d9;
-}
-
-/*** Animate sort buttons in the list div when hovering over them ***/
-.button-hover, .button-flex :hover {
-  border: 2px solid black;
-  padding-top: 10px;
-}
-
-/*** Sort buttons at the top of list div styles ***/
-.button-flex {
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  text-align: center;
-}
-
-/*** Buttons at the top of list div for sorting. In flexbox. ***/
-.button-50 {
-  width: 50%;
-  padding-top: 13px;
-  height: 50px;
-  font-size: 1.3em;
-  font-weight: bold;
-  color: white;
-}
-
-/*** Background for alphabetical sort button in list div ***/
-.button-red {
-  background: linear-gradient(red, yellow);
-  box-shadow: 2px 2px 6px red inset;
-}
-
-/*** Background for date founded sort button in list div ***/
-.button-yellow {
-  background: linear-gradient(green, teal);
-  box-shadow: 2px 2px 6px green inset;
 }
 
 /*** The div for the buttons for each theatre in the list div ***/

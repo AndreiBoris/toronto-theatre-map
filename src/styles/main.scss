@@ -13,6 +13,18 @@ body {
 }
 
 
+/*** Buttons at the top of right divs sorting. In flexbox. ***/
+
+.button-50 {
+    @extend .button-all;
+    width: 50%;
+    padding-top: 13px;
+    height: 50px;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: white; // Need background color or else text is invisible.
+}
+
 /*** All buttons inherit this class ***/
 
 .button-all {
@@ -20,9 +32,64 @@ body {
     cursor: hand;
 }
 
+
+/*** Animate buttons when hovering over them ***/
+
+.button-hover {
+    border: 2px solid black;
+}
+
+
+/*** Sort buttons at the top of list div styles ***/
+
+.button-flex {
+    display: flex;
+    text-align: center;
+    :hover {
+        @extend .button-hover;
+    }
+}
+
+.no-border:hover {
+    border: none;
+}
+
+
+/*** Background for alphabetical sort button in list div ***/
+
+.button-red {
+    background: linear-gradient(red, yellow);
+    box-shadow: 2px 2px 6px red inset;
+}
+
+
+/*** Background for date founded sort button in list div ***/
+
+.button-green {
+    background: linear-gradient(green, teal);
+    box-shadow: 2px 2px 6px green inset;
+}
+
+
+/*** Background for combined feed button in twitter div ***/
+
+.button-blue {
+    background: linear-gradient(blue, silver);
+    box-shadow: 2px 2px 6px blue inset;
+}
+
+
+/*** Background for expand feed button in twitter div ***/
+
+.button-pink {
+    background: linear-gradient(pink, violet);
+    box-shadow: 2px 2px 6px pink inset;
+}
+
 .scroll-div {
     overflow: auto;
 }
+
 
 /*********************
 Map
@@ -175,53 +242,6 @@ List div
     border-left: 1px solid #d9d9d9;
 }
 
-/*** Animate sort buttons in the list div when hovering over them ***/
-
-.button-hover {
-    border: 2px solid black;
-    padding-top: 10px;
-}
-
-
-/*** Sort buttons at the top of list div styles ***/
-
-.button-flex {
-    display: flex;
-    text-align: center;
-    :hover {
-        @extend .button-hover;
-    }
-}
-
-
-/*** Buttons at the top of list div for sorting. In flexbox. ***/
-
-.button-50 {
-    @extend .button-all;
-    width: 50%;
-    padding-top: 13px;
-    height: 50px;
-    font-size: 1.3em;
-    font-weight: bold;
-    color: white; // Need background color or else text is invisible.
-}
-
-
-/*** Background for alphabetical sort button in list div ***/
-
-.button-red {
-    background: linear-gradient(red, yellow);
-    box-shadow: 2px 2px 6px red inset;
-}
-
-
-/*** Background for date founded sort button in list div ***/
-
-.button-yellow {
-    background: linear-gradient(green, teal);
-    box-shadow: 2px 2px 6px green inset;
-}
-
 
 /*** The div for the buttons for each theatre in the list div ***/
 
@@ -230,7 +250,8 @@ List div
     display: flex;
     flex-direction: column;
     height: 90%;
-    :hover { // hover over an element in this list
+    :hover {
+        // hover over an element in this list
         background-color: #e6e6e6;
         border: 1px solid black;
     }
@@ -279,6 +300,7 @@ hovering over any of them specifically. ***/
     font-size: 1.15em;
 }
 
+
 /*** Used for list div theatres ***/
 
 .bolded-text {
@@ -298,6 +320,7 @@ Filter div
 #filter-div {
     border-left: 1px solid #d9d9d9;
 }
+
 
 /*********************
 Info Windows
