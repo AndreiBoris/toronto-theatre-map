@@ -176,48 +176,55 @@ media queries. ***/
   transition: 0.35s;
 }
 
-/***  ***/
+/*** Bottom most tab shown then right-divs are off screen  ***/
 .tab-plain {
   z-index: 3;
 }
 
-/*** ***/
+/*** Second layer tab with border that pulses into opacity when updates occur ***/
 .tab-highlight {
   opacity: 0;
   z-index: 4;
 }
 
-/*** ***/
+/*** Top layer tab that is visible when right divs are on screen. These are the 
+tabs that are clicked to initiate all transitions, so it has to have the highest
+z-index. ***/
 .tab-back {
   opacity: 0;
-  z-index: 7;
+  /*** z-index has to be higher than left-div-on so that it is still clickable
+      if the left-div is also open ***/
+  z-index: 5;
 }
 
-/*** ***/
+/*** Position of the tabs when corresponding divs are off screen ***/
 .tab-off {
-  right: -0.5%;
+  right: 0%;
 }
 
-/*** ***/
+/*** Left div is on screen ***/
 .left-div-on {
   left: 0%;
-  z-index: 6;
+  z-index: 2;
 }
 
 /*** ***/
 .right-div-on {
   right: 0%;
+  /*** Needs to be higher than .tab-back otherwise those tabs are clickable 
+      through the right-div ***/
   z-index: 6;
 }
 
-/*** Each InfoWindow that appears when markers are clicked has a div inside them
-    with this class. ***/
-/*** ***/
+/*** This is the information in the left div that gets loaded from each marker 
+***/
 .current-display {
   margin: 0.5em;
 }
 
-/*** ***/
+/*** This is the div inclosing .current-display. We make sure that we can scroll
+through the current display and that the buttons stay at the bottom. If we made
+the height of current display the same effect would not result. ***/
 #info-box {
   overflow: auto;
   height: 80%;
@@ -260,7 +267,7 @@ media queries. ***/
   }
 
   .tab-on {
-    right: 29.5%;
+    right: 30%;
   }
 
   .right-div-off {
@@ -278,7 +285,7 @@ media queries. ***/
   }
 
   .tab-on {
-    right: 89.5%;
+    right: 90%;
   }
 
   .right-div-off {
