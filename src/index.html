@@ -29,13 +29,13 @@
         <div class="button-flex">
             <div href="" class="button-50 button-red" data-bind="click: sortListAlpha">
                 Alphabetical
-                <span data-bind="visible: currentSort() === 'alpha'">&dArr;</span>
-                <span data-bind="visible: currentSort() === 'alpha-reverse'">&uArr;</span>
+                <span class="no-border" data-bind="visible: currentSort() === 'alpha'">&dArr;</span>
+                <span class="no-border" data-bind="visible: currentSort() === 'alpha-reverse'">&uArr;</span>
             </div>
             <div href="" class="button-50 button-green" data-bind="click: sortListFounding">
                 Date Founded
-                <span data-bind="visible: currentSort() === 'date'">&dArr;</span>
-                <span data-bind="visible: currentSort() === 'date-reverse'">&uArr;</span>
+                <span class="no-border" data-bind="visible: currentSort() === 'date'">&dArr;</span>
+                <span class="no-border" data-bind="visible: currentSort() === 'date-reverse'">&uArr;</span>
             </div>
         </div>
         <ul class="button-list-flex scroll-div" data-bind="foreach: markers">
