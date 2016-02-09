@@ -268,6 +268,10 @@ var TheatreMapViewModel = function() {
         self.determineNeedToReload();
     };
 
+    /**
+     * Switch between list view and user view.
+     * @return {[type]} [description]
+     */
     self.switchTwitter = function() {
         self.blinkTwitterError();
         self.twitterListView(!self.twitterListView());
@@ -279,14 +283,6 @@ var TheatreMapViewModel = function() {
      */
     self.userTwitter = function() {
         self.twitterListView(false);
-    };
-
-    /**
-     * Turn on twitterListView so that all Twitter account can be viewed at 
-     * the same time.
-     */
-    self.listTwitter = function() {
-        self.twitterListView(true);
     };
 
     /**
