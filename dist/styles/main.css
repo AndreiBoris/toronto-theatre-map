@@ -379,7 +379,7 @@ Twitter div
 /*********************
 Filter div
 *********************/
-/*** Colour displayed when a filter button is pressed ***/
+/*** Color displayed when a filter button is pressed ***/
 /*** Div that holds filter options ***/
 #filter-div {
   border-left: 1px solid #d9d9d9;
@@ -412,6 +412,7 @@ Filter div
     background-color: #6f6;
   }
 }
+/*** Each button in the filter div ***/
 .button-filter-item {
   margin: 0.2em 0;
   min-height: 2em;
@@ -431,6 +432,7 @@ Filter div
   color: white;
 }
 
+/*** Applied when a button is toggled on. ***/
 .buttonOn {
   background-color: #6f6;
   border: 1px solid black;
@@ -443,13 +445,6 @@ Info Windows
 .info-title {
   font-weight: bold;
   font-size: 1.15em;
-}
-
-/*********************
-Temporary
-*********************/
-button:disabled {
-  background-color: #ccc;
 }
 
 /*********************

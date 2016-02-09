@@ -417,7 +417,7 @@ Twitter div
 Filter div
 *********************/
 
-/*** Colour displayed when a filter button is pressed ***/
+/*** Color displayed when a filter button is pressed ***/
 
 $buttonOnTint: #6f6; 
 
@@ -455,6 +455,8 @@ $buttonOnTint: #6f6;
     }
 }
 
+/*** Each button in the filter div ***/
+
 .button-filter-item {
     @extend .button-all;
     margin: 0.2em 0; // Separate the buttons
@@ -478,6 +480,8 @@ $buttonOnTint: #6f6;
     color: white; // Need background color from other class or else text is invisible.
 }
 
+/*** Applied when a button is toggled on. ***/
+
 .buttonOn {
     background-color: $buttonOnTint;
     border: 1px solid black;
@@ -494,15 +498,6 @@ Info Windows
 .info-title {
     font-weight: bold;
     font-size: 1.15em;
-}
-
-
-/*********************
-Temporary
-*********************/
-
-button:disabled {
-    background-color: #ccc; // Differentiate look of disabled buttons.
 }
 
 
