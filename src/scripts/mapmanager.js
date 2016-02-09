@@ -31,18 +31,7 @@ var mapManager = {
             center: startingMapPosition,
             scrollwheel: true,
             zoom: 12,
-            // This places the selection between map and satellite view at the 
-            // bottom of the screen.
-            mapTypeControlOptions: {
-                style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-                position: google.maps.ControlPosition.LEFT_BOTTOM
-            },
-            zoomControlOptions: {
-                position: google.maps.ControlPosition.LEFT_CENTER
-            },
-            streetViewControlOptions: {
-                position: google.maps.ControlPosition.LEFT_CENTER
-            }
+            disableDefaultUI: true
         });
 
         /**
@@ -507,13 +496,6 @@ var mapManager = {
                 icon: 'dist/images/museum.png',
                 flags: ['Theatre for children', 'Theatre venue'],
                 founded: 1966
-            }, {
-                twitter: 'bradsucks',
-                title: 'Brad Sucks',
-                website: 'http://www.bradsucks.net/',
-                address: '1 Bathurst Street',
-                flags: ['Company office'],
-                founded: 2001
             }, {
                 twitter: 'TheatreDirectCa',
                 title: 'Theatre Direct',
