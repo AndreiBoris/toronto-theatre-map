@@ -34,6 +34,7 @@ body {
     }
 }
 
+
 /*** All buttons inherit this class to change cursor ***/
 
 .button-all {
@@ -72,6 +73,7 @@ body {
 @mixin button-shadows($color) {
     box-shadow: 0.05em 0.05em 0.5em 0.55em $color inset;
 }
+
 
 /*** Background for alphabetical sort button in list div ***/
 
@@ -112,6 +114,7 @@ body {
     @include button-shadows(black);
 }
 
+
 /*** Background for alphabetical sort button in list div ***/
 
 .button-purple {
@@ -119,12 +122,14 @@ body {
     @include button-shadows(purple);
 }
 
+
 /*** Background for alphabetical sort button in list div ***/
 
 .button-teal {
     background: linear-gradient(teal, maroon);
     @include button-shadows(teal);
 }
+
 
 /*** Widely applied to divs that are longer than their container ***/
 
@@ -146,11 +151,13 @@ body {
     font-style: italic;
 }
 
+
 /*** Used in list div theatres ***/
 
 .text-center {
     text-align: center;
 }
+
 
 /*** Used to increase year in list div theatres ***/
 
@@ -313,6 +320,7 @@ the height of current display the same effect would not result. ***/
 List div
 *********************/
 
+
 /*** Thin border to mark end of list-div when it it open ***/
 
 #list-div {
@@ -370,6 +378,7 @@ hovering over any of them specifically. ***/
 Twitter div
 *********************/
 
+
 /*** This div appears under the twitter feeds and can be seen if the feeds fail
     to load. ***/
 
@@ -381,6 +390,7 @@ Twitter div
     line-height: 1.5em; // Space lines for easier viewing
 }
 
+
 /*** Div that holds the list view for Twitter. ***/
 
 #twitter-list {
@@ -388,6 +398,7 @@ Twitter div
     z-index: 2; // over twitter-error
     height: 90%; // Longer due to missing twitter account name
 }
+
 
 /*** Div that holds the user view for Twitter ***/
 
@@ -397,13 +408,14 @@ Twitter div
     height: 85%; // Shorter to accomodate twitter account name
 }
 
+
 /*** Title for user view ***/
 
 #twitter-account-header {
     position: relative; // Makes z-index work so that twitter error is hidden
     z-index: 3;
     min-width: 100%;
-    min-height: 1.8em;
+    min-height: 1.5em;
     font-weight: bold;
     text-align: center;
     line-height: 2em;
@@ -411,21 +423,12 @@ Twitter div
     box-shadow: 0.1em 0.1em 0.3em orange inset;
 }
 
-/*** Font sizes differences for small screens ***/
-
-@media only screen and (min-width: 55em) {
-    #twitter-account-header {
-        font-size: 1.5em;
-    }
-    #twitter-error {
-        font-size: 1.5em;
-    }
+#twitter-error {
+    font-size: 1.5em;
 }
 
+
 @media only screen and (max-width: 40em) {
-    #twitter-account-header {
-        font-size: 1.0em;
-    }
     #twitter-error {
         font-size: 1.2em;
     }
@@ -436,15 +439,17 @@ Twitter div
 Filter div
 *********************/
 
+
 /*** Color displayed when a filter button is pressed ***/
 
-$buttonOnTint: #6f6; 
+$buttonOnTint: #6f6;
 
 /*** Div that holds filter options ***/
 
 #filter-div {
     border-left: 0.05em solid #d9d9d9; // Delimiting border when div is open
 }
+
 
 /*** Container for all the filter buttons ***/
 
@@ -455,24 +460,23 @@ $buttonOnTint: #6f6;
     height: 90%;
 }
 
+
 /*** On large screens ***/
 
 @media only screen and (min-width: 55em) {
     /*** We can do a hover option, since it won't interfere with the .buttonOn 
         class like it does on mobile. ***/
-
     .button-filter-item:hover {
         background-color: #e6e6e6;
         border: 0.05em solid black;
     }
-
     /*** But we need to make hover conform with .buttonOn when both are present
         so that the hover doesn't confuse users whether an option is on or not. ***/
-
     .button-filter-item.buttonOn:hover {
         background-color: $buttonOnTint;
     }
 }
+
 
 /*** Each button in the filter div ***/
 
@@ -499,6 +503,7 @@ $buttonOnTint: #6f6;
     color: white; // Need background color from other class or else text is invisible.
 }
 
+
 /*** Applied when a button is toggled on. ***/
 
 .buttonOn {
@@ -524,6 +529,14 @@ Info Windows
 Media Queries
 *********************/
 
+.left-divs {
+    width: 50%;
+}
+
+.left-div-off {
+    left: -50%;
+}
+
 
 /*** For large displays ***/
 
@@ -531,9 +544,6 @@ Media Queries
     /*** Take up less space with the divs that start offscreen. ***/
     .right-divs {
         width: 30%;
-    }
-    .left-divs {
-        width: 50%;
     }
     .tab-on {
         right: 30%;
@@ -545,7 +555,6 @@ Media Queries
         left: -50%;
     }
 }
-
 
 @media only screen and (max-width: 72em) {
     /*** Take up more space with the divs that start offscreen. ***/
@@ -561,10 +570,8 @@ Media Queries
     .right-div-off {
         right: -40%;
     }
-    .left-div-off {
-        left: -50%;
-    }
 }
+
 
 /*** For small displays ***/
 
@@ -587,11 +594,12 @@ Media Queries
     }
 }
 
+
 /*** For small displays ***/
 
 @media only screen and (max-width: 55em) {
     /*** Take up more space with the divs that start offscreen. ***/
-    .off-screen {
+    .right-divs {
         width: 60%;
     }
     .tab-on {
@@ -599,9 +607,6 @@ Media Queries
     }
     .right-div-off {
         right: -60%;
-    }
-    .left-div-off {
-        left: -60%;
     }
 }
 
@@ -622,7 +627,11 @@ Media Queries
     .left-div-off {
         left: -70%;
     }
+    .left-divs {
+        height: 45%;
+    }
 }
+
 
 /*** For small displays ***/
 
@@ -639,8 +648,5 @@ Media Queries
     }
     .left-div-off {
         left: -90%;
-    }
-    .left-divs {
-        height: 45%;
     }
 }
