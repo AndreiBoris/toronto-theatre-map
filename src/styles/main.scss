@@ -67,11 +67,17 @@ body {
 }
 
 
+/*** Mixin used for all buttons to style their color ***/
+
+@mixin button-shadows($color) {
+    box-shadow: 1px 1px 9px 10px $color inset;
+}
+
 /*** Background for alphabetical sort button in list div ***/
 
 .button-red {
     background: linear-gradient(red, yellow);
-    box-shadow: 2px 2px 6px red inset;
+    @include button-shadows(red);
 }
 
 
@@ -79,7 +85,7 @@ body {
 
 .button-green {
     background: linear-gradient(green, teal);
-    box-shadow: 2px 2px 6px green inset;
+    @include button-shadows(green);
 }
 
 
@@ -87,7 +93,7 @@ body {
 
 .button-blue {
     background: linear-gradient(blue, silver);
-    box-shadow: 2px 2px 6px blue inset;
+    @include button-shadows(blue);
 }
 
 
@@ -95,7 +101,7 @@ body {
 
 .button-pink {
     background: linear-gradient(pink, violet);
-    box-shadow: 2px 2px 6px pink inset;
+    @include button-shadows(pink);
 }
 
 
@@ -103,9 +109,22 @@ body {
 
 .button-gold {
     background: linear-gradient(black, gold);
-    box-shadow: 2px 2px 6px black inset;
+    @include button-shadows(black);
 }
 
+/*** Background for alphabetical sort button in list div ***/
+
+.button-purple {
+    background: linear-gradient(purple, black);
+    @include button-shadows(purple);
+}
+
+/*** Background for alphabetical sort button in list div ***/
+
+.button-teal {
+    background: linear-gradient(teal, maroon);
+    @include button-shadows(teal);
+}
 
 /*** Widely applied to divs that are longer than their container ***/
 
