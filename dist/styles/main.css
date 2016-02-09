@@ -87,7 +87,7 @@ body {
 
 /*** Animate buttons when hovering over them ***/
 .button-hover, .button-flex :hover {
-  border: 2px solid black;
+  border: 0.1em solid black;
 }
 
 /*** Sort buttons at the top of list div styles ***/
@@ -282,7 +282,7 @@ List div
 *********************/
 /*** Thin border to mark end of list-div when it it open ***/
 #list-div {
-  border-left: 1px solid #d9d9d9;
+  border-left: 0.05em solid #d9d9d9;
 }
 
 /*** The div for the buttons for each theatre in the list div ***/
@@ -298,7 +298,7 @@ List div
 }
 .button-list-flex :hover {
   background-color: #e6e6e6;
-  border: 1px solid black;
+  border: 0.05em solid black;
 }
 
 /*** Don't allow the children of button-list-flex to also generate borders when
@@ -322,7 +322,7 @@ hovering over any of them specifically. ***/
       -ms-flex-pack: distribute;
           justify-content: space-around;
   min-height: 4em;
-  border-bottom: 1px solid black;
+  border-bottom: 0.05em solid black;
 }
 
 /*** Title of each theatre in the list div ***/
@@ -362,12 +362,12 @@ Twitter div
   position: relative;
   z-index: 3;
   min-width: 100%;
-  min-height: 30px;
+  min-height: 1.8em;
   font-weight: bold;
   text-align: center;
   line-height: 2em;
   background: linear-gradient(orange, gold);
-  box-shadow: 2px 2px 6px orange inset;
+  box-shadow: 0.1em 0.1em 0.3em orange inset;
 }
 
 /*** Font sizes differences for small screens ***/
@@ -395,7 +395,7 @@ Filter div
 /*** Color displayed when a filter button is pressed ***/
 /*** Div that holds filter options ***/
 #filter-div {
-  border-left: 1px solid #d9d9d9;
+  border-left: 0.05em solid #d9d9d9;
 }
 
 /*** Container for all the filter buttons ***/
@@ -416,7 +416,7 @@ Filter div
       class like it does on mobile. ***/
   .button-filter-item:hover {
     background-color: #e6e6e6;
-    border: 1px solid black;
+    border: 0.05em solid black;
   }
 
   /*** But we need to make hover conform with .buttonOn when both are present
@@ -429,7 +429,7 @@ Filter div
 .button-filter-item {
   margin: 0.2em 0;
   min-height: 2em;
-  border-bottom: 1px solid black;
+  border-bottom: 0.05em solid black;
   font-size: 1.4em;
   font-weight: bold;
   padding: 0.25em 0.5em;
@@ -438,8 +438,8 @@ Filter div
 /*** Used for the uncheck all button in the filter div  ***/
 .button-100 {
   width: 100%;
-  padding-top: 13px;
-  height: 50px;
+  padding-top: 0.8em;
+  height: 2.7em;
   font-size: 1.3em;
   font-weight: bold;
   color: white;
@@ -448,7 +448,7 @@ Filter div
 /*** Applied when a button is toggled on. ***/
 .buttonOn {
   background-color: #6f6;
-  border: 1px solid black;
+  border: 0.05em solid black;
 }
 
 /*********************

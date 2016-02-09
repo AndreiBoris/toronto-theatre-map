@@ -45,7 +45,7 @@ body {
 /*** Animate buttons when hovering over them ***/
 
 .button-hover {
-    border: 2px solid black;
+    border: 0.1em solid black;
 }
 
 
@@ -316,7 +316,7 @@ List div
 /*** Thin border to mark end of list-div when it it open ***/
 
 #list-div {
-    border-left: 1px solid #d9d9d9;
+    border-left: 0.05em solid #d9d9d9;
 }
 
 
@@ -330,7 +330,7 @@ List div
     :hover {
         // hover over an element in this list
         background-color: #e6e6e6;
-        border: 1px solid black;
+        border: 0.05em solid black;
     }
 }
 
@@ -354,7 +354,7 @@ hovering over any of them specifically. ***/
     flex-direction: column;
     justify-content: space-around;
     min-height: 4em;
-    border-bottom: 1px solid black;
+    border-bottom: 0.05em solid black;
 }
 
 
@@ -403,12 +403,12 @@ Twitter div
     position: relative; // Makes z-index work so that twitter error is hidden
     z-index: 3;
     min-width: 100%;
-    min-height: 30px;
+    min-height: 1.8em;
     font-weight: bold;
     text-align: center;
     line-height: 2em;
     background: linear-gradient(orange, gold);
-    box-shadow: 2px 2px 6px orange inset;
+    box-shadow: 0.1em 0.1em 0.3em orange inset;
 }
 
 /*** Font sizes differences for small screens ***/
@@ -443,7 +443,7 @@ $buttonOnTint: #6f6;
 /*** Div that holds filter options ***/
 
 #filter-div {
-    border-left: 1px solid #d9d9d9; // Delimiting border when div is open
+    border-left: 0.05em solid #d9d9d9; // Delimiting border when div is open
 }
 
 /*** Container for all the filter buttons ***/
@@ -463,7 +463,7 @@ $buttonOnTint: #6f6;
 
     .button-filter-item:hover {
         background-color: #e6e6e6;
-        border: 1px solid black;
+        border: 0.05em solid black;
     }
 
     /*** But we need to make hover conform with .buttonOn when both are present
@@ -480,7 +480,7 @@ $buttonOnTint: #6f6;
     @extend .button-all;
     margin: 0.2em 0; // Separate the buttons
     min-height: 2em;
-    border-bottom: 1px solid black;
+    border-bottom: 0.05em solid black;
     font-size: 1.4em;
     font-weight: bold;
     padding: 0.25em 0.5em;
@@ -492,8 +492,8 @@ $buttonOnTint: #6f6;
 .button-100 {
     @extend .button-all;
     width: 100%;
-    padding-top: 13px;
-    height: 50px;
+    padding-top: 0.8em;
+    height: 2.7em;
     font-size: 1.3em; // Button is long enough so font can be large even on mobile
     font-weight: bold;
     color: white; // Need background color from other class or else text is invisible.
@@ -503,7 +503,7 @@ $buttonOnTint: #6f6;
 
 .buttonOn {
     background-color: $buttonOnTint;
-    border: 1px solid black;
+    border: 0.05em solid black;
 }
 
 
