@@ -362,32 +362,37 @@ Twitter div
     line-height: 1.5em; // Space lines for easier viewing
 }
 
-/*** This is the div that holds the list view for twitter. ***/
+/*** Div that holds the list view for Twitter. ***/
 
 #twitter-list {
-    position: relative; // 
-    z-index: 2;
-    height: 90%;
+    position: relative; // Makes z-index work so twitter error is hidden
+    z-index: 2; // over twitter-error
+    height: 90%; // Longer due to missing twitter account name
 }
+
+/*** Div that holds the user view for Twitter ***/
 
 #twitter-account {
-    position: relative;
-    height: 85%;
-    z-index: 2;
+    position: relative; // Makes z-index work so twitter error is hidden
+    z-index: 2; // over twitter-error
+    height: 85%; // Shorter to accomodate twitter account name
 }
 
+/*** Title for user view ***/
+
 #twitter-account-header {
-    position: relative;
+    position: relative; // Makes z-index work so that twitter error is hidden
     z-index: 3;
     min-width: 100%;
     min-height: 30px;
     font-weight: bold;
     text-align: center;
     line-height: 2em;
-    // color: black;
     background: linear-gradient(orange, gold);
     box-shadow: 2px 2px 6px orange inset;
 }
+
+/*** Font sizes differences for small screens ***/
 
 @media only screen and (min-width: 700px) {
     #twitter-account-header {
@@ -398,7 +403,7 @@ Twitter div
     }
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 699px) {
     #twitter-account-header {
         font-size: 1.0em;
     }
@@ -412,9 +417,17 @@ Twitter div
 Filter div
 *********************/
 
+/*** Colour displayed when a filter button is pressed ***/
+
+$buttonOnTint: #6f6; 
+
+/*** Div that holds filter options ***/
+
 #filter-div {
-    border-left: 1px solid #d9d9d9;
+    border-left: 1px solid #d9d9d9; // Delimiting border when div is open
 }
+
+/*** Container for all the filter buttons ***/
 
 .button-filter-flex {
     margin-left: 0.25em;
@@ -423,13 +436,22 @@ Filter div
     height: 90%;
 }
 
+/*** On large screens ***/
+
 @media only screen and (min-width: 700px) {
+    /*** We can do a hover option, since it won't interfere with the .buttonOn 
+        class like it does on mobile. ***/
+
     .button-filter-item:hover {
         background-color: #e6e6e6;
         border: 1px solid black;
     }
+
+    /*** But we need to make hover conform with .buttonOn when both are present
+        so that the hover doesn't confuse users whether an option is on or not. ***/
+
     .button-filter-item.buttonOn:hover {
-        background-color: #6f6;
+        background-color: $buttonOnTint;
     }
 }
 
@@ -457,7 +479,7 @@ Filter div
 }
 
 .buttonOn {
-    background-color: #6f6;
+    background-color: $buttonOnTint;
     border: 1px solid black;
 }
 
@@ -513,7 +535,7 @@ Media Queries
 
 /*** For small displays ***/
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 699px) {
     /*** Take up more space with the divs that start offscreen. ***/
     .off-screen {
         width: 90%;
