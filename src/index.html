@@ -71,6 +71,7 @@
         </div>
         <div id="twitter-list" class="scroll-div" data-bind="visible: twitterListView() && twitterIsOpen">
         </div>
+        <div id="twitter-account-header" data-bind="text: currentTitle, visible: !twitterListView() && twitterIsOpen"></div>
         <div id="twitter-account" class="scroll-div" data-bind="visible: !twitterListView() && twitterIsOpen">
         </div>
         <div id="twitter-error" class="scroll-div">

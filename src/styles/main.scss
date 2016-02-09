@@ -323,7 +323,7 @@ Twitter div
     z-index: 1; 
     position: absolute;
     color: black;
-    top: 10%;
+    top: 20%;
     font-size: 1.5em;
     margin: 1em;
     line-height: 1.5em;
@@ -335,10 +335,23 @@ Twitter div
     height: 90%;
 }
 
-#twitter-account {
+#twitter-account{
+    position: absolute;
     height: 90%;
-    position: relative;
     z-index: 2;
+}
+
+
+#twitter-account-header {
+    min-width: 100%;
+    min-height: 30px;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    line-height: 2em;
+    // color: black;
+    background: linear-gradient(orange, gold);
+    box-shadow: 2px 2px 6px orange inset;
 }
 
 /*********************

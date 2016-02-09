@@ -808,10 +808,11 @@ var TheatreMapViewModel = function() {
      * Picks a random twitter account from the set of markers and makes it the 
      * initial active twitter in the Twitter div.
      */
-    self.pickRandomTwitter = function() {
+    self.pickRandomTheatre = function() {
         var num = self.markers().length;
         var choice = Math.floor((Math.random() * num));
         self.activeTwitter(self.markers()[choice].twitterHandle);
+        self.currentTitle(self.markers()[choice].title);
         /**
          * Since this is only run when the app loads, we don't want to have it 
          * set off the glow on the Twitter tab.
@@ -869,7 +870,7 @@ var TheatreMapViewModel = function() {
         // mapManager.store();
         self.infoWindow = new google.maps.InfoWindow(mapManager.util.blankInfoWin);
         self.glowingList = false;
-        self.pickRandomTwitter();
+        self.pickRandomTheatre();
         /**
          * Begin the glow animation on the tabs, indicating some update to
          * particular tab. Updates are handled separately through the 
