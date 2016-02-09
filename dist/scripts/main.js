@@ -404,6 +404,7 @@ var TheatreMapViewModel = function() {
                     '694221648225001472', // widget ID made on my Twitter account
                     document.getElementById('twitter-account'), { // target div
                         screenName: self.activeTwitter(), // observable 
+                        height: 90%;
                     }
                 );
             } else { // Load only the 5 most recent tweets.
