@@ -28,7 +28,7 @@ body {
 
 /*** Font sizes must be different on phones ***/
 
-@media only screen and (min-width: 900px) {
+@media only screen and (min-width: 55em) {
     .button-50 {
         font-size: 1.1em;
     }
@@ -413,7 +413,7 @@ Twitter div
 
 /*** Font sizes differences for small screens ***/
 
-@media only screen and (min-width: 900px) {
+@media only screen and (min-width: 55em) {
     #twitter-account-header {
         font-size: 1.5em;
     }
@@ -422,7 +422,7 @@ Twitter div
     }
 }
 
-@media only screen and (max-width: 899px) {
+@media only screen and (max-width: 40em) {
     #twitter-account-header {
         font-size: 1.0em;
     }
@@ -457,7 +457,7 @@ $buttonOnTint: #6f6;
 
 /*** On large screens ***/
 
-@media only screen and (min-width: 900px) {
+@media only screen and (min-width: 55em) {
     /*** We can do a hover option, since it won't interfere with the .buttonOn 
         class like it does on mobile. ***/
 
@@ -527,7 +527,7 @@ Media Queries
 
 /*** For large displays ***/
 
-@media only screen and (min-width: 900px) {
+@media only screen and (min-width: 72em) {
     /*** Take up less space with the divs that start offscreen. ***/
     .right-divs {
         width: 30%;
@@ -547,9 +547,86 @@ Media Queries
 }
 
 
+@media only screen and (max-width: 72em) {
+    /*** Take up more space with the divs that start offscreen. ***/
+    .right-divs {
+        width: 40%;
+    }
+    .left-divs {
+        width: 50%;
+    }
+    .tab-on {
+        right: 40%;
+    }
+    .right-div-off {
+        right: -40%;
+    }
+    .left-div-off {
+        left: -50%;
+    }
+}
+
 /*** For small displays ***/
 
-@media only screen and (max-width: 899px) {
+@media only screen and (max-width: 65em) {
+    /*** Take up more space with the divs that start offscreen. ***/
+    .right-divs {
+        width: 50%;
+    }
+    .left-divs {
+        width: 60%;
+    }
+    .tab-on {
+        right: 50%;
+    }
+    .right-div-off {
+        right: -50%;
+    }
+    .left-div-off {
+        left: -60%;
+    }
+}
+
+/*** For small displays ***/
+
+@media only screen and (max-width: 55em) {
+    /*** Take up more space with the divs that start offscreen. ***/
+    .off-screen {
+        width: 60%;
+    }
+    .tab-on {
+        right: 60%;
+    }
+    .right-div-off {
+        right: -60%;
+    }
+    .left-div-off {
+        left: -60%;
+    }
+}
+
+
+/*** For small displays ***/
+
+@media only screen and (max-width: 45em) {
+    /*** Take up more space with the divs that start offscreen. ***/
+    .off-screen {
+        width: 70%;
+    }
+    .tab-on {
+        right: 70%;
+    }
+    .right-div-off {
+        right: -70%;
+    }
+    .left-div-off {
+        left: -70%;
+    }
+}
+
+/*** For small displays ***/
+
+@media only screen and (max-width: 40em) {
     /*** Take up more space with the divs that start offscreen. ***/
     .off-screen {
         width: 90%;

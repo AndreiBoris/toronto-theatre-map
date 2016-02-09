@@ -711,7 +711,7 @@ var TheatreMapViewModel = function() {
     self.accessMarker = function(marker) {
         console.log('Accessing marker.');
         console.log('The screen width is ' + mapManager.util.windowWidth);
-        if (self.listIsOpen() && mapManager.util.windowWidth < 900) {
+        if (self.listIsOpen() && mapManager.util.windowWidth < 1040) {
             self.slideList(); // close list div on small screen when accessing
         }
         // Set observables holding information on selected marker.
@@ -746,7 +746,7 @@ var TheatreMapViewModel = function() {
         self.$divInfo.addClass('left-div-on');
         self.$divInfo.removeClass('left-div-off');
         console.log('opening left div');
-        if (mapManager.util.windowWidth < 900) {
+        if (mapManager.util.windowWidth < 1040) {
             if (self.listIsOpen()) {
                 console.log('LIST IS OPEN');
                 self.slideList();
