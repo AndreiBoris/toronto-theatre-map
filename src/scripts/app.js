@@ -189,12 +189,6 @@ var TheatreMapViewModel = function() {
     self.needTwitterListReload = ko.observable(true);
 
     /**
-     * This is to tell the user if the Twitter feed is long or short. It is 
-     * updated by updateTwitterLengthIndicator.
-     */
-    self.twitterLengthIndicator = ko.observable('Short');
-
-    /**
      * If the twitter list feed has never been loaded before, it should be 
      * loaded whenever the user requests it.
      */
@@ -240,22 +234,8 @@ var TheatreMapViewModel = function() {
     self.toggleTwitterLength = function() {
         console.log('Toggling twitter length.');
         self.twitterLong(!self.twitterLong()); // Toggle feed type requested.
-        // User-readable string about requested feed type.
-        self.updateTwitterLengthIndicator();
         // A change to requested feed type might require a reload.
         self.determineNeedToReload();
-    };
-
-    /**
-     * Change user-readable indicator about the currently requested Twitter feed
-     * length.
-     */
-    self.updateTwitterLengthIndicator = function() {
-        if (self.twitterLong()) { // Check the observable regarded feed length
-            self.twitterLengthIndicator('Long');
-        } else {
-            self.twitterLengthIndicator('Short');
-        }
     };
 
     self.switchTwitter = function() {
