@@ -89,11 +89,11 @@
     <img id="filter-tab-back" class="tab-back tab-off filter-tab-image" data-bind="click: slideFilter" src="dist/images/tab-back.png"></img>
     <div id="filter-div" class="right-div-off right-divs">
         <div class="button-flex">
-            <div id="twitter-list-button" class="button-100 button-gold" data-bind=" click: clearFilters">
+            <div class="button-100 button-gold" data-bind=" click: clearFilters">
                 Uncheck all
             </div>
         </div>
-        <ul class="button-list-flex scroll-div" data-bind="foreach: filters">
+        <ul class="button-filter-flex scroll-div" data-bind="foreach: filters">
             <li class="button-filter-item" data-bind="click: $root.toggleFilter,
             text: flag, css: { buttonOn: filter() }">
             </li>

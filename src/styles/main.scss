@@ -46,6 +46,7 @@ body {
     color: white; // Need background color or else text is invisible.
 }
 
+
 /*** All buttons inherit this class ***/
 
 .button-all {
@@ -106,6 +107,7 @@ body {
     background: linear-gradient(pink, violet);
     box-shadow: 2px 2px 6px pink inset;
 }
+
 
 /*** Background for uncheck all button in filter div ***/
 
@@ -407,6 +409,23 @@ Filter div
     border-left: 1px solid #d9d9d9;
 }
 
+.button-filter-flex {
+    margin-left: 0.25em;
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+}
+
+@media only screen and (min-width: 700px) {
+    .button-filter-item:hover {
+        background-color: #e6e6e6;
+        border: 1px solid black;
+    }
+    .button-filter-item.buttonOn:hover {
+        background-color: #6f6;
+    }
+}
+
 .button-filter-item {
     @extend .button-all;
     margin: 0.2em 0; // Separate the buttons
@@ -417,10 +436,11 @@ Filter div
     padding: 0.25em 0.5em;
 }
 
-.buttonOn{
-    background-color: #d9d9d9;
+.buttonOn {
+    background-color: #6f6;
     border: 1px solid black;
 }
+
 
 /*********************
 Info Windows

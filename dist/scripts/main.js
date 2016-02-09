@@ -498,16 +498,16 @@ var TheatreMapViewModel = function() {
      */
     self.filterDiverse = ko.observable(false);
     self.filterWomen = ko.observable(false);
+    self.filterBlack = ko.observable(false);
+    self.filterAboriginal = ko.observable(false);
     self.filterQueer = ko.observable(false);
+    self.filterAsian = ko.observable(false);
+    self.filterLatin = ko.observable(false);
     self.filterAlternative = ko.observable(false);
     self.filterCommunity = ko.observable(false);
-    self.filterAboriginal = ko.observable(false);
     self.filterInternational = ko.observable(false);
-    self.filterAsian = ko.observable(false);
     self.filterChildren = ko.observable(false);
-    self.filterLatin = ko.observable(false);
     self.filterTechnology = ko.observable(false);
-    self.filterBlack = ko.observable(false);
     self.filterOffice = ko.observable(false);
     self.filterVenue = ko.observable(false);
 
@@ -523,8 +523,20 @@ var TheatreMapViewModel = function() {
         filter: self.filterWomen,
         flag: 'Women'
     }, {
+        filter: self.filterBlack,
+        flag: 'Black'
+    }, {
+        filter: self.filterAboriginal,
+        flag: 'Aboriginal'
+    }, {
         filter: self.filterQueer,
         flag: 'Queer culture'
+    }, {
+        filter: self.filterAsian,
+        flag: 'Asian-Canadian'
+    }, {
+        filter: self.filterLatin,
+        flag: 'Latin-Canadian'
     }, {
         filter: self.filterAlternative,
         flag: 'Alternative'
@@ -532,26 +544,14 @@ var TheatreMapViewModel = function() {
         filter: self.filterCommunity,
         flag: 'Community focused'
     }, {
-        filter: self.filterAboriginal,
-        flag: 'Aboriginal'
-    }, {
         filter: self.filterInternational,
         flag: 'International'
-    }, {
-        filter: self.filterAsian,
-        flag: 'Asian-Canadian'
     }, {
         filter: self.filterChildren,
         flag: 'Theatre for children'
     }, {
-        filter: self.filterLatin,
-        flag: 'Latin-Canadian'
-    }, {
         filter: self.filterTechnology,
         flag: 'Technology'
-    }, {
-        filter: self.filterBlack,
-        flag: 'Black'
     }, {
         filter: self.filterOffice,
         flag: 'Company office'
