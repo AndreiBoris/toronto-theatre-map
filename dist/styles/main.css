@@ -297,12 +297,23 @@ hovering over any of them specifically. ***/
 /*********************
 Twitter div
 *********************/
+#twitter-error {
+  z-index: 1;
+  position: absolute;
+  color: black;
+  top: 30%;
+}
+
 #twitter-list {
+  position: relative;
+  z-index: 2;
   height: 90%;
 }
 
 #twitter-account {
   height: 90%;
+  position: relative;
+  z-index: 2;
 }
 
 /*********************

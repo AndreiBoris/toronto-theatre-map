@@ -404,7 +404,7 @@ var TheatreMapViewModel = function() {
                     '694221648225001472', // widget ID made on my Twitter account
                     document.getElementById('twitter-account'), { // target div
                         screenName: self.activeTwitter(), // observable 
-                        height: 90%;
+                        height: screen.height * 0.8
                     }
                 );
             } else { // Load only the 5 most recent tweets.
@@ -447,6 +447,7 @@ var TheatreMapViewModel = function() {
                     document.getElementById('twitter-list'), { // target div
                         listOwnerScreenName: 'BreathMachine', // List-holding account
                         listSlug: 'toronto-theatre', // Name of twitter list
+                        height: screen.height * 0.8
                     }
                 );
             } else {
@@ -792,7 +793,7 @@ var TheatreMapViewModel = function() {
      */
     self.pickRandomTwitter = function() {
         var num = self.markers().length;
-        var choice = Math.floor((Math.random() * num))
+        var choice = Math.floor((Math.random() * num));
         self.activeTwitter(self.markers()[choice].twitterHandle);
         /**
          * Since this is only run when the app loads, we don't want to have it 

@@ -793,7 +793,7 @@ var TheatreMapViewModel = function() {
      */
     self.pickRandomTwitter = function() {
         var num = self.markers().length;
-        var choice = Math.floor((Math.random() * num))
+        var choice = Math.floor((Math.random() * num));
         self.activeTwitter(self.markers()[choice].twitterHandle);
         /**
          * Since this is only run when the app loads, we don't want to have it 

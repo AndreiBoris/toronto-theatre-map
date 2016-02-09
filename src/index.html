@@ -73,6 +73,20 @@
         </div>
         <div id="twitter-account" class="scroll-div" data-bind="visible: !twitterListView() && twitterIsOpen">
         </div>
+        <div id="twitter-error">
+            <div data-bind="visible: !twitterListView() && twitterIsOpen">
+                We're trying to load the Twitter feed for the account <span data-bind="text:
+                activeTwitter"></span>. If this message persists, try clicking on another
+                marker on the map to reload. If this fails, there might be some error in 
+                the connection!
+            </div>
+            <div data-bind="visible: twitterListView() && twitterIsOpen">
+                We're trying to load a list of Twitter accounts connected to Toronto
+                Theatre. If this message persists, there might be some issue connecting
+                to Twitter. Sorry for the inconvenience. You can check out the list
+                on the Twitter webpage <a href="https://twitter.com/BreathMachine/lists/toronto-theatre">by clicking here</a>.
+            </div>
+        </div>
     </div>
     <!-- Here we have the filter div -->
     <img id="filter-tab" class="tab-plain tab-off filter-tab-image" src="dist/images/filter-tab.png"></img>
