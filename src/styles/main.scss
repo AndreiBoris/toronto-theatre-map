@@ -407,6 +407,20 @@ Filter div
     border-left: 1px solid #d9d9d9;
 }
 
+.button-filter-item {
+    @extend .button-all;
+    margin: 0.2em 0; // Separate the buttons
+    min-height: 2em;
+    border-bottom: 1px solid black;
+    font-size: 1.4em;
+    font-weight: bold;
+    padding: 0.25em 0.5em;
+}
+
+.buttonOn{
+    background-color: #d9d9d9;
+    border: 1px solid black;
+}
 
 /*********************
 Info Windows

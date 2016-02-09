@@ -93,12 +93,9 @@
                 Uncheck all
             </div>
         </div>
-        <ul data-bind="foreach: filters">
-            <li>
-                <input type="checkbox" data-bind="checked: filter">
-                <!--ko text: flag-->
-                <!--/ko-->
-                </input>
+        <ul class="button-list-flex scroll-div" data-bind="foreach: filters">
+            <li class="button-filter-item" data-bind="click: $root.toggleFilter,
+            text: flag, css: { buttonOn: filter() }">
             </li>
         </ul>
     </div>

@@ -560,8 +560,13 @@ var TheatreMapViewModel = function() {
         flag: 'Theatre venue'
     }];
 
+    self.toggleFilter = function(clicked) {
+        clicked.filter(!clicked.filter());
+        console.log(clicked);
+    };
+
     /**
-     * Here we determine whether the Reset Filters button should be enabled.
+     * Here we determine whether the filter tab should be grow.
      */
     self.filterClicked = ko.computed(function() {
         var length = self.filters.length;
@@ -569,12 +574,11 @@ var TheatreMapViewModel = function() {
         for (i = 0; i < length; i++) {
             if (self.filters[i].filter()) {
                 self.glowingFilter = true; // If filters are set, glow.
-                return true;
+                return; // At least one filter is on, can exit.
             }
         }
         self.glowingFilter = false; // If no filters are set, don't glow.
         self.stopGlow(); // Reset glow defaults.
-        return false;
     });
 
     /**
