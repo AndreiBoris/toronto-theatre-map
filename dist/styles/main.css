@@ -72,6 +72,7 @@ body {
   color: white;
 }
 
+/*** Font sizes must be different for on phones ***/
 @media only screen and (min-width: 700px) {
   .button-50 {
     font-size: 1.3em;
@@ -82,17 +83,8 @@ body {
     font-size: 0.9em;
   }
 }
-.button-100 {
-  width: 100%;
-  padding-top: 13px;
-  height: 50px;
-  font-size: 1.3em;
-  font-weight: bold;
-  color: white;
-}
-
-/*** All buttons inherit this class ***/
-.button-all, .button-50, .button-100, .button-list-item, .button-filter-item {
+/*** All buttons inherit this class to change cursor ***/
+.button-all, .button-50, .button-list-item, .button-filter-item, .button-100 {
   cursor: pointer;
   cursor: hand;
 }
@@ -110,6 +102,7 @@ body {
   text-align: center;
 }
 
+/*** Applied to divs inside buttons so they don't draw additional borders ***/
 .no-border:hover {
   border: none;
 }
@@ -144,16 +137,34 @@ body {
   box-shadow: 2px 2px 6px black inset;
 }
 
+/*** Widely applied to divs that are longer than their container ***/
 .scroll-div {
   overflow: auto;
 }
 
+/*** Used briefly in the Twitter error div ***/
 .large-font {
   font-size: 1.8em;
 }
 
+/*** Used briefly in the Twitter error div ***/
 .italic-font {
   font-style: italic;
+}
+
+/*** Used in list div theatres ***/
+.text-center, .list-title {
+  text-align: center;
+}
+
+/*** Used to increase year in list div theatres ***/
+.bump-size {
+  font-size: 1.15em;
+}
+
+/*** Used for list div theatres ***/
+.bolded-text {
+  font-weight: bold;
 }
 
 /*********************
@@ -260,6 +271,7 @@ the height of current display the same effect would not result. ***/
 /*********************
 List div
 *********************/
+/*** Thin border to mark end of list-div when it it open ***/
 #list-div {
   border-left: 1px solid #d9d9d9;
 }
@@ -304,40 +316,25 @@ hovering over any of them specifically. ***/
   border-bottom: 1px solid black;
 }
 
-.inside-list {
-  margin-left: 0.5em;
-}
-
 /*** Title of each theatre in the list div ***/
-.text-center, .list-title {
-  text-align: center;
-}
-
 .list-title {
   font-size: 1.5em;
-}
-
-.bump-size {
-  font-size: 1.15em;
-}
-
-/*** Used for list div theatres ***/
-.bolded-text {
-  font-weight: bold;
 }
 
 /*********************
 Twitter div
 *********************/
+/*** This div appears under the twitter feeds and can be seen if the feeds fail
+    to load. ***/
 #twitter-error {
   z-index: 1;
   position: absolute;
-  color: black;
   top: 20%;
   margin: 1em;
   line-height: 1.5em;
 }
 
+/*** This is the div that holds the list view for twitter. ***/
 #twitter-list {
   position: relative;
   z-index: 2;
@@ -345,12 +342,13 @@ Twitter div
 }
 
 #twitter-account {
-  position: absolute;
+  position: relative;
   height: 85%;
   z-index: 2;
 }
 
 #twitter-account-header {
+  z-index: 3;
   min-width: 100%;
   min-height: 30px;
   font-weight: bold;
@@ -413,6 +411,16 @@ Filter div
   font-size: 1.4em;
   font-weight: bold;
   padding: 0.25em 0.5em;
+}
+
+/*** Used for the uncheck all button in the filter div  ***/
+.button-100 {
+  width: 100%;
+  padding-top: 13px;
+  height: 50px;
+  font-size: 1.3em;
+  font-weight: bold;
+  color: white;
 }
 
 .buttonOn {

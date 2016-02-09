@@ -472,7 +472,7 @@ var TheatreMapViewModel = function() {
                     document.getElementById('twitter-list'), { // target div
                         listOwnerScreenName: 'BreathMachine', // List-holding account
                         listSlug: 'toronto-theatre', // Name of twitter list
-                        height: screen.height * 0.75
+                        height: screen.height * 0.72
                     }
                 );
             } else {
