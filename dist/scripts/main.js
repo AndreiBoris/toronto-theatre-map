@@ -421,6 +421,7 @@ var TheatreMapViewModel = function() {
             console.log('Active twitter account is ' + self.activeTwitter()); // DEBUG
             // Clear div for generation of new twitter feed.
             document.getElementById('twitter-account').innerHTML = '';
+            console.log('Inner height is ' + window.innerHeight);
             // Use twttr library to create new user timeline
             if (self.twitterLong()) { // Load a long, limitless feed.
                 self.currentTwitterUserLong = true;
@@ -428,7 +429,7 @@ var TheatreMapViewModel = function() {
                     '694221648225001472', // widget ID made on my Twitter account
                     document.getElementById('twitter-account'), { // target div
                         screenName: self.activeTwitter(), // observable 
-                        height: screen.height * 0.67
+                        height: window.innerHeight - 105
                     }
                 );
             } else { // Load only the 5 most recent tweets.
@@ -464,6 +465,7 @@ var TheatreMapViewModel = function() {
             // Clear div for generation of new twitter feed.
             document.getElementById('twitter-list').innerHTML = '';
             console.log('LOADING NEW TWITTER LIST.'); // DEBUG
+            console.log('Inner height is ' + window.innerHeight);
             // Use twttr library to create new list timeline
             if (self.twitterLong()) {
                 self.currentTwitterListLong = true;
@@ -472,7 +474,7 @@ var TheatreMapViewModel = function() {
                     document.getElementById('twitter-list'), { // target div
                         listOwnerScreenName: 'BreathMachine', // List-holding account
                         listSlug: 'toronto-theatre', // Name of twitter list
-                        height: screen.height - 180
+                        height: window.innerHeight - 70
                     }
                 );
             } else {

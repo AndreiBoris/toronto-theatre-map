@@ -10,6 +10,7 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden; // Disallow scrolling to see offscreen elements on mobile.
+    font-family: Georgia, Serif;
 }
 
 
@@ -25,20 +26,13 @@ body {
 }
 
 
-/*** Font sizes must be different for on phones ***/
+/*** Font sizes must be different on phones ***/
 
 @media only screen and (min-width: 700px) {
     .button-50 {
-        font-size: 1.3em;
+        font-size: 1.1em;
     }
 }
-
-@media only screen and (max-width: 700px) {
-    .button-50 {
-        font-size: 0.9em;
-    }
-}
-
 
 /*** All buttons inherit this class to change cursor ***/
 
@@ -383,6 +377,7 @@ Twitter div
 }
 
 #twitter-account-header {
+    position: relative;
     z-index: 3;
     min-width: 100%;
     min-height: 30px;
