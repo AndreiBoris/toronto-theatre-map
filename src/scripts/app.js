@@ -113,7 +113,9 @@ var TheatreMapViewModel = function() {
     };
 
 
-
+    /**
+     * Toggle whether the filter div in on or offscreen.
+     */
     self.slideFilter = function() {
         if (self.filterIsOpen()) { // then close it
             self.slideHelper('Filter', 'off');
@@ -137,11 +139,20 @@ var TheatreMapViewModel = function() {
         }
     };
 
+    /**
+     * These variables hold the currently selected marker's information for 
+     * various uses.
+     */
     self.currentTitle = ko.observable('');
     self.currentWebsite = ko.observable('');
     self.currentBlurb = ko.observable('');
     self.currentAddress = ko.observable('');
 
+    /**
+     * This computed creates some html content to be used by self.infoWindow.
+     * @return {string}   html containing the selected marker's title and 
+     *                         website properly formatted.
+     */
     self.currentInfo = ko.computed(function() {
         var content = '<div><span class="info-title">' +
             self.currentTitle() +
@@ -151,6 +162,12 @@ var TheatreMapViewModel = function() {
         return content;
     });
 
+    /**
+     * This computed creates some html content to be used by the info div in
+     * order to display information about the selected marker.
+     * @return {string}   html containing the selected marker's information 
+     *                         properly formatted.
+     */
     self.currentDisplay = ko.computed(function() {
         var content = '<div class="current-display"><h4><a target="_blank" href="' +
             self.currentWebsite() + '">' +
@@ -686,28 +703,6 @@ var TheatreMapViewModel = function() {
         }
     });
 
-    // Is an an InfoWindow open? The corresponding logic is naive and worth 
-    // redesigning. Currently, THIS WILL BREAK if we allow for more than one 
-    // InfoWindow to be open at any given time. It is probably worth redesigning
-    // the implementation of InfoWindows so that only one exists and we just 
-    // update its contents, seeing as how the design hinged on only one window
-    // being open.
-    //self.infoWindowOpen = ko.observable(false);
-
-    /**
-     * If the marker has its InfoWindow open we tell the marker that we are 
-     * closing the window and report that all InfoWindows are now closed so the 
-     * button to close the InfoWindow in the view is disabled. This only gets 
-     * called by filterMarkers. NOTE: This doesn't actually close the 
-     * InfoWindow, that action is performed by hideItem in itemFailsFilter.
-     */
-    // self.checkInfoWindow = function(marker) {
-    //     if (marker.infoWindowOpen) { // Marker's info window is open.
-    //         marker.infoWindowOpen = false; // Tell the marker the window is closed.
-    //         self.infoWindowOpen(false); // Tell the view that no windows are open.
-    //     }
-    // };
-
     /**
      * Open the marker and set the observable holding the active twitter account
      * to the value stored in it.
@@ -719,22 +714,33 @@ var TheatreMapViewModel = function() {
         if (self.listIsOpen() && mapManager.util.screenWidth < 700) {
             self.slideList(); // close list div on small screen when accessing
         }
+        // Set observables holding information on selected marker.
         self.currentTitle(marker.title);
         self.currentWebsite(marker.website);
         self.currentBlurb(marker.blurb);
         self.currentAddress(marker.address);
+        // This has to come after the last 4, as currentInfo is a computed based
+        // on currentTitle and currentAddress.
+        self.infoWindow.setContent(self.currentInfo());
+        // Move to a position where the Info Window can be displayed and open it.
         mapManager.map.panTo(marker.getPosition());
         self.openInfoWindow(marker);
-        self.infoWindow.setContent(self.currentInfo());
-        self.openLeftDiv();
-        self.activeTwitter(marker.twitterHandle);
-        self.userTwitter(); // Twitter should go into user, rather than list, mode
+
+        self.openLeftDiv(); // Open the div that slides from offscreen left.
+        self.activeTwitter(marker.twitterHandle); // What Twitter feed to get
+        self.userTwitter(); // Twitter should go into user view
         self.determineNeedToReload(); // We might have a new twitter feed to load
-        //mapManager.map.panTo(marker.getPosition());
     };
 
+    /**
+     * This is the div that comes in from the left and displays information 
+     * about a marker.
+     */
     self.$divInfo = $('#info-div');
 
+    /**
+     * Here we open the info div.
+     */
     self.openLeftDiv = function() {
         self.$divInfo.addClass('left-div-on');
         self.$divInfo.removeClass('left-div-off');
@@ -751,14 +757,20 @@ var TheatreMapViewModel = function() {
         }
     };
 
+    /**
+     * Close the info div.
+     */
     self.closeLeftDiv = function() {
         self.$divInfo.addClass('left-div-off');
         self.$divInfo.removeClass('left-div-on');
     };
 
+    /**
+     * Close the info div and the Info Window to clear the map of clutter.
+     */
     self.closeMarkerInfo = function() {
         self.closeLeftDiv();
-        self.closeInfoWindows();
+        self.closeInfoWindow();
     };
 
     /**
@@ -775,40 +787,22 @@ var TheatreMapViewModel = function() {
     };
 
     /**
-     * Close all InfoWindows and open the one that is attached to the marker
+     * Open the Info Window on top of marker. Its contents were already set 
+     * earlier in the accessMarker call.
      * @param  {object} marker  This is the marker containing the InfoWindow 
      *                          to be opened.
      */
     self.openInfoWindow = function(marker) {
-        //self.closeInfoWindows();
-        // self.infoWindow.setPosition(marker.getPosition());
-        // var position = self.infoWindow.getPosition();
-        // console.log(position);
         self.infoWindow.open(mapManager.map, marker);
-        mapManager.map.panBy(0, -160);
-        // console.log('The screen height is ' + screen.height);
-        // if (screen.height < 400) {
-        //     console.log('GOING');
-        //     mapManager.map.panBy(0, -300);
-        // } else {
-        //     mapManager.map.panBy(0, -160);
-        // }
-        // Allows for scanning whether any InfoWindows are open or not.
-        //marker.infoWindowOpen = true;
-        //self.infoWindowOpen(true); // observable for the enabling of a button
+        // Pan down to make sure the open left-div doesn't cover the Info Window
+        mapManager.map.panBy(0, -160); 
     };
 
     /**
-     * Avoid crowding the map with open windows.
+     * Close the only info window that is on the map.
      */
-    self.closeInfoWindows = function() {
+    self.closeInfoWindow = function() {
         self.infoWindow.close();
-        // self.markers().forEach(function(marker) {
-        //     marker.infoWin.close();
-        //     // Allows for scanning whether any InfoWindows are open or not.
-        //     //marker.infoWindowOpen = false;
-        // });
-        //self.infoWindowOpen(false); // observable for the disabling of a button
     };
 
     /**
@@ -828,6 +822,9 @@ var TheatreMapViewModel = function() {
         self.stopGlow();
     };
 
+    /**
+     * This will be the only google.maps.InfoWindow that is displayed.
+     */
     self.infoWindow = {};
 
     /**
