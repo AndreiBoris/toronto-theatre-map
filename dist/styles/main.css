@@ -74,7 +74,7 @@ body {
 }
 
 /*** Font sizes must be different on phones ***/
-@media only screen and (min-width: 700px) {
+@media only screen and (min-width: 900px) {
   .button-50 {
     font-size: 1.1em;
   }
@@ -371,7 +371,7 @@ Twitter div
 }
 
 /*** Font sizes differences for small screens ***/
-@media only screen and (min-width: 700px) {
+@media only screen and (min-width: 900px) {
   #twitter-account-header {
     font-size: 1.5em;
   }
@@ -380,7 +380,7 @@ Twitter div
     font-size: 1.5em;
   }
 }
-@media only screen and (max-width: 699px) {
+@media only screen and (max-width: 899px) {
   #twitter-account-header {
     font-size: 1.0em;
   }
@@ -411,7 +411,7 @@ Filter div
 }
 
 /*** On large screens ***/
-@media only screen and (min-width: 700px) {
+@media only screen and (min-width: 900px) {
   /*** We can do a hover option, since it won't interfere with the .buttonOn 
       class like it does on mobile. ***/
   .button-filter-item:hover {
@@ -464,7 +464,7 @@ Info Windows
 Media Queries
 *********************/
 /*** For large displays ***/
-@media only screen and (min-width: 700px) {
+@media only screen and (min-width: 900px) {
   /*** Take up less space with the divs that start offscreen. ***/
   .right-divs {
     width: 30%;
@@ -487,7 +487,7 @@ Media Queries
   }
 }
 /*** For small displays ***/
-@media only screen and (max-width: 699px) {
+@media only screen and (max-width: 899px) {
   /*** Take up more space with the divs that start offscreen. ***/
   .off-screen, .left-divs, .right-divs {
     width: 90%;

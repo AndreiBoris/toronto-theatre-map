@@ -24,7 +24,7 @@ var mapManager = {
 
         // Keep a tab on the screen width in order to determine certain 
         // responsive features.
-        this.util.screenWidth = screen.width;
+        this.util.windowWidth = window.innerWidth;
 
         // Create a Map object and specify the DOM element for display.
         this.map = new google.maps.Map(document.getElementById('map'), {
