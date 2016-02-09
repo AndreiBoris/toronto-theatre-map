@@ -25,6 +25,17 @@ body {
     color: white; // Need background color or else text is invisible.
 }
 
+@media only screen and (min-width: 700px) {
+    .button-50 {
+        font-size: 1.3em;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .button-50 {
+        font-size: 0.9em;
+    }
+}
 
 /*** All buttons inherit this class ***/
 

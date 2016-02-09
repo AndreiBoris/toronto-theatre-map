@@ -73,6 +73,16 @@ body {
   color: white;
 }
 
+@media only screen and (min-width: 700px) {
+  .button-50 {
+    font-size: 1.3em;
+  }
+}
+@media only screen and (max-width: 700px) {
+  .button-50 {
+    font-size: 0.9em;
+  }
+}
 /*** All buttons inherit this class ***/
 .button-all, .button-50, .button-list-item {
   cursor: pointer;

@@ -10,6 +10,27 @@ var TheatreMapViewModel = function() {
     'use strict';
     var self = this;
 
+    self.$twitterErrorDiv = $('#twitter-error');
+    self.errorTimeoutRequest = null; // Allows us to clear old requests
+
+    /**
+     * We hide the error div momentarily so that it doesn't normally get seen
+     * by users. It will only appear if a twitter feed did not load after a 
+     * full second and a half following a request.
+     */
+    self.blinkTwitterError = function() {
+        // If we don't clear the request then an older timeout request can 
+        // interrupt the process and display the error when it shouldn't be 
+        // displayed.
+        if (self.errorTimeoutRequest){ 
+            clearTimeout(self.errorTimeoutRequest);
+        }
+        self.$twitterErrorDiv.hide();
+        self.errorTimeoutRequest = setTimeout(function() {
+            self.$twitterErrorDiv.show();
+        }, 1500);
+    };
+
     /**
      * Holds all the google.maps.Marker type objects so we can easily manipulate
      * them through Knockout.
@@ -251,6 +272,7 @@ var TheatreMapViewModel = function() {
     };
 
     self.switchTwitter = function() {
+        self.blinkTwitterError();
         self.twitterListView(!self.twitterListView());
     };
 
@@ -374,20 +396,6 @@ var TheatreMapViewModel = function() {
                 self['glowing' + type + 'Fading'] = true; // Switch to decreasing opacity.
             }
         }
-    };
-
-    self.$twitterErrorDiv = $('#twitter-error');
-
-    /**
-     * We hide the error div momentarily so that it doesn't normally get seen
-     * by users. It will only appear if a twitter feed did not load after a 
-     * full second and a half following a request.
-     */
-    self.blinkTwitterError = function() {
-        self.$twitterErrorDiv.hide();
-        setTimeout(function() {
-            self.$twitterErrorDiv.show();
-        }, 1500);
     };
 
     /**
