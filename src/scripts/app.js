@@ -227,6 +227,9 @@ var TheatreMapViewModel = function() {
         }
     };
 
+    self.$twitterListDiv = $('#twitter-list');
+    self.$twitterAccountDiv = $('#twitter-account');
+
     /**
      * Toggled by user interaction on the view. Changes whether a short or long
      * feed should be requested.
@@ -234,6 +237,14 @@ var TheatreMapViewModel = function() {
     self.toggleTwitterLength = function() {
         console.log('Toggling twitter length.');
         self.twitterLong(!self.twitterLong()); // Toggle feed type requested.
+        // If the twitter list is long, we don't need to allow css scrolling
+        if (self.twitterLong()) {
+            self.$twitterListDiv.removeClass('scroll-div');
+            self.$twitterAccountDiv.removeClass('scroll-div');
+        } else {
+            self.$twitterListDiv.addClass('scroll-div');
+            self.$twitterAccountDiv.addClass('scroll-div');
+        }
         // A change to requested feed type might require a reload.
         self.determineNeedToReload();
     };
