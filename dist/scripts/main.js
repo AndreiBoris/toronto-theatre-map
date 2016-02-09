@@ -10,6 +10,10 @@ var TheatreMapViewModel = function() {
     'use strict';
     var self = this;
 
+    /**
+     * Div for holding the error messages that are seen when twitter fails to 
+     * load quickly enough.
+     */
     self.$twitterErrorDiv = $('#twitter-error');
     self.errorTimeoutRequest = null; // Allows us to clear old requests
 
@@ -22,7 +26,7 @@ var TheatreMapViewModel = function() {
         // If we don't clear the request then an older timeout request can 
         // interrupt the process and display the error when it shouldn't be 
         // displayed.
-        if (self.errorTimeoutRequest){ 
+        if (self.errorTimeoutRequest) {
             clearTimeout(self.errorTimeoutRequest);
         }
         self.$twitterErrorDiv.hide();
@@ -63,29 +67,48 @@ var TheatreMapViewModel = function() {
     self.$tabAllTwitter = $('.twitter-tab-image');
 
     /**
+     * Works to slide all right-divs off and on screen
+     * @param  {string} type      The kind of div that you want to slide, start
+     *                            with a Capital letter as that's how the code
+     *                            is structured.
+     * @param  {string} direction 'on' or 'off'
+     */
+    self.slideHelper = function(type, direction) {
+        var lowered = type.toLowerCase();
+        if (direction === 'off') {
+            console.log('Closing ' + type); // DEBUG
+            self[lowered + 'IsOpen'](false); // Don't load anything to Twitter
+            self['$div' + type].addClass('right-div-off'); // Place the div offscreen
+            self['$tabAll' + type].addClass('tab-off'); // Move the tab as well
+            self['$div' + type].removeClass('right-div-on');
+            self['$tabAll' + type].removeClass('tab-on');
+            self['$tabBack' + type].css('opacity', 0); // Show Twitter logo.
+        } else if (direction === 'on'){
+            console.log('Opening ' + type); // DEBUG
+            self[lowered + 'IsOpen'](true); // Load things into Twitter
+            self.determineNeedToReload(); // May need to replace loaded DOM element
+            self['$div' + type].addClass('right-div-on'); // Place the div onscreen
+            self['$tabAll' + type].addClass('tab-on'); // Move the tab as well
+            self['$div' + type].removeClass('right-div-off');
+            self['$tabAll' + type].removeClass('tab-off');
+            self['$tabBack' + type].css('opacity', 1); // Show back button.
+        } else {
+            console.log('Invalid direction' + direction + 'passed to slideHelper');
+        }
+    };
+
+    /**
      * Slide the div with the list of theatres on and off screen.
      */
     self.slideList = function() {
         if (self.listIsOpen()) { // Then close it
-            console.log('Closing list.'); // DEBUG
-            self.listIsOpen(false); // Update value for other uses
-            self.$divList.addClass('right-div-off'); // Place the div offscreen
-            self.$tabAllList.addClass('tab-off'); // Move the tab as well
-            self.$divList.removeClass('right-div-on');
-            self.$tabAllList.removeClass('tab-on');
-            self.$tabBackList.css('opacity', 0); // Show list label.
+            self.slideHelper('List', 'off');
         } else { // open list
             if (self.glowingList) { // Shouldn't glow if the div is open.
                 self.glowingList = false; // Update for glowAnimation
                 self.stopGlow(); // Reset default glow values
             }
-            console.log('Opening list.'); // DEBUG
-            self.listIsOpen(true); // Update value for other uses
-            self.$divList.addClass('right-div-on'); // Place the div onscreen
-            self.$tabAllList.addClass('tab-on'); // Move the tab as well
-            self.$divList.removeClass('right-div-off');
-            self.$tabAllList.removeClass('tab-off');
-            self.$tabBackList.css('opacity', 1); // Show back button.
+            self.slideHelper('List', 'on');
         }
     };
 
@@ -93,21 +116,9 @@ var TheatreMapViewModel = function() {
 
     self.slideFilter = function() {
         if (self.filterIsOpen()) { // then close it
-            console.log('Closing filter.'); // DEBUG
-            self.filterIsOpen(false);
-            self.$divFilter.addClass('right-div-off'); // Place the div offscreen
-            self.$tabAllFilter.addClass('tab-off'); // Move the tab as well
-            self.$divFilter.removeClass('right-div-on');
-            self.$tabAllFilter.removeClass('tab-on');
-            self.$tabBackFilter.css('opacity', 0); // Show List label.
+            self.slideHelper('Filter', 'off');
         } else { // open filter
-            console.log('Opening filter.'); // DEBUG
-            self.filterIsOpen(true);
-            self.$divFilter.addClass('right-div-on'); // Place the div onscreen
-            self.$tabAllFilter.addClass('tab-on'); // Move the tab as well
-            self.$divFilter.removeClass('right-div-off');
-            self.$tabAllFilter.removeClass('tab-off');
-            self.$tabBackFilter.css('opacity', 1); // Show back button.
+            self.slideHelper('Filter', 'on');
         }
     };
 
@@ -120,24 +131,10 @@ var TheatreMapViewModel = function() {
      */
     self.slideTwitter = function() {
         if (self.twitterIsOpen()) { // then close it
-            console.log('Closing twitter.'); // DEBUG
-            self.twitterIsOpen(false); // Don't load anything to Twitter
-            self.$divTwitter.addClass('right-div-off'); // Place the div offscreen
-            self.$tabAllTwitter.addClass('tab-off'); // Move the tab as well
-            self.$divTwitter.removeClass('right-div-on');
-            self.$tabAllTwitter.removeClass('tab-on');
-            self.$tabBackTwitter.css('opacity', 0); // Show Twitter logo.
+            self.slideHelper('Twitter', 'off');
         } else { // open twitter
-            console.log('Opening twitter.'); // DEBUG
-            self.twitterIsOpen(true); // Load things into Twitter
-            self.determineNeedToReload(); // May need to replace loaded DOM element
-            self.$divTwitter.addClass('right-div-on'); // Place the div onscreen
-            self.$tabAllTwitter.addClass('tab-on'); // Move the tab as well
-            self.$divTwitter.removeClass('right-div-off');
-            self.$tabAllTwitter.removeClass('tab-off');
-            self.$tabBackTwitter.css('opacity', 1); // Show back button.
+            self.slideHelper('Twitter', 'on');
         }
-
     };
 
     self.currentTitle = ko.observable('');
