@@ -420,7 +420,7 @@ var TheatreMapViewModel = function() {
                     '694221648225001472', // widget ID made on my Twitter account
                     document.getElementById('twitter-account'), { // target div
                         screenName: self.activeTwitter(), // observable 
-                        height: screen.height * 0.8
+                        height: screen.height * 0.67
                     }
                 );
             } else { // Load only the 5 most recent tweets.
@@ -464,7 +464,7 @@ var TheatreMapViewModel = function() {
                     document.getElementById('twitter-list'), { // target div
                         listOwnerScreenName: 'BreathMachine', // List-holding account
                         listSlug: 'toronto-theatre', // Name of twitter list
-                        height: screen.height * 0.8
+                        height: screen.height * 0.75
                     }
                 );
             } else {

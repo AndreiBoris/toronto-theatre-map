@@ -25,6 +25,7 @@ body {
     color: white; // Need background color or else text is invisible.
 }
 
+
 /*** All buttons inherit this class ***/
 
 .button-all {
@@ -97,6 +98,7 @@ body {
 .italic-font {
     font-style: italic;
 }
+
 
 /*********************
 Map
@@ -320,11 +322,10 @@ Twitter div
 *********************/
 
 #twitter-error {
-    z-index: 1; 
+    z-index: 1;
     position: absolute;
     color: black;
     top: 20%;
-    font-size: 1.5em;
     margin: 1em;
     line-height: 1.5em;
 }
@@ -335,17 +336,15 @@ Twitter div
     height: 90%;
 }
 
-#twitter-account{
+#twitter-account {
     position: absolute;
-    height: 90%;
+    height: 85%;
     z-index: 2;
 }
-
 
 #twitter-account-header {
     min-width: 100%;
     min-height: 30px;
-    font-size: 1.5em;
     font-weight: bold;
     text-align: center;
     line-height: 2em;
@@ -353,6 +352,25 @@ Twitter div
     background: linear-gradient(orange, gold);
     box-shadow: 2px 2px 6px orange inset;
 }
+
+@media only screen and (min-width: 700px) {
+    #twitter-account-header {
+        font-size: 1.5em;
+    }
+    #twitter-error {
+        font-size: 1.5em;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    #twitter-account-header {
+        font-size: 1.0em;
+    }
+    #twitter-error {
+        font-size: 1.2em;
+    }
+}
+
 
 /*********************
 Filter div
