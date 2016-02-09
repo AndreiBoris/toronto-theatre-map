@@ -73,7 +73,7 @@ body {
   color: white;
 }
 
-/*** Font sizes must be different on phones ***/
+/*** Font sizes can be bumped up slight on larger screen ***/
 @media only screen and (min-width: 55em) {
   .button-50 {
     font-size: 1.1em;
@@ -107,43 +107,43 @@ body {
 /*** Background for alphabetical sort button in list div ***/
 .button-red {
   background: linear-gradient(red, yellow);
-  box-shadow: 1px 1px 9px 10px red inset;
+  box-shadow: 0.05em 0.05em 0.5em 0.55em red inset;
 }
 
 /*** Background for date founded sort button in list div ***/
 .button-green {
   background: linear-gradient(green, teal);
-  box-shadow: 1px 1px 9px 10px green inset;
+  box-shadow: 0.05em 0.05em 0.5em 0.55em green inset;
 }
 
 /*** Background for combined feed button in twitter div ***/
 .button-blue {
   background: linear-gradient(blue, silver);
-  box-shadow: 1px 1px 9px 10px blue inset;
+  box-shadow: 0.05em 0.05em 0.5em 0.55em blue inset;
 }
 
 /*** Background for expand feed button in twitter div ***/
 .button-pink {
   background: linear-gradient(pink, violet);
-  box-shadow: 1px 1px 9px 10px pink inset;
+  box-shadow: 0.05em 0.05em 0.5em 0.55em pink inset;
 }
 
 /*** Background for uncheck all button in filter div ***/
 .button-gold {
   background: linear-gradient(black, gold);
-  box-shadow: 1px 1px 9px 10px black inset;
+  box-shadow: 0.05em 0.05em 0.5em 0.55em black inset;
 }
 
 /*** Background for alphabetical sort button in list div ***/
 .button-purple {
   background: linear-gradient(purple, black);
-  box-shadow: 1px 1px 9px 10px purple inset;
+  box-shadow: 0.05em 0.05em 0.5em 0.55em purple inset;
 }
 
 /*** Background for alphabetical sort button in list div ***/
 .button-teal {
   background: linear-gradient(teal, maroon);
-  box-shadow: 1px 1px 9px 10px teal inset;
+  box-shadow: 0.05em 0.05em 0.5em 0.55em teal inset;
 }
 
 /*** Widely applied to divs that are longer than their container ***/

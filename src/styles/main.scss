@@ -26,7 +26,7 @@ body {
 }
 
 
-/*** Font sizes must be different on phones ***/
+/*** Font sizes can be bumped up slight on larger screen ***/
 
 @media only screen and (min-width: 55em) {
     .button-50 {
@@ -70,7 +70,7 @@ body {
 /*** Mixin used for all buttons to style their color ***/
 
 @mixin button-shadows($color) {
-    box-shadow: 1px 1px 9px 10px $color inset;
+    box-shadow: 0.05em 0.05em 0.5em 0.55em $color inset;
 }
 
 /*** Background for alphabetical sort button in list div ***/
