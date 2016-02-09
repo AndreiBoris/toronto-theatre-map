@@ -90,6 +90,13 @@ body {
     overflow: auto;
 }
 
+.large-font {
+    font-size: 1.8em;
+}
+
+.italic-font {
+    font-style: italic;
+}
 
 /*********************
 Map
@@ -313,10 +320,13 @@ Twitter div
 *********************/
 
 #twitter-error {
-    z-index: 1;
+    z-index: 1; 
     position: absolute;
     color: black;
-    top: 30%;
+    top: 10%;
+    font-size: 1.5em;
+    margin: 1em;
+    line-height: 1.5em;
 }
 
 #twitter-list {

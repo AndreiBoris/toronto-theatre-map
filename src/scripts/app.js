@@ -236,6 +236,7 @@ var TheatreMapViewModel = function() {
      */
     self.toggleTwitterLength = function() {
         console.log('Toggling twitter length.');
+        self.blinkTwitterError(); // Hide twitter error message momentarily.
         self.twitterLong(!self.twitterLong()); // Toggle feed type requested.
         // If the twitter list is long, we don't need to allow css scrolling
         if (self.twitterLong()) {
@@ -375,6 +376,20 @@ var TheatreMapViewModel = function() {
         }
     };
 
+    self.$twitterErrorDiv = $('#twitter-error');
+
+    /**
+     * We hide the error div momentarily so that it doesn't normally get seen
+     * by users. It will only appear if a twitter feed did not load after a 
+     * full second and a half following a request.
+     */
+    self.blinkTwitterError = function() {
+        self.$twitterErrorDiv.hide();
+        setTimeout(function() {
+            self.$twitterErrorDiv.show();
+        }, 1500);
+    };
+
     /**
      * This computed depends on whether the user is using the appropriate 
      * Twitter view and on what the selected twitter account is. If the view
@@ -388,10 +403,10 @@ var TheatreMapViewModel = function() {
     self.newTwitterUserFeed = ko.computed(function() {
         if (self.twitterIsOpen() && !self.twitterListView() &&
             (self.needTwitterUserReload() || self.newTwitterUser())) {
+            self.blinkTwitterError(); // Hide twitter error message momentarily.
             // Faster than running determineNeedToReload. We know the current 
             // loaded feed is the same as the requested one.
             self.needTwitterUserReload(false);
-            self.blinkTwitterError(); // Hide twitter error message momentarily.
             // Make the computed newTwitterUser false.
             self.lastTwitterUser(self.activeTwitter());
             console.log('LOADING NEW TWITTER USER.'); // DEBUG
@@ -431,10 +446,10 @@ var TheatreMapViewModel = function() {
         // If twitter is not open, we shouldn't waste cycles or bandwidth.
         if (self.twitterIsOpen() && self.twitterListView() &&
             (self.firstListLoad || self.needTwitterListReload())) {
+            self.blinkTwitterError(); // Hide twitter error message momentarily.
             // Only first load doesn't account for difference between the 
             // loaded and requested feed types.
             self.firstListLoad = false;
-            self.blinkTwitterError(); // Hide twitter error message momentarily.
             // Faster than running determineNeedToReload. We know the current 
             // loaded feed is the same as the requested one.
             self.needTwitterListReload(false);
@@ -466,20 +481,6 @@ var TheatreMapViewModel = function() {
 
         }
     });
-
-    self.$twitterErrorDiv = $('#twitter-error');
-
-    /**
-     * We hide the error div momentarily so that it doesn't normally get seen
-     * by users. It will only appear if a twitter feed did not load after a 
-     * full second and a half following a request.
-     */
-    self.blinkTwitterError = function() {
-        self.$twitterErrorDiv.hide();
-        setTimeout(function() {
-            self.$twitterErrorDiv.show();
-        }, 1500);
-    };
 
     /**
      * These filters are connected to checkboxes on the view. If one of them is 
