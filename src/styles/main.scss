@@ -20,7 +20,6 @@ body {
     width: 50%;
     padding-top: 13px;
     height: 50px;
-    font-size: 1.3em;
     font-weight: bold;
     color: white; // Need background color or else text is invisible.
 }
@@ -35,6 +34,16 @@ body {
     .button-50 {
         font-size: 0.9em;
     }
+}
+
+.button-100 {
+    @extend .button-all;
+    width: 100%;
+    padding-top: 13px;
+    height: 50px;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: white; // Need background color or else text is invisible.
 }
 
 /*** All buttons inherit this class ***/
@@ -96,6 +105,13 @@ body {
 .button-pink {
     background: linear-gradient(pink, violet);
     box-shadow: 2px 2px 6px pink inset;
+}
+
+/*** Background for uncheck all button in filter div ***/
+
+.button-gold {
+    background: linear-gradient(black, gold);
+    box-shadow: 2px 2px 6px black inset;
 }
 
 .scroll-div {

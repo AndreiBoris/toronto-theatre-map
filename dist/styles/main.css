@@ -68,7 +68,6 @@ body {
   width: 50%;
   padding-top: 13px;
   height: 50px;
-  font-size: 1.3em;
   font-weight: bold;
   color: white;
 }
@@ -83,8 +82,17 @@ body {
     font-size: 0.9em;
   }
 }
+.button-100 {
+  width: 100%;
+  padding-top: 13px;
+  height: 50px;
+  font-size: 1.3em;
+  font-weight: bold;
+  color: white;
+}
+
 /*** All buttons inherit this class ***/
-.button-all, .button-50, .button-list-item {
+.button-all, .button-50, .button-100, .button-list-item {
   cursor: pointer;
   cursor: hand;
 }
@@ -128,6 +136,12 @@ body {
 .button-pink {
   background: linear-gradient(pink, violet);
   box-shadow: 2px 2px 6px pink inset;
+}
+
+/*** Background for uncheck all button in filter div ***/
+.button-gold {
+  background: linear-gradient(black, gold);
+  box-shadow: 2px 2px 6px black inset;
 }
 
 .scroll-div {
