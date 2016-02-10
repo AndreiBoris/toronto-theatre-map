@@ -769,7 +769,7 @@ var TheatreMapViewModel = function() {
      * @param  {object} marker  This is the marker that we want to create a 
      *                          binding for.
      */
-    var infoWindowBinder = function(marker) {
+    self.infoWindowBinder = function(marker) {
         marker.addListener('click', function() {
             self.accessMarker(marker);
         });
@@ -875,7 +875,7 @@ var TheatreMapViewModel = function() {
             // Set up a listener on the marker that will open the corresponding
             // InfoWindow when the Marker is clicked.
             //curMarker.infoWin.setContent(curMarker.title);
-            infoWindowBinder(curMarker);
+            self.infoWindowBinder(curMarker);
             // These variables are set for readability.
             var title = markerItem.title; // Title of marker.
             var website = markerItem.website; // Website associated with marker.
