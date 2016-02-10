@@ -365,11 +365,11 @@ var mapManager = {
                 title: 'Berkeley Street Theatre',
                 website: 'https://nowtoronto.com/locations/berkeley-street-theatre/',
                 blurb: 'Berkeley Street Theatre is associated with the Canadian ' +
-                    'Stage Company. <br>A home for innovative live performance from ' +
-                    'Canada and around the world,<br>Where audiences encounter ' +
+                    'Stage Company.  A home for innovative live performance from ' +
+                    'Canada and around the world, Where audiences encounter ' +
                     'daring productions, guided by a strong directorial vision ' +
-                    '<br>Where theatre, dance, music and visual arts cohabit, clash, interrogate ' +
-                    '<br>Where a bold, 21st-century aesthetic reigns',
+                    'Where theatre, dance, music and visual arts cohabit, clash, interrogate ' +
+                    'Where a bold, 21st-century aesthetic reigns',
                 address: '26 Berkeley St, Toronto',
                 position: {
                     lat: 43.650621,
@@ -384,11 +384,11 @@ var mapManager = {
                 content: 'Bluma Appel Theatre',
                 website: 'https://www.canadianstage.com/Online/default.asp',
                 blurb: 'Bluma Appel Theatre is associated with the Canadian ' +
-                    'Stage Company. <br>A home for innovative live performance from ' +
-                    'Canada and around the world,<br>Where audiences encounter ' +
+                    'Stage Company. A home for innovative live performance from ' +
+                    'Canada and around the world, Where audiences encounter ' +
                     'daring productions, guided by a strong directorial vision ' +
-                    '<br>Where theatre, dance, music and visual arts cohabit, clash, interrogate ' +
-                    '<br>Where a bold, 21st-century aesthetic reigns',
+                    'Where theatre, dance, music and visual arts cohabit, clash, interrogate ' +
+                    'Where a bold, 21st-century aesthetic reigns',
                 address: '27 Front St E, Toronto',
                 position: {
                     lat: 43.647414,
@@ -453,7 +453,7 @@ var mapManager = {
                 title: 'b current',
                 website: 'http://bcurrent.ca/events/',
                 blurb: 'b current is the hotbed for culturally-rooted theatre ' +
-                    'development in Toronto.<br>Originally founded as a place for ' +
+                    'development in Toronto. Originally founded as a place for ' +
                     'black artists to create, nurture, and present their new ' +
                     'works, our company has grown to support artists from all ' +
                     'diasporas. We strived over two decades to create space for ' +
