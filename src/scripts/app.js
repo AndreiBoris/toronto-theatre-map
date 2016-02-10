@@ -914,7 +914,6 @@ var TheatreMapViewModel = function() {
             $allButtons.on('mouseenter', function() {
                 clickArray[self.clickPosition].play();
                 self.nextClick();
-                console.log(self.clickPosition);
             });
         } else { // Small screen probably means a touch device, use clicks.
             var click = new Audio('dist/sounds/click.mp3');
