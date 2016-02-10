@@ -162,23 +162,6 @@ var TheatreMapViewModel = function() {
         return content;
     });
 
-    /**
-     * This computed creates some html content to be used by the info div in
-     * order to display information about the selected marker.
-     * @return {string}   html containing the selected marker's information 
-     *                         properly formatted.
-     */
-    self.currentDisplay = ko.computed(function() {
-        var content = '<div class="current-display"><h4><a target="_blank" href="' +
-            self.currentWebsite() + '">' +
-            self.currentTitle() +
-            '</a></h4>' +
-            '<p>' +
-            self.currentBlurb() + '</p>' +
-            '<br>' +
-            self.currentAddress() + '</div>';
-        return content;
-    });
 
     self.activeTwitter = ko.observable(''); // current Twitter user selected
     self.lastTwitterUser = ko.observable(''); // current Twitter user loaded
