@@ -56,7 +56,8 @@ body {
     display: flex;
     text-align: center;
     // This will be applied to all elements in .button-flex divs, but not 
-    :hover { // to the actual .button-flex div.
+    :hover {
+        // to the actual .button-flex div.
         @extend .button-hover;
     }
 }
@@ -113,7 +114,7 @@ body {
 .button-black {
     background: linear-gradient(black, gold);
     @include button-shadows(black);
-    &:hover{
+    &:hover {
         border: 0.15em solid silver;
     }
 }
@@ -309,6 +310,7 @@ Display div
     margin: 0.5em;
 }
 
+
 /*** Title of the displayed theatre ***/
 
 .display-title {
@@ -318,10 +320,11 @@ Display div
 
 .display-link {
     color: maroon;
-    &:hover{
+    &:hover {
         color: maroon;
     }
 }
+
 
 /*** This is the div enclosing .current-display. We make sure that we can scroll
 through the current display and that the buttons stay at the bottom. If we made
@@ -444,7 +447,6 @@ Twitter div
     font-size: 1.5em;
 }
 
-
 @media only screen and (max-width: 40em) {
     #twitter-error {
         font-size: 1.2em;
@@ -539,6 +541,57 @@ Info Windows
 .info-title {
     font-weight: bold;
     font-size: 1.15em;
+}
+
+
+/*********************
+Credit
+*********************/
+
+footer {
+    z-index: 2;
+    width: 100%;
+    position: absolute;
+    height: 2em;
+    bottom: 0;
+    text-align: center;
+    padding-right: 4em;
+}
+
+#credit-marker {
+    position: absolute;
+    z-index: 2;
+    font-size: 1.2em;
+    bottom: 0.5em;
+}
+
+#credit-div {
+    position: absolute;
+    z-index: 9;
+    background-color: white;
+    width: 100%;
+    height: 6em;
+    bottom: -20em;
+    transition: $transition-time;
+}  
+
+#credit-div .button-100 {
+    position: relative;
+    bottom: 0;
+} 
+
+@media all and (max-width: 32em) {
+    #credit-div {
+        height: 8em;
+    }
+}
+
+.attributions {
+    text-align: left;
+}
+
+#credit-div.creditDivOn {
+    bottom: 0;
 }
 
 

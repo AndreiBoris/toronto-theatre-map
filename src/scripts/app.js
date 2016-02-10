@@ -772,10 +772,6 @@ var TheatreMapViewModel = function() {
     var infoWindowBinder = function(marker) {
         marker.addListener('click', function() {
             self.accessMarker(marker);
-            self.click.play(); // play click sound
-        });
-        marker.addListener('mouseover', function() {
-            self.click.play(); // play click sound
         });
     };
 
@@ -819,6 +815,18 @@ var TheatreMapViewModel = function() {
      * This will be the only google.maps.InfoWindow that is displayed.
      */
     self.infoWindow = {};
+
+    /**
+     * The credit div at the bottom of the app.
+     */
+    self.$creditDiv = $('#credit-div');
+    self.creditOn = ko.observable(false);
+
+    self.slideCredits = function(){
+        self.creditOn(!self.creditOn());
+        console.log('going on with credits');
+        console.log(self.creditOn());
+    };
 
     /**
      * These variables keep track of which click should be played from the 
@@ -894,13 +902,10 @@ var TheatreMapViewModel = function() {
 
         /**
          * Here we create an array of click sounds that will play whenever the
-         * mouse enters a button element. The array is used to allow for sounds
-         * to be played in quick succession
+         * mouse enters a list button element. The array is used to allow for 
+         * sounds to be played in quick succession
          * @type {[type]}
          */
-        var $allButtons = $('.button-50, .button-100, .button-list-item, ' +
-            '.button-filter-item, .tab-back');
-        var $otherButtons = $('.button-50, .button-100, .tab-back');
         var $listButtons = $('.button-list-item, .button-filter-item');
         // This next bit is BAD. Here we assume that a screen wider than 500px
         // will feature a mouse and we'll prefer to use 'mouseenter' to play
@@ -923,15 +928,6 @@ var TheatreMapViewModel = function() {
                 self.nextClick();
             });
         }
-        // Click sound when pressing buttons.
-        $otherButtons.on('mouseenter', function() {
-            self.click.play();
-        });
-
-        // Click sound when pressing buttons.
-        $allButtons.on('click', function() {
-            self.click.play();
-        });
     };
 
 };

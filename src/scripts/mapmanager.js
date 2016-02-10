@@ -602,7 +602,7 @@ var mapManager = {
                     lng: -79.343623
                 },
                 icon: 'dist/images/city.png',
-                flags: ['Black', 'Company office'],
+                flags: ['Black', 'Diversity', 'Company office'],
                 founded: 2000
             }];
         } else {
