@@ -772,6 +772,7 @@ var TheatreMapViewModel = function() {
     var infoWindowBinder = function(marker) {
         marker.addListener('click', function() {
             self.accessMarker(marker);
+            self.click.play(); // play click sound
         });
     };
 
@@ -831,6 +832,7 @@ var TheatreMapViewModel = function() {
             self.clickPosition++;
         }
     };
+    self.click = new Audio('dist/sounds/click.mp3');
 
     /**
      * Does the following :
@@ -895,6 +897,8 @@ var TheatreMapViewModel = function() {
          */
         var $allButtons = $('.button-50, .button-100, .button-list-item, ' +
             '.button-filter-item, .tab-back');
+        var $otherButtons = $('.button-50, .button-100, .tab-back');
+        var $listButtons = $('.button-list-item, .button-filter-item');
         // This next bit is BAD. Here we assume that a screen wider than 500px
         // will feature a mouse and we'll prefer to use 'mouseenter' to play
         // button sounds.
@@ -911,19 +915,24 @@ var TheatreMapViewModel = function() {
                 new Audio('dist/sounds/click.mp3'),
                 new Audio('dist/sounds/click.mp3')
             ];
-            $allButtons.on('mouseenter', function() {
+            $listButtons.on('mouseenter', function() {
                 clickArray[self.clickPosition].play();
                 self.nextClick();
             });
-        } else { // Small screen probably means a touch device, use clicks.
-            var click = new Audio('dist/sounds/click.mp3');
-            $allButtons.on('click', function() {
-                click.play();
-            });
         }
+        // Click sound when pressing buttons.
+        $otherButtons.on('mouseenter', function() {
+            self.click.play();
+        });
 
-    };
+        // Click sound when pressing buttons.
+        $allButtons.on('click', function() {
+            self.click.play();
+        });
+    }
+
 };
+
 
 
 /**
