@@ -162,7 +162,10 @@ var TheatreMapViewModel = function() {
         return content;
     });
 
-
+    /**
+     * These observables are used in the computed newTwitterUser to determine
+     * if the Twitter account requested is different from the one that is loaded.
+     */
     self.activeTwitter = ko.observable(''); // current Twitter user selected
     self.lastTwitterUser = ko.observable(''); // current Twitter user loaded
 
