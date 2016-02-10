@@ -837,7 +837,7 @@ var TheatreMapViewModel = function() {
      */
     self.clickPosition = 0;
     self.nextClick = function() {
-        if (self.clickPosition === 9) { // There are only 10 items in the array.
+        if (self.clickPosition === 4) { // There are only 5 items in the array.
             self.clickPosition = 0;
         } else {
             self.clickPosition++;
@@ -912,11 +912,6 @@ var TheatreMapViewModel = function() {
         // button sounds.
         if (mapManager.util.screenWidth > 800) {
             var clickArray = [
-                new Audio('dist/sounds/click.mp3'),
-                new Audio('dist/sounds/click.mp3'),
-                new Audio('dist/sounds/click.mp3'),
-                new Audio('dist/sounds/click.mp3'),
-                new Audio('dist/sounds/click.mp3'),
                 new Audio('dist/sounds/click.mp3'),
                 new Audio('dist/sounds/click.mp3'),
                 new Audio('dist/sounds/click.mp3'),
