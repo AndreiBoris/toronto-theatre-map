@@ -772,6 +772,10 @@ var TheatreMapViewModel = function() {
     var infoWindowBinder = function(marker) {
         marker.addListener('click', function() {
             self.accessMarker(marker);
+            self.click.play(); // play click sound
+        });
+        marker.addListener('mouseover', function() {
+            self.click.play(); // play click sound
         });
     };
 
@@ -824,13 +828,14 @@ var TheatreMapViewModel = function() {
      * scrolls will result in missed clicks.
      */
     self.clickPosition = 0;
-    self.nextClick = function(){
-        if (self.clickPosition === 9){ // There are only 10 items in the array.
+    self.nextClick = function() {
+        if (self.clickPosition === 9) { // There are only 10 items in the array.
             self.clickPosition = 0;
         } else {
             self.clickPosition++;
         }
     };
+    self.click = new Audio('dist/sounds/click.mp3');
 
     /**
      * Does the following :
@@ -895,27 +900,42 @@ var TheatreMapViewModel = function() {
          */
         var $allButtons = $('.button-50, .button-100, .button-list-item, ' +
             '.button-filter-item, .tab-back');
-        var clickArray = [
-        new Audio('dist/sounds/click.mp3'),
-        new Audio('dist/sounds/click.mp3'),
-        new Audio('dist/sounds/click.mp3'),
-        new Audio('dist/sounds/click.mp3'),
-        new Audio('dist/sounds/click.mp3'),
-        new Audio('dist/sounds/click.mp3'),
-        new Audio('dist/sounds/click.mp3'),
-        new Audio('dist/sounds/click.mp3'),
-        new Audio('dist/sounds/click.mp3'),
-        new Audio('dist/sounds/click.mp3')
-        ];
-        setTimeout(function() {
-            $allButtons.on('mouseenter' 'click', function() {
+        var $otherButtons = $('.button-50, .button-100, .tab-back');
+        var $listButtons = $('.button-list-item, .button-filter-item');
+        // This next bit is BAD. Here we assume that a screen wider than 500px
+        // will feature a mouse and we'll prefer to use 'mouseenter' to play
+        // button sounds.
+        if (mapManager.util.screenWidth > 800) {
+            var clickArray = [
+                new Audio('dist/sounds/click.mp3'),
+                new Audio('dist/sounds/click.mp3'),
+                new Audio('dist/sounds/click.mp3'),
+                new Audio('dist/sounds/click.mp3'),
+                new Audio('dist/sounds/click.mp3'),
+                new Audio('dist/sounds/click.mp3'),
+                new Audio('dist/sounds/click.mp3'),
+                new Audio('dist/sounds/click.mp3'),
+                new Audio('dist/sounds/click.mp3'),
+                new Audio('dist/sounds/click.mp3')
+            ];
+            $listButtons.on('mouseenter', function() {
                 clickArray[self.clickPosition].play();
                 self.nextClick();
-                console.log(self.clickPosition);
             });
-        }, 1000);
+        }
+        // Click sound when pressing buttons.
+        $otherButtons.on('mouseenter', function() {
+            self.click.play();
+        });
+
+        // Click sound when pressing buttons.
+        $allButtons.on('click', function() {
+            self.click.play();
+        });
     };
+
 };
+
 
 
 /**
@@ -953,6 +973,9 @@ var mapManager = {
         // Keep a tab on the screen width in order to determine certain 
         // responsive features.
         this.util.windowWidth = window.innerWidth;
+
+        // Use this to guess at whether we're on a phone or not. NOT GOOD.
+        this.util.screenWidth = screen.width;
 
         // Create a Map object and specify the DOM element for display.
         this.map = new google.maps.Map(document.getElementById('map'), {
@@ -1290,11 +1313,11 @@ var mapManager = {
                 title: 'Berkeley Street Theatre',
                 website: 'https://nowtoronto.com/locations/berkeley-street-theatre/',
                 blurb: 'Berkeley Street Theatre is associated with the Canadian ' +
-                    'Stage Company. <br>A home for innovative live performance from ' +
-                    'Canada and around the world,<br>Where audiences encounter ' +
+                    'Stage Company.  A home for innovative live performance from ' +
+                    'Canada and around the world, Where audiences encounter ' +
                     'daring productions, guided by a strong directorial vision ' +
-                    '<br>Where theatre, dance, music and visual arts cohabit, clash, interrogate ' +
-                    '<br>Where a bold, 21st-century aesthetic reigns',
+                    'Where theatre, dance, music and visual arts cohabit, clash, interrogate ' +
+                    'Where a bold, 21st-century aesthetic reigns',
                 address: '26 Berkeley St, Toronto',
                 position: {
                     lat: 43.650621,
@@ -1309,11 +1332,11 @@ var mapManager = {
                 content: 'Bluma Appel Theatre',
                 website: 'https://www.canadianstage.com/Online/default.asp',
                 blurb: 'Bluma Appel Theatre is associated with the Canadian ' +
-                    'Stage Company. <br>A home for innovative live performance from ' +
-                    'Canada and around the world,<br>Where audiences encounter ' +
+                    'Stage Company. A home for innovative live performance from ' +
+                    'Canada and around the world, Where audiences encounter ' +
                     'daring productions, guided by a strong directorial vision ' +
-                    '<br>Where theatre, dance, music and visual arts cohabit, clash, interrogate ' +
-                    '<br>Where a bold, 21st-century aesthetic reigns',
+                    'Where theatre, dance, music and visual arts cohabit, clash, interrogate ' +
+                    'Where a bold, 21st-century aesthetic reigns',
                 address: '27 Front St E, Toronto',
                 position: {
                     lat: 43.647414,
@@ -1378,7 +1401,7 @@ var mapManager = {
                 title: 'b current',
                 website: 'http://bcurrent.ca/events/',
                 blurb: 'b current is the hotbed for culturally-rooted theatre ' +
-                    'development in Toronto.<br>Originally founded as a place for ' +
+                    'development in Toronto. Originally founded as a place for ' +
                     'black artists to create, nurture, and present their new ' +
                     'works, our company has grown to support artists from all ' +
                     'diasporas. We strived over two decades to create space for ' +

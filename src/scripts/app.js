@@ -774,6 +774,9 @@ var TheatreMapViewModel = function() {
             self.accessMarker(marker);
             self.click.play(); // play click sound
         });
+        marker.addListener('mouseover', function() {
+            self.click.play(); // play click sound
+        });
     };
 
     /**
@@ -929,7 +932,7 @@ var TheatreMapViewModel = function() {
         $allButtons.on('click', function() {
             self.click.play();
         });
-    }
+    };
 
 };
 
