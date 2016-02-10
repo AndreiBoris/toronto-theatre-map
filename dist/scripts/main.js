@@ -83,7 +83,7 @@ var TheatreMapViewModel = function() {
             self['$div' + type].removeClass('right-div-on');
             self['$tabAll' + type].removeClass('tab-on');
             self['$tabBack' + type].css('opacity', 0); // Show Twitter logo.
-        } else if (direction === 'on'){
+        } else if (direction === 'on') {
             console.log('Opening ' + type); // DEBUG
             self[lowered + 'IsOpen'](true); // Load things into Twitter
             self.determineNeedToReload(); // May need to replace loaded DOM element
@@ -784,7 +784,7 @@ var TheatreMapViewModel = function() {
     self.openInfoWindow = function(marker) {
         self.infoWindow.open(mapManager.map, marker);
         // Pan down to make sure the open left-div doesn't cover the Info Window
-        mapManager.map.panBy(0, -160); 
+        mapManager.map.panBy(0, -160);
     };
 
     /**
@@ -815,6 +815,22 @@ var TheatreMapViewModel = function() {
      * This will be the only google.maps.InfoWindow that is displayed.
      */
     self.infoWindow = {};
+
+    /**
+     * These variables keep track of which click should be played from the 
+     * clickArray that is set up inside addMarkers for all buttons on the 
+     * page. This solution is used so that clicks can be played in fast 
+     * succession if a user scrolls over buttons. Without the array, fast 
+     * scrolls will result in missed clicks.
+     */
+    self.clickPosition = 0;
+    self.nextClick = function(){
+        if (self.clickPosition === 9){ // There are only 10 items in the array.
+            self.clickPosition = 0;
+        } else {
+            self.clickPosition++;
+        }
+    };
 
     /**
      * Does the following :
@@ -870,6 +886,34 @@ var TheatreMapViewModel = function() {
          * self.glowing* variables.
          */
         window.requestAnimationFrame(self.glowAnimation);
+
+        /**
+         * Here we create an array of click sounds that will play whenever the
+         * mouse enters a button element. The array is used to allow for sounds
+         * to be played in quick succession
+         * @type {[type]}
+         */
+        var $allButtons = $('.button-50, .button-100, .button-list-item, ' +
+            '.button-filter-item, .tab-back');
+        var clickArray = [
+        new Audio('dist/sounds/click.mp3'),
+        new Audio('dist/sounds/click.mp3'),
+        new Audio('dist/sounds/click.mp3'),
+        new Audio('dist/sounds/click.mp3'),
+        new Audio('dist/sounds/click.mp3'),
+        new Audio('dist/sounds/click.mp3'),
+        new Audio('dist/sounds/click.mp3'),
+        new Audio('dist/sounds/click.mp3'),
+        new Audio('dist/sounds/click.mp3'),
+        new Audio('dist/sounds/click.mp3')
+        ];
+        setTimeout(function() {
+            $allButtons.on('mouseenter' 'click', function() {
+                clickArray[self.clickPosition].play();
+                self.nextClick();
+                console.log(self.clickPosition);
+            });
+        }, 1000);
     };
 };
 

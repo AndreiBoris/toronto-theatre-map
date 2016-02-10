@@ -26,6 +26,9 @@ var mapManager = {
         // responsive features.
         this.util.windowWidth = window.innerWidth;
 
+        // Use this to guess at whether we're on a phone or not. NOT GOOD.
+        this.util.screenWidth = screen.width;
+
         // Create a Map object and specify the DOM element for display.
         this.map = new google.maps.Map(document.getElementById('map'), {
             center: startingMapPosition,
