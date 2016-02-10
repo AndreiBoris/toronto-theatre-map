@@ -722,7 +722,7 @@ var TheatreMapViewModel = function() {
      * This is the div that comes in from the left and displays information 
      * about a marker.
      */
-    self.$divInfo = $('#info-div');
+    self.$divInfo = $('#display-div');
 
     /**
      * Here we open the info div. Close all other divs if the screen is small

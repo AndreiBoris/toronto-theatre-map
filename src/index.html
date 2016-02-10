@@ -14,11 +14,11 @@
 </head>
 
 <body>
-    <div id="info-div" class="left-divs left-div-off">
-        <div id="info-box">
+    <div id="display-div" class="left-divs left-div-off">
+        <div id="display-box">
             <div class="current-display">
-                <h4>
-                <a target="_blank" data-bind="attr: { href: currentWebsite },
+                <h4 class="display-title">
+                <a class="display-link" target="_blank" data-bind="attr: { href: currentWebsite },
                 text: currentTitle"></a>
                 </h4>
             <p data-bind="text: currentBlurb"></p>
@@ -134,7 +134,7 @@
     <div id="filter-div" class="right-div-off right-divs">
         <!-- Reset filters -->
         <div class="button-flex">
-            <div class="button-100 button-gold" data-bind=" click: clearFilters">
+            <div class="button-100 button-black" data-bind=" click: clearFilters">
                 Uncheck all
             </div>
         </div>

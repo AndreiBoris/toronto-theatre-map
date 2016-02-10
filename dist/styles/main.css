@@ -87,7 +87,7 @@ body {
 
 /*** Animate buttons when hovering over them ***/
 .button-hover, .button-flex :hover {
-  border: 0.1em solid black;
+  border: 0.15em solid black;
 }
 
 /*** Sort buttons at the top of list div styles ***/
@@ -129,9 +129,12 @@ body {
 }
 
 /*** Background for uncheck all button in filter div ***/
-.button-gold {
+.button-black {
   background: linear-gradient(black, gold);
   box-shadow: 0.05em 0.05em 0.5em 0.55em black inset;
+}
+.button-black:hover {
+  border: 0.15em solid silver;
 }
 
 /*** Background for alphabetical sort button in list div ***/
@@ -269,10 +272,23 @@ Display div
   margin: 0.5em;
 }
 
+/*** Title of the displayed theatre ***/
+.display-title {
+  font-size: 2em;
+  margin: 0 0 0.25em 0.5em;
+}
+
+.display-link {
+  color: maroon;
+}
+.display-link:hover {
+  color: maroon;
+}
+
 /*** This is the div enclosing .current-display. We make sure that we can scroll
 through the current display and that the buttons stay at the bottom. If we made
 the height of current display the same effect would not result. ***/
-#info-box {
+#display-box {
   overflow: auto;
   height: 80%;
 }
