@@ -1,9 +1,12 @@
 var ko = ko || {};
 
 /**
- * The ViewModel is a function to take advantage of the 'var self = this' idiom
+ * The module loads attributes used by other modules.
+ * @param  {object} self        TheatreMapViewModel object without this module.
+ * @param  {object} ko          Knockout object to provide framework methods.
+ * @return {object}             TheatreMapViewModel with these added methods.
  */
-var TheatreMapViewModel = (function(self) {
+var TheatreMapViewModel = (function(self, ko) {
     'use strict';
 
     /**
@@ -173,4 +176,4 @@ var TheatreMapViewModel = (function(self) {
      */
     return self;
 
-}(TheatreMapViewModel || {}));
+}(TheatreMapViewModel || {}, ko));

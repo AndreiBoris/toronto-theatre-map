@@ -2,11 +2,14 @@ var ko = ko || {};
 var twttr = twttr || {};
 
 /**
- * Here we load all the Twitter related methods.
- * @param  {[type]} self    This is whatever version of TheatreMapViewModel was
- *                          passed to this module.
+ * The module required to handle Twitter actions.
+ * @param  {object} self        TheatreMapViewModel object without this module.
+ * @param  {object} ko          Knockout object to provide framework methods.
+ * @param  {object} twttr       Twitter object for creating timelines
+ * @param  {object} google      Google Maps API
+ * @return {object}             TheatreMapViewModel with these added methods.
  */
-var TheatreMapViewModel = (function(self) {
+var TheatreMapViewModel = (function(self, ko, twttr) {
     'use strict';
 
     /**
@@ -168,4 +171,4 @@ var TheatreMapViewModel = (function(self) {
      */
     return self;
 
-}(TheatreMapViewModel || {}));
+}(TheatreMapViewModel || {}, ko, twttr));

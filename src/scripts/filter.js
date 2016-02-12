@@ -2,9 +2,13 @@ var ko = ko || {};
 var mapManager = mapManager || {};
 
 /**
- * The ViewModel is a function to take advantage of the 'var self = this' idiom
+ * The module provides methods for filtering markers.
+ * @param  {object} self        TheatreMapViewModel object without this module.
+ * @param  {object} ko          Knockout object to provide framework methods.
+ * @param  {object} mapManager  Object with map related function and variables.
+ * @return {object}             TheatreMapViewModel with these added methods.
  */
-var TheatreMapViewModel = (function(self) {
+var TheatreMapViewModel = (function(self, ko, mapManager) {
     'use strict';
 
     /**
@@ -132,4 +136,4 @@ var TheatreMapViewModel = (function(self) {
      */
     return self;
 
-}(TheatreMapViewModel || {}));
+}(TheatreMapViewModel || {}, ko, mapManager));

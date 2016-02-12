@@ -1,9 +1,12 @@
 var mapManager = mapManager || {};
 
 /**
- * The ViewModel is a function to take advantage of the 'var self = this' idiom
+ * The module provides methods for opening and closing the offscreen divs.
+ * @param  {object} self        TheatreMapViewModel object without this module.
+ * @param  {object} mapManager  Object with map related methods and variables.
+ * @return {object}             TheatreMapViewModel with these added methods.
  */
-var TheatreMapViewModel = (function(self) {
+var TheatreMapViewModel = (function(self, mapManager) {
     'use strict';
 
     /**
@@ -55,4 +58,4 @@ var TheatreMapViewModel = (function(self) {
      */
     return self;
 
-}(TheatreMapViewModel || {}));
+}(TheatreMapViewModel || {}, mapManager));

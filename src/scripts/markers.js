@@ -1,13 +1,16 @@
 var ko = ko || {};
-var google = google || {};
 var mapManager = mapManager || {};
+var google = google || {};
 
 /**
- * [description]
- * @param  {object} self is whatever version of TheatreMapViewModel was passed
- *                       to this module.
+ * The module loads methods for creating the markers.
+ * @param  {object} self        TheatreMapViewModel object without this module.
+ * @param  {object} ko          Knockout object to provide framework methods.
+ * @param  {object} mapManager  Object with map related methods and variables.
+ * @param  {object} google      Google Maps API
+ * @return {object}             TheatreMapViewModel with these added methods.
  */
-var TheatreMapViewModel = (function(self) {
+var TheatreMapViewModel = (function(self, ko, mapManager, google) {
     'use strict';
 
     /**
@@ -299,4 +302,4 @@ var TheatreMapViewModel = (function(self) {
      */
     return self;
 
-}(TheatreMapViewModel || {}));
+}(TheatreMapViewModel || {}, ko, mapManager, google));
