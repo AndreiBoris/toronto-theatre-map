@@ -119,6 +119,20 @@ gulp.task('critical-styles', ['styles'], function () {
     });
 });
 
+// Critical CSS that is used by watch, responds to changes in the html file,
+gulp.task('critical-html', ['minify-html'], function () {
+    critical.generate({
+        inline: true,
+        base: '.',
+        src: 'index.html',
+        minify: true,
+        css: ['dist/styles/main.min.css'],
+        width: 1900,
+        height: 1300,
+        dest: 'index.html',
+    });
+});
+
 
 // Clean images
 gulp.task('clean-images', function() {
@@ -185,7 +199,7 @@ gulp.task('watch', function() {
     gulp.watch('src/images/**/*', ['images']);
 
     // Watch src/index.html
-    gulp.watch('src/*.html', ['minify-html']);
+    gulp.watch('src/*.html', ['critical-html']);
 
     // Watch this file
     gulp.watch('gulpfile.js', ['gulpfile-lint']);
