@@ -1,7 +1,4 @@
 var ko = ko || {};
-var google = google || {};
-var mapManager = mapManager || {};
-var twttr = twttr || {};
 
 /**
  * The ViewModel is a function to take advantage of the 'var self = this' idiom
@@ -164,10 +161,16 @@ var TheatreMapViewModel = (function(self) {
      */
     self.infoWindow = {};
 
+
+    /**
+     * The credit div at the bottom of the app.
+     */
+    self.$creditDiv = $('#credit-div');
+    self.creditOn = ko.observable(false);
+
     /**
      * Add the above methods to TheatreMapViewModel
      */
     return self;
 
 }(TheatreMapViewModel || {}));
-

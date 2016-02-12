@@ -909,6 +909,582 @@ var TheatreMapViewModel = (function(self) {
 
 ko.applyBindings(TheatreMapViewModel);
 
+var mapManager = mapManager || {};
+
+/**
+ * The ViewModel is a function to take advantage of the 'var self = this' idiom
+ */
+var TheatreMapViewModel = (function(self) {
+    'use strict';
+
+    /**
+     * Close the info div.
+     */
+    self.closeLeftDiv = function() {
+        self.$divInfo.addClass('left-div-off');
+        self.$divInfo.removeClass('left-div-on');
+    };
+
+    /**
+     * Close the info div and the Info Window to clear the map of clutter.
+     */
+    self.closeMarkerInfo = function() {
+        self.closeLeftDiv();
+        self.closeInfoWindow();
+    };
+
+    /**
+     * Open the Info Window on top of marker. Its contents were already set 
+     * earlier in the accessMarker call.
+     * @param  {object} marker  This is the marker containing the InfoWindow 
+     *                          to be opened.
+     */
+    self.openInfoWindow = function(marker) {
+        self.infoWindow.open(mapManager.map, marker);
+        // Pan down to make sure the open left-div doesn't cover the Info Window
+        mapManager.map.panBy(0, -160);
+    };
+
+    /**
+     * Close the only info window that is on the map.
+     */
+    self.closeInfoWindow = function() {
+        self.infoWindow.close();
+    };
+
+    /**
+     * Toggle the credits between being on and offscreen.
+     */
+    self.slideCredits = function() {
+        self.creditOn(!self.creditOn());
+        console.log('going on with credits');
+        console.log(self.creditOn());
+    };
+
+    /**
+     * Add the above methods to TheatreMapViewModel
+     */
+    return self;
+
+}(TheatreMapViewModel || {}));
+
+var ko = ko || {};
+var mapManager = mapManager || {};
+
+/**
+ * The ViewModel is a function to take advantage of the 'var self = this' idiom
+ */
+var TheatreMapViewModel = (function(self) {
+    'use strict';
+
+    /**
+     * Keeps the observable and the related flag (from the markers) in one place.
+     * If you change something here, be sure to keep it consistent with the 
+     * block of observables directly above this comment.
+     */
+    self.filters = [{
+        filter: self.filterDiverse,
+        flag: 'Diversity'
+    }, {
+        filter: self.filterWomen,
+        flag: 'Women'
+    }, {
+        filter: self.filterBlack,
+        flag: 'Black'
+    }, {
+        filter: self.filterAboriginal,
+        flag: 'Aboriginal'
+    }, {
+        filter: self.filterQueer,
+        flag: 'Queer culture'
+    }, {
+        filter: self.filterAsian,
+        flag: 'Asian-Canadian'
+    }, {
+        filter: self.filterLatin,
+        flag: 'Latin-Canadian'
+    }, {
+        filter: self.filterAlternative,
+        flag: 'Alternative'
+    }, {
+        filter: self.filterCommunity,
+        flag: 'Community focused'
+    }, {
+        filter: self.filterInternational,
+        flag: 'International'
+    }, {
+        filter: self.filterChildren,
+        flag: 'Theatre for children'
+    }, {
+        filter: self.filterTechnology,
+        flag: 'Technology'
+    }, {
+        filter: self.filterOffice,
+        flag: 'Company office'
+    }, {
+        filter: self.filterVenue,
+        flag: 'Theatre venue'
+    }];
+
+    self.toggleFilter = function(clicked) {
+        clicked.filter(!clicked.filter());
+        console.log(clicked);
+    };
+
+    /**
+     * Here we determine whether the filter tab should be grow.
+     */
+    self.filterClicked = ko.computed(function() {
+        var length = self.filters.length;
+        var i;
+        for (i = 0; i < length; i++) {
+            if (self.filters[i].filter()) {
+                self.glowingFilter = true; // If filters are set, glow.
+                return; // At least one filter is on, can exit.
+            }
+        }
+        self.glowingFilter = false; // If no filters are set, don't glow.
+        self.stopGlow(); // Reset glow defaults.
+    });
+
+    /**
+     * This is connected to a button the view that allows users to reset the 
+     * filters such that all the items are back on the screen.
+     */
+    self.clearFilters = function() {
+        var numFilters = self.filters.length;
+        var i;
+        for (i = 0; i < numFilters; i++) {
+            self.filters[i].filter(false); // set the observable to 'false'
+        }
+    };
+
+    /**
+     * Runs whenever one of the filter checkboxes is changed. It filters which
+     * items are visible based on varied criteria.
+     *
+     * NOTE: This function has many embedded loops.
+     * I think its acceptable in this case because it is safe (the function will 
+     * be executed correctly, though expensively!), and the projected maximum 
+     * number of theatres included in this app is not likely to exceed more than 
+     * a couple hundred at any point. Should this no longer be the case, this 
+     * is probably one of the first things worth redesigning.
+     */
+    self.filterMarkers = ko.computed(function() {
+        var length = self.markers().length; // number of theatres
+        var numFilters = self.filters.length; // number of filters
+        var i, j;
+        var marker; // makes loop easier to read
+        self.glowingList = true;
+        for (i = 0; i < length; i++) { // check each theatre
+
+            marker = self.markers()[i]; // current theatre
+
+            // Here we make the theatre visible. This makes it so this function
+            // can handle both a filter being turned on and off.
+            mapManager.util.showItem(marker);
+
+            for (j = 0; j < numFilters; j++) { // cycle through each filter
+                if (self.filters[j].filter()) { // the filter is turned on
+                    if (mapManager.util.itemFailsFilter(marker, self.filters[j].flag)) {
+                        // Since only one InfoWindow can be open at a given time
+                        // we turn off the Close all Windows button if a 
+                        // filtered marker had its open.
+                        //self.checkInfoWindow(marker);
+                        break; // If an item doesn't pass the filter, we don't 
+                    } // need to test the other filters.
+                }
+            }
+        }
+    });
+    /**
+     * Add the above methods to TheatreMapViewModel
+     */
+    return self;
+
+}(TheatreMapViewModel || {}));
+
+var ko = ko || {};
+
+/**
+ * The ViewModel is a function to take advantage of the 'var self = this' idiom
+ */
+var TheatreMapViewModel = (function(self) {
+    'use strict';
+    /**
+     * Animation for the  glow that indicates there is new content in the any of
+     * the right side divs.
+     */
+    self.glowAnimation = function() {
+        // Stop the Twitter glow if Twitter is open.
+        if (self.twitterIsOpen() && self.glowingTwitter) {
+            console.log('Twitter is open. Stop the twitter tab from glowing.');
+            self.glowingTwitter = false;
+            self.stopGlow(); // Reset corresponding variables.
+        }
+        // Stop the list glow if the list is open.
+        if (self.listIsOpen() && self.glowingList) {
+            console.log('List is open. Stop the list tab from glowing.');
+            self.glowingList = false;
+            self.stopGlow(); // Reset corresponding variables.
+        }
+        // Reset filter glow variables if filter is open.
+        if (self.filterIsOpen() && self.glowingFilter) {
+            console.log('Filter is open. Reset the filter tab glow.');
+            self.stopGlow(); // Reset corresponding variables.
+        }
+        if (self.glowingTwitter) { // Glow when some change occured.
+            self.animateGlowTab('Twitter');
+        }
+        if (self.glowingList) { // Glow when some change occured.
+            self.animateGlowTab('List');
+        }
+        // Glow when any filter is on and the filter tab isn't already open. 
+        // Since the filter tab doesn't stop glowing by opening the tab, we have 
+        // to do a slightly different testing condition.
+        if (self.glowingFilter && !self.filterIsOpen()) {
+            self.animateGlowTab('Filter');
+        }
+        // Keep animating.
+        window.requestAnimationFrame(self.glowAnimation);
+    };
+
+    /**
+     * This is used to make the right side tabs glow. Since all the 
+     * corresponding variables are named in a consistent way, we can do this to
+     * keep things dry.
+     * @param  {string} type is a string starting with a capital letter that 
+     *                       denotes the type of tab that we are animating
+     */
+    self.animateGlowTab = function(type) {
+        if (self['glowing' + type + 'Fading']) { // Decrease opacity.
+            self['glowing' + type + 'Opacity'] -= 0.01; // Track opacity in variable.
+            // Set opacity.
+            self['$tabHL' + type].css('opacity', self['glowing' + type + 'Opacity']);
+            if (self['glowing' + type + 'Opacity'] <= 0) { // Reached endpoint.
+                self['glowing' + type + 'Fading'] = false; // Switch to increasing opacity.
+            }
+        } else { // The tab is brighting. Increase opacity.
+            self['glowing' + type + 'Opacity'] += 0.01; // Track opacity in variable.
+            // Set opacity.
+            self['$tabHL' + type].css('opacity', self['glowing' + type + 'Opacity']);
+            // Go beyond 1.0 to pause at brightest point.
+            if (self['glowing' + type + 'Opacity'] >= 1.3) {
+                self['glowing' + type + 'Fading'] = true; // Switch to decreasing opacity.
+            }
+        }
+    };
+
+    /**
+     * Add the above methods to TheatreMapViewModel
+     */
+    return self;
+
+}(TheatreMapViewModel || {}));
+
+var ko = ko || {};
+var google = google || {};
+var mapManager = mapManager || {};
+
+/**
+ * [description]
+ * @param  {object} self is whatever version of TheatreMapViewModel was passed
+ *                       to this module.
+ */
+var TheatreMapViewModel = (function(self) {
+    'use strict';
+
+    /**
+     * Here we open the info div. Close all other divs if the screen is small
+     * enough.
+     */
+    self.openLeftDiv = function() {
+        self.$divInfo.addClass('left-div-on');
+        self.$divInfo.removeClass('left-div-off');
+        console.log('opening left div');
+        if (mapManager.util.windowWidth < 1040) {
+            if (self.listIsOpen()) {
+                self.slideList();
+            }
+            if (self.twitterIsOpen()) {
+                self.slideTwitter();
+            }
+            if (self.filterIsOpen()) {
+                self.slideFilter();
+            }
+        }
+    };
+
+    /**
+     * Reset the glow animation variables for all tabs that are no longer 
+     * glowing.
+     */
+    self.stopGlow = function() {
+        if (!self.glowingTwitter) { // Reset Twitter tab.
+            self.glowingTwitterFading = false; // Glow begins like this.
+            self.$tabHLTwitter.css('opacity', 0); // Set to transparent.
+            self.glowingTwitterOpacity = 0; // Transparency tracking variable.
+        }
+        if (!self.glowingList) { // Reset list tab
+            self.glowingTwitterFading = false; // Glow begins like this.
+            self.$tabHLList.css('opacity', 0); // Set to transparent.
+            self.glowingTwitterOpacity = 0; // Transparency tracking variable.
+        }
+        if (self.filterIsOpen()) { // Reset filter tab.
+            self.glowingTwitterFading = false; // Glow begins like this.
+            self.$tabHLFilter.css('opacity', 0); // Set to transparent.
+            self.glowingTwitterOpacity = 0; // Transparency tracking variable.
+        }
+
+    };
+
+    /**
+     * Works to slide all right-divs off and on screen
+     * @param  {string} type      The kind of div that you want to slide, start
+     *                            with a Capital letter as that's how the code
+     *                            is structured.
+     * @param  {string} direction 'on' or 'off'
+     */
+    self.slideHelper = function(type, direction) {
+        var lowered = type.toLowerCase();
+        if (direction === 'off') {
+            console.log('Closing ' + type); // DEBUG
+            self[lowered + 'IsOpen'](false); // Don't load anything to Twitter
+            self['$div' + type].addClass('right-div-off'); // Place the div offscreen
+            self['$tabAll' + type].addClass('tab-off'); // Move the tab as well
+            self['$div' + type].removeClass('right-div-on');
+            self['$tabAll' + type].removeClass('tab-on');
+            self['$tabBack' + type].css('opacity', 0); // Show Twitter logo.
+        } else if (direction === 'on') {
+            console.log('Opening ' + type); // DEBUG
+            self[lowered + 'IsOpen'](true); // Load things into Twitter
+            self.determineNeedToReload(); // May need to replace loaded DOM element
+            self['$div' + type].addClass('right-div-on'); // Place the div onscreen
+            self['$tabAll' + type].addClass('tab-on'); // Move the tab as well
+            self['$div' + type].removeClass('right-div-off');
+            self['$tabAll' + type].removeClass('tab-off');
+            self['$tabBack' + type].css('opacity', 1); // Show back button.
+        } else {
+            console.log('Invalid direction' + direction + 'passed to slideHelper');
+        }
+    };
+
+    /**
+     * Slide the div with the list of theatres on and off screen.
+     */
+    self.slideList = function() {
+        if (self.listIsOpen()) { // Then close it
+            self.slideHelper('List', 'off');
+        } else { // open list
+            if (self.glowingList) { // Shouldn't glow if the div is open.
+                self.glowingList = false; // Update for glowAnimation
+                self.stopGlow(); // Reset default glow values
+            }
+            self.slideHelper('List', 'on');
+        }
+    };
+
+    /**
+     * Toggle whether the filter div in on or offscreen.
+     */
+    self.slideFilter = function() {
+        if (self.filterIsOpen()) { // then close it
+            self.slideHelper('Filter', 'off');
+        } else { // open filter
+            self.slideHelper('Filter', 'on');
+        }
+    };
+
+
+    /**
+     * Slide the twitter pane in and out of view, enabling/disabling its drain 
+     * on resources.
+     */
+    self.slideTwitter = function() {
+        if (self.twitterIsOpen()) { // then close it
+            self.slideHelper('Twitter', 'off');
+        } else { // open twitter
+            self.slideHelper('Twitter', 'on');
+        }
+    };
+
+    /**
+     * Turn off twitterListView so that individual Twitter accounts can be 
+     * viewed.
+     */
+    self.userTwitter = function() {
+        self.twitterListView(false);
+    };
+
+    /**
+     * Update needTwitterUserReload and needTwitterListReload depending on 
+     * whether the currently loaded feed type matches the requested feed type.
+     * This function is called whenever any change is done to the Twitter 
+     * portion of the app. There were some issues regarding using a computed 
+     * for this purpose that I did not fully understand so this solution was 
+     * chosen.
+     */
+    self.determineNeedToReload = function() {
+        // The following three variables are created for readability.
+        var longUser = self.currentTwitterUserLong; // Loaded user feed
+        var longList = self.currentTwitterListLong; // Loaded list feed
+        var longTwitter = self.twitterLong(); // Requested feed type
+        console.log('Determining need to reload.'); // DEBUG
+        console.log('longList: ' + longList); // DEBUG
+        console.log('longUser: ' + longUser); // DEBUG
+        console.log('longTwitter: ' + longTwitter); // DEBUG
+        var listResult = (longList && !longTwitter) || (!longList && longTwitter); // DEBUG
+        var userResult = (longUser && !longTwitter) || (!longUser && longTwitter); // DEBUG
+        console.log('Current need to reload twitter list: ' + listResult); // DEBUG
+        console.log('Current need to reload twitter user: ' + userResult); // DEBUG
+        // If the requested and loaded feeds don't match, a reload is required.
+        self.needTwitterUserReload((longUser && !longTwitter) ||
+            (!longUser && longTwitter));
+        self.needTwitterListReload((longList && !longTwitter) ||
+            (!longList && longTwitter));
+        if (self.needTwitterUserReload() || self.needTwitterListReload()) {
+            // If there is some change worth reloading, twitter tab should glow 
+            // to indicate this.
+            self.glowingTwitter = true;
+        }
+    };
+
+    /**
+     * Open the marker and set the observable holding the active twitter account
+     * to the value stored in it.
+     * @param  {Object} marker to access
+     */
+    self.accessMarker = function(marker) {
+        console.log('Accessing marker.');
+        console.log('The screen width is ' + mapManager.util.windowWidth);
+        if (self.listIsOpen() && mapManager.util.windowWidth < 1040) {
+            self.slideList(); // close list div on small screen when accessing
+        }
+        // Set observables holding information on selected marker.
+        self.currentTitle(marker.title);
+        self.currentWebsite(marker.website);
+        self.currentBlurb(marker.blurb);
+        self.currentAddress(marker.address);
+        // This has to come after the last 4, as currentInfo is a computed based
+        // on currentTitle and currentAddress.
+        self.infoWindow.setContent(self.currentInfo());
+        // Move to a position where the Info Window can be displayed and open it.
+        mapManager.map.panTo(marker.getPosition());
+        self.openInfoWindow(marker);
+
+        self.openLeftDiv(); // Open the div that slides from offscreen left.
+        self.activeTwitter(marker.twitterHandle); // What Twitter feed to get
+        self.userTwitter(); // Twitter should go into user view
+        self.determineNeedToReload(); // We might have a new twitter feed to load
+    };
+
+    /**
+     * This is used inside the forEach loop in self.addMarkers. It makes sure
+     * that the listeners are bound to the correct markers and that the 
+     * InfoWindows open when the markers are clicked.
+     * @param  {object} marker  This is the marker that we want to create a 
+     *                          binding for.
+     */
+    self.infoWindowBinder = function(marker) {
+        marker.addListener('click', function() {
+            self.accessMarker(marker);
+        });
+    };
+
+    /**
+     * Does the following :
+     *     - adds all the Markers from the mapManager onto the map
+     *     - adds the InfoWindows 
+     *     - binds the InfoWindows to open on clicks on corresponding Markers
+     *     
+     * When necessary, makeAJAX calls to find wikipedia resources for the 
+     * InfoWindows and calls to Google Maps geocoding API in order to translate 
+     * addresses into coordinates on the map. These calls only happen if there
+     * is incomplete information in each markerItem.
+     */
+    self.addMarkers = function() {
+        /**
+         * mapManager.markerData holds a series of objects with the information 
+         * about theatres needed to create appropriate Markers.
+         * @param  {object} markerData        An object holding data for a 
+         *                                    marker.                                 
+         * @param  {int}    index             Used to set curMarker             
+         */
+        mapManager.markerData.forEach(function(markerItem, index) {
+            // Store marker in an observable array self.markers.
+            mapManager.pushMarker(markerItem, self.markers);
+            var curMarker = self.markers()[index]; // Marker that was just pushed
+            // Move the marker to the correct position on the map.
+            mapManager.adjustPosition(curMarker, markerItem);
+            // Add a blank InfoWindow to curMarker to be filled below.
+            //curMarker.infoWin = new google.maps.InfoWindow(mapManager.util.blankInfoWin);
+            // Set up a listener on the marker that will open the corresponding
+            // InfoWindow when the Marker is clicked.
+            //curMarker.infoWin.setContent(curMarker.title);
+            self.infoWindowBinder(curMarker);
+            // These variables are set for readability.
+            var title = markerItem.title; // Title of marker.
+            var website = markerItem.website; // Website associated with marker.
+            var blurb = markerItem.blurb; // Description associated with marker.
+            // Fill the corresponding InfoWindow with the data we have.
+            mapManager.setDescription(curMarker, title, website, blurb);
+        });
+
+        // Sort the list of markers in alphabetical order such that the buttons
+        // corresponding to the markers will be displayed in this way on the View
+        self.sortListAlpha();
+        // Save coordinates to localStorage so that we can avoid using AJAX
+        // calls next time around. DOESN'T WORK YET.
+        // mapManager.store();
+        self.infoWindow = new google.maps.InfoWindow(mapManager.util.blankInfoWin);
+        self.glowingList = false;
+        self.pickRandomTheatre();
+        /**
+         * Begin the glow animation on the tabs, indicating some update to
+         * particular tab. Updates are handled separately through the 
+         * self.glowing* variables.
+         */
+        window.requestAnimationFrame(self.glowAnimation);
+    };
+
+    /**
+     * This computed creates some html content to be used by self.infoWindow.
+     * @return {string}   html containing the selected marker's title and 
+     *                         website properly formatted.
+     */
+    self.currentInfo = ko.computed(function() {
+        var content = '<div><span class="info-title">' +
+            self.currentTitle() +
+            '</span><br>' +
+            self.currentAddress() +
+            '</div>';
+        return content;
+    });
+
+    /**
+     * Picks a random twitter account from the set of markers and makes it the 
+     * initial active twitter in the Twitter div.
+     */
+    self.pickRandomTheatre = function() {
+        var num = self.markers().length;
+        var choice = Math.floor((Math.random() * num));
+        self.activeTwitter(self.markers()[choice].twitterHandle);
+        self.currentTitle(self.markers()[choice].title);
+        /**
+         * Since this is only run when the app loads, we don't want to have it 
+         * set off the glow on the Twitter tab.
+         */
+        self.glowingTwitter = false;
+        self.stopGlow();
+    };
+
+    /**
+     * Add the above methods to TheatreMapViewModel
+     */
+    return self;
+
+}(TheatreMapViewModel || {}));
+
 var google = google || {};
 // instantiated TheatreMapViewModel from app.js
 var TheatreMapViewModel = TheatreMapViewModel || {};
@@ -1526,12 +2102,86 @@ var mapManager = {
 mapManager.load();
 
 var ko = ko || {};
-var google = google || {};
 var mapManager = mapManager || {};
-var twttr = twttr || {};
 
 /**
  * The ViewModel is a function to take advantage of the 'var self = this' idiom
+ */
+var TheatreMapViewModel = (function(self) {
+    'use strict';
+    /**
+     * Sort alphabetically. First from a-z then from z-a. Case-insensitive.
+     */
+    self.sortListAlpha = function() {
+        self.resetSorts('sortedAlpha'); // reset all sort orders but 'sortedAlpha'
+        if (self.sortedAlpha) { // then sort from z-a
+            self.sortedAlpha = false; // next time sort a-z
+            self.markers.sort(mapManager.util.alphabeticalSortReverse); // sort z-a
+            self.currentSort('alpha-reverse');
+        } else {
+            self.sortedAlpha = true; // next time sort from z-a
+            self.markers.sort(mapManager.util.alphabeticalSort); // sort a-z
+            self.currentSort('alpha');
+        }
+        console.log(self.currentSort());
+    };
+
+    /**
+     * Sort by date that the company was founded. First from earliest to latest
+     * and then from latest to earliest.
+     */
+    self.sortListFounding = function() {
+        self.resetSorts('sortedFounded'); // reset all sort orders but 'sortedFounded'
+        if (self.sortedFounded) { // then sort from latest to earliest
+            self.sortedFounded = false; // next time sort from earliest to latest
+            // sort from latest to earliest
+            self.markers.sort(mapManager.util.foundingSortReverse);
+            self.currentSort('date-reverse');
+        } else {
+            self.sortedFounded = true; // next time sort from latest to earliest
+            // sort from earliest to latest
+            self.markers.sort(mapManager.util.foundingSort);
+            self.currentSort('date');
+        }
+        console.log(self.currentSort());
+    };
+
+    /**
+     * This is designed in such a way as to be easily scalable should other 
+     * sort orders be introduced. It resets all sort order except for the one 
+     * entered into the argument.
+     *
+     * The function allows for consistent behaviour from the sorts. Ex. the 
+     * alphabetical sort will always sort from a-z first.
+     * @param  {string} exception this identifies the sort parameter that we 
+     *                            want to leave unchanged. 
+     */
+    self.resetSorts = function(exception) {
+        var saved = self[exception];
+        self.sortedFounded = false;
+        self.sortedAlpha = false;
+        self[exception] = saved;
+    };
+
+    /**
+     * Add the above methods to TheatreMapViewModel
+     */
+    return self;
+
+}(TheatreMapViewModel || {}));
+
+var TheatreMapViewModel = TheatreMapViewModel || {};
+var ko = ko || {};
+
+ko.applyBindings(TheatreMapViewModel);
+
+var ko = ko || {};
+var twttr = twttr || {};
+
+/**
+ * Here we load all the Twitter related methods.
+ * @param  {[type]} self    This is whatever version of TheatreMapViewModel was
+ *                          passed to this module.
  */
 var TheatreMapViewModel = (function(self) {
     'use strict';
@@ -1554,96 +2204,6 @@ var TheatreMapViewModel = (function(self) {
         }, 1500);
     };
 
-    
-    /**
-     * Works to slide all right-divs off and on screen
-     * @param  {string} type      The kind of div that you want to slide, start
-     *                            with a Capital letter as that's how the code
-     *                            is structured.
-     * @param  {string} direction 'on' or 'off'
-     */
-    self.slideHelper = function(type, direction) {
-        var lowered = type.toLowerCase();
-        if (direction === 'off') {
-            console.log('Closing ' + type); // DEBUG
-            self[lowered + 'IsOpen'](false); // Don't load anything to Twitter
-            self['$div' + type].addClass('right-div-off'); // Place the div offscreen
-            self['$tabAll' + type].addClass('tab-off'); // Move the tab as well
-            self['$div' + type].removeClass('right-div-on');
-            self['$tabAll' + type].removeClass('tab-on');
-            self['$tabBack' + type].css('opacity', 0); // Show Twitter logo.
-        } else if (direction === 'on') {
-            console.log('Opening ' + type); // DEBUG
-            self[lowered + 'IsOpen'](true); // Load things into Twitter
-            self.determineNeedToReload(); // May need to replace loaded DOM element
-            self['$div' + type].addClass('right-div-on'); // Place the div onscreen
-            self['$tabAll' + type].addClass('tab-on'); // Move the tab as well
-            self['$div' + type].removeClass('right-div-off');
-            self['$tabAll' + type].removeClass('tab-off');
-            self['$tabBack' + type].css('opacity', 1); // Show back button.
-        } else {
-            console.log('Invalid direction' + direction + 'passed to slideHelper');
-        }
-    };
-
-    /**
-     * Slide the div with the list of theatres on and off screen.
-     */
-    self.slideList = function() {
-        if (self.listIsOpen()) { // Then close it
-            self.slideHelper('List', 'off');
-        } else { // open list
-            if (self.glowingList) { // Shouldn't glow if the div is open.
-                self.glowingList = false; // Update for glowAnimation
-                self.stopGlow(); // Reset default glow values
-            }
-            self.slideHelper('List', 'on');
-        }
-    };
-
-
-    /**
-     * Toggle whether the filter div in on or offscreen.
-     */
-    self.slideFilter = function() {
-        if (self.filterIsOpen()) { // then close it
-            self.slideHelper('Filter', 'off');
-        } else { // open filter
-            self.slideHelper('Filter', 'on');
-        }
-    };
-
-
-    /**
-     * Slide the twitter pane in and out of view, enabling/disabling its drain 
-     * on resources.
-     */
-    self.slideTwitter = function() {
-        if (self.twitterIsOpen()) { // then close it
-            self.slideHelper('Twitter', 'off');
-        } else { // open twitter
-            self.slideHelper('Twitter', 'on');
-        }
-    };
-
-
-
-    /**
-     * This computed creates some html content to be used by self.infoWindow.
-     * @return {string}   html containing the selected marker's title and 
-     *                         website properly formatted.
-     */
-    self.currentInfo = ko.computed(function() {
-        var content = '<div><span class="info-title">' +
-            self.currentTitle() +
-            '</span><br>' +
-            self.currentAddress() +
-            '</div>';
-        return content;
-    });
-
-
-
     /**
      * Determine whether the loaded twitter user matches the selected one
      */
@@ -1656,39 +2216,6 @@ var TheatreMapViewModel = (function(self) {
         console.log(self.glowingTwitter);
         return result;
     });
-
-    /**
-     * Update needTwitterUserReload and needTwitterListReload depending on 
-     * whether the currently loaded feed type matches the requested feed type.
-     * This function is called whenever any change is done to the Twitter 
-     * portion of the app. There were some issues regarding using a computed 
-     * for this purpose that I did not fully understand so this solution was 
-     * chosen.
-     */
-    self.determineNeedToReload = function() {
-        // The following three variables are created for readability.
-        var longUser = self.currentTwitterUserLong; // Loaded user feed
-        var longList = self.currentTwitterListLong; // Loaded list feed
-        var longTwitter = self.twitterLong(); // Requested feed type
-        console.log('Determining need to reload.'); // DEBUG
-        console.log('longList: ' + longList); // DEBUG
-        console.log('longUser: ' + longUser); // DEBUG
-        console.log('longTwitter: ' + longTwitter); // DEBUG
-        var listResult = (longList && !longTwitter) || (!longList && longTwitter); // DEBUG
-        var userResult = (longUser && !longTwitter) || (!longUser && longTwitter); // DEBUG
-        console.log('Current need to reload twitter list: ' + listResult); // DEBUG
-        console.log('Current need to reload twitter user: ' + userResult); // DEBUG
-        // If the requested and loaded feeds don't match, a reload is required.
-        self.needTwitterUserReload((longUser && !longTwitter) ||
-            (!longUser && longTwitter));
-        self.needTwitterListReload((longList && !longTwitter) ||
-            (!longList && longTwitter));
-        if (self.needTwitterUserReload() || self.needTwitterListReload()) {
-            // If there is some change worth reloading, twitter tab should glow 
-            // to indicate this.
-            self.glowingTwitter = true;
-        }
-    };
 
     /**
      * Toggled by user interaction on the view. Changes whether a short or long
@@ -1717,101 +2244,6 @@ var TheatreMapViewModel = (function(self) {
     self.switchTwitter = function() {
         self.blinkTwitterError();
         self.twitterListView(!self.twitterListView());
-    };
-
-    /**
-     * Turn off twitterListView so that individual Twitter accounts can be 
-     * viewed.
-     */
-    self.userTwitter = function() {
-        self.twitterListView(false);
-    };
-
-    /**
-     * Reset the glow animation variables for all tabs that are no longer 
-     * glowing.
-     */
-    self.stopGlow = function() {
-        if (!self.glowingTwitter) { // Reset Twitter tab.
-            self.glowingTwitterFading = false; // Glow begins like this.
-            self.$tabHLTwitter.css('opacity', 0); // Set to transparent.
-            self.glowingTwitterOpacity = 0; // Transparency tracking variable.
-        }
-        if (!self.glowingList) { // Reset list tab
-            self.glowingTwitterFading = false; // Glow begins like this.
-            self.$tabHLList.css('opacity', 0); // Set to transparent.
-            self.glowingTwitterOpacity = 0; // Transparency tracking variable.
-        }
-        if (self.filterIsOpen()) { // Reset filter tab.
-            self.glowingTwitterFading = false; // Glow begins like this.
-            self.$tabHLFilter.css('opacity', 0); // Set to transparent.
-            self.glowingTwitterOpacity = 0; // Transparency tracking variable.
-        }
-
-    };
-
-    /**
-     * Animation for the  glow that indicates there is new content in the any of
-     * the right side divs.
-     */
-    self.glowAnimation = function() {
-        // Stop the Twitter glow if Twitter is open.
-        if (self.twitterIsOpen() && self.glowingTwitter) {
-            console.log('Twitter is open. Stop the twitter tab from glowing.');
-            self.glowingTwitter = false;
-            self.stopGlow(); // Reset corresponding variables.
-        }
-        // Stop the list glow if the list is open.
-        if (self.listIsOpen() && self.glowingList) {
-            console.log('List is open. Stop the list tab from glowing.');
-            self.glowingList = false;
-            self.stopGlow(); // Reset corresponding variables.
-        }
-        // Reset filter glow variables if filter is open.
-        if (self.filterIsOpen() && self.glowingFilter) {
-            console.log('Filter is open. Reset the filter tab glow.');
-            self.stopGlow(); // Reset corresponding variables.
-        }
-        if (self.glowingTwitter) { // Glow when some change occured.
-            self.animateGlowTab('Twitter');
-        }
-        if (self.glowingList) { // Glow when some change occured.
-            self.animateGlowTab('List');
-        }
-        // Glow when any filter is on and the filter tab isn't already open. 
-        // Since the filter tab doesn't stop glowing by opening the tab, we have 
-        // to do a slightly different testing condition.
-        if (self.glowingFilter && !self.filterIsOpen()) {
-            self.animateGlowTab('Filter');
-        }
-        // Keep animating.
-        window.requestAnimationFrame(self.glowAnimation);
-    };
-
-    /**
-     * This is used to make the right side tabs glow. Since all the 
-     * corresponding variables are named in a consistent way, we can do this to
-     * keep things dry.
-     * @param  {string} type is a string starting with a capital letter that 
-     *                       denotes the type of tab that we are animating
-     */
-    self.animateGlowTab = function(type) {
-        if (self['glowing' + type + 'Fading']) { // Decrease opacity.
-            self['glowing' + type + 'Opacity'] -= 0.01; // Track opacity in variable.
-            // Set opacity.
-            self['$tabHL' + type].css('opacity', self['glowing' + type + 'Opacity']);
-            if (self['glowing' + type + 'Opacity'] <= 0) { // Reached endpoint.
-                self['glowing' + type + 'Fading'] = false; // Switch to increasing opacity.
-            }
-        } else { // The tab is brighting. Increase opacity.
-            self['glowing' + type + 'Opacity'] += 0.01; // Track opacity in variable.
-            // Set opacity.
-            self['$tabHL' + type].css('opacity', self['glowing' + type + 'Opacity']);
-            // Go beyond 1.0 to pause at brightest point.
-            if (self['glowing' + type + 'Opacity'] >= 1.3) {
-                self['glowing' + type + 'Fading'] = true; // Switch to decreasing opacity.
-            }
-        }
     };
 
     /**
@@ -1908,370 +2340,6 @@ var TheatreMapViewModel = (function(self) {
         }
     });
 
-
-    /**
-     * Keeps the observable and the related flag (from the markers) in one place.
-     * If you change something here, be sure to keep it consistent with the 
-     * block of observables directly above this comment.
-     */
-    self.filters = [{
-        filter: self.filterDiverse,
-        flag: 'Diversity'
-    }, {
-        filter: self.filterWomen,
-        flag: 'Women'
-    }, {
-        filter: self.filterBlack,
-        flag: 'Black'
-    }, {
-        filter: self.filterAboriginal,
-        flag: 'Aboriginal'
-    }, {
-        filter: self.filterQueer,
-        flag: 'Queer culture'
-    }, {
-        filter: self.filterAsian,
-        flag: 'Asian-Canadian'
-    }, {
-        filter: self.filterLatin,
-        flag: 'Latin-Canadian'
-    }, {
-        filter: self.filterAlternative,
-        flag: 'Alternative'
-    }, {
-        filter: self.filterCommunity,
-        flag: 'Community focused'
-    }, {
-        filter: self.filterInternational,
-        flag: 'International'
-    }, {
-        filter: self.filterChildren,
-        flag: 'Theatre for children'
-    }, {
-        filter: self.filterTechnology,
-        flag: 'Technology'
-    }, {
-        filter: self.filterOffice,
-        flag: 'Company office'
-    }, {
-        filter: self.filterVenue,
-        flag: 'Theatre venue'
-    }];
-
-    self.toggleFilter = function(clicked) {
-        clicked.filter(!clicked.filter());
-        console.log(clicked);
-    };
-
-    /**
-     * Here we determine whether the filter tab should be grow.
-     */
-    self.filterClicked = ko.computed(function() {
-        var length = self.filters.length;
-        var i;
-        for (i = 0; i < length; i++) {
-            if (self.filters[i].filter()) {
-                self.glowingFilter = true; // If filters are set, glow.
-                return; // At least one filter is on, can exit.
-            }
-        }
-        self.glowingFilter = false; // If no filters are set, don't glow.
-        self.stopGlow(); // Reset glow defaults.
-    });
-
-    /**
-     * This is connected to a button the view that allows users to reset the 
-     * filters such that all the items are back on the screen.
-     */
-    self.clearFilters = function() {
-        var numFilters = self.filters.length;
-        var i;
-        for (i = 0; i < numFilters; i++) {
-            self.filters[i].filter(false); // set the observable to 'false'
-        }
-    };
-
-
-    /**
-     * Sort alphabetically. First from a-z then from z-a. Case-insensitive.
-     */
-    self.sortListAlpha = function() {
-        self.resetSorts('sortedAlpha'); // reset all sort orders but 'sortedAlpha'
-        if (self.sortedAlpha) { // then sort from z-a
-            self.sortedAlpha = false; // next time sort a-z
-            self.markers.sort(mapManager.util.alphabeticalSortReverse); // sort z-a
-            self.currentSort('alpha-reverse');
-        } else {
-            self.sortedAlpha = true; // next time sort from z-a
-            self.markers.sort(mapManager.util.alphabeticalSort); // sort a-z
-            self.currentSort('alpha');
-        }
-        console.log(self.currentSort());
-    };
-
-    /**
-     * Sort by date that the company was founded. First from earliest to latest
-     * and then from latest to earliest.
-     */
-    self.sortListFounding = function() {
-        self.resetSorts('sortedFounded'); // reset all sort orders but 'sortedFounded'
-        if (self.sortedFounded) { // then sort from latest to earliest
-            self.sortedFounded = false; // next time sort from earliest to latest
-            // sort from latest to earliest
-            self.markers.sort(mapManager.util.foundingSortReverse);
-            self.currentSort('date-reverse');
-        } else {
-            self.sortedFounded = true; // next time sort from latest to earliest
-            // sort from earliest to latest
-            self.markers.sort(mapManager.util.foundingSort);
-            self.currentSort('date');
-        }
-        console.log(self.currentSort());
-    };
-
-    /**
-     * This is designed in such a way as to be easily scalable should other 
-     * sort orders be introduced. It resets all sort order except for the one 
-     * entered into the argument.
-     *
-     * The function allows for consistent behaviour from the sorts. Ex. the 
-     * alphabetical sort will always sort from a-z first.
-     * @param  {string} exception this identifies the sort parameter that we 
-     *                            want to leave unchanged. 
-     */
-    self.resetSorts = function(exception) {
-        var saved = self[exception];
-        self.sortedFounded = false;
-        self.sortedAlpha = false;
-        self[exception] = saved;
-    };
-
-    /**
-     * Runs whenever one of the filter checkboxes is changed. It filters which
-     * items are visible based on varied criteria.
-     *
-     * NOTE: This function has many embedded loops.
-     * I think its acceptable in this case because it is safe (the function will 
-     * be executed correctly, though expensively!), and the projected maximum 
-     * number of theatres included in this app is not likely to exceed more than 
-     * a couple hundred at any point. Should this no longer be the case, this 
-     * is probably one of the first things worth redesigning.
-     */
-    self.filterMarkers = ko.computed(function() {
-        var length = self.markers().length; // number of theatres
-        var numFilters = self.filters.length; // number of filters
-        var i, j;
-        var marker; // makes loop easier to read
-        self.glowingList = true;
-        for (i = 0; i < length; i++) { // check each theatre
-
-            marker = self.markers()[i]; // current theatre
-
-            // Here we make the theatre visible. This makes it so this function
-            // can handle both a filter being turned on and off.
-            mapManager.util.showItem(marker);
-
-            for (j = 0; j < numFilters; j++) { // cycle through each filter
-                if (self.filters[j].filter()) { // the filter is turned on
-                    if (mapManager.util.itemFailsFilter(marker, self.filters[j].flag)) {
-                        // Since only one InfoWindow can be open at a given time
-                        // we turn off the Close all Windows button if a 
-                        // filtered marker had its open.
-                        //self.checkInfoWindow(marker);
-                        break; // If an item doesn't pass the filter, we don't 
-                    } // need to test the other filters.
-                }
-            }
-        }
-    });
-
-    /**
-     * Open the marker and set the observable holding the active twitter account
-     * to the value stored in it.
-     * @param  {Object} marker to access
-     */
-    self.accessMarker = function(marker) {
-        console.log('Accessing marker.');
-        console.log('The screen width is ' + mapManager.util.windowWidth);
-        if (self.listIsOpen() && mapManager.util.windowWidth < 1040) {
-            self.slideList(); // close list div on small screen when accessing
-        }
-        // Set observables holding information on selected marker.
-        self.currentTitle(marker.title);
-        self.currentWebsite(marker.website);
-        self.currentBlurb(marker.blurb);
-        self.currentAddress(marker.address);
-        // This has to come after the last 4, as currentInfo is a computed based
-        // on currentTitle and currentAddress.
-        self.infoWindow.setContent(self.currentInfo());
-        // Move to a position where the Info Window can be displayed and open it.
-        mapManager.map.panTo(marker.getPosition());
-        self.openInfoWindow(marker);
-
-        self.openLeftDiv(); // Open the div that slides from offscreen left.
-        self.activeTwitter(marker.twitterHandle); // What Twitter feed to get
-        self.userTwitter(); // Twitter should go into user view
-        self.determineNeedToReload(); // We might have a new twitter feed to load
-    };
-
-
-
-    /**
-     * Here we open the info div. Close all other divs if the screen is small
-     * enough.
-     */
-    self.openLeftDiv = function() {
-        self.$divInfo.addClass('left-div-on');
-        self.$divInfo.removeClass('left-div-off');
-        console.log('opening left div');
-        if (mapManager.util.windowWidth < 1040) {
-            if (self.listIsOpen()) {
-                console.log('LIST IS OPEN');
-                self.slideList();
-            }
-            if (self.twitterIsOpen()) {
-                self.slideTwitter();
-            }
-            if (self.filterIsOpen()) {
-                self.slideFilter();
-            }
-        }
-    };
-
-    /**
-     * Close the info div.
-     */
-    self.closeLeftDiv = function() {
-        self.$divInfo.addClass('left-div-off');
-        self.$divInfo.removeClass('left-div-on');
-    };
-
-    /**
-     * Close the info div and the Info Window to clear the map of clutter.
-     */
-    self.closeMarkerInfo = function() {
-        self.closeLeftDiv();
-        self.closeInfoWindow();
-    };
-
-    /**
-     * This is used inside the forEach loop in self.addMarkers. It makes sure
-     * that the listeners are bound to the correct markers and that the 
-     * InfoWindows open when the markers are clicked.
-     * @param  {object} marker  This is the marker that we want to create a 
-     *                          binding for.
-     */
-    self.infoWindowBinder = function(marker) {
-        marker.addListener('click', function() {
-            self.accessMarker(marker);
-        });
-    };
-
-    /**
-     * Open the Info Window on top of marker. Its contents were already set 
-     * earlier in the accessMarker call.
-     * @param  {object} marker  This is the marker containing the InfoWindow 
-     *                          to be opened.
-     */
-    self.openInfoWindow = function(marker) {
-        self.infoWindow.open(mapManager.map, marker);
-        // Pan down to make sure the open left-div doesn't cover the Info Window
-        mapManager.map.panBy(0, -160);
-    };
-
-    /**
-     * Close the only info window that is on the map.
-     */
-    self.closeInfoWindow = function() {
-        self.infoWindow.close();
-    };
-
-    /**
-     * Picks a random twitter account from the set of markers and makes it the 
-     * initial active twitter in the Twitter div.
-     */
-    self.pickRandomTheatre = function() {
-        var num = self.markers().length;
-        var choice = Math.floor((Math.random() * num));
-        self.activeTwitter(self.markers()[choice].twitterHandle);
-        self.currentTitle(self.markers()[choice].title);
-        /**
-         * Since this is only run when the app loads, we don't want to have it 
-         * set off the glow on the Twitter tab.
-         */
-        self.glowingTwitter = false;
-        self.stopGlow();
-    };
-
-
-    /**
-     * The credit div at the bottom of the app.
-     */
-    self.$creditDiv = $('#credit-div');
-    self.creditOn = ko.observable(false);
-
-    self.slideCredits = function(){
-        self.creditOn(!self.creditOn());
-        console.log('going on with credits');
-        console.log(self.creditOn());
-    };
-
-    /**
-     * Does the following :
-     *     - adds all the Markers from the mapManager onto the map
-     *     - adds the InfoWindows 
-     *     - binds the InfoWindows to open on clicks on corresponding Markers
-     *     
-     * When necessary, makeAJAX calls to find wikipedia resources for the 
-     * InfoWindows and calls to Google Maps geocoding API in order to translate 
-     * addresses into coordinates on the map. These calls only happen if there
-     * is incomplete information in each markerItem.
-     */
-    self.addMarkers = function() {
-        /**
-         * mapManager.markerData holds a series of objects with the information 
-         * about theatres needed to create appropriate Markers.
-         * @param  {object} markerData        An object holding data for a 
-         *                                    marker.                                 
-         * @param  {int}    index             Used to set curMarker             
-         */
-        mapManager.markerData.forEach(function(markerItem, index) {
-            // Store marker in an observable array self.markers.
-            mapManager.pushMarker(markerItem, self.markers);
-            var curMarker = self.markers()[index]; // Marker that was just pushed
-            // Move the marker to the correct position on the map.
-            mapManager.adjustPosition(curMarker, markerItem);
-            // Add a blank InfoWindow to curMarker to be filled below.
-            //curMarker.infoWin = new google.maps.InfoWindow(mapManager.util.blankInfoWin);
-            // Set up a listener on the marker that will open the corresponding
-            // InfoWindow when the Marker is clicked.
-            //curMarker.infoWin.setContent(curMarker.title);
-            self.infoWindowBinder(curMarker);
-            // These variables are set for readability.
-            var title = markerItem.title; // Title of marker.
-            var website = markerItem.website; // Website associated with marker.
-            var blurb = markerItem.blurb; // Description associated with marker.
-            // Fill the corresponding InfoWindow with the data we have.
-            mapManager.setDescription(curMarker, title, website, blurb);
-        });
-
-        // Sort the list of markers in alphabetical order such that the buttons
-        // corresponding to the markers will be displayed in this way on the View
-        self.sortListAlpha();
-        // Save coordinates to localStorage so that we can avoid using AJAX
-        // calls next time around. DOESN'T WORK YET.
-        // mapManager.store();
-        self.infoWindow = new google.maps.InfoWindow(mapManager.util.blankInfoWin);
-        self.glowingList = false;
-        self.pickRandomTheatre();
-        /**
-         * Begin the glow animation on the tabs, indicating some update to
-         * particular tab. Updates are handled separately through the 
-         * self.glowing* variables.
-         */
-        window.requestAnimationFrame(self.glowAnimation);
-    };
-
     /**
      * Add the above methods to TheatreMapViewModel
      */
@@ -2279,11 +2347,6 @@ var TheatreMapViewModel = (function(self) {
 
 }(TheatreMapViewModel || {}));
 
-ko.applyBindings(TheatreMapViewModel);
-
-var ko = ko || {};
-var mapManager = mapManager || {};
-var twttr = twttr || {};
 /**
  * This file is used to hold helper functions and objects in an encapsulated 
  * way.
@@ -2460,9 +2523,6 @@ mapManager.util.repositionTabs = function() {
 mapManager.util.repositionTabs();
 
 var ko = ko || {};
-var google = google || {};
-var mapManager = mapManager || {};
-var twttr = twttr || {};
 
 /**
  * The ViewModel is a function to take advantage of the 'var self = this' idiom
@@ -2625,13 +2685,19 @@ var TheatreMapViewModel = (function(self) {
      */
     self.infoWindow = {};
 
+
+    /**
+     * The credit div at the bottom of the app.
+     */
+    self.$creditDiv = $('#credit-div');
+    self.creditOn = ko.observable(false);
+
     /**
      * Add the above methods to TheatreMapViewModel
      */
     return self;
 
 }(TheatreMapViewModel || {}));
-
 
 var ko = ko || {};
 var TheatreMapViewModel = TheatreMapViewModel || {};
