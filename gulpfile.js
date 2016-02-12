@@ -37,8 +37,15 @@ gulp.task('scripts', function() {
         'dist/perm/knockout-3.4.0.js',
         'src/scripts/mapmanager.js',
         'src/scripts/utilities.js',
+        'src/scripts/mapmanger.js',
         'src/scripts/variables.js',
-        'src/scripts/initial.js'])
+        'src/scripts/initial.js',
+        'src/scripts/twitter.js',
+        'src/scripts/filter.js',
+        'src/scripts/glow.js',
+        'src/scripts/sort.js',
+        'src/scripts/divs.js',
+        'src/scripts/start.js'])
         // .pipe(jshint('.jshintrc'))
         // .pipe(jshint.reporter('default'))
         .pipe(concat('main.js'))
