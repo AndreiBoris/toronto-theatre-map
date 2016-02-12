@@ -1,6 +1,6 @@
 var google = google || {};
 // instantiated TheatreMapViewModel from app.js
-var tmvm = tmvm || {};
+var TheatreMapViewModel = TheatreMapViewModel || {};
 var ko = ko || {};
 
 /**
@@ -42,7 +42,7 @@ var mapManager = {
          * instantiated TheatreMapViewModel object. mapManager.markerData is 
          * populated when mapManager.load() is run at the bottom of this file.
          */
-        tmvm.addMarkers();
+        TheatreMapViewModel.addMarkers();
     },
 
     /**

@@ -6,9 +6,8 @@ var twttr = twttr || {};
 /**
  * The ViewModel is a function to take advantage of the 'var self = this' idiom
  */
-var TheatreMapViewModel = function() {
+var TheatreMapViewModel = (function(self) {
     'use strict';
-    var self = this;
 
     /**
      * Div for holding the error messages that are seen when twitter fails to 
@@ -899,47 +898,20 @@ var TheatreMapViewModel = function() {
          * self.glowing* variables.
          */
         window.requestAnimationFrame(self.glowAnimation);
-
-        /**
-         * Here we create an array of click sounds that will play whenever the
-         * mouse enters a list button element. The array is used to allow for 
-         * sounds to be played in quick succession
-         * @type {[type]}
-         */
-        var $listButtons = $('.button-list-item, .button-filter-item');
-        // This next bit is BAD. Here we assume that a screen wider than 500px
-        // will feature a mouse and we'll prefer to use 'mouseenter' to play
-        // button sounds.
-        if (mapManager.util.screenWidth > 800) {
-            var clickArray = [
-                new Audio('dist/sounds/click.mp3'),
-                new Audio('dist/sounds/click.mp3'),
-                new Audio('dist/sounds/click.mp3'),
-                new Audio('dist/sounds/click.mp3'),
-                new Audio('dist/sounds/click.mp3')
-            ];
-            $listButtons.on('mouseenter', function() {
-                clickArray[self.clickPosition].play();
-                self.nextClick();
-            });
-        }
     };
 
-};
+    /**
+     * Add the above methods to TheatreMapViewModel
+     */
+    return self;
 
+}(TheatreMapViewModel || {}));
 
-
-/**
- * tmvm is the instantiated ViewModel that we use to load the initial marker 
- * array through the initMap function in mapmaker.js
- * @type {TheatreMapViewModel}
- */
-var tmvm = new TheatreMapViewModel();
-ko.applyBindings(tmvm);
+ko.applyBindings(TheatreMapViewModel);
 
 var google = google || {};
 // instantiated TheatreMapViewModel from app.js
-var tmvm = tmvm || {};
+var TheatreMapViewModel = TheatreMapViewModel || {};
 var ko = ko || {};
 
 /**
@@ -981,7 +953,7 @@ var mapManager = {
          * instantiated TheatreMapViewModel object. mapManager.markerData is 
          * populated when mapManager.load() is run at the bottom of this file.
          */
-        tmvm.addMarkers();
+        TheatreMapViewModel.addMarkers();
     },
 
     /**
@@ -1728,3 +1700,9 @@ mapManager.util.repositionTabs = function() {
 
 // Position twitter tab as soon as page loads.
 mapManager.util.repositionTabs();
+
+var ko = ko || {};
+var TheatreMapViewModel = TheatreMapViewModel || {};
+var tmvm = new TheatreMapViewModel();
+
+ko.applyBindings(tmvm);
