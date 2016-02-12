@@ -17,3 +17,92 @@
         font-size: 1.1em;
     }
 }
+
+/*** Animate buttons when hovering over them ***/
+
+.button-hover {
+    border: 0.15em solid black;
+}
+
+/*** Sort buttons at the top of list div styles ***/
+
+.button-flex {
+    display: flex;
+    text-align: center;
+    // This will be applied to all elements in .button-flex divs, but not 
+    :hover {
+        // to the actual .button-flex div.
+        @extend .button-hover;
+    }
+}
+
+/*** Applied to divs inside buttons so they don't draw additional borders ***/
+
+.no-border:hover {
+    border: none;
+}
+
+/*** Mixin used for all buttons to style their color ***/
+
+@mixin button-shadows($color) {
+    box-shadow: 0.05em 0.05em 0.5em 0.55em $color inset;
+}
+
+
+/*** Background for alphabetical sort button in list div ***/
+
+.button-red {
+    background: linear-gradient(red, yellow);
+    @include button-shadows(red);
+}
+
+
+/*** Background for date founded sort button in list div ***/
+
+.button-green {
+    background: linear-gradient(green, teal);
+    @include button-shadows(green);
+}
+
+
+/*** Background for combined feed button in twitter div ***/
+
+.button-blue {
+    background: linear-gradient(blue, silver);
+    @include button-shadows(blue);
+}
+
+
+/*** Background for expand feed button in twitter div ***/
+
+.button-pink {
+    background: linear-gradient(pink, violet);
+    @include button-shadows(pink);
+}
+
+
+/*** Background for uncheck all button in filter div ***/
+
+.button-black {
+    background: linear-gradient(black, gold);
+    @include button-shadows(black);
+    &:hover {
+        border: 0.15em solid silver;
+    }
+}
+
+
+/*** Background for alphabetical sort button in list div ***/
+
+.button-purple {
+    background: linear-gradient(purple, black);
+    @include button-shadows(purple);
+}
+
+
+/*** Background for alphabetical sort button in list div ***/
+
+.button-teal {
+    background: linear-gradient(teal, maroon);
+    @include button-shadows(teal);
+}

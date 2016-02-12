@@ -36,17 +36,14 @@ Tabs
 Display div
 *********************/
 
-
-@import 'imports/display_div';
+// nothing here, all in imports/offscreen/_off_display_div.scss
 
 
 /*********************
 List div
 *********************/
 
-
-@import 'imports/list_div';
-
+// nothing here, all in imports/offscreen/_off_list_div.scss
 
 
 /*********************
@@ -54,7 +51,7 @@ Twitter div
 *********************/
 
 
-@import 'imports/twitter_div';
+// nothing here, all in imports/offscreen/_off_twitter_div.scss
 
 
 /*********************
@@ -62,8 +59,7 @@ Filter div
 *********************/
 
 
-@import 'imports/filter_div';
-
+// nothing here, all in imports/offscreen/_off_filter_div.scss
 
 
 /*********************
@@ -71,9 +67,7 @@ Credit div
 *********************/
 
 
-
 @import 'imports/credit_div';
-
 
 
 /*********************
@@ -81,8 +75,7 @@ Info Windows
 *********************/
 
 
-@import 'imports/info_win';
-
+// nothing here, all in imports/offscreen/_off_info_win.scss
 
 
 /*********************
@@ -95,4 +88,26 @@ Media Queries
 Starts offscreen
 *********************/
 
+/*** These styles do not influence anything in the opening screen and can be 
+    loaded asynchronously if this will help with speed. ***/
+
 @import 'imports/offscreen/off_buttons';
+
+@import 'imports/offscreen/off_general';
+
+@import 'imports/offscreen/off_offscreen';
+
+@import 'imports/offscreen/off_display_div'; 
+
+@import 'imports/offscreen/off_list_div';
+
+@import 'imports/offscreen/off_twitter_div';
+
+@import 'imports/offscreen/off_filter_div';
+
+@import 'imports/offscreen/off_credit_div';
+
+@import 'imports/offscreen/off_info_win';
+
+@import 'imports/offscreen/off_media_queries';
+

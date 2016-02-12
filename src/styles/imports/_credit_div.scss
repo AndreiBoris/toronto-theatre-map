@@ -25,21 +25,3 @@ footer {
     transition: $transition-time;
 }  
 
-#credit-div .button-100 {
-    position: relative;
-    bottom: 0;
-} 
-
-@media all and (max-width: 32em) {
-    #credit-div {
-        height: 8em;
-    }
-}
-
-.attributions {
-    text-align: left;
-}
-
-#credit-div.creditDivOn {
-    bottom: 0;
-}
