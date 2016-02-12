@@ -65,4 +65,3 @@ Find the full license as "FILAMENT LICENSE" file in the root dir.
 }(typeof global !== 'undefined' ? global : this));
 
 loadCSS('dist/styles/off_main.min.css');
-console.log('running the cssLoading.js file');

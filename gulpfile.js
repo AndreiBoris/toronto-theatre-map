@@ -75,6 +75,20 @@ gulp.task('scripts', function() {
 //             message: 'Perma task complete'
 //         }));
 // });
+// 
+// Temp task used to minify the cssLoading script
+// gulp.task('minime', function() {
+//     return gulp.src(['dist/perm/production/cssLoading.js'])
+//         .pipe(rename({
+//             suffix: '.min'
+//         }))
+//         .pipe(uglify())
+//         .pipe(gulp.dest('dist/perm/production'))
+//         .pipe(notify({
+//             message: 'minature task complete'
+//         }));
+// });
+
 
 // Critical CSS
 gulp.task('critical', function () {
