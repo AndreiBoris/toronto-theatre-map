@@ -1,0 +1,19 @@
+/*** Buttons at the top of right divs sorting. In flexbox. ***/
+
+.button-50 {
+    @extend .button-all;
+    width: 50%;
+    padding-top: 0.8em;
+    height: 2.7em;
+    font-weight: bold;
+    color: white; // Need background color or else text is invisible.
+}
+
+
+/*** Font sizes can be bumped up slight on larger screen ***/
+
+@media only screen and (min-width: 55em) {
+    .button-50 {
+        font-size: 1.1em;
+    }
+}

@@ -3,179 +3,9 @@ General
 *********************/
 
 @import 'imports/reset';
-// Right from the Google Maps API example to get the map to display
-html,
-body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden; // Disallow scrolling to see offscreen elements on mobile.
-    font-family: Georgia, Serif;
-}
 
 
-/*** Buttons at the top of right divs sorting. In flexbox. ***/
-
-.button-50 {
-    @extend .button-all;
-    width: 50%;
-    padding-top: 0.8em;
-    height: 2.7em;
-    font-weight: bold;
-    color: white; // Need background color or else text is invisible.
-}
-
-
-/*** Font sizes can be bumped up slight on larger screen ***/
-
-@media only screen and (min-width: 55em) {
-    .button-50 {
-        font-size: 1.1em;
-    }
-}
-
-
-/*** All buttons inherit this class to change cursor ***/
-
-.button-all {
-    cursor: pointer;
-    cursor: hand;
-}
-
-
-/*** Animate buttons when hovering over them ***/
-
-.button-hover {
-    border: 0.15em solid black;
-}
-
-
-/*** Sort buttons at the top of list div styles ***/
-
-.button-flex {
-    display: flex;
-    text-align: center;
-    // This will be applied to all elements in .button-flex divs, but not 
-    :hover {
-        // to the actual .button-flex div.
-        @extend .button-hover;
-    }
-}
-
-
-/*** Applied to divs inside buttons so they don't draw additional borders ***/
-
-.no-border:hover {
-    border: none;
-}
-
-
-/*** Mixin used for all buttons to style their color ***/
-
-@mixin button-shadows($color) {
-    box-shadow: 0.05em 0.05em 0.5em 0.55em $color inset;
-}
-
-
-/*** Background for alphabetical sort button in list div ***/
-
-.button-red {
-    background: linear-gradient(red, yellow);
-    @include button-shadows(red);
-}
-
-
-/*** Background for date founded sort button in list div ***/
-
-.button-green {
-    background: linear-gradient(green, teal);
-    @include button-shadows(green);
-}
-
-
-/*** Background for combined feed button in twitter div ***/
-
-.button-blue {
-    background: linear-gradient(blue, silver);
-    @include button-shadows(blue);
-}
-
-
-/*** Background for expand feed button in twitter div ***/
-
-.button-pink {
-    background: linear-gradient(pink, violet);
-    @include button-shadows(pink);
-}
-
-
-/*** Background for uncheck all button in filter div ***/
-
-.button-black {
-    background: linear-gradient(black, gold);
-    @include button-shadows(black);
-    &:hover {
-        border: 0.15em solid silver;
-    }
-}
-
-
-/*** Background for alphabetical sort button in list div ***/
-
-.button-purple {
-    background: linear-gradient(purple, black);
-    @include button-shadows(purple);
-}
-
-
-/*** Background for alphabetical sort button in list div ***/
-
-.button-teal {
-    background: linear-gradient(teal, maroon);
-    @include button-shadows(teal);
-}
-
-
-/*** Widely applied to divs that are longer than their container ***/
-
-.scroll-div {
-    overflow: auto;
-}
-
-
-/*** Used briefly in the Twitter error div ***/
-
-.large-font {
-    font-size: 1.8em;
-}
-
-
-/*** Used briefly in the Twitter error div ***/
-
-.italic-font {
-    font-style: italic;
-}
-
-
-/*** Used in list div theatres ***/
-
-.text-center {
-    text-align: center;
-}
-
-
-/*** Used to increase year in list div theatres ***/
-
-.bump-size {
-    font-size: 1.15em;
-}
-
-
-/*** Used for list div theatres ***/
-
-.bolded-text {
-    font-weight: bold;
-}
+@import 'imports/general';
 
 
 /*********************
@@ -183,14 +13,7 @@ Map
 *********************/
 
 
-/*** The map needs to have a specific size in order to display. ***/
-
-#map {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    z-index: 1; // Map is behind everything else that appears.
-}
+@import 'imports/map';
 
 
 /*********************
@@ -198,54 +21,7 @@ Off screen
 *********************/
 
 
-/*** How long offscreen elements take to move on and off ***/
-
-$transition-time: 0.15s;
-
-/*** Both left-divs and right-divs inherit this. The width is determined in 
-media queries. ***/
-
-.off-screen {
-    position: absolute;
-    z-index: 2; // Should always be over the map.
-    transition: $transition-time;
-    top: 0;
-    background-color: white;
-}
-
-
-/*** The display div that pops out when a marker is accessed  ***/
-
-.left-divs {
-    @extend .off-screen;
-    height: 30%;
-}
-
-
-/*** The list, twitter and filter divs ***/
-
-.right-divs {
-    @extend .off-screen;
-    height: 100%;
-}
-
-
-/*** Right div is on screen ***/
-
-.right-div-on {
-    right: 0%;
-    /*** z-index needs to be higher than .tab-back otherwise those tabs are 
-        clickable through the right-div ***/
-    z-index: 6;
-}
-
-
-/*** Left div is on screen ***/
-
-.left-div-on {
-    left: 0%;
-    z-index: 2; // Above the map but not above anything else.
-}
+@import 'imports/offscreen';
 
 
 /*********************
@@ -253,49 +29,7 @@ Tabs
 *********************/
 
 
-/*** All the right-div tabs for moving the divs on and off screen ***/
-
-.tab-all {
-    position: absolute;
-    transition: $transition-time;
-}
-
-
-/*** Bottom most tab shown then right-divs are off screen  ***/
-
-.tab-plain {
-    @extend .tab-all;
-    z-index: 3;
-}
-
-
-/*** Second layer tab with border that pulses into opacity when updates occur ***/
-
-.tab-highlight {
-    @extend .tab-all;
-    opacity: 0;
-    z-index: 4;
-}
-
-
-/*** Top layer tab that is visible when right divs are on screen. These are the 
-tabs that are clicked to initiate all transitions, so it has to have the highest
-z-index. ***/
-
-.tab-back {
-    @extend .tab-all;
-    opacity: 0;
-    /*** z-index has to be higher than left-div-on so that it is still clickable
-        if the left-div is also open ***/
-    z-index: 5;
-}
-
-
-/*** Position of the tabs when corresponding divs are off screen ***/
-
-.tab-off {
-    right: 0%;
-}
+@import 'imports/tabs';
 
 
 /*********************
@@ -303,37 +37,7 @@ Display div
 *********************/
 
 
-/*** This is the information in the left div that gets loaded from each marker 
-***/
-
-.current-display {
-    margin: 0.5em;
-}
-
-
-/*** Title of the displayed theatre ***/
-
-.display-title {
-    font-size: 2em;
-    margin: 0 0 0.25em 0.5em;
-}
-
-.display-link {
-    color: maroon;
-    &:hover {
-        color: maroon;
-    }
-}
-
-
-/*** This is the div enclosing .current-display. We make sure that we can scroll
-through the current display and that the buttons stay at the bottom. If we made
-the height of current display the same effect would not result. ***/
-
-#display-box {
-    overflow: auto;
-    height: 80%;
-}
+@import 'imports/display_div';
 
 
 /*********************
@@ -341,57 +45,8 @@ List div
 *********************/
 
 
-/*** Thin border to mark end of list-div when it it open ***/
+@import 'imports/list_div';
 
-#list-div {
-    border-left: 0.05em solid #d9d9d9;
-}
-
-
-/*** The div for the buttons for each theatre in the list div ***/
-
-.button-list-flex {
-    margin-left: 0.25em;
-    display: flex;
-    flex-direction: column;
-    height: 90%;
-    :hover {
-        // hover over an element in this list
-        background-color: #e6e6e6;
-        border: 0.05em solid black;
-    }
-}
-
-
-/*** Don't allow the children of button-list-flex to also generate borders when
-hovering over any of them specifically. ***/
-
-.button-list-flex h4:hover,
-.button-list-flex p:hover,
-.button-list-flex span:hover {
-    border: none;
-}
-
-
-/*** Buttons for each theatre in the list div ***/
-
-.button-list-item {
-    @extend .button-all;
-    margin: 0.2em 0; // Separate the buttons
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    min-height: 4em;
-    border-bottom: 0.05em solid black;
-}
-
-
-/*** Title of each theatre in the list div ***/
-
-.list-title {
-    font-size: 1.5em;
-    @extend .text-center;
-}
 
 
 /*********************
@@ -399,59 +54,7 @@ Twitter div
 *********************/
 
 
-/*** This div appears under the twitter feeds and can be seen if the feeds fail
-    to load. ***/
-
-#twitter-error {
-    z-index: 1;
-    position: absolute;
-    top: 20%; // Position it in the centre of its container 
-    margin: 1em;
-    line-height: 1.5em; // Space lines for easier viewing
-}
-
-
-/*** Div that holds the list view for Twitter. ***/
-
-#twitter-list {
-    position: relative; // Makes z-index work so twitter error is hidden
-    z-index: 2; // over twitter-error
-    height: 90%; // Longer due to missing twitter account name
-}
-
-
-/*** Div that holds the user view for Twitter ***/
-
-#twitter-account {
-    position: relative; // Makes z-index work so twitter error is hidden
-    z-index: 2; // over twitter-error
-    height: 85%; // Shorter to accomodate twitter account name
-}
-
-
-/*** Title for user view ***/
-
-#twitter-account-header {
-    position: relative; // Makes z-index work so that twitter error is hidden
-    z-index: 3;
-    min-width: 100%;
-    min-height: 1.5em;
-    font-weight: bold;
-    text-align: center;
-    line-height: 2em;
-    background: linear-gradient(orange, gold);
-    box-shadow: 0.1em 0.1em 0.3em orange inset;
-}
-
-#twitter-error {
-    font-size: 1.5em;
-}
-
-@media only screen and (max-width: 40em) {
-    #twitter-error {
-        font-size: 1.2em;
-    }
-}
+@import 'imports/twitter_div';
 
 
 /*********************
@@ -459,76 +62,18 @@ Filter div
 *********************/
 
 
-/*** Color displayed when a filter button is pressed ***/
-
-$buttonOnTint: #6f6;
-
-/*** Div that holds filter options ***/
-
-#filter-div {
-    border-left: 0.05em solid #d9d9d9; // Delimiting border when div is open
-}
+@import 'imports/filter_div';
 
 
-/*** Container for all the filter buttons ***/
 
-.button-filter-flex {
-    margin-left: 0.25em;
-    display: flex;
-    flex-direction: column;
-    height: 90%;
-}
+/*********************
+Credit div
+*********************/
 
 
-/*** On large screens ***/
 
-@media only screen and (min-width: 55em) {
-    /*** We can do a hover option, since it won't interfere with the .buttonOn 
-        class like it does on mobile. ***/
-    .button-filter-item:hover {
-        background-color: #e6e6e6;
-        border: 0.05em solid black;
-    }
-    /*** But we need to make hover conform with .buttonOn when both are present
-        so that the hover doesn't confuse users whether an option is on or not. ***/
-    .button-filter-item.buttonOn:hover {
-        background-color: $buttonOnTint;
-    }
-}
+@import 'imports/credit_div';
 
-
-/*** Each button in the filter div ***/
-
-.button-filter-item {
-    @extend .button-all;
-    margin: 0.2em 0; // Separate the buttons
-    min-height: 2em;
-    border-bottom: 0.05em solid black;
-    font-size: 1.4em;
-    font-weight: bold;
-    padding: 0.25em 0.5em;
-}
-
-
-/*** Used for the uncheck all button in the filter div  ***/
-
-.button-100 {
-    @extend .button-all;
-    width: 100%;
-    padding-top: 0.8em;
-    height: 2.7em;
-    font-size: 1.3em; // Button is long enough so font can be large even on mobile
-    font-weight: bold;
-    color: white; // Need background color from other class or else text is invisible.
-}
-
-
-/*** Applied when a button is toggled on. ***/
-
-.buttonOn {
-    background-color: $buttonOnTint;
-    border: 0.05em solid black;
-}
 
 
 /*********************
@@ -536,187 +81,18 @@ Info Windows
 *********************/
 
 
-/*** Title of each theatre in the Info Windows appearing on markers ***/
+@import 'imports/info_win';
 
-.info-title {
-    font-weight: bold;
-    font-size: 1.15em;
-}
-
-
-/*********************
-Credit
-*********************/
-
-footer {
-    z-index: 2;
-    width: 100%;
-    position: absolute;
-    height: 2em;
-    bottom: 0;
-    text-align: center;
-    padding-right: 4em;
-}
-
-#credit-marker {
-    position: absolute;
-    z-index: 2;
-    font-size: 1.2em;
-    bottom: 0.5em;
-}
-
-#credit-div {
-    position: absolute;
-    z-index: 9;
-    background-color: white;
-    width: 100%;
-    height: 6em;
-    bottom: -20em;
-    transition: $transition-time;
-}  
-
-#credit-div .button-100 {
-    position: relative;
-    bottom: 0;
-} 
-
-@media all and (max-width: 32em) {
-    #credit-div {
-        height: 8em;
-    }
-}
-
-.attributions {
-    text-align: left;
-}
-
-#credit-div.creditDivOn {
-    bottom: 0;
-}
 
 
 /*********************
 Media Queries
 *********************/
 
-.left-divs {
-    width: 50%;
-}
+@import 'imports/media_queries';
 
-.left-div-off {
-    left: -50%;
-}
+/*********************
+Starts offscreen
+*********************/
 
-
-/*** For large displays ***/
-
-@media only screen and (min-width: 72em) {
-    /*** Take up less space with the divs that start offscreen. ***/
-    .right-divs {
-        width: 30%;
-    }
-    .tab-on {
-        right: 30%;
-    }
-    .right-div-off {
-        right: -30%;
-    }
-    .left-div-off {
-        left: -50%;
-    }
-}
-
-@media only screen and (max-width: 72em) {
-    /*** Take up more space with the divs that start offscreen. ***/
-    .right-divs {
-        width: 40%;
-    }
-    .left-divs {
-        width: 50%;
-    }
-    .tab-on {
-        right: 40%;
-    }
-    .right-div-off {
-        right: -40%;
-    }
-}
-
-
-/*** For small displays ***/
-
-@media only screen and (max-width: 65em) {
-    /*** Take up more space with the divs that start offscreen. ***/
-    .right-divs {
-        width: 50%;
-    }
-    .left-divs {
-        width: 60%;
-    }
-    .tab-on {
-        right: 50%;
-    }
-    .right-div-off {
-        right: -50%;
-    }
-    .left-div-off {
-        left: -60%;
-    }
-}
-
-
-/*** For small displays ***/
-
-@media only screen and (max-width: 55em) {
-    /*** Take up more space with the divs that start offscreen. ***/
-    .right-divs {
-        width: 60%;
-    }
-    .tab-on {
-        right: 60%;
-    }
-    .right-div-off {
-        right: -60%;
-    }
-}
-
-
-/*** For small displays ***/
-
-@media only screen and (max-width: 45em) {
-    /*** Take up more space with the divs that start offscreen. ***/
-    .off-screen {
-        width: 70%;
-    }
-    .tab-on {
-        right: 70%;
-    }
-    .right-div-off {
-        right: -70%;
-    }
-    .left-div-off {
-        left: -70%;
-    }
-    .left-divs {
-        height: 45%;
-    }
-}
-
-
-/*** For small displays ***/
-
-@media only screen and (max-width: 40em) {
-    /*** Take up more space with the divs that start offscreen. ***/
-    .off-screen {
-        width: 90%;
-    }
-    .tab-on {
-        right: 90%;
-    }
-    .right-div-off {
-        right: -90%;
-    }
-    .left-div-off {
-        left: -90%;
-    }
-}
+@import 'imports/offscreen/off_buttons';

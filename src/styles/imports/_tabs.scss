@@ -1,0 +1,43 @@
+/*** All the right-div tabs for moving the divs on and off screen ***/
+
+.tab-all {
+    position: absolute;
+    transition: $transition-time;
+}
+
+
+/*** Bottom most tab shown then right-divs are off screen  ***/
+
+.tab-plain {
+    @extend .tab-all;
+    z-index: 3;
+}
+
+
+/*** Second layer tab with border that pulses into opacity when updates occur ***/
+
+.tab-highlight {
+    @extend .tab-all;
+    opacity: 0;
+    z-index: 4;
+}
+
+
+/*** Top layer tab that is visible when right divs are on screen. These are the 
+tabs that are clicked to initiate all transitions, so it has to have the highest
+z-index. ***/
+
+.tab-back {
+    @extend .tab-all;
+    opacity: 0;
+    /*** z-index has to be higher than left-div-on so that it is still clickable
+        if the left-div is also open ***/
+    z-index: 5;
+}
+
+
+/*** Position of the tabs when corresponding divs are off screen ***/
+
+.tab-off {
+    right: 0%;
+}

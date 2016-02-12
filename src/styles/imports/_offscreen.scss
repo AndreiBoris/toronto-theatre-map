@@ -1,0 +1,48 @@
+/*** How long offscreen elements take to move on and off ***/
+
+$transition-time: 0.15s;
+
+/*** Both left-divs and right-divs inherit this. The width is determined in 
+media queries. ***/
+
+.off-screen {
+    position: absolute;
+    z-index: 2; // Should always be over the map.
+    transition: $transition-time;
+    top: 0;
+    background-color: white;
+}
+
+
+/*** The display div that pops out when a marker is accessed  ***/
+
+.left-divs {
+    @extend .off-screen;
+    height: 30%;
+}
+
+
+/*** The list, twitter and filter divs ***/
+
+.right-divs {
+    @extend .off-screen;
+    height: 100%;
+}
+
+
+/*** Right div is on screen ***/
+
+.right-div-on {
+    right: 0%;
+    /*** z-index needs to be higher than .tab-back otherwise those tabs are 
+        clickable through the right-div ***/
+    z-index: 6;
+}
+
+
+/*** Left div is on screen ***/
+
+.left-div-on {
+    left: 0%;
+    z-index: 2; // Above the map but not above anything else.
+}

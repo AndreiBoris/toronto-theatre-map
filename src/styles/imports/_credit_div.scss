@@ -1,0 +1,45 @@
+footer {
+    z-index: 2;
+    width: 100%;
+    position: absolute;
+    height: 2em;
+    bottom: 0;
+    text-align: center;
+    padding-right: 4em;
+}
+
+#credit-marker {
+    position: absolute;
+    z-index: 2;
+    font-size: 1.2em;
+    bottom: 0.5em;
+}
+
+#credit-div {
+    position: absolute;
+    z-index: 9;
+    background-color: white;
+    width: 100%;
+    height: 6em;
+    bottom: -20em;
+    transition: $transition-time;
+}  
+
+#credit-div .button-100 {
+    position: relative;
+    bottom: 0;
+} 
+
+@media all and (max-width: 32em) {
+    #credit-div {
+        height: 8em;
+    }
+}
+
+.attributions {
+    text-align: left;
+}
+
+#credit-div.creditDivOn {
+    bottom: 0;
+}

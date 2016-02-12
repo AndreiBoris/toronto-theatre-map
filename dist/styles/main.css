@@ -55,6 +55,8 @@ table {
   border-spacing: 0;
 }
 
+/*** We need to make sure the html and body has a height in order to 
+    accomodate the Google Map ***/
 html,
 body {
   height: 100%;
@@ -64,23 +66,8 @@ body {
   font-family: Georgia, Serif;
 }
 
-/*** Buttons at the top of right divs sorting. In flexbox. ***/
-.button-50 {
-  width: 50%;
-  padding-top: 0.8em;
-  height: 2.7em;
-  font-weight: bold;
-  color: white;
-}
-
-/*** Font sizes can be bumped up slight on larger screen ***/
-@media only screen and (min-width: 55em) {
-  .button-50 {
-    font-size: 1.1em;
-  }
-}
 /*** All buttons inherit this class to change cursor ***/
-.button-all, .button-50, .button-list-item, .button-filter-item, .button-100 {
+.button-all, .button-list-item, .button-filter-item, .button-100, .button-50 {
   cursor: pointer;
   cursor: hand;
 }
@@ -458,16 +445,7 @@ Filter div
 }
 
 /*********************
-Info Windows
-*********************/
-/*** Title of each theatre in the Info Windows appearing on markers ***/
-.info-title {
-  font-weight: bold;
-  font-size: 1.15em;
-}
-
-/*********************
-Credit
+Credit div
 *********************/
 footer {
   z-index: 2;
@@ -512,6 +490,15 @@ footer {
 
 #credit-div.creditDivOn {
   bottom: 0;
+}
+
+/*********************
+Info Windows
+*********************/
+/*** Title of each theatre in the Info Windows appearing on markers ***/
+.info-title {
+  font-weight: bold;
+  font-size: 1.15em;
 }
 
 /*********************
@@ -640,5 +627,23 @@ Media Queries
 
   .left-div-off {
     left: -90%;
+  }
+}
+/*********************
+Starts offscreen
+*********************/
+/*** Buttons at the top of right divs sorting. In flexbox. ***/
+.button-50 {
+  width: 50%;
+  padding-top: 0.8em;
+  height: 2.7em;
+  font-weight: bold;
+  color: white;
+}
+
+/*** Font sizes can be bumped up slight on larger screen ***/
+@media only screen and (min-width: 55em) {
+  .button-50 {
+    font-size: 1.1em;
   }
 }
