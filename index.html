@@ -1,4 +1,18 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="initial-scale=1,user-scalable=no"><meta name="description" content="Theatre in Toronto"><meta name="author" content="Andrei Borissenko"><title>Toronto Live Theatre Resource</title><script async src="https://platform.twitter.com/widgets.js"></script><script>var scripts = [
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="initial-scale=1,user-scalable=no"><meta name="description" content="Theatre in Toronto"><meta name="author" content="Andrei Borissenko"><title>Toronto Live Theatre Resource</title><script async src="https://platform.twitter.com/widgets.js"></script><script>// Thank you to Jake Archibald at www.html5rocks.com for the following script!
+    // http://www.html5rocks.com/en/tutorials/speed/script-loading/#disqus_thread
+    
+    /**
+     * Download all the required JavaScript asynchronously now, before parsing
+     * the HTML, and execute it in proper order. 
+     * 
+     * NOTE: I haven't had this problem yet and don't expect it, but it is 
+     * technically possible that we will run through all the JavaScript and 
+     * attempt to do the Knockout binding before creating the necessary DOM 
+     * elements. In order to prevent this, it is perhaps advisable to 
+     * dynamically create the DOM in the scripts. Is there any disadvantage 
+     * to doing this?
+     */
+    var scripts = [
         'dist/perm/production/jquery_and_knockout.min.js',
         'src/scripts/mapmanager.js', // development mode
         'src/scripts/utilities.js', // development mode
