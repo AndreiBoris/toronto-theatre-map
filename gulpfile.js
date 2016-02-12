@@ -58,6 +58,23 @@ gulp.task('scripts', function() {
         }));
 });
 
+// temp task
+// Scripts
+gulp.task('perma', function() {
+    return gulp.src(['dist/perm/jquery-1.12.0.min.js',
+        'dist/perm/knockout-3.4.0.js'])
+        .pipe(concat('jquery_and_knockout.js'))
+        .pipe(gulp.dest('dist/perm/production'))
+        .pipe(rename({
+            suffix: '.min'
+        }))
+        .pipe(uglify())
+        .pipe(gulp.dest('dist/perm/production'))
+        .pipe(notify({
+            message: 'Perma task complete'
+        }));
+});
+
 // Clean images
 gulp.task('clean-images', function() {
     return del(['dist/images']);
