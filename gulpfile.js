@@ -91,7 +91,22 @@ gulp.task('scripts', function() {
 
 
 // Critical CSS
-gulp.task('critical', function () {
+gulp.task('critical', ['styles', 'scripts', 'images', 'minify-html'], function () {
+    critical.generate({
+        inline: true,
+        base: '.',
+        src: 'index.html',
+        minify: true,
+        css: ['dist/styles/main.min.css'],
+        width: 1900,
+        height: 1300,
+        dest: 'index.html',
+    });
+});
+
+// Critical CSS that is used by watch, responds to changes in any scss files,
+// requires that a minified HTML file is already present in root dir.
+gulp.task('critical-styles', ['styles'], function () {
     critical.generate({
         inline: true,
         base: '.',
@@ -128,9 +143,14 @@ gulp.task('clean', function() {
 });
 
 
+// old Default
+// gulp.task('default', ['clean'], function() {
+//     gulp.start('styles', 'scripts', 'images', 'minify-html');
+// });
+
 // Default
-gulp.task('default', ['clean'], function() {
-    gulp.start('styles', 'scripts', 'images', 'minify-html');
+gulp.task('default', function() {
+    gulp.start('critical');
 });
 
 // Minify HTML
@@ -156,7 +176,7 @@ gulp.task('gulpfile-lint', function() {
 gulp.task('watch', function() {
 
     // Watch .scss files
-    gulp.watch('src/styles/**/*.scss', ['styles']);
+    gulp.watch('src/styles/**/*.scss', ['critical-styles']);
 
     // Watch .js files
     gulp.watch('src/scripts/**/*.js', ['scripts']);
