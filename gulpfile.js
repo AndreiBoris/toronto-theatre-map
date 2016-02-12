@@ -33,9 +33,7 @@ gulp.task('styles', function() {
 
 // Scripts
 gulp.task('scripts', function() {
-    return gulp.src(['dist/perm/jquery-1.12.0.min.js',
-        'dist/perm/knockout-3.4.0.js',
-        'src/scripts/mapmanager.js',
+    return gulp.src(['src/scripts/mapmanager.js',
         'src/scripts/utilities.js',
         'src/scripts/mapmanger.js',
         'src/scripts/variables.js',
@@ -46,8 +44,8 @@ gulp.task('scripts', function() {
         'src/scripts/sort.js',
         'src/scripts/divs.js',
         'src/scripts/start.js'])
-        // .pipe(jshint('.jshintrc'))
-        // .pipe(jshint.reporter('default'))
+        .pipe(jshint('.jshintrc'))
+        .pipe(jshint.reporter('default'))
         .pipe(concat('main.js'))
         .pipe(gulp.dest('dist/scripts'))
         .pipe(rename({
