@@ -8,6 +8,7 @@
     <meta name="description" content="Theatre in Toronto">
     <meta name="author" content="Andrei Borissenko">
     <title>Toronto Live Theatre Resource</title>
+    <!-- Twitter methods for creating timelines dynamically -->
     <script async src="https://platform.twitter.com/widgets.js"></script>
     <script>
     // Thank you to Jake Archibald at www.html5rocks.com for the following script!
@@ -79,9 +80,15 @@
         }
     }
     </script>
+    <!-- This is a script that I have to thank Filament Group for. It loads 
+    the css file that defines the originally offscreen styles asyncronously.
+    https://github.com/filamentgroup/loadCSS -->
+    <script async src="dist/perm/production/cssLoading.js"></script>
     <link href="dist/styles/print.min.css" rel="stylesheet" media="print">
-    <link href="dist/styles/main.min.css" rel="stylesheet">
-    <link href="dist/styles/off_main.min.css" rel="stylesheet">
+    <!-- Provide the css for those with no JavaScript -->
+    <noscript><link href="dist/styles/off_main.min.css" rel="stylesheet"></noscript>
+    <!-- <link href="dist/styles/main.min.css" rel="stylesheet"> -->
+    <!-- <link href="dist/styles/off_main.min.css" rel="stylesheet"> -->
 </head>
 
 <body>

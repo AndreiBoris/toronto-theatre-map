@@ -1,9 +1,90 @@
 /*********************
-TESTING
+Everything Else
 *********************/
-/*********************
-Dependencies
-*********************/
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/*** We need to make sure the html and body has a height in order to 
+    accomodate the Google Map ***/
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: Georgia, Serif;
+}
+
+/*** All buttons inherit this class to change cursor ***/
+.button-all, .button-50, .button-list-item, .button-filter-item, .button-100 {
+  cursor: pointer;
+  cursor: hand;
+}
+
+/*** Widely applied to divs that are taller than their container ***/
+.scroll-div {
+  overflow: auto;
+}
+
+/*** The map needs to have a specific size in order to display. ***/
+#map {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+}
+
 /*** How long offscreen elements take to move on and off ***/
 /*** Both left-divs and right-divs inherit this. The width is determined in 
 media queries. ***/
@@ -57,12 +138,62 @@ z-index. ***/
   right: 0%;
 }
 
-/*** All buttons inherit this class to change cursor ***/
-.button-all, .button-50, .button-list-item, .button-filter-item, .button-100 {
-  cursor: pointer;
-  cursor: hand;
+footer {
+  z-index: 2;
+  width: 100%;
+  position: absolute;
+  height: 2em;
+  bottom: 0;
+  text-align: center;
+  padding-right: 4em;
 }
 
+#credit-marker {
+  position: absolute;
+  z-index: 2;
+  font-size: 1.2em;
+  bottom: 0.5em;
+}
+
+#credit-div {
+  position: absolute;
+  z-index: 9;
+  background-color: white;
+  width: 100%;
+  height: 6em;
+  bottom: -20em;
+  transition: 0.15s;
+}
+
+/*** For large displays ***/
+.left-divs {
+  width: 50%;
+}
+
+.left-div-off {
+  left: -50%;
+}
+
+/*** Take up less space with the divs that start offscreen. ***/
+.right-divs {
+  width: 30%;
+}
+
+.tab-on {
+  right: 30%;
+}
+
+.right-div-off {
+  right: -30%;
+}
+
+.left-div-off {
+  left: -50%;
+}
+
+/*********************
+Dependencies
+*********************/
 /*********************
 Starts offscreen
 *********************/

@@ -12,7 +12,8 @@ var gulp = require('gulp'),
     notify = require('gulp-notify'),
     del = require('del'),
     htmlmin = require('gulp-htmlmin'),
-    imageResize = require('gulp-image-resize');
+    imageResize = require('gulp-image-resize'),
+    critical = require('critical');
 
 // Styles
 gulp.task('styles', function() {
@@ -58,22 +59,37 @@ gulp.task('scripts', function() {
         }));
 });
 
-// temp task
+// temp task used to concatenate jQuery and Knockout
 // Scripts
-gulp.task('perma', function() {
-    return gulp.src(['dist/perm/jquery-1.12.0.min.js',
-        'dist/perm/knockout-3.4.0.js'])
-        .pipe(concat('jquery_and_knockout.js'))
-        .pipe(gulp.dest('dist/perm/production'))
-        .pipe(rename({
-            suffix: '.min'
-        }))
-        .pipe(uglify())
-        .pipe(gulp.dest('dist/perm/production'))
-        .pipe(notify({
-            message: 'Perma task complete'
-        }));
+// gulp.task('perma', function() {
+//     return gulp.src(['dist/perm/jquery-1.12.0.min.js',
+//         'dist/perm/knockout-3.4.0.js'])
+//         .pipe(concat('jquery_and_knockout.js'))
+//         .pipe(gulp.dest('dist/perm/production'))
+//         .pipe(rename({
+//             suffix: '.min'
+//         }))
+//         .pipe(uglify())
+//         .pipe(gulp.dest('dist/perm/production'))
+//         .pipe(notify({
+//             message: 'Perma task complete'
+//         }));
+// });
+
+// Critical CSS
+gulp.task('critical', function () {
+    critical.generate({
+        inline: true,
+        base: '.',
+        src: 'index.html',
+        minify: true,
+        css: ['dist/styles/main.min.css'],
+        width: 1900,
+        height: 1300,
+        dest: 'index.html',
+    });
 });
+
 
 // Clean images
 gulp.task('clean-images', function() {
