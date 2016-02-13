@@ -19,25 +19,25 @@
      * the HTML, and execute it in proper order. 
      * 
      * NOTE: I haven't had this problem yet and don't expect it, but it is 
-     * technically possible that we will run through all the JavaScript and 
-     * attempt to do the Knockout binding before creating the necessary DOM 
+     * technically possible (maybe?) that we will run through all the JavaScript 
+     * and attempt to do the Knockout binding before creating the necessary DOM 
      * elements. In order to prevent this, it is perhaps advisable to 
      * dynamically create the DOM in the scripts. Is there any disadvantage 
      * to doing this?
      */
     var scripts = [
         'dist/perm/production/jquery_and_knockout.min.js',
-        // 'src/scripts/mapmanager.js', // development mode
-        // 'src/scripts/utilities.js', // development mode
-        // 'src/scripts/attributes.js', // development mode
-        // 'src/scripts/markers.js', // development mode
-        // 'src/scripts/twitter.js', // development mode
-        // 'src/scripts/filter.js', // development mode
-        // 'src/scripts/glow.js', // development mode
-        // 'src/scripts/sort.js', // development mode
-        // 'src/scripts/divs.js', // development mode
-        // 'src/scripts/start.js', // development mode
-        'dist/scripts/main.min.js', // PRODUCTION mode
+        'src/scripts/mapmanager.js', // development mode
+        'src/scripts/utilities.js', // development mode
+        'src/scripts/attributes.js', // development mode
+        'src/scripts/markers.js', // development mode
+        'src/scripts/twitter.js', // development mode
+        'src/scripts/filter.js', // development mode
+        'src/scripts/glow.js', // development mode
+        'src/scripts/sort.js', // development mode
+        'src/scripts/divs.js', // development mode
+        'src/scripts/start.js', // development mode
+        // 'dist/scripts/main.min.js', // PRODUCTION mode
         'https://maps.googleapis.com/maps/api/js?key=AIzaSyCQCl1KRNkAF-BPdyKyO92M0d4vd6MOd0w&callback=mapManager.initMap&region=CA'
     ];
 
@@ -80,15 +80,9 @@
         }
     }
     </script>
-    <!-- This is a script that I have to thank Filament Group for. It loads 
-    the css file that defines the originally offscreen styles asyncronously.
-    https://github.com/filamentgroup/loadCSS -->
-    <script async src="dist/perm/production/cssLoading.min.js"></script>
     <link href="dist/styles/print.min.css" rel="stylesheet" media="print">
-    <!-- Provide the css for those with no JavaScript -->
-    <noscript><link href="dist/styles/off_main.min.css" rel="stylesheet"></noscript>
-    <!-- <link href="dist/styles/main.min.css" rel="stylesheet"> -->
-    <!-- <link href="dist/styles/off_main.min.css" rel="stylesheet"> -->
+    <!-- All CSS styles for the page are here. -->
+    <link href="dist/styles/off_main.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -238,22 +232,6 @@
             </div>
         </div>
     </footer>
-    <!-- <script async src="https://platform.twitter.com/widgets.js"></script>
-    <script type="text/javascript" src="dist/perm/jquery-1.12.0.min.js"></script>
-    <script type='text/javascript' src='dist/perm/knockout-3.4.0.js'></script>
-    <script type="text/javascript" src="src/scripts/mapmanager.js"></script>
-    <script type="text/javascript" src="src/scripts/utilities.js"></script>
-    <script type="text/javascript" src="src/scripts/attributes.js"></script>
-    <script type="text/javascript" src="src/scripts/markers.js"></script>
-    <script type="text/javascript" src="src/scripts/twitter.js"></script>
-    <script type="text/javascript" src="src/scripts/filter.js"></script>
-    <script type="text/javascript" src="src/scripts/glow.js"></script>
-    <script type="text/javascript" src="src/scripts/sort.js"></script>
-    <script type="text/javascript" src="src/scripts/divs.js"></script>
-    <script type="text/javascript" src="src/scripts/start.js"></script> -->
-    <!-- <script type="text/javascript" src="dist/scripts/main.min.js"></script> -->
-    <!--  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQCl1KRNkAF-BPdyKyO92M0d4vd6MOd0w&callback=mapManager.initMap&region=CA">
-    </script> -->
 </body>
 
 </html>

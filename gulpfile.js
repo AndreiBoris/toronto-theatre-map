@@ -89,51 +89,6 @@ gulp.task('scripts', function() {
 //         }));
 // });
 
-
-// Critical CSS
-gulp.task('critical', ['styles', 'scripts', 'images', 'minify-html'], function () {
-    critical.generate({
-        inline: true,
-        base: '.',
-        src: 'index.html',
-        minify: true,
-        css: ['dist/styles/main.min.css'],
-        width: 1900,
-        height: 1300,
-        dest: 'index.html',
-    });
-});
-
-// Critical CSS that is used by watch, responds to changes in any scss files,
-// requires that a minified HTML file is already present in root dir.
-gulp.task('critical-styles', ['styles'], function () {
-    critical.generate({
-        inline: true,
-        base: '.',
-        src: 'index.html',
-        minify: true,
-        css: ['dist/styles/main.min.css'],
-        width: 1900,
-        height: 1300,
-        dest: 'index.html',
-    });
-});
-
-// Critical CSS that is used by watch, responds to changes in the html file,
-gulp.task('critical-html', ['minify-html'], function () {
-    critical.generate({
-        inline: true,
-        base: '.',
-        src: 'index.html',
-        minify: true,
-        css: ['dist/styles/main.min.css'],
-        width: 1900,
-        height: 1300,
-        dest: 'index.html',
-    });
-});
-
-
 // Clean images
 gulp.task('clean-images', function() {
     return del(['dist/images']);
@@ -157,15 +112,11 @@ gulp.task('clean', function() {
 });
 
 
-// old Default
-// gulp.task('default', ['clean'], function() {
-//     gulp.start('styles', 'scripts', 'images', 'minify-html');
-// });
-
 // Default
-gulp.task('default', function() {
-    gulp.start('critical');
+gulp.task('default', ['clean'], function() {
+    gulp.start('styles', 'scripts', 'images', 'minify-html');
 });
+
 
 // Minify HTML
 gulp.task('minify-html', function() {
@@ -190,7 +141,7 @@ gulp.task('gulpfile-lint', function() {
 gulp.task('watch', function() {
 
     // Watch .scss files
-    gulp.watch('src/styles/**/*.scss', ['critical-styles']);
+    gulp.watch('src/styles/**/*.scss', ['styles']);
 
     // Watch .js files
     gulp.watch('src/scripts/**/*.js', ['scripts']);
@@ -199,8 +150,52 @@ gulp.task('watch', function() {
     gulp.watch('src/images/**/*', ['images']);
 
     // Watch src/index.html
-    gulp.watch('src/*.html', ['critical-html']);
+    gulp.watch('src/*.html', ['minify-html']);
 
     // Watch this file
     gulp.watch('gulpfile.js', ['gulpfile-lint']);
 });
+
+/*** No longer used due to measured decrease in performance ***/
+// // Critical CSS
+// gulp.task('critical', ['styles', 'scripts', 'images', 'minify-html'], function () {
+//     critical.generate({
+//         inline: true,
+//         base: '.',
+//         src: 'index.html',
+//         minify: true,
+//         css: ['dist/styles/main.min.css'],
+//         width: 1900,
+//         height: 1300,
+//         dest: 'index.html',
+//     });
+// });
+
+// // Critical CSS that is used by watch, responds to changes in any scss files,
+// // requires that a minified HTML file is already present in root dir.
+// gulp.task('critical-styles', ['styles'], function () {
+//     critical.generate({
+//         inline: true,
+//         base: '.',
+//         src: 'index.html',
+//         minify: true,
+//         css: ['dist/styles/main.min.css'],
+//         width: 1900,
+//         height: 1300,
+//         dest: 'index.html',
+//     });
+// });
+
+// // Critical CSS that is used by watch, responds to changes in the html file,
+// gulp.task('critical-html', ['minify-html'], function () {
+//     critical.generate({
+//         inline: true,
+//         base: '.',
+//         src: 'index.html',
+//         minify: true,
+//         css: ['dist/styles/main.min.css'],
+//         width: 1900,
+//         height: 1300,
+//         dest: 'index.html',
+//     });
+// });
