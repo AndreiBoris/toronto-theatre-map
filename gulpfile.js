@@ -35,16 +35,17 @@ gulp.task('styles', function() {
 // Scripts
 gulp.task('scripts', function() {
     return gulp.src(['src/scripts/mapmanager.js',
-        'src/scripts/utilities.js',
-        'src/scripts/mapmanger.js',
-        'src/scripts/attributes.js',
-        'src/scripts/markers.js',
-        'src/scripts/twitter.js',
-        'src/scripts/filter.js',
-        'src/scripts/glow.js',
-        'src/scripts/sort.js',
-        'src/scripts/divs.js',
-        'src/scripts/start.js'])
+            'src/scripts/utilities.js',
+            'src/scripts/mapmanger.js',
+            'src/scripts/attributes.js',
+            'src/scripts/markers.js',
+            'src/scripts/twitter.js',
+            'src/scripts/filter.js',
+            'src/scripts/glow.js',
+            'src/scripts/sort.js',
+            'src/scripts/divs.js',
+            'src/scripts/start.js'
+        ])
         .pipe(jshint('.jshintrc'))
         .pipe(jshint.reporter('default'))
         .pipe(concat('main.js'))
@@ -88,6 +89,21 @@ gulp.task('scripts', function() {
 //             message: 'minature task complete'
 //         }));
 // });
+
+// Temp task used to minify the jsLoading script
+gulp.task('minime', function() {
+    return gulp.src(['dist/perm/production/jsLoading.js'])
+        .pipe(jshint('.jshintrc'))
+        .pipe(jshint.reporter('default'))
+        .pipe(rename({
+            suffix: '.min'
+        }))
+        .pipe(uglify())
+        .pipe(gulp.dest('dist/perm/production'))
+        .pipe(notify({
+            message: 'minature task complete'
+        }));
+});
 
 // Clean images
 gulp.task('clean-images', function() {
