@@ -341,6 +341,17 @@ Starts offscreen
   color: maroon;
 }
 
+/*** The list enumerating the directions to get to the theatre ***/
+.directions {
+  list-style-type: decimal;
+  margin-left: 1em;
+}
+
+/*** List items in the directions list ***/
+.direction {
+  line-height: 1.35em;
+}
+
 /*** This is the div enclosing .current-display. We make sure that we can scroll
 through the current display and that the buttons stay at the bottom. If we made
 the height of current display the same effect would not result. ***/
