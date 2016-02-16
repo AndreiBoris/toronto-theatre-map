@@ -159,6 +159,8 @@ var TheatreMapViewModel = (function(self, ko) {
      * about a marker.
      */
     self.$divInfo = $('#display-div');
+    self.$directionsButton = $('#direction-button');
+    self.showDirections = ko.observable(false);
 
 
     /**

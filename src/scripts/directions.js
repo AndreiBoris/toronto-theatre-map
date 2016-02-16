@@ -21,11 +21,9 @@ var TheatreMapViewModel = (function(self, mapManager, google) {
             travelMode: google.maps.TravelMode.TRANSIT
         };
         mapManager.directionsService.route(request, function(result, status) {
-            if (status == google.maps.DirectionsStatus.OK) {
+            if (status === google.maps.DirectionsStatus.OK) {
                 mapManager.directionsDisplay.setDirections(result);
-                // EMPTY THE ARRAY
                 self.currentDirections.removeAll();
-                // FILL IT BELOW
                 result.routes[0].legs[0].steps.forEach(function(curVal, index, array) {
                     self.currentDirections.push(curVal.instructions);
                 });
@@ -33,7 +31,16 @@ var TheatreMapViewModel = (function(self, mapManager, google) {
 
             }
         });
-    }
+    };
+
+    self.toggleDirections = function(){
+        console.log('Toggling the directions!');
+        self.showDirections(!self.showDirections());
+    };
+
+    self.moveButton = function(){
+        $('#opened-info-window').append(self.$directionsButton);
+    };
 
     /**
      * Add the above methods to TheatreMapViewModel

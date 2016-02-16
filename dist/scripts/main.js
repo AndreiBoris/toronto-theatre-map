@@ -21,7 +21,7 @@ var mapManager = {
             lat: 43.657899,
             lng: -79.3782433
         };
-        
+
         /**
          * Here we initialize the services that will allow us to display 
          * directions to and from the theatres from various ttc locations.
@@ -964,6 +964,8 @@ var TheatreMapViewModel = (function(self, ko) {
      * about a marker.
      */
     self.$divInfo = $('#display-div');
+    self.$directionsButton = $('#direction-button');
+    self.showDirections = ko.observable(false);
 
 
     /**
@@ -984,6 +986,57 @@ var TheatreMapViewModel = (function(self, ko) {
     return self;
 
 }(TheatreMapViewModel || {}, ko));
+
+var mapManager = mapManager || {};
+var google = google || {};
+
+/**
+ * The module provides methods for accessing the Google Maps Directions API.
+ * @param  {object} self        TheatreMapViewModel object without this module.
+ * @param  {object} mapManager  Object with map related methods and variables.
+ * @param  {object} google      Google Maps API
+ * @return {object}             TheatreMapViewModel with these added methods.
+ */
+var TheatreMapViewModel = (function(self, mapManager, google) {
+    'use strict';
+
+    self.calcRoute = function(destination) {
+        var request = {
+            origin: {
+                lat: 43.645220,
+                lng: -79.380836
+            },
+            destination: destination,
+            travelMode: google.maps.TravelMode.TRANSIT
+        };
+        mapManager.directionsService.route(request, function(result, status) {
+            if (status === google.maps.DirectionsStatus.OK) {
+                mapManager.directionsDisplay.setDirections(result);
+                self.currentDirections.removeAll();
+                result.routes[0].legs[0].steps.forEach(function(curVal, index, array) {
+                    self.currentDirections.push(curVal.instructions);
+                });
+                self.currentCopyrights(result.routes[0].copyrights);
+
+            }
+        });
+    };
+
+    self.toggleDirections = function(){
+        console.log('Toggling the directions!');
+        self.showDirections(!self.showDirections());
+    };
+
+    self.moveButton = function(){
+        $('#opened-info-window').append(self.$directionsButton);
+    };
+
+    /**
+     * Add the above methods to TheatreMapViewModel
+     */
+    return self;
+
+}(TheatreMapViewModel || {}, mapManager, google));
 
 var ko = ko || {};
 var mapManager = mapManager || {};
@@ -1177,6 +1230,8 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         // Move to a position where the Info Window can be displayed and open it.
         mapManager.map.panTo(marker.getPosition());
         self.openInfoWindow(marker);
+        // Move button to show directions to the opened InfoWindow
+        self.moveButton();
 
         // Show the directions from Union Station to this location
         self.calcRoute(marker.position);
@@ -1262,11 +1317,11 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
      *                         website properly formatted.
      */
     self.currentInfo = ko.computed(function() {
-        var content = '<div><span class="info-title">' +
+        var content = '<div id="opened-info-window"><span class="info-title">' +
             self.currentTitle() +
             '</span><br>' +
             self.currentAddress() +
-            '</div>';
+            '<br></div>';
         return content;
     });
 

@@ -92,11 +92,14 @@
                 <br>
                 <p data-bind="text: currentAddress"></p>
                 <br>
-                <ul class="directions" data-bind="foreach: currentDirections">
-                    <li class="direction" data-bind="text: $data"></li>
-                </ul>
-                <br>
-                <p data-bind="text: currentCopyrights"></p>
+                <button id="direction-button" data-bind="click: toggleDirections">Show Directions</button>
+                <div data-bind="visible: showDirections">
+                    <ul class="directions" data-bind="foreach: currentDirections">
+                        <li class="direction" data-bind="text: $data"></li>
+                    </ul>
+                    <br>
+                    <p data-bind="text: currentCopyrights"></p>
+                </div>
             </div>
         </div>
         <div class="button-flex">

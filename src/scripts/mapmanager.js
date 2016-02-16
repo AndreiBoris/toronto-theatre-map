@@ -21,7 +21,7 @@ var mapManager = {
             lat: 43.657899,
             lng: -79.3782433
         };
-        
+
         /**
          * Here we initialize the services that will allow us to display 
          * directions to and from the theatres from various ttc locations.

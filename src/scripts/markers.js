@@ -190,6 +190,8 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         // Move to a position where the Info Window can be displayed and open it.
         mapManager.map.panTo(marker.getPosition());
         self.openInfoWindow(marker);
+        // Move button to show directions to the opened InfoWindow
+        self.moveButton();
 
         // Show the directions from Union Station to this location
         self.calcRoute(marker.position);
@@ -275,11 +277,11 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
      *                         website properly formatted.
      */
     self.currentInfo = ko.computed(function() {
-        var content = '<div><span class="info-title">' +
+        var content = '<div id="opened-info-window"><span class="info-title">' +
             self.currentTitle() +
             '</span><br>' +
             self.currentAddress() +
-            '</div>';
+            '<br></div>';
         return content;
     });
 
