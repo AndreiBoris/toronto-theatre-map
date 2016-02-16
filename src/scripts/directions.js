@@ -23,6 +23,7 @@ var TheatreMapViewModel = (function(self, mapManager, google) {
         mapManager.directionsService.route(request, function(result, status) {
             if (status == google.maps.DirectionsStatus.OK) {
                 mapManager.directionsDisplay.setDirections(result);
+                self.currentDirections.push('Another step');
             }
         });
     }

@@ -90,7 +90,11 @@
                 </h4>
                 <p data-bind="text: currentBlurb"></p>
                 <br>
-                <p data-bind="text: currentAddress">
+                <p data-bind="text: currentAddress"></p>
+                <br>
+                <ul data-bind="foreach: currentDirections">
+                    <li data-bind="text: $data"></li>
+                </ul>
             </div>
         </div>
         <div class="button-flex">
