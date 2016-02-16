@@ -66,6 +66,11 @@ body {
   font-family: Georgia, Serif;
 }
 
+div,
+li {
+  box-sizing: border-box;
+}
+
 /*** All buttons inherit this class to change cursor ***/
 .button-all, .button-50, .button-list-item, .button-filter-item, .button-100 {
   cursor: pointer;

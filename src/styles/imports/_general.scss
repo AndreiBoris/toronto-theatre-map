@@ -10,6 +10,11 @@ body {
     font-family: Georgia, Serif;
 }
 
+div,
+li {
+    box-sizing: border-box;
+}
+
 
 /*** All buttons inherit this class to change cursor ***/
 
