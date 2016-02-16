@@ -24,6 +24,9 @@ var TheatreMapViewModel = (function(self, mapManager, google) {
             if (status == google.maps.DirectionsStatus.OK) {
                 mapManager.directionsDisplay.setDirections(result);
                 self.currentDirections.push('Another step');
+                console.log(result.routes[0]);
+                self.currentCopyrights(result.routes[0].copyrights);
+
             }
         });
     }
