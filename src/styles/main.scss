@@ -1,9 +1,5 @@
 /*********************
-These are the styles that are visible upon first rendering.
-*********************/
-
-/*********************
-General
+Initial Page
 *********************/
 
 @import 'imports/reset';
@@ -12,102 +8,54 @@ General
 @import 'imports/general';
 
 
-/*********************
-Map
-*********************/
-
-
 @import 'imports/map';
-
-
-/*********************
-Off screen
-*********************/
 
 
 @import 'imports/offscreen';
 
 
-/*********************
-Tabs
-*********************/
-
-
 @import 'imports/tabs';
-
-
-/*********************
-Display div
-*********************/
-
-// nothing here, all in imports/offscreen/_off_display_div.scss
-
-
-/*********************
-List div
-*********************/
-
-// nothing here, all in imports/offscreen/_off_list_div.scss
-
-
-/*********************
-Twitter div
-*********************/
-
-
-// nothing here, all in imports/offscreen/_off_twitter_div.scss
-
-
-/*********************
-Filter div
-*********************/
-
-
-// nothing here, all in imports/offscreen/_off_filter_div.scss
-
-
-/*********************
-Credit div
-*********************/
 
 
 @import 'imports/credit_div';
 
 
-/*********************
-Info Windows
-*********************/
-
-
-// nothing here, all in imports/offscreen/_off_info_win.scss
-
-
-/*********************
-Media Queries
-*********************/
-
 @import 'imports/media_queries';
 
+/*********************
+Dependencies
+*********************/
 
+// @import 'imports/offscreen';
 
+// @import 'imports/tabs';
 
-// @import 'imports/offscreen/off_buttons';
+// @import 'imports/offscreen/off_dependencies';
 
-// @import 'imports/offscreen/off_general';
+/*********************
+Starts offscreen
+*********************/
 
-// @import 'imports/offscreen/off_offscreen';
+/*** These styles do not influence anything in the opening screen and can be 
+    loaded asynchronously if this will help with speed. ***/
 
-// @import 'imports/offscreen/off_display_div'; 
+@import 'imports/offscreen/off_buttons';
 
-// @import 'imports/offscreen/off_list_div';
+@import 'imports/offscreen/off_general';
 
-// @import 'imports/offscreen/off_twitter_div';
+@import 'imports/offscreen/off_offscreen';
 
-// @import 'imports/offscreen/off_filter_div';
+@import 'imports/offscreen/off_display_div'; 
 
-// @import 'imports/offscreen/off_credit_div';
+@import 'imports/offscreen/off_list_div';
 
-// @import 'imports/offscreen/off_info_win';
+@import 'imports/offscreen/off_twitter_div';
 
-// @import 'imports/offscreen/off_media_queries';
+@import 'imports/offscreen/off_filter_div';
+
+@import 'imports/offscreen/off_credit_div';
+
+@import 'imports/offscreen/off_info_win';
+
+@import 'imports/offscreen/off_media_queries';
 
