@@ -16,11 +16,14 @@
     // see dist/perm/production/jsLoading.js for details
     // Currently in DEVELOPMENT MODE
     'use strict';
+    // If you add a script here, be sure to add it to the gulp file load order
+    // as well in the Scripts task
     var scripts = [
         'dist/perm/production/jquery_and_knockout.min.js',
         'src/scripts/mapmanager.js', // development mode
         'src/scripts/utilities.js', // development mode
         'src/scripts/attributes.js', // development mode
+        'src/scripts/directions.js', // development mode
         'src/scripts/markers.js', // development mode
         'src/scripts/twitter.js', // development mode
         'src/scripts/filter.js', // development mode

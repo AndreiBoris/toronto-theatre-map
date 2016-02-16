@@ -38,6 +38,7 @@ gulp.task('scripts', function() {
             'src/scripts/utilities.js',
             'src/scripts/mapmanger.js',
             'src/scripts/attributes.js',
+            'src/scripts/directions.js',
             'src/scripts/markers.js',
             'src/scripts/twitter.js',
             'src/scripts/filter.js',

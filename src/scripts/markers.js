@@ -191,6 +191,9 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         mapManager.map.panTo(marker.getPosition());
         self.openInfoWindow(marker);
 
+        // Show the directions from Union Station to this location
+        self.calcRoute(marker.position);
+
         self.openLeftDiv(); // Open the div that slides from offscreen left.
         self.activeTwitter(marker.twitterHandle); // What Twitter feed to get
         self.userTwitter(); // Twitter should go into user view

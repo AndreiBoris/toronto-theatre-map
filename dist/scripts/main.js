@@ -21,6 +21,15 @@ var mapManager = {
             lat: 43.657899,
             lng: -79.3782433
         };
+        
+        /**
+         * Here we initialize the services that will allow us to display 
+         * directions to and from the theatres from various ttc locations.
+         * NOTE: This is probably better to do in addMarkers inside markers.js
+         * as that wouldn't slow down the initial rendering of the map.
+         */
+        this.directionsService = new google.maps.DirectionsService();
+        this.directionsDisplay = new google.maps.DirectionsRenderer();
 
         // Keep a tab on the screen width in order to determine certain 
         // responsive features.
@@ -36,6 +45,10 @@ var mapManager = {
             zoom: 12,
             disableDefaultUI: true
         });
+
+        // Assign the directions display to our map so that we can see 
+        // directions.
+        this.directionsDisplay.setMap(this.map);
 
         /**
          * Add the markers stored in mapManager.markerData through an 
@@ -1162,6 +1175,9 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         // Move to a position where the Info Window can be displayed and open it.
         mapManager.map.panTo(marker.getPosition());
         self.openInfoWindow(marker);
+
+        // Show the directions from Union Station to this location
+        self.calcRoute(marker.position);
 
         self.openLeftDiv(); // Open the div that slides from offscreen left.
         self.activeTwitter(marker.twitterHandle); // What Twitter feed to get
