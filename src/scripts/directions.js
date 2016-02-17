@@ -91,6 +91,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         // This variable determines visibility of step instructions on the view
         self.showDirections(!self.showDirections()); // Toggle
         if (self.showDirections()) { // Direction are showing
+            self.closeLeftDiv();
             self.$divInfo.addClass('direction-extention');
             // Create a new object that will draw directions on the map. This 
             // overrides the old object, allowing us to not have to see a flash
@@ -109,6 +110,10 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
             self.closeDirections();
         }
     };
+
+    self.directionText = ko.computed(function() {
+        return self.showDirections() ? 'Hide Directions' : 'Show Directions';
+    });
 
     /**
      * Hide the directions drawn on the map.

@@ -640,7 +640,7 @@ mapManager.util = (function() {
         // Set InfoWindows to this before giving them relevant content.
         blankInfoWin: {
             content: '',
-            maxWidth: 200,
+            maxWidth: 240,
         },
 
         // What new markers are set to before being given the correct coordinates.
@@ -1083,6 +1083,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         // This variable determines visibility of step instructions on the view
         self.showDirections(!self.showDirections()); // Toggle
         if (self.showDirections()) { // Direction are showing
+            self.closeLeftDiv();
             self.$divInfo.addClass('direction-extention');
             // Create a new object that will draw directions on the map. This 
             // overrides the old object, allowing us to not have to see a flash
@@ -1101,6 +1102,10 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
             self.closeDirections();
         }
     };
+
+    self.directionText = ko.computed(function() {
+        return self.showDirections() ? 'Hide Directions' : 'Show Directions';
+    });
 
     /**
      * Hide the directions drawn on the map.
@@ -1148,6 +1153,8 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
     /**
      * Here we open the info div. Close all other divs if the screen is small
      * enough.
+     * NOTE: This method needs to be in this module in order to ensure we can
+     * run infoWindowBinder when we addMarkers
      */
     self.openLeftDiv = function() {
         self.$divInfo.addClass('left-div-on');
@@ -1916,6 +1923,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
 }(TheatreMapViewModel || {}, ko, mapManager));
 
 var mapManager = mapManager || {};
+var ko = ko || {};
 
 /**
  * The module provides methods for opening and closing the offscreen divs.
@@ -1923,7 +1931,7 @@ var mapManager = mapManager || {};
  * @param  {object} mapManager  Object with map related methods and variables.
  * @return {object}             TheatreMapViewModel with these added methods.
  */
-var TheatreMapViewModel = (function(self, mapManager) {
+var TheatreMapViewModel = (function(self, ko, mapManager) {
     'use strict';
 
     /**
@@ -1971,12 +1979,16 @@ var TheatreMapViewModel = (function(self, mapManager) {
         console.log(self.creditOn());
     };
 
+    self.detailText = ko.computed(function() {
+        return self.showDirections() ? 'Direction Steps' : 'Get Details';
+    });
+
     /**
      * Add the above methods to TheatreMapViewModel
      */
     return self;
 
-}(TheatreMapViewModel || {}, mapManager));
+}(TheatreMapViewModel || {}, ko, mapManager));
 
 var TheatreMapViewModel = TheatreMapViewModel || {};
 var ko = ko || {};

@@ -72,7 +72,7 @@ li {
 }
 
 /*** All buttons inherit this class to change cursor ***/
-.button-all, .button-50, .button-list-item, .button-filter-item, .button-100 {
+.button-all, .button-50, .button-list-item, .button-filter-item, .button-100, .button-50-info {
   cursor: pointer;
   cursor: hand;
 }
@@ -209,13 +209,17 @@ Starts offscreen
 *********************/
 /*** These styles do not influence anything in the opening screen and can be 
     loaded asynchronously if this will help with speed. ***/
-/*** Buttons at the top of right divs sorting. In flexbox. ***/
-.button-50 {
+/*** Inherited by button-50 and button-50-info in _off_info_win.scss ***/
+.button-50-shared, .button-50, .button-50-info {
   width: 50%;
   padding-top: 0.8em;
-  height: 2.7em;
   font-weight: bold;
   color: white;
+}
+
+/*** Buttons at the top of right divs sorting. In flexbox. ***/
+.button-50 {
+  height: 2.7em;
 }
 
 /*** Font sizes can be bumped up slight on larger screen ***/
@@ -555,10 +559,21 @@ hovering over any of them specifically. ***/
   bottom: 0;
 }
 
+/*** Helps ensure that the .button-50-infos can be displayed fully without
+requiring a 2nd line for text. ***/
+#opened-info-window {
+  min-width: 16em;
+}
+
 /*** Title of each theatre in the Info Windows appearing on markers ***/
 .info-title {
   font-weight: bold;
   font-size: 1.15em;
+}
+
+/*** Buttons at the bottom of InfoWindows. In flexbox. ***/
+.button-50-info {
+  height: 2.9em;
 }
 
 @media only screen and (max-width: 72em) {

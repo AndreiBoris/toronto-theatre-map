@@ -11,7 +11,7 @@ mapManager.util = (function() {
         // Set InfoWindows to this before giving them relevant content.
         blankInfoWin: {
             content: '',
-            maxWidth: 200,
+            maxWidth: 240,
         },
 
         // What new markers are set to before being given the correct coordinates.

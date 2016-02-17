@@ -16,6 +16,8 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
     /**
      * Here we open the info div. Close all other divs if the screen is small
      * enough.
+     * NOTE: This method needs to be in this module in order to ensure we can
+     * run infoWindowBinder when we addMarkers
      */
     self.openLeftDiv = function() {
         self.$divInfo.addClass('left-div-on');

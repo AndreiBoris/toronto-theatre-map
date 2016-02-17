@@ -1,14 +1,20 @@
-/*** Buttons at the top of right divs sorting. In flexbox. ***/
+/*** Inherited by button-50 and button-50-info in _off_info_win.scss ***/
 
-.button-50 {
-    @extend .button-all;
+.button-50-shared {
     width: 50%;
     padding-top: 0.8em;
-    height: 2.7em;
     font-weight: bold;
     color: white; // Need background color or else text is invisible.
 }
 
+/*** Buttons at the top of right divs sorting. In flexbox. ***/
+
+.button-50 {
+    @extend .button-all;
+    @extend .button-50-shared;
+    height: 2.7em;
+    
+}
 
 /*** Font sizes can be bumped up slight on larger screen ***/
 

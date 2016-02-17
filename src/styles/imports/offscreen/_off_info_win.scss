@@ -1,6 +1,21 @@
+/*** Helps ensure that the .button-50-infos can be displayed fully without
+requiring a 2nd line for text. ***/
+
+#opened-info-window{
+    min-width: 16em;
+}
+
 /*** Title of each theatre in the Info Windows appearing on markers ***/
 
 .info-title {
     font-weight: bold;
     font-size: 1.15em;
+}
+
+/*** Buttons at the bottom of InfoWindows. In flexbox. ***/
+
+.button-50-info {
+    @extend .button-all;
+    @extend .button-50-shared;
+    height: 2.9em;
 }

@@ -1,4 +1,5 @@
 var mapManager = mapManager || {};
+var ko = ko || {};
 
 /**
  * The module provides methods for opening and closing the offscreen divs.
@@ -6,7 +7,7 @@ var mapManager = mapManager || {};
  * @param  {object} mapManager  Object with map related methods and variables.
  * @return {object}             TheatreMapViewModel with these added methods.
  */
-var TheatreMapViewModel = (function(self, mapManager) {
+var TheatreMapViewModel = (function(self, ko, mapManager) {
     'use strict';
 
     /**
@@ -54,9 +55,13 @@ var TheatreMapViewModel = (function(self, mapManager) {
         console.log(self.creditOn());
     };
 
+    self.detailText = ko.computed(function() {
+        return self.showDirections() ? 'Direction Steps' : 'Get Details';
+    });
+
     /**
      * Add the above methods to TheatreMapViewModel
      */
     return self;
 
-}(TheatreMapViewModel || {}, mapManager));
+}(TheatreMapViewModel || {}, ko, mapManager));

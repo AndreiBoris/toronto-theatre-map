@@ -89,12 +89,19 @@
                 text: currentTitle"></a>
                 </h4>
                 <div data-bind="visible: !showDirections()">
-                <p data-bind="text: currentBlurb"></p>
-                <br>
+                    <p data-bind="text: currentBlurb"></p>
+                    <br>
                 </div>
                 <p data-bind="text: currentAddress"></p>
                 <br>
-                <button id="direction-button" data-bind="click: toggleDirections">Show Directions</button>
+                <div id="direction-button" class="button-flex bottom-of-div">
+                    <div href="" class="button-50-info button-purple" data-bind="click: toggleDirections,
+                    text: directionText">
+                    </div>
+                    <div href="" class="button-50-info button-teal" data-bind="click: openLeftDiv,
+                    text: detailText">
+                    </div>
+                </div>
                 <div data-bind="visible: showDirections">
                     <ul class="directions" data-bind="foreach: currentDirections">
                         <li class="direction" data-bind="text: $data"></li>
