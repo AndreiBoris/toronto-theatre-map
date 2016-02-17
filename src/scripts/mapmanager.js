@@ -29,7 +29,7 @@ var mapManager = {
          * as that wouldn't slow down the initial rendering of the map.
          */
         this.directionsService = new google.maps.DirectionsService();
-        this.directionsDisplay = new google.maps.DirectionsRenderer();
+        // this.directionsDisplay = new google.maps.DirectionsRenderer();
 
         // Keep a tab on the screen width in order to determine certain 
         // responsive features.
@@ -48,7 +48,7 @@ var mapManager = {
 
         // Assign the directions display to our map so that we can see 
         // directions.
-        this.directionsDisplay.setMap(this.map);
+        // this.directionsDisplay.setMap(this.map);
 
         /**
          * Add the markers stored in mapManager.markerData through an 

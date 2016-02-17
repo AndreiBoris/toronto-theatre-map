@@ -37,6 +37,7 @@ var TheatreMapViewModel = (function(self, mapManager, google) {
         self.showDirections(!self.showDirections());
         // Show the directions from Union Station to this location
         if (self.showDirections()) {
+            mapManager.directionsDisplay = new google.maps.DirectionsRenderer();
             mapManager.directionsDisplay.setMap(mapManager.map);
             self.calcRoute(self.currentPosition());
         }
