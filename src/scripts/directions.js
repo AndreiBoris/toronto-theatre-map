@@ -73,7 +73,8 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
      */
     self.travelTime = ko.computed(function() {
         if (self.currentTravelDuration() === 0) {
-            return 'Directions could not be accessed. Sorry!';
+            return 'Loading directions from Google Maps. If this message persists, ' +
+            'there might be a connection problem :(';
         } else {
             var pluralWatch = self.currentTravelDuration() === 1 ? '.' : 's.';
             var sentence = 'This route will take approximately ' +
