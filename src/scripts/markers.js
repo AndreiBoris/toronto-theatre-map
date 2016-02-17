@@ -194,9 +194,11 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         // Move button to show directions to the opened InfoWindow
         self.moveButton();
 
+        // If we were already showing directions, we should stop, as the user 
+        // is now looking at a different marker.
         if (self.showDirections()){
-            self.showDirections(false);
-            mapManager.directionsDisplay.setMap(null);
+            self.showDirections(false); // Remove text directions
+            mapManager.directionsDisplay.setMap(null); // Remove map directions
         }
 
         self.openLeftDiv(); // Open the div that slides from offscreen left.
