@@ -1079,28 +1079,43 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
     /**
      * Toggle whether the directions are being shown or not.
      */
-    self.toggleDirections = function() {
+    self.toggleDirections = function(option) {
         // This variable determines visibility of step instructions on the view
         self.showDirections(!self.showDirections()); // Toggle
         if (self.showDirections()) { // Direction are showing
-            self.closeLeftDiv();
-            self.$divInfo.addClass('direction-extention');
-            // Create a new object that will draw directions on the map. This 
-            // overrides the old object, allowing us to not have to see a flash
-            // of the old directions when we switch to new directions. 
-            // NOTE: This might be eating up memory in some way as the 
-            // DirectionsRenderer still displays on the google.map had it not
-            // been `setMap`ed to `null` even when there is no reference to it.
-            mapManager.directionsDisplay = new google.maps.DirectionsRenderer();
-            // Apply this object to our Google map
-            mapManager.directionsDisplay.setMap(mapManager.map);
-            // Figure out how to get to the position of the currently selected
-            // marker and display this information to user
-            self.calcRoute(self.currentPosition());
+            if (option === 'infoWin') { // Called from InfoWindow
+                self.closeLeftDiv();
+            }
+            self.openDirections();
         } else {
             // Hide the directions drawn on the map
             self.closeDirections();
         }
+    };
+
+    self.toggleDirectionsDisplay = function() {
+        self.toggleDirections();
+    };
+
+    self.toggleDirectionsInfo = function() {
+        self.toggleDirections('infoWin');
+    };
+
+    self.openDirections = function(option) {
+
+        self.$divInfo.addClass('direction-extention');
+        // Create a new object that will draw directions on the map. This 
+        // overrides the old object, allowing us to not have to see a flash
+        // of the old directions when we switch to new directions. 
+        // NOTE: This might be eating up memory in some way as the 
+        // DirectionsRenderer still displays on the google.map had it not
+        // been `setMap`ed to `null` even when there is no reference to it.
+        mapManager.directionsDisplay = new google.maps.DirectionsRenderer();
+        // Apply this object to our Google map
+        mapManager.directionsDisplay.setMap(mapManager.map);
+        // Figure out how to get to the position of the currently selected
+        // marker and display this information to user
+        self.calcRoute(self.currentPosition());
     };
 
     self.directionText = ko.computed(function() {
@@ -1111,7 +1126,10 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
      * Hide the directions drawn on the map.
      */
     self.closeDirections = function() {
-        mapManager.directionsDisplay.setMap(null);
+        // Test to make sure we already created a directionsDisplay object
+        if (mapManager.directionsDisplay) { 
+            mapManager.directionsDisplay.setMap(null);
+        }
         self.$divInfo.removeClass('direction-extention');
     };
 

@@ -53,3 +53,14 @@ the height of current display the same effect would not result. ***/
 .bottom-of-div {
     float: bottom;
 }
+
+#address-line {
+    align-self: center;
+    &:hover{
+        border: none;
+    }
+}
+
+.text-50 {
+    width: 50%;
+}

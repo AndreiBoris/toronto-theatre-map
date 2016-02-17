@@ -386,6 +386,19 @@ the height of current display the same effect would not result. ***/
   float: bottom;
 }
 
+#address-line {
+  -webkit-align-self: center;
+      -ms-flex-item-align: center;
+          align-self: center;
+}
+#address-line:hover {
+  border: none;
+}
+
+.text-50 {
+  width: 50%;
+}
+
 /*** Thin border to mark end of list-div when it it open ***/
 #list-div {
   border-left: 0.05em solid #d9d9d9;
