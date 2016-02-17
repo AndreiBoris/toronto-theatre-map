@@ -82,6 +82,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         // This variable determines visibility of step instructions on the view
         self.showDirections(!self.showDirections()); // Toggle
         if (self.showDirections()) { // Direction are showing
+            self.$divInfo.addClass('direction-extention');
             // Create a new object that will draw directions on the map. This 
             // overrides the old object, allowing us to not have to see a flash
             // of the old directions when we switch to new directions. 
@@ -105,6 +106,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
      */
     self.closeDirections = function() {
         mapManager.directionsDisplay.setMap(null);
+        self.$divInfo.removeClass('direction-extention');
     };
 
     /**

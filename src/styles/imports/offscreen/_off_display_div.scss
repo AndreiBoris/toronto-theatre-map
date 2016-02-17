@@ -41,3 +41,13 @@ the height of current display the same effect would not result. ***/
     overflow: auto;
     height: 80%;
 }
+
+#display-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.bottom-of-div {
+    float: bottom;
+}
