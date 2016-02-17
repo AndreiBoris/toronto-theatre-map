@@ -94,6 +94,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         if (self.showDirections()) { // Direction are showing
             if (option === 'infoWin') { // Called from InfoWindow
                 self.closeLeftDiv(); // Remove display div to make space
+                self.closeRightDivs(); // Remove right divs to make space
             }
             self.openDirections();
         } else {

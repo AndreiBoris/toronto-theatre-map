@@ -1092,6 +1092,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         if (self.showDirections()) { // Direction are showing
             if (option === 'infoWin') { // Called from InfoWindow
                 self.closeLeftDiv(); // Remove display div to make space
+                self.closeRightDivs(); // Remove right divs to make space
             }
             self.openDirections();
         } else {
@@ -1178,6 +1179,24 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
     'use strict';
 
     /**
+     * Close all right-divs
+     * NOTE: This method needs to be in this module in order to ensure we can
+     * run infoWindowBinder when we addMarkers. Move it to divs.js if this is 
+     * not desirable.
+     */
+    self.closeRightDivs = function() {
+        if (self.listIsOpen()) {
+            self.slideList();
+        }
+        if (self.twitterIsOpen()) {
+            self.slideTwitter();
+        }
+        if (self.filterIsOpen()) {
+            self.slideFilter();
+        }
+    };
+
+    /**
      * Here we open the info div. Close all other divs if the screen is small
      * enough.
      * NOTE: This method needs to be in this module in order to ensure we can
@@ -1189,15 +1208,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         self.$divInfo.removeClass('left-div-off');
         console.log('opening left div');
         if (mapManager.util.windowWidth < 1040) {
-            if (self.listIsOpen()) {
-                self.slideList();
-            }
-            if (self.twitterIsOpen()) {
-                self.slideTwitter();
-            }
-            if (self.filterIsOpen()) {
-                self.slideFilter();
-            }
+            self.closeRightDivs();
         }
     };
 
@@ -1363,7 +1374,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
 
         // If we were already showing directions, we should stop, as the user 
         // is now looking at a different marker.
-        if (self.showDirections()){
+        if (self.showDirections()) {
             self.showDirections(false); // Remove text directions
             mapManager.directionsDisplay.setMap(null); // Remove map directions
         }
