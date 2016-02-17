@@ -867,6 +867,8 @@ var TheatreMapViewModel = (function(self, ko) {
     self.currentDirections = ko.observableArray([]);
     self.currentCopyrights = ko.observable('');
     self.currentPosition = ko.observable({});
+    self.currentTravelDuration = ko.observable(0);
+
 
     /**
      * These observables are used in the computed newTwitterUser to determine
@@ -990,15 +992,17 @@ var TheatreMapViewModel = (function(self, ko) {
 
 var mapManager = mapManager || {};
 var google = google || {};
+var ko = ko || {};
 
 /**
  * The module provides methods for accessing the Google Maps Directions API.
  * @param  {object} self        TheatreMapViewModel object without this module.
+ * @param  {object} ko          Knockout object to provide framework methods.
  * @param  {object} mapManager  Object with map related methods and variables.
  * @param  {object} google      Google Maps API
  * @return {object}             TheatreMapViewModel with these added methods.
  */
-var TheatreMapViewModel = (function(self, mapManager, google) {
+var TheatreMapViewModel = (function(self, ko, mapManager, google) {
     'use strict';
 
     /**
@@ -1021,6 +1025,7 @@ var TheatreMapViewModel = (function(self, mapManager, google) {
             if (status === google.maps.DirectionsStatus.OK) { // got a response
                 var tags = /<[^>]*>/g;
                 var destinationFix = /Destination/g;
+                self.currentTravelDuration(0);
                 // Draw the graphical overlay showing directions on map
                 mapManager.directionsDisplay.setDirections(result);
                 self.currentDirections.removeAll(); // Clear the current directions array
@@ -1028,6 +1033,10 @@ var TheatreMapViewModel = (function(self, mapManager, google) {
                 // the theatre in steps.
                 result.routes[0].legs[0].steps.forEach(function(curVal, index, array) {
                     self.currentDirections.push(curVal.instructions);
+                    // console.log(parseInt(curVal.duration.text));
+                    self.currentTravelDuration(self.currentTravelDuration() + 
+                        parseInt(curVal.duration.text));
+                    console.log(self.currentTravelDuration());
                     if (curVal.steps) { // Include detailed sub-steps
                         curVal.steps.forEach(function(innerVal, index, array) {
                             if (innerVal.instructions) {
@@ -1046,6 +1055,11 @@ var TheatreMapViewModel = (function(self, mapManager, google) {
             }
         });
     };
+
+    self.travelTime = ko.computed(function() {
+        return 'This route will take approximately ' + 
+        self.currentTravelDuration().toString() + ' minutes.';
+    });
 
     /**
      * Toggle whether the directions are being shown or not.
@@ -1090,7 +1104,7 @@ var TheatreMapViewModel = (function(self, mapManager, google) {
      */
     return self;
 
-}(TheatreMapViewModel || {}, mapManager, google));
+}(TheatreMapViewModel || {}, ko, mapManager, google));
 
 var ko = ko || {};
 var mapManager = mapManager || {};

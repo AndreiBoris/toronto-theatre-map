@@ -62,6 +62,8 @@ var TheatreMapViewModel = (function(self, ko) {
     self.currentDirections = ko.observableArray([]);
     self.currentCopyrights = ko.observable('');
     self.currentPosition = ko.observable({});
+    self.currentTravelDuration = ko.observable(0);
+
 
     /**
      * These observables are used in the computed newTwitterUser to determine
