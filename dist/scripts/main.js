@@ -1020,15 +1020,16 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
             destination: destination, // location of the marker we are targeting
             travelMode: google.maps.TravelMode.TRANSIT // transit directions
         };
+        // Clear the directions and duration from the last caclRoute call
+        self.currentDirections.removeAll();
+        self.currentTravelDuration(0);
         // Request the directions based on the request object defined above.
         mapManager.directionsService.route(request, function(result, status) {
             if (status === google.maps.DirectionsStatus.OK) { // got a response
                 var tags = /<[^>]*>/g;
                 var destinationFix = /Destination/g;
-                self.currentTravelDuration(0);
                 // Draw the graphical overlay showing directions on map
                 mapManager.directionsDisplay.setDirections(result);
-                self.currentDirections.removeAll(); // Clear the current directions array
                 // Create a new current directions array to display how to get to
                 // the theatre in steps.
                 result.routes[0].legs[0].steps.forEach(function(curVal, index, array) {
@@ -1055,6 +1056,8 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
                 // Add Google copyright to be displayed below instructions
                 self.currentCopyrights(result.routes[0].copyrights);
 
+            } else {
+
             }
         });
     };
@@ -1063,9 +1066,17 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
      * The sentence to display to user about the total travel time.
      */
     self.travelTime = ko.computed(function() {
-        return 'This route will take approximately ' +
-            self.currentTravelDuration().toString() + ' minutes.';
+        if (self.currentTravelDuration() === 0) {
+            return 'Directions could not be accessed. Sorry!';
+        } else {
+            var pluralWatch = self.currentTravelDuration() === 1 ? '.' : 's.';
+            var sentence = 'This route will take approximately ' +
+                self.currentTravelDuration().toString() + ' minute' +
+                pluralWatch;
+            return sentence;
+        }
     });
+
 
     /**
      * Toggle whether the directions are being shown or not.

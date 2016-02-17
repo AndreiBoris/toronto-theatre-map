@@ -365,6 +365,7 @@ the height of current display the same effect would not result. ***/
   height: 80%;
 }
 
+/*** ***/
 #display-div {
   display: -webkit-flex;
   display: -ms-flexbox;
