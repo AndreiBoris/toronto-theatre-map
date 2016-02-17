@@ -28,6 +28,7 @@ var TheatreMapViewModel = (function(self, ko) {
     self.listIsOpen = ko.observable(false);
     self.filterIsOpen = ko.observable(false);
     self.twitterIsOpen = ko.observable(false);
+    self.leftDivOpen = ko.observable(false);
 
     /**
      * Required to support slide and glow animations
@@ -164,6 +165,11 @@ var TheatreMapViewModel = (function(self, ko) {
     self.$divInfo = $('#display-div');
     self.$directionsButton = $('#direction-button');
     self.showDirections = ko.observable(false);
+
+    /**
+     * This button on the InfoWindow opens the left-div
+     */
+    self.$leftDivOpener = $('#left-div-open-button');
 
 
     /**

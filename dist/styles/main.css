@@ -589,6 +589,18 @@ requiring a 2nd line for text. ***/
   height: 2.9em;
 }
 
+/*** Fade out button when the left-div is already on ***/
+#left-div-open-button.button-disabled {
+  cursor: auto;
+  background: gray;
+  box-shadow: initial;
+  border: 0.15em solid black;
+  color: black;
+}
+#left-div-open-button.button-disabled:hover {
+  border: 0.15em solid black;
+}
+
 @media only screen and (max-width: 72em) {
   /*** Take up more space with the divs that start offscreen. ***/
   .right-divs {

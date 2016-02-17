@@ -15,7 +15,20 @@ requiring a 2nd line for text. ***/
 /*** Buttons at the bottom of InfoWindows. In flexbox. ***/
 
 .button-50-info {
-    @extend .button-all;
-    @extend .button-50-shared;
+    @extend .button-all; // See _general.scss
+    @extend .button-50-shared; // see _off_buttons.scss
     height: 2.9em;
+}
+
+/*** Fade out button when the left-div is already on ***/
+
+#left-div-open-button.button-disabled{
+    cursor: auto; 
+    background: gray; 
+    box-shadow: initial; 
+    border: 0.15em solid black;
+    color: black;
+    &:hover{
+        border: 0.15em solid black;
+    }
 }

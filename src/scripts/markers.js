@@ -20,6 +20,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
      * run infoWindowBinder when we addMarkers
      */
     self.openLeftDiv = function() {
+        self.leftDivOpen(true);
         self.$divInfo.addClass('left-div-on');
         self.$divInfo.removeClass('left-div-off');
         console.log('opening left div');

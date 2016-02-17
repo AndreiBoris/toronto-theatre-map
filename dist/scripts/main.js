@@ -833,6 +833,7 @@ var TheatreMapViewModel = (function(self, ko) {
     self.listIsOpen = ko.observable(false);
     self.filterIsOpen = ko.observable(false);
     self.twitterIsOpen = ko.observable(false);
+    self.leftDivOpen = ko.observable(false);
 
     /**
      * Required to support slide and glow animations
@@ -970,6 +971,11 @@ var TheatreMapViewModel = (function(self, ko) {
     self.$directionsButton = $('#direction-button');
     self.showDirections = ko.observable(false);
 
+    /**
+     * This button on the InfoWindow opens the left-div
+     */
+    self.$leftDivOpener = $('#left-div-open-button');
+
 
     /**
      * This will be the only google.maps.InfoWindow that is displayed.
@@ -1066,7 +1072,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
     self.travelTime = ko.computed(function() {
         if (self.currentTravelDuration() === 0) {
             return 'Loading directions from Google Maps. If this message persists, ' +
-            'there might be a connection problem :(');
+            'there might be a connection problem :(';
         } else {
             var pluralWatch = self.currentTravelDuration() === 1 ? '.' : 's.';
             var sentence = 'This route will take approximately ' +
@@ -1085,7 +1091,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         self.showDirections(!self.showDirections()); // Toggle
         if (self.showDirections()) { // Direction are showing
             if (option === 'infoWin') { // Called from InfoWindow
-                self.closeLeftDiv();
+                self.closeLeftDiv(); // Remove display div to make space
             }
             self.openDirections();
         } else {
@@ -1103,7 +1109,9 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
     };
 
     self.openDirections = function(option) {
-
+        // Extend the display div so that it can better present directions. This
+        // will not have any effect on smaller screens where display div is 
+        // always extended.
         self.$divInfo.addClass('direction-extention');
         // Create a new object that will draw directions on the map. This 
         // overrides the old object, allowing us to not have to see a flash
@@ -1176,6 +1184,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
      * run infoWindowBinder when we addMarkers
      */
     self.openLeftDiv = function() {
+        self.leftDivOpen(true);
         self.$divInfo.addClass('left-div-on');
         self.$divInfo.removeClass('left-div-off');
         console.log('opening left div');
@@ -1959,6 +1968,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
     self.closeLeftDiv = function() {
         self.$divInfo.addClass('left-div-off');
         self.$divInfo.removeClass('left-div-on');
+        self.leftDivOpen(false);
     };
 
     /**
@@ -1998,6 +2008,19 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
         console.log(self.creditOn());
     };
 
+    self.fadeDisplayDivButton = ko.computed(function() {
+        if (self.leftDivOpen()){
+            self.$leftDivOpener.addClass('button-disabled');
+        } else {
+            self.$leftDivOpener.removeClass('button-disabled');
+        }
+    });
+
+    /**
+     * Determine message for the button on the InfoWindow that brings out the 
+     * display div 
+     * @return {string}   Text to display on the button.
+     */
     self.detailText = ko.computed(function() {
         return self.showDirections() ? 'Direction Steps' : 'Get Details';
     });

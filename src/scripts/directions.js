@@ -93,7 +93,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         self.showDirections(!self.showDirections()); // Toggle
         if (self.showDirections()) { // Direction are showing
             if (option === 'infoWin') { // Called from InfoWindow
-                self.closeLeftDiv();
+                self.closeLeftDiv(); // Remove display div to make space
             }
             self.openDirections();
         } else {
@@ -111,7 +111,9 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
     };
 
     self.openDirections = function(option) {
-
+        // Extend the display div so that it can better present directions. This
+        // will not have any effect on smaller screens where display div is 
+        // always extended.
         self.$divInfo.addClass('direction-extention');
         // Create a new object that will draw directions on the map. This 
         // overrides the old object, allowing us to not have to see a flash

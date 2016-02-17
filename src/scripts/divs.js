@@ -16,6 +16,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
     self.closeLeftDiv = function() {
         self.$divInfo.addClass('left-div-off');
         self.$divInfo.removeClass('left-div-on');
+        self.leftDivOpen(false);
     };
 
     /**
@@ -55,6 +56,19 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
         console.log(self.creditOn());
     };
 
+    self.fadeDisplayDivButton = ko.computed(function() {
+        if (self.leftDivOpen()){
+            self.$leftDivOpener.addClass('button-disabled');
+        } else {
+            self.$leftDivOpener.removeClass('button-disabled');
+        }
+    });
+
+    /**
+     * Determine message for the button on the InfoWindow that brings out the 
+     * display div 
+     * @return {string}   Text to display on the button.
+     */
     self.detailText = ko.computed(function() {
         return self.showDirections() ? 'Direction Steps' : 'Get Details';
     });
