@@ -1056,8 +1056,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
                 // Add Google copyright to be displayed below instructions
                 self.currentCopyrights(result.routes[0].copyrights);
 
-            } else {
-
             }
         });
     };
