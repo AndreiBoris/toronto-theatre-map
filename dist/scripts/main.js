@@ -1019,6 +1019,8 @@ var TheatreMapViewModel = (function(self, mapManager, google) {
         // Request the directions based on the request object defined above.
         mapManager.directionsService.route(request, function(result, status) {
             if (status === google.maps.DirectionsStatus.OK) { // got a response
+                var tags = /<[^>]*>/g;
+                var destinationFix = /Destination/g;
                 // Draw the graphical overlay showing directions on map
                 mapManager.directionsDisplay.setDirections(result);
                 self.currentDirections.removeAll(); // Clear the current directions array
@@ -1026,6 +1028,17 @@ var TheatreMapViewModel = (function(self, mapManager, google) {
                 // the theatre in steps.
                 result.routes[0].legs[0].steps.forEach(function(curVal, index, array) {
                     self.currentDirections.push(curVal.instructions);
+                    if (curVal.steps) { // Include detailed sub-steps
+                        curVal.steps.forEach(function(innerVal, index, array) {
+                            if (innerVal.instructions) {
+                                var rawStep = innerVal.instructions.replace(tags, ' ');
+                                var cleanStep = rawStep.replace(destinationFix, '-> Destination');
+                                //console.log('Replacing ' + innerVal.instructions +
+                                //    ' with ' + cleanStep);
+                                self.currentDirections.push(cleanStep);
+                            }
+                        });
+                    }
                 });
                 // Add Google copyright to be displayed below instructions
                 self.currentCopyrights(result.routes[0].copyrights);
