@@ -56,6 +56,10 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
         console.log(self.creditOn());
     };
 
+    /**
+     * Fades out button on Info Window that displays the left div when it would
+     * have no effect.
+     */
     self.fadeDisplayDivButton = ko.computed(function() {
         if (self.leftDivOpen()){
             self.$leftDivOpener.addClass('button-disabled');

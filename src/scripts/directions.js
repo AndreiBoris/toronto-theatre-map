@@ -103,15 +103,24 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         }
     };
 
+    /**
+     * Show directions without closing left or right divs
+     */
     self.toggleDirectionsDisplay = function() {
         self.toggleDirections();
     };
 
+    /**
+     * Show directions and close the left and right divs.
+     */
     self.toggleDirectionsInfo = function() {
         self.toggleDirections('infoWin');
     };
 
-    self.openDirections = function(option) {
+    /**
+     * Set up for displaying Google Maps directions.
+     */
+    self.openDirections = function() {
         // Extend the display div so that it can better present directions. This
         // will not have any effect on smaller screens where display div is 
         // always extended.
@@ -130,6 +139,9 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         self.calcRoute(self.currentPosition());
     };
 
+    /**
+     * Text to display to display on button that controls directions.
+     */
     self.directionText = ko.computed(function() {
         return self.showDirections() ? 'Hide Directions' : 'Show Directions';
     });
