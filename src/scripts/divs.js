@@ -21,6 +21,7 @@ var TheatreMapViewModel = (function(self, mapManager) {
      * Close the info div and the Info Window to clear the map of clutter.
      */
     self.closeMarkerInfo = function() {
+        self.closeDirections();
         self.closeLeftDiv();
         self.closeInfoWindow();
     };

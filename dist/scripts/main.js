@@ -1032,18 +1032,21 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
                 // Create a new current directions array to display how to get to
                 // the theatre in steps.
                 result.routes[0].legs[0].steps.forEach(function(curVal, index, array) {
+                    // Add current major step
                     self.currentDirections.push(curVal.instructions);
-                    // console.log(parseInt(curVal.duration.text));
-                    self.currentTravelDuration(self.currentTravelDuration() + 
+                    // Add time to complete current step to total travel time
+                    self.currentTravelDuration(self.currentTravelDuration() +
                         parseInt(curVal.duration.text));
-                    console.log(self.currentTravelDuration());
                     if (curVal.steps) { // Include detailed sub-steps
                         curVal.steps.forEach(function(innerVal, index, array) {
-                            if (innerVal.instructions) {
-                                var rawStep = innerVal.instructions.replace(tags, ' ');
-                                var cleanStep = rawStep.replace(destinationFix, '-> Destination');
-                                //console.log('Replacing ' + innerVal.instructions +
-                                //    ' with ' + cleanStep);
+                            if (innerVal.instructions) { // There is a string
+                                // Remove html tags on these sub-steps
+                                var rawStep = innerVal.instructions.replace(tags,
+                                    ' ');
+                                // Separate 'Destination' sentence from the rest
+                                var cleanStep = rawStep.replace(destinationFix,
+                                    '-> Destination');
+                                // Add current sub-step
                                 self.currentDirections.push(cleanStep);
                             }
                         });
@@ -1056,9 +1059,12 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         });
     };
 
+    /**
+     * The sentence to display to user about the total travel time.
+     */
     self.travelTime = ko.computed(function() {
-        return 'This route will take approximately ' + 
-        self.currentTravelDuration().toString() + ' minutes.';
+        return 'This route will take approximately ' +
+            self.currentTravelDuration().toString() + ' minutes.';
     });
 
     /**
@@ -1082,8 +1088,15 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
             self.calcRoute(self.currentPosition());
         } else {
             // Hide the directions drawn on the map
-            mapManager.directionsDisplay.setMap(null);
+            self.closeDirections();
         }
+    };
+
+    /**
+     * Hide the directions drawn on the map.
+     */
+    self.closeDirections = function() {
+        mapManager.directionsDisplay.setMap(null);
     };
 
     /**
@@ -1914,6 +1927,7 @@ var TheatreMapViewModel = (function(self, mapManager) {
      * Close the info div and the Info Window to clear the map of clutter.
      */
     self.closeMarkerInfo = function() {
+        self.closeDirections();
         self.closeLeftDiv();
         self.closeInfoWindow();
     };
