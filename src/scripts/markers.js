@@ -184,6 +184,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         self.currentWebsite(marker.website);
         self.currentBlurb(marker.blurb);
         self.currentAddress(marker.address);
+        self.currentPosition(marker.position);
         // This has to come after the last 4, as currentInfo is a computed based
         // on currentTitle and currentAddress.
         self.infoWindow.setContent(self.currentInfo());
@@ -193,8 +194,10 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         // Move button to show directions to the opened InfoWindow
         self.moveButton();
 
-        // Show the directions from Union Station to this location
-        self.calcRoute(marker.position);
+        if (self.showDirections()){
+            self.showDirections(false);
+            mapManager.directionsDisplay.setMap(null);
+        }
 
         self.openLeftDiv(); // Open the div that slides from offscreen left.
         self.activeTwitter(marker.twitterHandle); // What Twitter feed to get

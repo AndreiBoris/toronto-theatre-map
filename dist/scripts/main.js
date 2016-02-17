@@ -866,6 +866,7 @@ var TheatreMapViewModel = (function(self, ko) {
     self.currentAddress = ko.observable('');
     self.currentDirections = ko.observableArray([]);
     self.currentCopyrights = ko.observable('');
+    self.currentPosition = ko.observable({});
 
     /**
      * These observables are used in the computed newTwitterUser to determine
@@ -1022,12 +1023,16 @@ var TheatreMapViewModel = (function(self, mapManager, google) {
         });
     };
 
-    self.toggleDirections = function(){
-        console.log('Toggling the directions!');
+    self.toggleDirections = function() {
         self.showDirections(!self.showDirections());
+        // Show the directions from Union Station to this location
+        if (self.showDirections()) {
+            mapManager.directionsDisplay.setMap(mapManager.map);
+            self.calcRoute(self.currentPosition());
+        }
     };
 
-    self.moveButton = function(){
+    self.moveButton = function() {
         $('#opened-info-window').append(self.$directionsButton);
     };
 
@@ -1224,6 +1229,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         self.currentWebsite(marker.website);
         self.currentBlurb(marker.blurb);
         self.currentAddress(marker.address);
+        self.currentPosition(marker.position);
         // This has to come after the last 4, as currentInfo is a computed based
         // on currentTitle and currentAddress.
         self.infoWindow.setContent(self.currentInfo());
@@ -1233,8 +1239,10 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         // Move button to show directions to the opened InfoWindow
         self.moveButton();
 
-        // Show the directions from Union Station to this location
-        self.calcRoute(marker.position);
+        if (self.showDirections()){
+            self.showDirections(false);
+            mapManager.directionsDisplay.setMap(null);
+        }
 
         self.openLeftDiv(); // Open the div that slides from offscreen left.
         self.activeTwitter(marker.twitterHandle); // What Twitter feed to get

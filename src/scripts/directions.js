@@ -33,12 +33,16 @@ var TheatreMapViewModel = (function(self, mapManager, google) {
         });
     };
 
-    self.toggleDirections = function(){
-        console.log('Toggling the directions!');
+    self.toggleDirections = function() {
         self.showDirections(!self.showDirections());
+        // Show the directions from Union Station to this location
+        if (self.showDirections()) {
+            mapManager.directionsDisplay.setMap(mapManager.map);
+            self.calcRoute(self.currentPosition());
+        }
     };
 
-    self.moveButton = function(){
+    self.moveButton = function() {
         $('#opened-info-window').append(self.$directionsButton);
     };
 
