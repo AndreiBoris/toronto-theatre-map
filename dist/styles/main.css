@@ -192,6 +192,7 @@ footer {
   left: -50%;
 }
 
+/*** Background in overlay that disappears when overlay is disabled ***/
 #overlay-div {
   z-index: 9;
   position: absolute;
@@ -200,12 +201,15 @@ footer {
   background: white;
 }
 
+/*** How long the transition from overlay to map takes ***/
+/*** ***/
 .enter-button-shared, #enter-button, .enter-button-border1, .enter-button-border2 {
   left: 0;
   bottom: 0;
   transition: 1.75s;
 }
 
+/*** ***/
 #enter-button {
   position: absolute;
   z-index: 13;
@@ -220,6 +224,7 @@ footer {
   top: 40%;
 }
 
+/*** ***/
 .enter-button-border1 {
   position: absolute;
   z-index: 12;
@@ -227,6 +232,7 @@ footer {
   height: 60%;
 }
 
+/*** ***/
 .enter-button-border2 {
   position: absolute;
   z-index: 11;
@@ -234,10 +240,12 @@ footer {
   height: 70%;
 }
 
+/*** ***/
 #curtain-div.overlay-off {
   z-index: 0;
 }
 
+/*** ***/
 .title-background {
   height: 30%;
   width: 60%;
@@ -247,27 +255,32 @@ footer {
   transition: 1.75s;
 }
 
+/*** ***/
 .title-text {
   z-index: 12;
   position: absolute;
 }
 
+/*** ***/
 .title-text {
   text-transform: uppercase;
   margin-top: 2%;
 }
 
+/*** ***/
 .title-theatre {
   font-size: 3em;
   left: 1em;
 }
 
+/*** ***/
 .title-in {
   font-size: 2em;
   left: 9em;
   top: 0.4em;
 }
 
+/*** ***/
 .title-toronto {
   transition: 1.75s;
   font-size: 3em;
@@ -275,6 +288,7 @@ footer {
   left: 2em;
 }
 
+/*** ***/
 .right-overlay {
   transition: 1.75s;
   position: absolute;
@@ -285,26 +299,32 @@ footer {
   z-index: 11;
 }
 
+/*** ***/
 .right-overlay.overlay-off {
   right: -40%;
 }
 
+/*** ***/
 .enter-button-border1.overlay-off {
   left: -60%;
 }
 
+/*** ***/
 .enter-button-border2.overlay-off {
   left: -80%;
 }
 
+/*** ***/
 #enter-button.overlay-off {
   left: -40%;
 }
 
+/*** ***/
 .title-background.overlay-off {
   opacity: 0;
 }
 
+/*** ***/
 .title-toronto.overlay-off {
   top: 0;
   left: 7em;
@@ -342,6 +362,7 @@ footer {
     left: -100%;
   }
 }
+/*** ***/
 @media all and (max-width: 62em) {
   #enter-button {
     width: 50%;
@@ -352,6 +373,7 @@ footer {
     left: -50%;
   }
 }
+/*** ***/
 @media all and (max-width: 50em) {
   .enter-button-border1 {
     opacity: 0;
@@ -366,6 +388,7 @@ footer {
     left: -60%;
   }
 }
+/*** ***/
 @media all and (max-width: 40em) {
   #enter-button {
     width: 100%;
@@ -383,6 +406,7 @@ footer {
     width: 100%;
   }
 }
+/*** ***/
 @media all and (max-height: 26em) {
   .title-toronto {
     top: 0;
@@ -724,11 +748,12 @@ hovering over any of them specifically. ***/
   border: 0.05em solid black;
 }
 
-/*** On narrow viewports, the attributions bunch up so we need more space ***/
+/*** Attributions in the credit div shouldn't be centered ***/
 .attributions {
   text-align: left;
 }
 
+/*** Credit div should hug the bottom of the screen when it is on ***/
 #credit-div.creditDivOn {
   bottom: 0;
 }
@@ -757,9 +782,6 @@ requiring a 2nd line for text. ***/
   box-shadow: initial;
   border: 0.15em solid black;
   color: black;
-}
-#left-div-open-button.button-disabled:hover {
-  border: 0.15em solid black;
 }
 
 @media only screen and (max-width: 76em) {

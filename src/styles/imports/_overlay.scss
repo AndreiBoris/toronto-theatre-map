@@ -1,3 +1,5 @@
+/*** Background in overlay that disappears when overlay is disabled ***/
+
 #overlay-div {
     z-index: 9;
     position: absolute;
@@ -6,12 +8,19 @@
     background: white;
 }
 
+/*** How long the transition from overlay to map takes ***/
+
 $overlayTransition: 1.75s;
+
+/*** ***/
+
 .enter-button-shared {
     left: 0;
     bottom: 0;
     transition: $overlayTransition;
 }
+
+/*** ***/
 
 #enter-button {
     position: absolute;
@@ -29,6 +38,8 @@ $overlayTransition: 1.75s;
     }
 }
 
+/*** ***/
+
 .enter-button-border1 {
     @extend .enter-button-shared;
     position: absolute;
@@ -36,6 +47,8 @@ $overlayTransition: 1.75s;
     width: 50%;
     height: 60%;
 }
+
+/*** ***/
 
 .enter-button-border2 {
     @extend .enter-button-shared;
@@ -45,9 +58,13 @@ $overlayTransition: 1.75s;
     height: 70%;
 }
 
+/*** ***/
+
 #curtain-div.overlay-off {
     z-index: 0;
 }
+
+/*** ***/
 
 .title-background {
     height: 30%;
@@ -58,20 +75,28 @@ $overlayTransition: 1.75s;
     transition: $overlayTransition;
 }
 
+/*** ***/
+
 .title-text {
     z-index: 12;
     position: absolute;
 }
+
+/*** ***/
 
 .title-text {
     text-transform: uppercase;
     margin-top: 2%;
 }
 
+/*** ***/
+
 .title-theatre {
     font-size: 3em;
     left: 1em;
 }
+
+/*** ***/
 
 .title-in {
     font-size: 2em;
@@ -79,12 +104,16 @@ $overlayTransition: 1.75s;
     top: 0.4em;
 }
 
+/*** ***/
+
 .title-toronto {
     transition: $overlayTransition;
     font-size: 3em;
     top: 1.1em;
     left: 2em;
 }
+
+/*** ***/
 
 .right-overlay {
     transition: $overlayTransition;
@@ -96,31 +125,42 @@ $overlayTransition: 1.75s;
     z-index: 11;
 }
 
+/*** ***/
+
 .right-overlay.overlay-off {
     right: -40%;
 }
+
+/*** ***/
 
 .enter-button-border1.overlay-off {
     left: -60%;
 }
 
+/*** ***/
+
 .enter-button-border2.overlay-off {
     left: -80%;
 }
+
+/*** ***/
 
 #enter-button.overlay-off {
     left: -40%;
 }
 
+/*** ***/
+
 .title-background.overlay-off {
     opacity: 0;
 }
+
+/*** ***/
 
 .title-toronto.overlay-off {
     top: 0;
     left: 7em;
 }
-
 
 /*** Fade out button when the javascript is not yet loaded ***/
 
@@ -154,6 +194,8 @@ $overlayTransition: 1.75s;
     }
 }
 
+/*** ***/
+
 @media all and (max-width: 62em) {
     #enter-button {
         width: 50%;
@@ -163,6 +205,8 @@ $overlayTransition: 1.75s;
         left: -50%;
     }
 }
+
+/*** ***/
 
 @media all and (max-width: 50em) {
     .enter-button-border1 {
@@ -176,6 +220,8 @@ $overlayTransition: 1.75s;
         left: -60%;
     }
 }
+
+/*** ***/
 
 @media all and (max-width: 40em) {
     #enter-button {
@@ -194,6 +240,8 @@ $overlayTransition: 1.75s;
         width: 100%;
     }
 }
+
+/*** ***/
 
 @media all and (max-height: 26em) {
     .title-toronto {

@@ -1,14 +1,10 @@
-/*** On narrow viewports, the attributions bunch up so we need more space ***/
-
-// @media all and (max-width: 32em) {
-//     #credit-div {
-//         height: 8em;
-//     }
-// }
+/*** Attributions in the credit div shouldn't be centered ***/
 
 .attributions {
     text-align: left;
 }
+
+/*** Credit div should hug the bottom of the screen when it is on ***/
 
 #credit-div.creditDivOn {
     bottom: 0;
