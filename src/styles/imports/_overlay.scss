@@ -102,8 +102,12 @@ $overlayTransition: 1.75s;
     transition: $overlayTransition;
 }
 
-.button-overlay.overlay-off {
+.enter-button-border1.overlay-off {
     left: -60%;
+}
+
+.enter-button-border2.overlay-off {
+    left: -80%;
 }
 
 #enter-button.overlay-off {
@@ -122,12 +126,6 @@ $overlayTransition: 1.75s;
 .title-text.fly-away {
     left: 200%;
     position: absolute;
-}
-
-.button-white {
-    background: white;
-    color: black;
-    border: 0.25em solid black;
 }
 
 /*** Need to get media queries working well here ***/

@@ -1,7 +1,15 @@
+/*** All buttons inherit this class to change cursor ***/
+
+.button-all {
+    cursor: pointer;
+    cursor: hand;
+    border-radius: 0.6em;
+}
+
 .button-style {
     padding-top: 0.8em;
     font-weight: bold;
-    color: white; // Need background color or else text is invisible.
+    //color: white; // Need background color or else text is invisible.
 }
 
 
@@ -34,7 +42,7 @@
 /*** Animate buttons when hovering over them ***/
 
 .button-hover {
-    border: 0.15em solid black;
+    border: 0.2em solid black;
 }
 
 
@@ -62,6 +70,12 @@
 
 @mixin button-shadows($color) {
     box-shadow: 0.05em 0.05em 0.5em 0.55em $color inset;
+}
+
+.button-white {
+    background: #f2f2f2;
+    color: black;
+    border: 0.1em solid black;
 }
 
 
@@ -121,4 +135,16 @@
 .button-red-maroon {
     background: linear-gradient(red, maroon);
     @include button-shadows(red);
+}
+
+
+/*** Used for the uncheck all button in the filter div  ***/
+
+.button-100 {
+    @extend .button-all;
+    width: 100%;
+    padding-top: 0.8em;
+    height: 2.7em;
+    font-size: 1.3em; // Button is long enough so font can be large even on mobile
+    font-weight: bold;
 }

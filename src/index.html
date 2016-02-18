@@ -20,18 +20,18 @@
     // as well in the Scripts task
     var scripts = [
         'dist/perm/production/jquery_and_knockout.min.js',
-        // 'src/scripts/mapmanager.js', // development mode
-        // 'src/scripts/utilities.js', // development mode
-        // 'src/scripts/attributes.js', // development mode
-        // 'src/scripts/directions.js', // development mode
-        // 'src/scripts/markers.js', // development mode
-        // 'src/scripts/twitter.js', // development mode
-        // 'src/scripts/filter.js', // development mode
-        // 'src/scripts/glow.js', // development mode
-        // 'src/scripts/sort.js', // development mode
-        // 'src/scripts/divs.js', // development mode
-        // 'src/scripts/start.js', // development mode
-        'dist/scripts/main.min.js', // PRODUCTION mode
+        'src/scripts/mapmanager.js', // development mode
+        'src/scripts/utilities.js', // development mode
+        'src/scripts/attributes.js', // development mode
+        'src/scripts/directions.js', // development mode
+        'src/scripts/markers.js', // development mode
+        'src/scripts/twitter.js', // development mode
+        'src/scripts/filter.js', // development mode
+        'src/scripts/glow.js', // development mode
+        'src/scripts/sort.js', // development mode
+        'src/scripts/divs.js', // development mode
+        'src/scripts/start.js', // development mode
+        // 'dist/scripts/main.min.js', // PRODUCTION mode
         'https://maps.googleapis.com/maps/api/js?key=AIzaSyCQCl1KRNkAF-BPdyKyO92M0d4vd6MOd0w&callback=mapManager.initMap&region=CA'
     ];
 
@@ -108,7 +108,7 @@
                 </h4>
                 <div class="button-flex">
                     <div id="address-line" class="text-50" data-bind="text: currentAddress"></div>
-                    <div class="button-50-info button-blue text-center" data-bind="click: toggleDirectionsDisplay,
+                    <div class="button-50-info button-white text-center" data-bind="click: toggleDirectionsDisplay,
                     text: directionText">
                     </div>
                 </div>
@@ -118,10 +118,10 @@
                 </div>
                 <br>
                 <div id="direction-button" class="button-flex">
-                    <div id="left-div-open-button" class="button-50-info button-black" data-bind="click: openLeftDiv,
+                    <div id="left-div-open-button" class="button-50-info button-white" data-bind="click: openLeftDiv,
                     text: detailText">
                     </div>
-                    <div class="button-50-info button-blue" data-bind="click: toggleDirectionsInfo,
+                    <div class="button-50-info button-white" data-bind="click: toggleDirectionsInfo,
                     text: directionText">
                     </div>
                 </div>
@@ -137,10 +137,10 @@
             </div>
         </div>
         <div class="button-flex">
-            <div class="button-50 button-black" data-bind="click: closeLeftDiv">
+            <div class="button-50 button-white" data-bind="click: closeLeftDiv">
                 Close Box
             </div>
-            <div class="button-50 button-red-maroon" data-bind="click: closeMarkerInfo">
+            <div class="button-50 button-white" data-bind="click: closeMarkerInfo">
                 Clear Map
             </div>
         </div>
@@ -157,7 +157,7 @@
         <!-- These buttons allow sorting the theatres alphabetically or by date
             founded. -->
         <div class="button-flex">
-            <div class="button-50 button-red" data-bind="click: sortListAlpha">
+            <div class="button-50 button-white" data-bind="click: sortListAlpha">
                 Alphabetical
                 <!-- The spans become visible when a sort method is selected 
                     and indicate which direction the sort is performed in using
@@ -165,7 +165,7 @@
                 <span class="no-border" data-bind="visible: currentSort() === 'alpha'">&dArr;</span>
                 <span class="no-border" data-bind="visible: currentSort() === 'alpha-reverse'">&uArr;</span>
             </div>
-            <div class="button-50 button-green" data-bind="click: sortListFounding">
+            <div class="button-50 button-white" data-bind="click: sortListFounding">
                 Date Founded
                 <span class="no-border" data-bind="visible: currentSort() === 'date'">&dArr;</span>
                 <span class="no-border" data-bind="visible: currentSort() === 'date-reverse'">&uArr;</span>
@@ -194,7 +194,7 @@
             between keeping the feed short or allowing Twitter to do a true feed
             with virtually endless tweets acccessed by scrolling down. -->
         <div class="button-flex">
-            <div id="twitter-list-button" class="button-50 button-blue" data-bind=" click: switchTwitter">
+            <div id="twitter-list-button" class="button-50 button-white" data-bind=" click: switchTwitter">
                 <!-- Text changes depending on whether a single account or the 
                     list of all accounts is being viewed. -->
                 <span class="no-border" data-bind="visible: twitterListView">
@@ -204,7 +204,7 @@
                 See Combined Feed
                 </span>
             </div>
-            <div class="button-50 button-pink" data-bind="click: toggleTwitterLength">
+            <div class="button-50 button-white" data-bind="click: toggleTwitterLength">
                 <!-- Text changes depending on the current state of the feed length -->
                 <span class="no-border" data-bind="visible: twitterLong">
                 Collapse Feed
@@ -245,7 +245,7 @@
     <div id="filter-div" class="right-div-off right-divs">
         <!-- Reset filters -->
         <div class="button-flex">
-            <div class="button-100 button-black" data-bind=" click: clearFilters">
+            <div class="button-100 button-white" data-bind=" click: clearFilters">
                 Uncheck all
             </div>
         </div>
@@ -266,7 +266,7 @@
             </div>
             <div class="attributions">Icons made by <a href="http://www.flaticon.com/authors/icomoon" title="Icomoon">Icomoon</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>
             </div>
-            <div class="button-100 button-black" data-bind=" click: slideCredits">
+            <div class="button-100 button-white" data-bind=" click: slideCredits">
                 Dismiss
             </div>
         </div>

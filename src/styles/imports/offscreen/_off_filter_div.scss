@@ -49,20 +49,7 @@ $buttonOnTint: #6f6;
 }
 
 
-/*** Used for the uncheck all button in the filter div  ***/
-
-.button-100 {
-    @extend .button-all;
-    width: 100%;
-    padding-top: 0.8em;
-    height: 2.7em;
-    font-size: 1.3em; // Button is long enough so font can be large even on mobile
-    font-weight: bold;
-    color: white; // Need background color from other class or else text is invisible.
-}
-
-
-/*** Applied when a button is toggled on. ***/
+/*** Applied when a button is toggled on in filter div. ***/
 
 .buttonOn {
     background-color: $buttonOnTint;

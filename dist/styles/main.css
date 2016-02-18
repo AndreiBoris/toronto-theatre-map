@@ -71,12 +71,6 @@ li {
   box-sizing: border-box;
 }
 
-/*** All buttons inherit this class to change cursor ***/
-.button-all, #enter-button, .button-50, .button-list-item, .button-filter-item, .button-100, .button-50-info {
-  cursor: pointer;
-  cursor: hand;
-}
-
 /*** Widely applied to divs that are taller than their container ***/
 .scroll-div {
   overflow: auto;
@@ -297,8 +291,12 @@ footer {
   transition: 1.75s;
 }
 
-.button-overlay.overlay-off {
+.enter-button-border1.overlay-off {
   left: -60%;
+}
+
+.enter-button-border2.overlay-off {
+  left: -80%;
 }
 
 #enter-button.overlay-off {
@@ -319,12 +317,6 @@ footer {
   position: absolute;
 }
 
-.button-white {
-  background: white;
-  color: black;
-  border: 0.25em solid black;
-}
-
 /*** Need to get media queries working well here ***/
 /*********************
 Dependencies
@@ -334,10 +326,16 @@ Starts offscreen
 *********************/
 /*** These styles do not influence anything in the opening screen and can be 
     loaded asynchronously if this will help with speed. ***/
+/*** All buttons inherit this class to change cursor ***/
+.button-all, #enter-button, .button-50, .button-100, .button-list-item, .button-filter-item, .button-50-info {
+  cursor: pointer;
+  cursor: hand;
+  border-radius: 0.6em;
+}
+
 .button-style, .button-50-shared, .button-50, .button-50-info {
   padding-top: 0.8em;
   font-weight: bold;
-  color: white;
 }
 
 /*** Inherited by button-50 and button-50-info in _off_info_win.scss ***/
@@ -358,7 +356,7 @@ Starts offscreen
 }
 /*** Animate buttons when hovering over them ***/
 .button-hover, #enter-button:hover, .button-flex :hover {
-  border: 0.15em solid black;
+  border: 0.2em solid black;
 }
 
 /*** Sort buttons at the top of list div styles ***/
@@ -375,6 +373,12 @@ Starts offscreen
 }
 
 /*** Mixin used for all buttons to style their color ***/
+.button-white {
+  background: #f2f2f2;
+  color: black;
+  border: 0.1em solid black;
+}
+
 /*** Background for alphabetical sort button in list div ***/
 .button-red {
   background: linear-gradient(red, yellow);
@@ -418,6 +422,15 @@ Starts offscreen
 .button-red-maroon {
   background: linear-gradient(red, maroon);
   box-shadow: 0.05em 0.05em 0.5em 0.55em red inset;
+}
+
+/*** Used for the uncheck all button in the filter div  ***/
+.button-100 {
+  width: 100%;
+  padding-top: 0.8em;
+  height: 2.7em;
+  font-size: 1.3em;
+  font-weight: bold;
 }
 
 /*** Used briefly in the Twitter error div ***/
@@ -665,17 +678,7 @@ hovering over any of them specifically. ***/
   padding: 0.25em 0.5em;
 }
 
-/*** Used for the uncheck all button in the filter div  ***/
-.button-100 {
-  width: 100%;
-  padding-top: 0.8em;
-  height: 2.7em;
-  font-size: 1.3em;
-  font-weight: bold;
-  color: white;
-}
-
-/*** Applied when a button is toggled on. ***/
+/*** Applied when a button is toggled on in filter div. ***/
 .buttonOn {
   background-color: #6f6;
   border: 0.05em solid black;
