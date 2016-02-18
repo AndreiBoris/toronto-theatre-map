@@ -43,7 +43,8 @@ var mapManager = {
             center: startingMapPosition,
             scrollwheel: true,
             zoom: 12,
-            disableDefaultUI: true
+            disableDefaultUI: true,
+            styles: [{'featureType':'administrative','elementType':'labels.text.fill','stylers':[{'color':'#444444'}]},{'featureType':'landscape','elementType':'all','stylers':[{'color':'#f2f2f2'}]},{'featureType':'poi','elementType':'all','stylers':[{'visibility':'off'}]},{'featureType':'road','elementType':'all','stylers':[{'saturation':-100},{'lightness':45}]},{'featureType':'road.highway','elementType':'all','stylers':[{'visibility':'simplified'}]},{'featureType':'road.arterial','elementType':'labels.icon','stylers':[{'visibility':'off'}]},{'featureType':'transit','elementType':'all','stylers':[{'visibility':'off'}]},{'featureType':'water','elementType':'all','stylers':[{'color':'#46bcec'},{'visibility':'on'}]}]
         });
 
         // Assign the directions display to our map so that we can see 
@@ -235,28 +236,6 @@ var mapManager = {
         });
     },
 
-    /**
-     * Fill the content of infoWindow.
-     * @param  {object} infoWindow The InfoWindow we want to fill.
-     * @param  {string} title      The title of the associated marker.
-     * @param  {string} website    The website the title should link to.
-     * @param  {string} blurb      The description to include.
-     * THIS IS NOT CURRENTLY BEING USED AT ALL
-     */
-    // infoWindowMaker: function(infoWindow, title, website, blurb) {
-    //     'use strict';
-    //     var content = '<div class="info-window"><h4><a href="' + website + '">' +
-    //         title +
-    //         '</a></h4>' +
-    //         '<p>' + blurb + '</p></div>';
-    //     infoWindow.setContent(content); // Apply the formatted content.
-    // },
-
-    // store: function() {
-    //     'use strict';
-    //     console.log('storing data');
-    //     localStorage.markerData = JSON.stringify(this.markerData);
-    // },
     load: function() {
         'use strict';
         console.log('loading data');
