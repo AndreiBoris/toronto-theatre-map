@@ -231,16 +231,6 @@ footer {
   height: 70%;
 }
 
-/*** The background behind the title ***/
-.title-background {
-  height: 30%;
-  width: 60%;
-  z-index: 1;
-  position: absolute;
-  background: white;
-  transition: 1.75s;
-}
-
 /*** The title of the website. Positioning is handled word by word below. ***/
 .title-text {
   z-index: 2;
@@ -249,20 +239,20 @@ footer {
   margin-top: 2%;
 }
 
-/*** ***/
+/*** Positioning the word 'Theatre' in the title ***/
 .title-theatre {
   font-size: 3em;
   left: 1em;
 }
 
-/*** ***/
+/*** Positioning the word 'in' in the title ***/
 .title-in {
   font-size: 2em;
   left: 9em;
   top: 0.4em;
 }
 
-/*** ***/
+/*** Positioning the word 'Toronto' in the title ***/
 .title-toronto {
   transition: 1.75s;
   font-size: 3em;
@@ -270,43 +260,43 @@ footer {
   left: 2em;
 }
 
-/*** ***/
+/*** Right side of the overlay ***/
 .right-overlay {
   transition: 1.75s;
   position: absolute;
   right: 0;
   height: 100%;
   width: 40%;
-  background: white;
   z-index: 11;
 }
 
-/*** ***/
+/*** When the overlay is off, the right side moves its width over ***/
 .right-overlay.overlay-off {
   right: -40%;
 }
 
-/*** ***/
+/*** When the overlay is off, border1 goes farther than its width, this 
+is done to create a visual effect where the divs follow one another as some move
+faster than others. ***/
 .enter-button-border1.overlay-off {
   left: -60%;
 }
 
-/*** ***/
+/*** When the overlay is off, border2 goes farther than its width, this 
+is done to create a visual effect where the divs follow one another as some move
+faster than others. ***/
 .enter-button-border2.overlay-off {
   left: -80%;
 }
 
-/*** ***/
+/*** When the overlay is off, enter-button goes off screen the same distance 
+that its width is equal to. ***/
 #enter-button.overlay-off {
   left: -40%;
 }
 
-/*** ***/
-.title-background.overlay-off {
-  opacity: 0;
-}
-
-/*** ***/
+/*** When the overlay is off, the word 'Toronto' joins the other title words in
+a line. ***/
 .title-toronto.overlay-off {
   top: 0;
   left: 7em;
@@ -318,7 +308,7 @@ footer {
   background: gray;
 }
 
-/*** Need to get media queries working well here ***/
+/*** For non-wide screens ***/
 @media all and (max-width: 72em) {
   .enter-button-border2 {
     opacity: 0;
@@ -330,7 +320,7 @@ footer {
   }
 
   /*** Hide the title 'Theatre in Toronto' behind the display div at all
-  time. ***/
+  times. ***/
   .title-toronto.overlay-off {
     top: 1.1em;
     left: 1em;
@@ -339,12 +329,9 @@ footer {
   .enter-button-border1.overlay-off {
     left: -80%;
   }
-
-  .enter-button-border2.overlay-off {
-    left: -100%;
-  }
 }
-/*** ***/
+/*** Small desktops or tablets roughly. This media query only exists to make 
+transitions when RESIZING look prettier, so it's rarely used. ***/
 @media all and (max-width: 62em) {
   #enter-button {
     width: 50%;
@@ -355,7 +342,7 @@ footer {
     left: -50%;
   }
 }
-/*** ***/
+/*** Phablet size roughly ***/
 @media all and (max-width: 50em) {
   .enter-button-border1 {
     opacity: 0;
@@ -370,7 +357,7 @@ footer {
     left: -60%;
   }
 }
-/*** ***/
+/*** Small screens ***/
 @media all and (max-width: 40em) {
   #enter-button {
     width: 100%;
@@ -384,15 +371,31 @@ footer {
     right: -40%;
   }
 
-  .title-background {
-    width: 100%;
+  .title-theatre {
+    left: 0.5em;
+  }
+
+  .title-in {
+    left: 8.25em;
+  }
+
+  .title-toronto {
+    left: 1.5em;
   }
 }
-/*** ***/
+/*** This is generally for landscape view on phones. ***/
 @media all and (max-height: 26em) {
   .title-toronto {
     top: 0;
-    left: 7em;
+    left: 6.5em;
+  }
+
+  .title-theatre {
+    left: 0.5em;
+  }
+
+  .title-in {
+    left: 8.25em;
   }
 }
 /*********************
