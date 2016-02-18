@@ -2107,9 +2107,14 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
         self.$titleToronto.addClass('overlay-off');
         self.$divOverlay.css('z-index', 0);
         setTimeout(function() {
-            self.$titleOverlay.remove();
             self.$titleText.css('z-index', 2);
         }, 1000);
+        setTimeout(function() {
+            self.$titleOverlay.remove();
+            self.$divOverlay.remove();
+            self.$rightOverlay.remove();
+            self.$buttonOverlay.remove();
+        }, 2000);
 
     };
 
