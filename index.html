@@ -7,18 +7,18 @@
     // as well in the Scripts task
     var scripts = [
         'dist/perm/production/jquery_and_knockout.min.js',
-        // 'src/scripts/mapmanager.js', // development mode
-        // 'src/scripts/utilities.js', // development mode
-        // 'src/scripts/attributes.js', // development mode
-        // 'src/scripts/directions.js', // development mode
-        // 'src/scripts/markers.js', // development mode
-        // 'src/scripts/twitter.js', // development mode
-        // 'src/scripts/filter.js', // development mode
-        // 'src/scripts/glow.js', // development mode
-        // 'src/scripts/sort.js', // development mode
-        // 'src/scripts/divs.js', // development mode
-        // 'src/scripts/start.js', // development mode
-        'dist/scripts/main.min.js', // PRODUCTION mode
+        'src/scripts/mapmanager.js', // development mode
+        'src/scripts/utilities.js', // development mode
+        'src/scripts/attributes.js', // development mode
+        'src/scripts/directions.js', // development mode
+        'src/scripts/markers.js', // development mode
+        'src/scripts/twitter.js', // development mode
+        'src/scripts/filter.js', // development mode
+        'src/scripts/glow.js', // development mode
+        'src/scripts/sort.js', // development mode
+        'src/scripts/divs.js', // development mode
+        'src/scripts/start.js', // development mode
+        // 'dist/scripts/main.min.js', // PRODUCTION mode
         'https://maps.googleapis.com/maps/api/js?key=AIzaSyCQCl1KRNkAF-BPdyKyO92M0d4vd6MOd0w&callback=mapManager.initMap&region=CA'
     ];
 
@@ -74,7 +74,7 @@
         referenced in the app, or from one particular company. --><div id="twitter-div" class="right-div-off right-divs"><!-- These buttons allow switches between the list and user feeds, and 
             between keeping the feed short or allowing Twitter to do a true feed
             with virtually endless tweets acccessed by scrolling down. --><div class="button-flex"><div id="twitter-list-button" class="button-50 button-white" data-bind=" click: switchTwitter"><!-- Text changes depending on whether a single account or the 
-                    list of all accounts is being viewed. --><span class="no-border" data-bind="visible: twitterListView">See Chosen Feed</span> <span class="no-border" data-bind="visible: !twitterListView()">See Combined Feed</span></div><div class="button-50 button-white" data-bind="click: toggleTwitterLength"><!-- Text changes depending on the current state of the feed length --><span class="no-border" data-bind="visible: twitterLong">Collapse Feed</span> <span class="no-border" data-bind="visible: !twitterLong()">Expand Feed</span></div></div><!-- List view --><div id="twitter-list" class="scroll-div" data-bind="visible: twitterListView() && twitterIsOpen"></div><!-- Reference to which account we are on for user-view --><div id="twitter-account-header" data-bind="text: currentTitle, visible: !twitterListView() && twitterIsOpen"></div><!-- User view --><div id="twitter-account" class="scroll-div" data-bind="visible: !twitterListView() && twitterIsOpen"></div><!-- Error appears behind the other divs and will display 1.5 seconds
+                    list of all accounts is being viewed. --><span class="no-border" data-bind="visible: twitterListView">See User Feed</span> <span class="no-border" data-bind="visible: !twitterListView()">See List Feed</span></div><div class="button-50 button-white" data-bind="click: toggleTwitterLength"><!-- Text changes depending on the current state of the feed length --><span class="no-border" data-bind="visible: twitterLong">Collapse Feed</span> <span class="no-border" data-bind="visible: !twitterLong()">Expand Feed</span></div></div><!-- List view --><div id="twitter-list" class="scroll-div" data-bind="visible: twitterListView() && twitterIsOpen"></div><!-- Reference to which account we are on for user-view --><div id="twitter-account-header" data-bind="text: currentTitle, visible: !twitterListView() && twitterIsOpen"></div><!-- User view --><div id="twitter-account" class="scroll-div" data-bind="visible: !twitterListView() && twitterIsOpen"></div><!-- Error appears behind the other divs and will display 1.5 seconds
             after switching views or feed lengths if there is some problem in 
             loading the feeds. --><div id="twitter-error" class="scroll-div"><!-- User view error message --><div data-bind="visible: !twitterListView() && twitterIsOpen"><span class="large-font">Hmmm!</span> We're trying to load the Twitter feed for the account <span class="italic-font" data-bind="text: activeTwitter"></span>. If this message persists, try clicking on another marker on the map to reload. If this fails, there might be some error in the connection!</div><!-- List view error message --><div data-bind="visible: twitterListView() && twitterIsOpen"><span class="large-font">Hmmm!</span> We're trying to load a list of Twitter accounts connected to Toronto Theatre. If this message persists, there might be some issue connecting to Twitter. Sorry for the inconvenience. You can check out the list on the Twitter webpage <a href="https://twitter.com/BreathMachine/lists/toronto-theatre">by clicking here</a>.</div></div></div><!-- Tabs work like the list and twitter tabs above. --><img id="filter-tab" class="tab-plain tab-off filter-tab-image" src="dist/images/filter-tab.png"><img id="filter-tab-highlight" class="tab-highlight tab-off filter-tab-image" src="dist/images/filter-tab-highlight.png"><img id="filter-tab-back" class="tab-back tab-off filter-tab-image" data-bind="click: slideFilter" src="dist/images/tab-back.png"><!-- This div features buttons to filter the theatres presented based on 
         interests. --><div id="filter-div" class="right-div-off right-divs"><!-- Reset filters --><div class="button-flex"><div class="button-100 button-white" data-bind=" click: clearFilters">Uncheck all</div></div><!-- All filter options --><ul class="button-filter-flex scroll-div" data-bind="foreach: filters"><li class="button-filter-item" data-bind="click: $root.toggleFilter,

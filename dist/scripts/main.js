@@ -1171,7 +1171,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
      * InfoWindow. This allows us to use the same button the whole time, which
      * allows it to use the data-bind Knockout binding to control the
      * toggleDirections method.
-     * @return {[type]} [description]
      */
     self.moveButton = function() {
         // Select the new info window and add the unique $directionsButton to 

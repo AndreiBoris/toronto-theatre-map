@@ -100,11 +100,6 @@ media queries. ***/
   height: 30%;
 }
 
-/*** This display div when it is extended to feature directions ***/
-#display-div.direction-extention {
-  height: 45%;
-}
-
 /*** The list, twitter and filter divs ***/
 .right-divs {
   height: 100%;
@@ -380,6 +375,12 @@ footer {
     width: 100%;
   }
 }
+@media all and (max-height: 26em) {
+  .title-toronto {
+    top: 0;
+    left: 7em;
+  }
+}
 /*********************
 Dependencies
 *********************/
@@ -601,6 +602,17 @@ in #address-line to increase readability of HTML ***/
   width: 50%;
 }
 
+/*** This display div when it is extended to feature directions ***/
+#display-div.direction-extention {
+  height: 50%;
+}
+
+/*** Short screens like landscape phones need more access to the display div ***/
+@media all and (max-height: 26em) {
+  #display-div.direction-extention {
+    height: 90%;
+  }
+}
 /*** Thin border to mark end of list-div when it it open ***/
 #list-div {
   border-left: 0.05em solid #d9d9d9;
@@ -889,5 +901,11 @@ requiring a 2nd line for text. ***/
 
   .left-div-off {
     left: -90%;
+  }
+}
+/*** Short screens like landscape phones need more access to the display div ***/
+@media all and (max-height: 26em) {
+  .left-divs {
+    height: 80%;
   }
 }

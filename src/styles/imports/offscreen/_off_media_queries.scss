@@ -92,3 +92,12 @@
         left: -90%;
     }
 }
+
+/*** Short screens like landscape phones need more access to the display div ***/
+
+@media all and (max-height: 26em) {
+    .left-divs {
+        height: 80%;
+    }
+}
+
