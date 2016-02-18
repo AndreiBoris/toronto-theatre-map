@@ -283,6 +283,7 @@ footer {
 }
 
 .right-overlay {
+  transition: 1.75s;
   position: absolute;
   right: 0;
   height: 100%;
@@ -293,7 +294,6 @@ footer {
 
 .right-overlay.overlay-off {
   right: -40%;
-  transition: 1.75s;
 }
 
 .enter-button-border1.overlay-off {
@@ -366,6 +366,14 @@ footer {
 
   #enter-button.overlay-off {
     left: -100%;
+  }
+
+  .right-overlay {
+    right: -40%;
+  }
+
+  .title-background {
+    width: 100%;
   }
 }
 /*********************

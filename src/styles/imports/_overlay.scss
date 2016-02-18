@@ -90,6 +90,7 @@ $overlayTransition: 1.75s;
 }
 
 .right-overlay {
+    transition: $overlayTransition;
     position: absolute;
     right: 0;
     height: 100%;
@@ -100,7 +101,6 @@ $overlayTransition: 1.75s;
 
 .right-overlay.overlay-off {
     right: -40%;
-    transition: $overlayTransition;
 }
 
 .enter-button-border1.overlay-off {
@@ -172,5 +172,14 @@ $overlayTransition: 1.75s;
     }
     #enter-button.overlay-off {
         left: -100%;
+    }
+    .right-overlay {
+        right: -40%;
+    }
+    // .right-overlay.overlay-off {
+    //     right: -40%;
+    // }
+    .title-background {
+        width: 100%;
     }
 }
