@@ -197,11 +197,12 @@ footer {
   left: -50%;
 }
 
-#curtain-div {
-  z-index: 10;
+#overlay-div {
+  z-index: 9;
   position: absolute;
   width: 100%;
   height: 100%;
+  background: white;
 }
 
 .enter-button-shared, #enter-button, .enter-button-border1, .enter-button-border2 {

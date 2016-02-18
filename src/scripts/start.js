@@ -17,6 +17,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
         self.$titleOverlay.addClass('overlay-off');
         self.$rightOverlay.addClass('overlay-off');
         self.$titleToronto.addClass('overlay-off');
+        self.$divOverlay.css('z-index', 0);
         setTimeout(function() {
             self.$titleOverlay.remove();
             self.$titleText.css('z-index', 2);
