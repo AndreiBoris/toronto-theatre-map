@@ -154,6 +154,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         if (mapManager.directionsDisplay) { 
             mapManager.directionsDisplay.setMap(null);
         }
+        self.showDirections(false);
         self.$divInfo.removeClass('direction-extention');
     };
 
