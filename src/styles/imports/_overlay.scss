@@ -19,7 +19,7 @@ $overlayTransition: 1.75s;
     width: 40%;
     height: 50%;
     @extend .enter-button-shared;
-    @extend .button-clickable;
+    @extend .button-style;
     padding-top: 0.8em;
     font-weight: bold;
     p {
@@ -133,6 +133,9 @@ $overlayTransition: 1.75s;
 /*** Need to get media queries working well here ***/
 
 @media all and (max-width: 72em) {
+    .enter-button-border2 {
+        opacity: 0;
+    }
     .enter-button-border1 {
         width: 60%;
         height: 70%;
@@ -162,6 +165,9 @@ $overlayTransition: 1.75s;
 }
 
 @media all and (max-width: 50em) {
+    .enter-button-border1 {
+        opacity: 0;
+    }
     #enter-button {
         width: 60%;
         height: 70%;

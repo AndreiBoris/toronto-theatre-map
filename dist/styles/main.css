@@ -318,6 +318,10 @@ footer {
 
 /*** Need to get media queries working well here ***/
 @media all and (max-width: 72em) {
+  .enter-button-border2 {
+    opacity: 0;
+  }
+
   .enter-button-border1 {
     width: 60%;
     height: 70%;
@@ -349,6 +353,10 @@ footer {
   }
 }
 @media all and (max-width: 50em) {
+  .enter-button-border1 {
+    opacity: 0;
+  }
+
   #enter-button {
     width: 60%;
     height: 70%;
@@ -390,13 +398,13 @@ Starts offscreen
 /*** These styles do not influence anything in the opening screen and can be 
     loaded asynchronously if this will help with speed. ***/
 /*** Cursor changes when hovering over button ***/
-.button-clickable, #enter-button, .button-list-item, .button-50-info {
+.button-clickable, .button-list-item, .button-50-info {
   cursor: pointer;
   cursor: hand;
 }
 
 /*** Style for all buttons ***/
-.button-style, .button-50-shared, .button-50, .button-50-info, .button-100, .button-filter-item {
+.button-style, #enter-button, .button-50-shared, .button-50, .button-50-info, .button-100, .button-filter-item {
   padding-top: 0.8em;
   font-weight: bold;
   cursor: pointer;
@@ -438,56 +446,11 @@ Starts offscreen
   border: none;
 }
 
-/*** Mixin used for all buttons to style their color ***/
+/*** Colour for all major buttons  ***/
 .button-white {
   background: #f2f2f2;
   color: black;
   border: 0.1em solid black;
-}
-
-/*** Background for alphabetical sort button in list div ***/
-.button-red {
-  background: linear-gradient(red, yellow);
-  box-shadow: 0.05em 0.05em 0.5em 0.55em red inset;
-}
-
-/*** Background for date founded sort button in list div ***/
-.button-green {
-  background: linear-gradient(green, teal);
-  box-shadow: 0.05em 0.05em 0.5em 0.55em green inset;
-}
-
-/*** Background for combined feed button in twitter div ***/
-.button-blue {
-  background: linear-gradient(blue, silver);
-  box-shadow: 0.05em 0.05em 0.5em 0.55em blue inset;
-}
-
-/*** Background for expand feed button in twitter div ***/
-.button-pink {
-  background: linear-gradient(pink, violet);
-  box-shadow: 0.05em 0.05em 0.5em 0.55em pink inset;
-}
-
-/*** Background for uncheck all button in filter div ***/
-.button-black {
-  background: linear-gradient(black, gold);
-  box-shadow: 0.05em 0.05em 0.5em 0.55em black inset;
-}
-.button-black:hover {
-  border: 0.15em solid silver;
-}
-
-/*** Background for alphabetical sort button in list div ***/
-.button-purple {
-  background: linear-gradient(purple, black);
-  box-shadow: 0.05em 0.05em 0.5em 0.55em purple inset;
-}
-
-/*** Background for alphabetical sort button in list div ***/
-.button-red-maroon {
-  background: linear-gradient(red, maroon);
-  box-shadow: 0.05em 0.05em 0.5em 0.55em red inset;
 }
 
 /*** Used for the uncheck all button in the filter div  ***/
