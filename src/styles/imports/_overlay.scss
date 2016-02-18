@@ -21,10 +21,6 @@ $overlayTransition: 1.75s;
     @extend .button-all;
     padding-top: 0.8em;
     font-weight: bold;
-    &:hover {
-        transition: 0.1em;
-        @extend .button-hover;
-    }
     p {
         font-size: 2em;
         position: relative;
