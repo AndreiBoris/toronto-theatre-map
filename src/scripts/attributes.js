@@ -185,7 +185,7 @@ var TheatreMapViewModel = (function(self, ko) {
     self.creditOn = ko.observable(false);
 
     /**
-     * Curtains
+     * Overlay
      */
     self.$divOverlay = $('#overlay-div');
     self.$buttonOverlay = $('.button-overlay');

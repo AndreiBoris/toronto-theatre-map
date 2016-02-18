@@ -134,33 +134,22 @@ mapManager.util = (function() {
          * gets run as soon as the app is loaded.
          */
         repositionTabs: function() {
+            var $allTabs = $('.tab-off');
             var $twitterTabs = $('.twitter-tab-image');
             var $listTabs = $('.list-tab-image');
             var $filterTabs = $('.filter-tab-image');
-            var screenHeight = screen.height;
+            var screenHeight = window.innerHeight;
+            $allTabs.css('height', screenHeight / 4.5);
             console.log('The screen height is ' + screenHeight); // DEBUG
-            if (screenHeight >= 600) {
-                $listTabs.css({
-                    'top': screenHeight * 0.1
-                });
-                $twitterTabs.css({
-                    'top': screenHeight * 0.3
-                });
-                $filterTabs.css({
-                    'top': screenHeight * 0.5
-                });
-            } else {
-                $listTabs.css({
-                    'top': 0
-                });
-                $twitterTabs.css({
-                    'top': screenHeight * 0.4
-                });
-                $filterTabs.css({
-                    'top': screenHeight * 0.7
-                });
-            }
-
+            $listTabs.css({
+                'top': screenHeight * 0.05
+            });
+            $twitterTabs.css({
+                'top': screenHeight * 0.35
+            });
+            $filterTabs.css({
+                'top': screenHeight * 0.65
+            });
         }
 
 

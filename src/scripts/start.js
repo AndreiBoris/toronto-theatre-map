@@ -36,7 +36,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
                 self.closeRightDivs();
                 self.slideList();
             }
-        }, 1000); // Time matches the transition time in _overlay.scss
+        }, 1400); // Time matches the transition time in _overlay.scss
 
     };
 
