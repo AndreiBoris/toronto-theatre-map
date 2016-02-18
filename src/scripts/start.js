@@ -19,6 +19,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
         self.$titleToronto.addClass('overlay-off');
         setTimeout(function() {
             self.$divOverlay.addClass('overlay-off');
+            self.$titleOverlay.remove();
         }, 1000);
         // TODO: Delete unused DOM elements
     };

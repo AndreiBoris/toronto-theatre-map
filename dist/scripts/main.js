@@ -1395,9 +1395,12 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         // Move button to show directions to the opened InfoWindow
         self.moveButton();
 
-        if (self.titleIsOn){
+        if (self.titleIsOn) {
             self.titleIsOn = false;
             self.$titleText.addClass('fly-away');
+            setTimeout(function() {
+                self.$divOverlay.remove();
+            }, 500);
         }
 
         // If we were already showing directions, we should stop, as the user 
@@ -2096,6 +2099,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
         self.$titleToronto.addClass('overlay-off');
         setTimeout(function() {
             self.$divOverlay.addClass('overlay-off');
+            self.$titleOverlay.remove();
         }, 1000);
         // TODO: Delete unused DOM elements
     };
