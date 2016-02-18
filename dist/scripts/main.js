@@ -2099,7 +2099,11 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
             self.$divOverlay.remove();
             self.$rightOverlay.remove();
             self.$buttonOverlay.remove();
-        }, 2000);
+            if (!self.listIsOpen()){
+                self.closeRightDivs();
+                self.slideList();
+            }
+        }, 1000); // Time matches the transition time in _overlay.scss
 
     };
 

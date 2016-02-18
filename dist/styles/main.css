@@ -197,7 +197,7 @@ footer {
 .enter-button-shared, #enter-button, .enter-button-border1, .enter-button-border2 {
   left: 0;
   bottom: 0;
-  transition: 1.75s;
+  transition: 1s;
 }
 
 /*** The button that sends the overlay off screen ***/
@@ -254,7 +254,7 @@ footer {
 
 /*** Positioning the word 'Toronto' in the title ***/
 .title-toronto {
-  transition: 1.75s;
+  transition: 1s;
   font-size: 3em;
   top: 1.1em;
   left: 2em;
@@ -262,7 +262,7 @@ footer {
 
 /*** Right side of the overlay ***/
 .right-overlay {
-  transition: 1.75s;
+  transition: 1s;
   position: absolute;
   right: 0;
   height: 100%;
