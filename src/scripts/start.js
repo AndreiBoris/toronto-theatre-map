@@ -25,7 +25,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
         // titleText when it comes out.
         self.$titleText.css('z-index', 2); 
         // Keep covering the map (just barely) 
-        self.$titleOverlay.css('z-index', 1); /
+        self.$titleOverlay.css('z-index', 1); 
         // When transition ends, delete all offscreen overlay elements.
         setTimeout(function() { 
             self.$titleOverlay.remove();

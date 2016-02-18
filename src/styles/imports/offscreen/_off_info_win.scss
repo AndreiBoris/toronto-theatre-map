@@ -15,7 +15,7 @@ requiring a 2nd line for text. ***/
 /*** Buttons at the bottom of InfoWindows. In flexbox. ***/
 
 .button-50-info {
-    @extend .button-all; // See _general.scss
+    @extend .button-clickable; // See _off_buttons.scss
     @extend .button-50-shared; // see _off_buttons.scss
     height: 2.9em;
 }

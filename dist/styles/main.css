@@ -389,16 +389,19 @@ Starts offscreen
 *********************/
 /*** These styles do not influence anything in the opening screen and can be 
     loaded asynchronously if this will help with speed. ***/
-/*** All buttons inherit this class to change cursor ***/
-.button-all, #enter-button, .button-50, .button-100, .button-list-item, .button-filter-item, .button-50-info {
+/*** Cursor changes when hovering over button ***/
+.button-clickable, #enter-button, .button-list-item, .button-50-info {
+  cursor: pointer;
+  cursor: hand;
+}
+
+/*** Style for all buttons ***/
+.button-style, .button-50-shared, .button-50, .button-50-info, .button-100, .button-filter-item {
+  padding-top: 0.8em;
+  font-weight: bold;
   cursor: pointer;
   cursor: hand;
   border-radius: 0.6em;
-}
-
-.button-style, .button-50-shared, .button-50, .button-50-info {
-  padding-top: 0.8em;
-  font-weight: bold;
 }
 
 /*** Inherited by button-50 and button-50-info in _off_info_win.scss ***/
@@ -758,16 +761,7 @@ hovering over any of them specifically. ***/
   border: 0.05em solid black;
 }
 
-#credit-div .button-100 {
-  position: relative;
-  bottom: 0;
-}
-
-@media all and (max-width: 32em) {
-  #credit-div {
-    height: 8em;
-  }
-}
+/*** On narrow viewports, the attributions bunch up so we need more space ***/
 .attributions {
   text-align: left;
 }

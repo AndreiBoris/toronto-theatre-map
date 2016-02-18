@@ -19,7 +19,7 @@ $overlayTransition: 1.75s;
     width: 40%;
     height: 50%;
     @extend .enter-button-shared;
-    @extend .button-all;
+    @extend .button-clickable;
     padding-top: 0.8em;
     font-weight: bold;
     p {

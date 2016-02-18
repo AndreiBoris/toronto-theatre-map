@@ -1,13 +1,10 @@
-#credit-div .button-100 {
-    position: relative;
-    bottom: 0;
-} 
+/*** On narrow viewports, the attributions bunch up so we need more space ***/
 
-@media all and (max-width: 32em) {
-    #credit-div {
-        height: 8em;
-    }
-}
+// @media all and (max-width: 32em) {
+//     #credit-div {
+//         height: 8em;
+//     }
+// }
 
 .attributions {
     text-align: left;

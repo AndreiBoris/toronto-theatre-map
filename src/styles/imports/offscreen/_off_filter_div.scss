@@ -39,7 +39,7 @@ $buttonOnTint: #6f6;
 /*** Each button in the filter div ***/
 
 .button-filter-item {
-    @extend .button-all;
+    @extend .button-style;
     margin: 0.2em 0; // Separate the buttons
     min-height: 2em;
     border-bottom: 0.05em solid black;

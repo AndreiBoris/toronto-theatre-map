@@ -2111,9 +2111,10 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
         // Keep above titleOverlay, but below display-div so that it covers the
         // titleText when it comes out.
         self.$titleText.css('z-index', 2); 
-        // 
-        self.$titleOverlay.css('z-index', 1); /
-        setTimeout(function() {
+        // Keep covering the map (just barely) 
+        self.$titleOverlay.css('z-index', 1); 
+        // When transition ends, delete all offscreen overlay elements.
+        setTimeout(function() { 
             self.$titleOverlay.remove();
             self.$divOverlay.remove();
             self.$rightOverlay.remove();
@@ -2129,6 +2130,9 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
 
 }(TheatreMapViewModel || {}, ko, mapManager));
 
+// Fade the 'Check it out' button into being usuable, since all the code that 
+// supports it has loaded by this point.
 TheatreMapViewModel.fadeInOverlayDivButton();
+// Apply Knockout bindings
 ko.applyBindings(TheatreMapViewModel);
 
