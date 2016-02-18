@@ -15,7 +15,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
     self.openCurtain = function() {
         self.$buttonOverlay.addClass('overlay-off');
         self.$titleOverlay.addClass('overlay-off');
-        self.$twitterOverlay.addClass('overlay-off');
+        self.$rightOverlay.addClass('overlay-off');
         self.$titleToronto.addClass('overlay-off');
         setTimeout(function() {
             self.$titleOverlay.remove();

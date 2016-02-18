@@ -995,7 +995,7 @@ var TheatreMapViewModel = (function(self, ko) {
     self.$divOverlay = $('#overlay-div');
     self.$buttonOverlay = $('.button-overlay');
     self.$titleOverlay = $('.title-background');
-    self.$twitterOverlay = $('.twitter-overlay');
+    self.$rightOverlay = $('.right-overlay');
     self.$titleToronto = $('.title-toronto');
     self.$titleText = $('.title-text');
     self.titleIsOn = true;
@@ -2095,7 +2095,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
     self.openCurtain = function() {
         self.$buttonOverlay.addClass('overlay-off');
         self.$titleOverlay.addClass('overlay-off');
-        self.$twitterOverlay.addClass('overlay-off');
+        self.$rightOverlay.addClass('overlay-off');
         self.$titleToronto.addClass('overlay-off');
         setTimeout(function() {
             self.$titleOverlay.remove();

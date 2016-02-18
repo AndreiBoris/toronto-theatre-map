@@ -22,6 +22,7 @@ $overlayTransition: 1.75s;
     padding-top: 0.8em;
     font-weight: bold;
     &:hover {
+        transition: 0.1em;
         @extend .button-hover;
     }
     p {
@@ -88,7 +89,7 @@ $overlayTransition: 1.75s;
     left: 2em;
 }
 
-.twitter-overlay {
+.right-overlay {
     position: absolute;
     right: 0;
     height: 100%;
@@ -97,7 +98,7 @@ $overlayTransition: 1.75s;
     z-index: 11;
 }
 
-.twitter-overlay.overlay-off {
+.right-overlay.overlay-off {
     right: -40%;
     transition: $overlayTransition;
 }
@@ -123,25 +124,53 @@ $overlayTransition: 1.75s;
     left: 7em;
 }
 
+
 /*** Need to get media queries working well here ***/
 
-@media all and (max-width: 55em) {
-    /*** Take up more space with the divs that start offscreen. ***/
-    .title-toronto.overlay-off {
-        top: 1.1em;
-        left: 1em;
+@media all and (max-width: 72em) {
+    .enter-button-border1 {
+        width: 60%;
+        height: 70%;
     }
-}
-
-
-
-/*** Need to get media queries working well here ***/
-
-@media all and (max-width: 70em) {
     /*** Hide the title 'Theatre in Toronto' behind the display div at all
     time. ***/
     .title-toronto.overlay-off {
         top: 1.1em;
         left: 1em;
+    }
+    .enter-button-border1.overlay-off {
+        left: -80%;
+    }
+    .enter-button-border2.overlay-off {
+        left: -100%;
+    }
+}
+
+@media all and (max-width: 62em) {
+    #enter-button {
+        width: 50%;
+        height: 60%;
+    }
+    #enter-button.overlay-off {
+        left: -50%;
+    }
+}
+
+@media all and (max-width: 50em) {
+    #enter-button {
+        width: 60%;
+        height: 70%;
+    }
+    #enter-button.overlay-off {
+        left: -60%;
+    }
+}
+
+@media all and (max-width: 40em) {
+    #enter-button {
+        width: 100%;
+    }
+    #enter-button.overlay-off {
+        left: -100%;
     }
 }
