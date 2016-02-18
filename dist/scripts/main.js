@@ -1395,13 +1395,13 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         // Move button to show directions to the opened InfoWindow
         self.moveButton();
 
-        if (self.titleIsOn) {
-            self.titleIsOn = false;
-            self.$titleText.addClass('fly-away');
-            setTimeout(function() {
-                self.$divOverlay.remove();
-            }, 500);
-        }
+        // if (self.titleIsOn) {
+        //     self.titleIsOn = false;
+        //     self.$titleText.addClass('fly-away');
+        //     setTimeout(function() {
+        //         self.$divOverlay.remove();
+        //     }, 500);
+        // }
 
         // If we were already showing directions, we should stop, as the user 
         // is now looking at a different marker.
@@ -2091,18 +2091,17 @@ var mapManager = mapManager || {};
  */
 var TheatreMapViewModel = (function(self, ko, mapManager) {
     'use strict';
-    
+
     self.openCurtain = function() {
         self.$buttonOverlay.addClass('overlay-off');
         self.$titleOverlay.addClass('overlay-off');
         self.$twitterOverlay.addClass('overlay-off');
         self.$titleToronto.addClass('overlay-off');
-        self.$titleText.css('z-index', )2;
         setTimeout(function() {
-            self.$divOverlay.addClass('overlay-off');
             self.$titleOverlay.remove();
+            self.$titleText.css('z-index', 2);
         }, 1000);
-        // TODO: Delete unused DOM elements
+
     };
 
     /**

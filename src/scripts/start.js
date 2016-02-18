@@ -11,14 +11,17 @@ var mapManager = mapManager || {};
  */
 var TheatreMapViewModel = (function(self, ko, mapManager) {
     'use strict';
-    
+
     self.openCurtain = function() {
         self.$buttonOverlay.addClass('overlay-off');
         self.$titleOverlay.addClass('overlay-off');
         self.$twitterOverlay.addClass('overlay-off');
         self.$titleToronto.addClass('overlay-off');
-        self.$titleText.css('z-index', 2);
-        self.$titleOverlay.remove();
+        setTimeout(function() {
+            self.$titleOverlay.remove();
+            self.$titleText.css('z-index', 2);
+        }, 1000);
+
     };
 
     /**
