@@ -29,6 +29,8 @@ z-index. ***/
 
 .tab-back {
     @extend .tab-all;
+    cursor: pointer;
+    cursor: hand;
     opacity: 0;
     /*** z-index has to be higher than left-div-on so that it is still clickable
         if the left-div is also open ***/

@@ -131,6 +131,8 @@ media queries. ***/
 tabs that are clicked to initiate all transitions, so it has to have the highest
 z-index. ***/
 .tab-back {
+  cursor: pointer;
+  cursor: hand;
   opacity: 0;
   /*** z-index has to be higher than left-div-on so that it is still clickable
       if the left-div is also open ***/
