@@ -2097,6 +2097,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
         self.$titleOverlay.addClass('overlay-off');
         self.$twitterOverlay.addClass('overlay-off');
         self.$titleToronto.addClass('overlay-off');
+        self.$titleText.css('z-index', )2;
         setTimeout(function() {
             self.$divOverlay.addClass('overlay-off');
             self.$titleOverlay.remove();
