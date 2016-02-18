@@ -192,39 +192,30 @@ footer {
   left: -50%;
 }
 
-/*** Background in overlay that disappears when overlay is disabled ***/
-#overlay-div {
-  z-index: 9;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: white;
-}
-
 /*** How long the transition from overlay to map takes ***/
-/*** ***/
+/*** Button and borders hug the bottom left corner. ***/
 .enter-button-shared, #enter-button, .enter-button-border1, .enter-button-border2 {
   left: 0;
   bottom: 0;
   transition: 1.75s;
 }
 
-/*** ***/
+/*** The button that sends the overlay off screen ***/
 #enter-button {
   position: absolute;
   z-index: 13;
   width: 40%;
   height: 50%;
   padding-top: 0.8em;
-  font-weight: bold;
 }
 #enter-button p {
   font-size: 2em;
   position: relative;
   top: 40%;
+  font-weight: bold;
 }
 
-/*** ***/
+/*** The first border around the enter-button. ***/
 .enter-button-border1 {
   position: absolute;
   z-index: 12;
@@ -232,7 +223,7 @@ footer {
   height: 60%;
 }
 
-/*** ***/
+/*** Second border around the enter-button ***/
 .enter-button-border2 {
   position: absolute;
   z-index: 11;
@@ -240,29 +231,20 @@ footer {
   height: 70%;
 }
 
-/*** ***/
-#curtain-div.overlay-off {
-  z-index: 0;
-}
-
-/*** ***/
+/*** The background behind the title ***/
 .title-background {
   height: 30%;
   width: 60%;
-  z-index: 11;
+  z-index: 1;
   position: absolute;
   background: white;
   transition: 1.75s;
 }
 
-/*** ***/
+/*** The title of the website. Positioning is handled word by word below. ***/
 .title-text {
-  z-index: 12;
+  z-index: 2;
   position: absolute;
-}
-
-/*** ***/
-.title-text {
   text-transform: uppercase;
   margin-top: 2%;
 }
