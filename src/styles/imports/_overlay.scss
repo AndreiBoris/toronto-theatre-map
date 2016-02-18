@@ -123,9 +123,25 @@ $overlayTransition: 1.75s;
     left: 7em;
 }
 
-.title-text.fly-away {
-    left: 200%;
-    position: absolute;
+/*** Need to get media queries working well here ***/
+
+@media all and (max-width: 55em) {
+    /*** Take up more space with the divs that start offscreen. ***/
+    .title-toronto.overlay-off {
+        top: 1.1em;
+        left: 1em;
+    }
 }
 
+
+
 /*** Need to get media queries working well here ***/
+
+@media all and (max-width: 70em) {
+    /*** Hide the title 'Theatre in Toronto' behind the display div at all
+    time. ***/
+    .title-toronto.overlay-off {
+        top: 1.1em;
+        left: 1em;
+    }
+}
