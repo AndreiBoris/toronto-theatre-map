@@ -211,7 +211,7 @@ footer {
 .enter-button-shared, #enter-button, .enter-button-border1, .enter-button-border2 {
   left: 0;
   bottom: 0;
-  transition: 1s;
+  transition: 1.75s;
 }
 
 #enter-button {
@@ -219,6 +219,8 @@ footer {
   z-index: 13;
   width: 40%;
   height: 50%;
+  padding-top: 0.8em;
+  font-weight: bold;
 }
 #enter-button p {
   font-size: 2em;
@@ -250,7 +252,7 @@ footer {
   z-index: 11;
   position: absolute;
   background: white;
-  transition: 1s;
+  transition: 1.75s;
 }
 
 .title-text {
@@ -275,7 +277,7 @@ footer {
 }
 
 .title-toronto {
-  transition: 1s;
+  transition: 1.75s;
   font-size: 3em;
   top: 1.1em;
   left: 2em;
@@ -292,7 +294,7 @@ footer {
 
 .twitter-overlay.overlay-off {
   right: -40%;
-  transition: 1s;
+  transition: 1.75s;
 }
 
 .button-overlay.overlay-off {
@@ -317,6 +319,12 @@ footer {
   position: absolute;
 }
 
+.button-white {
+  background: white;
+  color: black;
+  border: 0.25em solid black;
+}
+
 /*** Need to get media queries working well here ***/
 /*********************
 Dependencies
@@ -326,7 +334,7 @@ Starts offscreen
 *********************/
 /*** These styles do not influence anything in the opening screen and can be 
     loaded asynchronously if this will help with speed. ***/
-.button-style, #enter-button, .button-50-shared, .button-50, .button-50-info {
+.button-style, .button-50-shared, .button-50, .button-50-info {
   padding-top: 0.8em;
   font-weight: bold;
   color: white;

@@ -20,18 +20,18 @@
     // as well in the Scripts task
     var scripts = [
         'dist/perm/production/jquery_and_knockout.min.js',
-        'src/scripts/mapmanager.js', // development mode
-        'src/scripts/utilities.js', // development mode
-        'src/scripts/attributes.js', // development mode
-        'src/scripts/directions.js', // development mode
-        'src/scripts/markers.js', // development mode
-        'src/scripts/twitter.js', // development mode
-        'src/scripts/filter.js', // development mode
-        'src/scripts/glow.js', // development mode
-        'src/scripts/sort.js', // development mode
-        'src/scripts/divs.js', // development mode
-        'src/scripts/start.js', // development mode
-        // 'dist/scripts/main.min.js', // PRODUCTION mode
+        // 'src/scripts/mapmanager.js', // development mode
+        // 'src/scripts/utilities.js', // development mode
+        // 'src/scripts/attributes.js', // development mode
+        // 'src/scripts/directions.js', // development mode
+        // 'src/scripts/markers.js', // development mode
+        // 'src/scripts/twitter.js', // development mode
+        // 'src/scripts/filter.js', // development mode
+        // 'src/scripts/glow.js', // development mode
+        // 'src/scripts/sort.js', // development mode
+        // 'src/scripts/divs.js', // development mode
+        // 'src/scripts/start.js', // development mode
+        'dist/scripts/main.min.js', // PRODUCTION mode
         'https://maps.googleapis.com/maps/api/js?key=AIzaSyCQCl1KRNkAF-BPdyKyO92M0d4vd6MOd0w&callback=mapManager.initMap&region=CA'
     ];
 
@@ -87,26 +87,15 @@
         <div class="title-text title-theatre">Theatre</div>
         <div class="title-text title-in">in</div>
         <div class="title-text title-toronto">Toronto</div>
-        <div class="button-overlay enter-button-border2 button-green">
+        <div class="button-overlay enter-button-border2 button-white">
         </div>
-        <div class="button-overlay enter-button-border1 button-pink">
+        <div class="button-overlay enter-button-border1 button-white">
         </div>
-        <div id="enter-button" class="button-overlay button-blue text-center" data-bind="click: openCurtain">
+        <div id="enter-button" class="button-overlay button-white text-center" data-bind="click: openCurtain">
             <p>Check it out</p>
         </div>
         <div class="twitter-overlay">
-            <a class="twitter-timeline" href="https://twitter.com/BreathMachine/lists/toronto-theatre" data-widget-id="694233158955323392">Tweets from https://twitter.com/BreathMachine/lists/toronto-theatre</a>
-            <script>
-            ! function(d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0],
-                    p = /^http:/.test(d.location) ? 'http' : 'https';
-                if (!d.getElementById(id)) {
-                    js = d.createElement(s);
-                    js.id = id;
-                    js.src = p + "://platform.twitter.com/widgets.js";
-                    fjs.parentNode.insertBefore(js, fjs);
-                }
-            }(document, "script", "twitter-wjs");
+           
             </script>
         </div>
     </div>
