@@ -185,6 +185,17 @@ var TheatreMapViewModel = (function(self, ko) {
     self.creditOn = ko.observable(false);
 
     /**
+     * Curtains
+     */
+    self.$divOverlay = $('#overlay-div');
+    self.$buttonOverlay = $('.button-overlay');
+    self.$titleOverlay = $('.title-background');
+    self.$twitterOverlay = $('.twitter-overlay');
+    self.$titleToronto = $('.title-toronto');
+    self.$titleText = $('.title-text');
+    self.titleIsOn = true;
+
+    /**
      * Add the above methods to TheatreMapViewModel
      */
     return self;

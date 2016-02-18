@@ -207,6 +207,11 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         // Move button to show directions to the opened InfoWindow
         self.moveButton();
 
+        if (self.titleIsOn){
+            self.titleIsOn = false;
+            self.$titleText.addClass('fly-away');
+        }
+
         // If we were already showing directions, we should stop, as the user 
         // is now looking at a different marker.
         if (self.showDirections()) {

@@ -72,7 +72,7 @@ li {
 }
 
 /*** All buttons inherit this class to change cursor ***/
-.button-all, .button-50, .button-list-item, .button-filter-item, .button-100, .button-50-info {
+.button-all, #enter-button, .button-50, .button-list-item, .button-filter-item, .button-100, .button-50-info {
   cursor: pointer;
   cursor: hand;
 }
@@ -201,6 +201,123 @@ footer {
   left: -50%;
 }
 
+#curtain-div {
+  z-index: 10;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.enter-button-shared, #enter-button, .enter-button-border1, .enter-button-border2 {
+  left: 0;
+  bottom: 0;
+  transition: 1s;
+}
+
+#enter-button {
+  position: absolute;
+  z-index: 13;
+  width: 40%;
+  height: 50%;
+}
+#enter-button p {
+  font-size: 2em;
+  position: relative;
+  top: 40%;
+}
+
+.enter-button-border1 {
+  position: absolute;
+  z-index: 12;
+  width: 50%;
+  height: 60%;
+}
+
+.enter-button-border2 {
+  position: absolute;
+  z-index: 11;
+  width: 60%;
+  height: 70%;
+}
+
+#curtain-div.overlay-off {
+  z-index: 0;
+}
+
+.title-background {
+  height: 30%;
+  width: 60%;
+  z-index: 11;
+  position: absolute;
+  background: white;
+  transition: 1s;
+}
+
+.title-text {
+  z-index: 12;
+  position: absolute;
+}
+
+.title-text {
+  text-transform: uppercase;
+  margin-top: 2%;
+}
+
+.title-theatre {
+  font-size: 3em;
+  left: 1em;
+}
+
+.title-in {
+  font-size: 2em;
+  left: 9em;
+  top: 0.4em;
+}
+
+.title-toronto {
+  transition: 1s;
+  font-size: 3em;
+  top: 1.1em;
+  left: 2em;
+}
+
+.twitter-overlay {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  width: 40%;
+  background: white;
+  z-index: 11;
+}
+
+.twitter-overlay.overlay-off {
+  right: -40%;
+  transition: 1s;
+}
+
+.button-overlay.overlay-off {
+  left: -60%;
+}
+
+#enter-button.overlay-off {
+  left: -40%;
+}
+
+.title-background.overlay-off {
+  opacity: 0;
+}
+
+.title-toronto.overlay-off {
+  top: 0;
+  left: 7em;
+}
+
+.title-text.fly-away {
+  left: 200%;
+  position: absolute;
+}
+
+/*** Need to get media queries working well here ***/
 /*********************
 Dependencies
 *********************/
@@ -209,12 +326,15 @@ Starts offscreen
 *********************/
 /*** These styles do not influence anything in the opening screen and can be 
     loaded asynchronously if this will help with speed. ***/
-/*** Inherited by button-50 and button-50-info in _off_info_win.scss ***/
-.button-50-shared, .button-50, .button-50-info {
-  width: 50%;
+.button-style, #enter-button, .button-50-shared, .button-50, .button-50-info {
   padding-top: 0.8em;
   font-weight: bold;
   color: white;
+}
+
+/*** Inherited by button-50 and button-50-info in _off_info_win.scss ***/
+.button-50-shared, .button-50, .button-50-info {
+  width: 50%;
 }
 
 /*** Buttons at the top of right divs sorting. In flexbox. ***/
@@ -229,7 +349,7 @@ Starts offscreen
   }
 }
 /*** Animate buttons when hovering over them ***/
-.button-hover, .button-flex :hover {
+.button-hover, #enter-button:hover, .button-flex :hover {
   border: 0.15em solid black;
 }
 
@@ -287,9 +407,9 @@ Starts offscreen
 }
 
 /*** Background for alphabetical sort button in list div ***/
-.button-teal {
-  background: linear-gradient(teal, maroon);
-  box-shadow: 0.05em 0.05em 0.5em 0.55em teal inset;
+.button-red-maroon {
+  background: linear-gradient(red, maroon);
+  box-shadow: 0.05em 0.05em 0.5em 0.55em red inset;
 }
 
 /*** Used briefly in the Twitter error div ***/

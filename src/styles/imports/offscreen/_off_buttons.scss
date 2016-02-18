@@ -1,11 +1,17 @@
-/*** Inherited by button-50 and button-50-info in _off_info_win.scss ***/
-
-.button-50-shared {
-    width: 50%;
+.button-style {
     padding-top: 0.8em;
     font-weight: bold;
     color: white; // Need background color or else text is invisible.
 }
+
+
+/*** Inherited by button-50 and button-50-info in _off_info_win.scss ***/
+
+.button-50-shared {
+    width: 50%;
+    @extend .button-style;
+}
+
 
 /*** Buttons at the top of right divs sorting. In flexbox. ***/
 
@@ -13,8 +19,8 @@
     @extend .button-all;
     @extend .button-50-shared;
     height: 2.7em;
-    
 }
+
 
 /*** Font sizes can be bumped up slight on larger screen ***/
 
@@ -24,11 +30,13 @@
     }
 }
 
+
 /*** Animate buttons when hovering over them ***/
 
 .button-hover {
     border: 0.15em solid black;
 }
+
 
 /*** Sort buttons at the top of list div styles ***/
 
@@ -42,11 +50,13 @@
     }
 }
 
+
 /*** Applied to divs inside buttons so they don't draw additional borders ***/
 
 .no-border:hover {
     border: none;
 }
+
 
 /*** Mixin used for all buttons to style their color ***/
 
@@ -108,7 +118,7 @@
 
 /*** Background for alphabetical sort button in list div ***/
 
-.button-teal {
-    background: linear-gradient(teal, maroon);
-    @include button-shadows(teal);
+.button-red-maroon {
+    background: linear-gradient(red, maroon);
+    @include button-shadows(red);
 }

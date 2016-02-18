@@ -1,0 +1,127 @@
+#curtain-div {
+    z-index: 10;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+$overlayTransition: 1s;
+.enter-button-shared {
+    left: 0;
+    bottom: 0;
+    transition: $overlayTransition;
+}
+
+#enter-button {
+    position: absolute;
+    z-index: 13;
+    width: 40%;
+    height: 50%;
+    @extend .enter-button-shared;
+    @extend .button-all;
+    @extend .button-style;
+    &:hover {
+        @extend .button-hover;
+    }
+    p {
+        font-size: 2em;
+        position: relative;
+        top: 40%;
+    }
+}
+
+.enter-button-border1 {
+    @extend .enter-button-shared;
+    position: absolute;
+    z-index: 12;
+    width: 50%;
+    height: 60%;
+}
+
+.enter-button-border2 {
+    @extend .enter-button-shared;
+    position: absolute;
+    z-index: 11;
+    width: 60%;
+    height: 70%;
+}
+
+#curtain-div.overlay-off {
+    z-index: 0;
+}
+
+.title-background {
+    height: 30%;
+    width: 60%;
+    z-index: 11;
+    position: absolute;
+    background: white;
+    transition: $overlayTransition;
+}
+
+.title-text {
+    z-index: 12;
+    position: absolute;
+}
+
+.title-text {
+    text-transform: uppercase;
+    margin-top: 2%;
+}
+
+.title-theatre {
+    font-size: 3em;
+    left: 1em;
+}
+
+.title-in {
+    font-size: 2em;
+    left: 9em;
+    top: 0.4em;
+}
+
+.title-toronto {
+    transition: $overlayTransition;
+    font-size: 3em;
+    top: 1.1em;
+    left: 2em;
+}
+
+.twitter-overlay {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 40%;
+    background: white;
+    z-index: 11;
+}
+
+.twitter-overlay.overlay-off {
+    right: -40%;
+    transition: $overlayTransition;
+}
+
+.button-overlay.overlay-off {
+    left: -60%;
+}
+
+#enter-button.overlay-off {
+    left: -40%;
+}
+
+.title-background.overlay-off {
+    opacity: 0;
+}
+
+.title-toronto.overlay-off {
+    top: 0;
+    left: 7em;
+}
+
+.title-text.fly-away {
+    left: 200%;
+    position: absolute;
+}
+
+
+/*** Need to get media queries working well here ***/

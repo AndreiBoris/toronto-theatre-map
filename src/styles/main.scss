@@ -22,6 +22,10 @@ Initial Page
 
 @import 'imports/media_queries';
 
+
+@import 'imports/overlay';
+
+
 /*********************
 Dependencies
 *********************/
@@ -58,3 +62,4 @@ Starts offscreen
 @import 'imports/offscreen/off_info_win';
 
 @import 'imports/offscreen/off_media_queries';
+

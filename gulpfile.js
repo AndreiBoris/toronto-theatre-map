@@ -13,7 +13,8 @@ var gulp = require('gulp'),
     del = require('del'),
     htmlmin = require('gulp-htmlmin'),
     imageResize = require('gulp-image-resize'),
-    critical = require('critical');
+    critical = require('critical'),
+    rename = require('gulp-rename');
 
 // Styles
 gulp.task('styles', function() {
@@ -106,17 +107,18 @@ gulp.task('minime', function() {
         }));
 });
 
-// Clean images
-gulp.task('clean-images', function() {
-    return del(['dist/images']);
-});
+// Clean images Don't do this unless you're sure you can build the images again
+// gulp.task('clean-images', function() {
+//     return del(['dist/images']);
+// });
 
 // Resize images
 gulp.task('images', function() {
-    gulp.src('src/images/*tab*.png')
+    gulp.src('src/images/*curtain.jpeg')
         .pipe(imageResize({
-            width: 40
+            width: 400
         }))
+        .pipe(rename(function (path) { path.basename += '-400';}))
         .pipe(gulp.dest('dist/images'))
         .pipe(notify({
             message: 'Resize (no minification) task complete'
