@@ -120,6 +120,12 @@ $overlayTransition: 1.75s;
     left: 7em;
 }
 
+/*** Fade out button when the javascript is not yet loaded ***/
+
+#enter-button.button-disabled{
+    cursor: auto; 
+    background: gray;  
+}
 
 /*** Need to get media queries working well here ***/
 

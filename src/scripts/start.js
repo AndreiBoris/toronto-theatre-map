@@ -12,7 +12,7 @@ var mapManager = mapManager || {};
 var TheatreMapViewModel = (function(self, ko, mapManager) {
     'use strict';
 
-    self.openCurtain = function() {
+    self.openOverlay = function() {
         self.$buttonOverlay.addClass('overlay-off');
         self.$titleOverlay.addClass('overlay-off');
         self.$rightOverlay.addClass('overlay-off');
@@ -31,5 +31,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
 
 }(TheatreMapViewModel || {}, ko, mapManager));
 
-
+TheatreMapViewModel.fadeInOverlayDivButton();
 ko.applyBindings(TheatreMapViewModel);
+
