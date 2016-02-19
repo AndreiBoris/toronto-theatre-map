@@ -59,6 +59,7 @@ $overlayTransition: 1.4s;
     position: absolute;
     text-transform: uppercase;
     margin-top: 2%;
+    transition: $overlayTransition;
 }
 
 
@@ -82,7 +83,6 @@ $overlayTransition: 1.4s;
 /*** Positioning the word 'Toronto' in the title ***/
 
 .title-toronto {
-    transition: $overlayTransition;
     font-size: 3em;
     top: 1.1em; // Below 'theatre' and 'in'
     left: 2em;
