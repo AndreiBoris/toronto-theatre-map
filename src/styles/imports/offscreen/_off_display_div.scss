@@ -79,12 +79,15 @@ in #address-line to increase readability of HTML ***/
     height: 50%;
 }
 
-/*** Narrow screens like portrait phones need more access to the display div ***/
 
+/*** Narrow screens like portrait phones need more access to the display div ***/
 
 @media all and (max-width: 45em) {
     #display-div.direction-extention {
         height: 70%;
+    }
+    #display-box {
+        height: 86%;
     }
 }
 

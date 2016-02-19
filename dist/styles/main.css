@@ -640,6 +640,10 @@ in #address-line to increase readability of HTML ***/
   #display-div.direction-extention {
     height: 70%;
   }
+
+  #display-box {
+    height: 86%;
+  }
 }
 /*** Short screens like landscape phones need even more access to the display 
 div ***/
