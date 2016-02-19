@@ -2,6 +2,7 @@ var google = google || {};
 // instantiated TheatreMapViewModel from app.js
 var TheatreMapViewModel = TheatreMapViewModel || {};
 var ko = ko || {};
+var $ = $ || function(){};
 
 /**
  * mapManager is responsible for holding the map, markers data, and 
