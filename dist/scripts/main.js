@@ -2,7 +2,6 @@ var google = google || {};
 // instantiated TheatreMapViewModel from app.js
 var TheatreMapViewModel = TheatreMapViewModel || {};
 var ko = ko || {};
-var $ = $ || function(){};
 
 /**
  * mapManager is responsible for holding the map, markers data, and 
@@ -971,6 +970,10 @@ var TheatreMapViewModel = (function(self, ko) {
     self.$loadButton = $('#load-button');
     self.$loadMover = $('#load-mover');
     
+    /**
+     * Google Maps API failed to load
+     */
+    self.googleMapFailed = ko.observable(false);
 
     /**
      * Add the above methods to TheatreMapViewModel
@@ -2061,15 +2064,17 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
 var TheatreMapViewModel = TheatreMapViewModel || {};
 var ko = ko || {};
 var mapManager = mapManager || {};
+var googleWatcherObject = googleWatcherObject || {};
 
 /**
  * The module loads methods for dealing with the overlay.
  * @param  {object} self        TheatreMapViewModel object without this module.
  * @param  {object} ko          Knockout object to provide framework methods.
  * @param  {object} mapManager  Object with map related function and variables.
+ * @param  {object} googleWatcherObject  Used to handle Google Maps API load
  * @return {object}             TheatreMapViewModel with these added methods.
  */
-var TheatreMapViewModel = (function(self, ko, mapManager) {
+var TheatreMapViewModel = (function(self, ko, mapManager, googleWatcherObject) {
     'use strict';
 
     /**
@@ -2121,22 +2126,25 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
      */
     self.launchAttempt = function() {
         console.log('Attempting launch');
-        if (googleWatcherVariable) {
+        if (googleWatcherObject.googleWatcherVariable === 'success') {
             mapManager.initMap();
+        } else if (googleWatcherObject.googleWatcherVariable === 'failure') {
+            console.log('running the failure handler');
+            self.googleMapFailed(true);
         } else {
             setTimeout(function() {
                 self.launchAttempt();
             }, 50);
         }
 
-    }
+    };
 
     /**
      * Add the above methods to TheatreMapViewModel
      */
     return self;
 
-}(TheatreMapViewModel || {}, ko, mapManager));
+}(TheatreMapViewModel || {}, ko, mapManager, googleWatcherObject));
 
 // Animation on the button used to enter the useable part of the app from the 
 // opening page.

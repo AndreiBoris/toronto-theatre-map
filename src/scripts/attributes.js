@@ -197,6 +197,10 @@ var TheatreMapViewModel = (function(self, ko) {
     self.$loadButton = $('#load-button');
     self.$loadMover = $('#load-mover');
     
+    /**
+     * Google Maps API failed to load
+     */
+    self.googleMapFailed = ko.observable(false);
 
     /**
      * Add the above methods to TheatreMapViewModel

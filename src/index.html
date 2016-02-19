@@ -9,10 +9,17 @@
     <meta name="author" content="Andrei Borissenko">
     <title>Toronto Live Theatre Resource</title>
     <script>
-    var googleWatcherVariable = false;
-    var googleWatcherFunction = function(){
-        googleWatcherVariable = true;
-    };
+    var googleWatcherObject = {
+        googleWatcherVariable: false,
+        googleWatcherFunction: function() {
+            this.googleWatcherVariable = 'success';
+        },
+        googleWatcherError: function() {
+            this.googleWatcherVariable = 'failure';
+            console.log('Google Maps API failed to load');
+        }
+    }
+
     // Thank you to Jake Archibald at www.html5rocks.com for the following script!
     // http://www.html5rocks.com/en/tutorials/speed/script-loading/#disqus_thread
     // see dist/perm/production/jsLoading.js for details
@@ -209,6 +216,12 @@
                     <span class="bump-size bolded-text" data-bind="text: founded"></span></p>
             </li>
         </ul>
+        <div id="map-error" data-bind="visible: googleMapFailed" class="scroll-div">
+            <span class="large-font">Oh no!</span> We couldn't load Google Maps 
+            due to some connection error. Perhaps there is some issue with the link
+            to Google Maps or a break in your local connection? You can try 
+            checking your connection and reloading the page! 
+        </div>
     </div>
     <!-- Tabs work just like for the list-tabs above. -->
     <img id="twitter-tab" class="tab-plain tab-off twitter-tab-image" src="dist/images/twitter-tab-border.png"></img>
@@ -303,7 +316,7 @@
     <!-- Twitter methods for creating timelines dynamically -->
     <script async src="https://platform.twitter.com/widgets.js"></script>
     <!-- Google Maps API -->
-    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQCl1KRNkAF-BPdyKyO92M0d4vd6MOd0w&callback=googleWatcherFunction&region=CA"></script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQCl1KRNkAF-BPdyKyO92M0d4vd6MOd0w&callback=googleWatcherObject.googleWatcherFunction&region=CA" onerror="googleWatcherObject.googleWatcherError()"></script>
 </body>
 
 </html>

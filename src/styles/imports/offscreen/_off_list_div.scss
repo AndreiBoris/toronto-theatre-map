@@ -49,3 +49,7 @@ hovering over any of them specifically. ***/
     font-size: 1.5em;
     @extend .text-center;
 }
+
+#map-error{
+    @extend .error-style;
+}
