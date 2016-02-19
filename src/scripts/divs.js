@@ -26,6 +26,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
         self.closeDirections();
         self.closeLeftDiv();
         self.closeInfoWindow();
+        self.closeRightDivs();
     };
 
     /**

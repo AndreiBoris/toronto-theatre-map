@@ -21,7 +21,11 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
         self.$rightOverlay.addClass('overlay-off');
         self.$titleToronto.addClass('overlay-off');
         self.$divOverlay.css('z-index', 0); // To be able to click on the map.
-        self.slideList(); // Show list div
+        
+        setTimeout(function() {
+            self.slideList(); // Show list div
+        }, 600); // 
+
         // When transition ends, delete all offscreen overlay elements.
         setTimeout(function() {
             self.$titleOverlay.remove();
