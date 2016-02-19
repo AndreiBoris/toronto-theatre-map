@@ -30,6 +30,48 @@ $overlayTransition: 1.4s;
 }
 
 
+/*** Graphic above the enter-button to signify loading. ***/
+
+#load-button {
+    position: absolute;
+    z-index: 14; // Higher than enter-button
+    width: 40%;
+    height: 50%;
+    @extend .enter-button-shared;
+}
+
+/*** Part of graphic that moves around the load-button ***/
+
+#load-mover {
+    z-index: 15; // higher than load-button
+    width: 2em;
+    height: 2em;
+    top: 0;
+    right: 100%;
+    background: black;
+    transition: 1s;
+}
+
+#load-mover.first-move {
+    width: 100%;
+}
+
+#load-mover.second-move {
+    height: 100%;
+}
+
+#load-mover.third-move {
+    background: white;
+}
+
+#load-mover.fourth-move {
+    opacity: 0;
+}
+
+#load-button.fourth-move{
+    opacity: 0;
+}
+
 /*** The first border around the enter-button. ***/
 
 .enter-button-border1 {
@@ -181,6 +223,10 @@ transitions when RESIZING look prettier, so it's rarely used. ***/
         width: 50%; // Increase button size to old border1 size. 
         height: 60%;
     }
+    #load-button {
+        width: 50%; // Increase button size to old border1 size. 
+        height: 60%;
+    }
     #enter-button.overlay-off {
         left: -50%; // Need to move own width over
     }
@@ -197,6 +243,10 @@ transitions when RESIZING look prettier, so it's rarely used. ***/
         width: 60%; // Take position that border1 used to have
         height: 70%;
     }
+    #load-button {
+        width: 60%; // Take position that border1 used to have
+        height: 70%;
+    }
     #enter-button.overlay-off {
         left: -60%; // Need to move own width over
     }
@@ -207,6 +257,9 @@ transitions when RESIZING look prettier, so it's rarely used. ***/
 
 @media all and (max-width: 40em) {
     #enter-button {
+        width: 100%;
+    }
+    #load-button {
         width: 100%;
     }
     #enter-button.overlay-off {

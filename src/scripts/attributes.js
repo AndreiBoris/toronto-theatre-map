@@ -194,7 +194,9 @@ var TheatreMapViewModel = (function(self, ko) {
     self.$rightOverlay = $('.right-overlay');
     self.$titleToronto = $('.title-toronto');
     self.$titleText = $('.title-text');
-    self.titleIsOn = true;
+    self.$loadButton = $('#load-button');
+    self.$loadMover = $('#load-mover');
+    
 
     /**
      * Add the above methods to TheatreMapViewModel

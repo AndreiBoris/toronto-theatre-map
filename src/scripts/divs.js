@@ -69,14 +69,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
     });
 
     /**
-     * Fades in button 'Check it out' button on the overlay div when JavaScript
-     * has loaded.
-     */
-    self.fadeInOverlayDivButton = function() {
-        self.$buttonOverlay.removeClass('button-disabled');
-    };
-
-    /**
      * Determine message for the button on the InfoWindow that brings out the 
      * display div 
      * @return {string}   Text to display on the button.

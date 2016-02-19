@@ -194,7 +194,7 @@ footer {
 
 /*** How long the transition from overlay to map takes ***/
 /*** Button and borders hug the bottom left corner. ***/
-.enter-button-shared, #enter-button, .enter-button-border1, .enter-button-border2 {
+.enter-button-shared, #enter-button, #load-button, .enter-button-border1, .enter-button-border2 {
   left: 0;
   bottom: 0;
   transition: 1.4s;
@@ -213,6 +213,45 @@ footer {
   position: relative;
   top: 40%;
   font-weight: bold;
+}
+
+/*** Graphic above the enter-button to signify loading. ***/
+#load-button {
+  position: absolute;
+  z-index: 14;
+  width: 40%;
+  height: 50%;
+}
+
+/*** Part of graphic that moves around the load-button ***/
+#load-mover {
+  z-index: 15;
+  width: 2em;
+  height: 2em;
+  top: 0;
+  right: 100%;
+  background: black;
+  transition: 1s;
+}
+
+#load-mover.first-move {
+  width: 100%;
+}
+
+#load-mover.second-move {
+  height: 100%;
+}
+
+#load-mover.third-move {
+  background: white;
+}
+
+#load-mover.fourth-move {
+  opacity: 0;
+}
+
+#load-button.fourth-move {
+  opacity: 0;
 }
 
 /*** The first border around the enter-button. ***/
@@ -338,6 +377,11 @@ transitions when RESIZING look prettier, so it's rarely used. ***/
     height: 60%;
   }
 
+  #load-button {
+    width: 50%;
+    height: 60%;
+  }
+
   #enter-button.overlay-off {
     left: -50%;
   }
@@ -353,6 +397,11 @@ transitions when RESIZING look prettier, so it's rarely used. ***/
     height: 70%;
   }
 
+  #load-button {
+    width: 60%;
+    height: 70%;
+  }
+
   #enter-button.overlay-off {
     left: -60%;
   }
@@ -360,6 +409,10 @@ transitions when RESIZING look prettier, so it's rarely used. ***/
 /*** Small screens ***/
 @media all and (max-width: 40em) {
   #enter-button {
+    width: 100%;
+  }
+
+  #load-button {
     width: 100%;
   }
 

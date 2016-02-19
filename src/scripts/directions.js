@@ -30,12 +30,12 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         };
         // Clear the directions and duration from the last caclRoute call
         self.currentDirections.removeAll();
-        self.currentTravelDuration(0);
-        self.directionSuccess(false);
+        self.currentTravelDuration(0); // Reset calculated travel duration
+        self.directionSuccess(false); // Toggle display of opening comment
         // Request the directions based on the request object defined above.
         mapManager.directionsService.route(request, function(result, status) {
             if (status === google.maps.DirectionsStatus.OK) { // got a response
-                self.directionSuccess(true);
+                self.directionSuccess(true); // Toggle display of opening comment
                 var tags = /<[^>]*>/g;
                 var destinationFix = /Destination/g;
                 // Draw the graphical overlay showing directions on map

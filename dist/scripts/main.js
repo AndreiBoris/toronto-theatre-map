@@ -967,7 +967,9 @@ var TheatreMapViewModel = (function(self, ko) {
     self.$rightOverlay = $('.right-overlay');
     self.$titleToronto = $('.title-toronto');
     self.$titleText = $('.title-text');
-    self.titleIsOn = true;
+    self.$loadButton = $('#load-button');
+    self.$loadMover = $('#load-mover');
+    
 
     /**
      * Add the above methods to TheatreMapViewModel
@@ -1008,12 +1010,12 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         };
         // Clear the directions and duration from the last caclRoute call
         self.currentDirections.removeAll();
-        self.currentTravelDuration(0);
-        self.directionSuccess(false);
+        self.currentTravelDuration(0); // Reset calculated travel duration
+        self.directionSuccess(false); // Toggle display of opening comment
         // Request the directions based on the request object defined above.
         mapManager.directionsService.route(request, function(result, status) {
             if (status === google.maps.DirectionsStatus.OK) { // got a response
-                self.directionSuccess(true);
+                self.directionSuccess(true); // Toggle display of opening comment
                 var tags = /<[^>]*>/g;
                 var destinationFix = /Destination/g;
                 // Draw the graphical overlay showing directions on map
@@ -2039,14 +2041,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
     });
 
     /**
-     * Fades in button 'Check it out' button on the overlay div when JavaScript
-     * has loaded.
-     */
-    self.fadeInOverlayDivButton = function() {
-        self.$buttonOverlay.removeClass('button-disabled');
-    };
-
-    /**
      * Determine message for the button on the InfoWindow that brings out the 
      * display div 
      * @return {string}   Text to display on the button.
@@ -2087,21 +2081,41 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
         self.$divOverlay.css('z-index', 0); // To be able to click on the map.
         // Keep above titleOverlay, but below display-div so that it covers the
         // titleText when it comes out.
-        self.$titleText.css('z-index', 2); 
+        self.$titleText.css('z-index', 2);
         // Keep covering the map (just barely) 
-        self.$titleOverlay.css('z-index', 1); 
+        self.$titleOverlay.css('z-index', 1);
         // When transition ends, delete all offscreen overlay elements.
-        setTimeout(function() { 
+        setTimeout(function() {
             self.$titleOverlay.remove();
             self.$divOverlay.remove();
             self.$rightOverlay.remove();
             self.$buttonOverlay.remove();
-            if (!self.listIsOpen()){
+            if (!self.listIsOpen()) {
                 self.closeRightDivs();
                 self.slideList();
             }
         }, 1400); // Time matches the transition time in _overlay.scss
 
+    };
+
+    /**
+     * Perform the load animation over the enter-button
+     */
+    self.loadAnimation = function() {
+        self.$loadMover.addClass('first-move');
+        setTimeout(function() {
+            self.$loadMover.addClass('second-move');
+            setTimeout(function() {
+                self.$loadMover.addClass('third-move');
+                setTimeout(function() {
+                    self.$loadMover.addClass('fourth-move');
+                    self.$loadButton.addClass('fourth-move');
+                    setTimeout(function() {
+                        self.$loadButton.remove();
+                    }, 1000);
+                }, 1000);
+            }, 1000);
+        }, 1000);
     };
 
     /**
@@ -2113,7 +2127,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
 
 // Fade the 'Check it out' button into being usuable, since all the code that 
 // supports it has loaded by this point.
-TheatreMapViewModel.fadeInOverlayDivButton();
+// TheatreMapViewModel.fadeInOverlayDivButton();
+TheatreMapViewModel.loadAnimation();
 // Apply Knockout bindings
 ko.applyBindings(TheatreMapViewModel);
-
