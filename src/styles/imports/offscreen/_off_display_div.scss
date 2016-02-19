@@ -5,6 +5,7 @@
     margin: 0.5em;
 }
 
+
 /*** Title of the displayed theatre ***/
 
 .display-title {
@@ -19,12 +20,14 @@
     }
 }
 
+
 /*** The list enumerating the directions to get to the theatre ***/
 
 .directions {
     list-style-type: decimal;
     margin-left: 1em;
 }
+
 
 /*** List items in the directions list ***/
 
@@ -42,6 +45,7 @@ the height of current display the same effect would not result. ***/
     height: 80%;
 }
 
+
 /*** Used to move buttons to the bottom of the display div ***/
 
 #display-div {
@@ -50,14 +54,16 @@ the height of current display the same effect would not result. ***/
     justify-content: space-between;
 }
 
+
 /*** Make the address line not act like a button div ***/
 
 #address-line {
     align-self: center;
-    &:hover{
+    &:hover {
         border: none;
     }
 }
+
 
 /*** Make the address line 50% of its parent div. Done in this class instead of
 in #address-line to increase readability of HTML ***/
@@ -66,13 +72,25 @@ in #address-line to increase readability of HTML ***/
     width: 50%;
 }
 
+
 /*** This display div when it is extended to feature directions ***/
 
 #display-div.direction-extention {
     height: 50%;
 }
 
-/*** Short screens like landscape phones need more access to the display div ***/
+/*** Narrow screens like portrait phones need more access to the display div ***/
+
+
+@media all and (max-width: 45em) {
+    #display-div.direction-extention {
+        height: 70%;
+    }
+}
+
+
+/*** Short screens like landscape phones need even more access to the display 
+div ***/
 
 @media all and (max-height: 26em) {
     #display-div.direction-extention {

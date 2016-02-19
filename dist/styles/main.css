@@ -635,7 +635,14 @@ in #address-line to increase readability of HTML ***/
   height: 50%;
 }
 
-/*** Short screens like landscape phones need more access to the display div ***/
+/*** Narrow screens like portrait phones need more access to the display div ***/
+@media all and (max-width: 45em) {
+  #display-div.direction-extention {
+    height: 70%;
+  }
+}
+/*** Short screens like landscape phones need even more access to the display 
+div ***/
 @media all and (max-height: 26em) {
   #display-div.direction-extention {
     height: 90%;
