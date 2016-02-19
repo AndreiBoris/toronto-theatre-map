@@ -1,3 +1,7 @@
+#credit-marker{
+    @extend .button-clickable;
+}
+
 /*** Attributions in the credit div shouldn't be centered ***/
 
 .attributions {

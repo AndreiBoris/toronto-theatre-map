@@ -468,7 +468,7 @@ Starts offscreen
 /*** These styles do not influence anything in the opening screen and can be 
     loaded asynchronously if this will help with speed. ***/
 /*** Cursor changes when hovering over button ***/
-.button-clickable, .button-list-item, .button-50-info {
+.button-clickable, .button-list-item, #credit-marker, .button-50-info {
   cursor: pointer;
   cursor: hand;
 }
