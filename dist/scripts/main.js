@@ -1019,7 +1019,10 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
                 // the theatre in steps.
                 result.routes[0].legs[0].steps.forEach(function(curVal, index, array) {
                     // Add current major step
-                    self.currentDirections.push(curVal.instructions);
+                    self.currentDirections.push(curVal.instructions + ' - ' + 
+                        curVal.distance.text + ' (' + curVal.duration.text + 
+                            ')');
+                    console.log('major step: ' + curVal.distance.text);
                     // Add time to complete current step to total travel time
                     self.currentTravelDuration(self.currentTravelDuration() +
                         parseInt(curVal.duration.text));
@@ -1029,6 +1032,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
                                 // Remove html tags on these sub-steps
                                 var rawStep = innerVal.instructions.replace(tags,
                                     ' ');
+                                console.log('minor step: ' + innerVal.distance.text);
                                 // Separate 'Destination' sentence from the rest
                                 var cleanStep = rawStep.replace(destinationFix,
                                     '-> Destination');
