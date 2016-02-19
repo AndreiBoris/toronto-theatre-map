@@ -837,6 +837,7 @@ var TheatreMapViewModel = (function(self, ko) {
     self.currentCopyrights = ko.observable('');
     self.currentPosition = ko.observable({});
     self.currentTravelDuration = ko.observable(0);
+    self.directionSuccess = ko.observable(false);
 
 
     /**
@@ -998,9 +999,9 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
      */
     self.calcRoute = function(destination) {
         var request = {
-            origin: { // Union station.... (NOT GOOD)
-                lat: 43.645220,
-                lng: -79.380836
+            origin: { // Yonge and Bloor
+                lat: 43.670843, 
+                lng: -79.385890 
             },
             destination: destination, // location of the marker we are targeting
             travelMode: google.maps.TravelMode.TRANSIT // transit directions
@@ -1008,9 +1009,11 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         // Clear the directions and duration from the last caclRoute call
         self.currentDirections.removeAll();
         self.currentTravelDuration(0);
+        self.directionSuccess(false);
         // Request the directions based on the request object defined above.
         mapManager.directionsService.route(request, function(result, status) {
             if (status === google.maps.DirectionsStatus.OK) { // got a response
+                self.directionSuccess(true);
                 var tags = /<[^>]*>/g;
                 var destinationFix = /Destination/g;
                 // Draw the graphical overlay showing directions on map
@@ -1019,6 +1022,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
                 // the theatre in steps.
                 result.routes[0].legs[0].steps.forEach(function(curVal, index, array) {
                     // Add current major step
+                    console.log(curVal);
                     self.currentDirections.push(curVal.instructions + ' - ' + 
                         curVal.distance.text + ' (' + curVal.duration.text + 
                             ')');

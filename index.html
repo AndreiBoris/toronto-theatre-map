@@ -66,7 +66,7 @@
                     text: directionText"></div></div><!-- Contains the blurb about each theatre, either hardcoded 
                 text or taken from Wikipedia if the hardcode is not available.
                 Not displayed if directions are being shown. --><div data-bind="visible: !showDirections()"><p data-bind="text: currentBlurb"></p><br></div><!-- Contains the directions taken from Google Maps Directions
-                API in steps. --><div data-bind="visible: showDirections"><ul class="directions" data-bind="foreach: currentDirections"><li class="direction" data-bind="text: $data"></li></ul><br><!-- Travel time message --><p data-bind="text: travelTime"></p><br><!-- Must be included to use the API --><p data-bind="text: currentCopyrights"></p></div><!-- NOTE: The direction-button goes into the InfoWindows 
+                API in steps. --><div data-bind="visible: showDirections"><p data-bind="visible: directionSuccess">Direction from Yonge and Bloor subway station:</p><ul class="directions" data-bind="foreach: currentDirections"><li class="direction" data-bind="text: $data"></li></ul><br><!-- Travel time message --><p data-bind="text: travelTime"></p><br><!-- Must be included to use the API --><p data-bind="text: currentCopyrights"></p></div><!-- NOTE: The direction-button goes into the InfoWindows 
                 created on the map through the Google Maps API and doesn't 
                 actually live here in the display-div --><div id="direction-button" class="button-flex"><div id="left-div-open-button" class="button-50-info button-white" data-bind="click: openLeftDiv,
                     text: detailText"></div><div class="button-50-info button-white" data-bind="click: toggleDirectionsInfo,

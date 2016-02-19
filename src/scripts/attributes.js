@@ -64,6 +64,7 @@ var TheatreMapViewModel = (function(self, ko) {
     self.currentCopyrights = ko.observable('');
     self.currentPosition = ko.observable({});
     self.currentTravelDuration = ko.observable(0);
+    self.directionSuccess = ko.observable(false);
 
 
     /**

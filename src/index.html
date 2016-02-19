@@ -128,6 +128,9 @@
                 <!-- Contains the directions taken from Google Maps Directions
                 API in steps. -->
                 <div data-bind="visible: showDirections">
+                    <p data-bind="visible: directionSuccess">
+                    Direction from Yonge and Bloor subway station:
+                    </p>
                     <ul class="directions" data-bind="foreach: currentDirections">
                         <li class="direction" data-bind="text: $data"></li>
                     </ul>
