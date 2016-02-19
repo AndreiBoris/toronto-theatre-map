@@ -1,4 +1,8 @@
-<!DOCTYPE html><html lang="en" id="html-elem"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="initial-scale=1,user-scalable=no"><meta name="description" content="Theatre in Toronto"><meta name="author" content="Andrei Borissenko"><title>Toronto Live Theatre Resource</title><!-- Twitter methods for creating timelines dynamically --><script async src="https://platform.twitter.com/widgets.js"></script><script>// Thank you to Jake Archibald at www.html5rocks.com for the following script!
+<!DOCTYPE html><html lang="en" id="html-elem"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="initial-scale=1,user-scalable=no"><meta name="description" content="Theatre in Toronto"><meta name="author" content="Andrei Borissenko"><title>Toronto Live Theatre Resource</title><!-- Twitter methods for creating timelines dynamically --><script async src="https://platform.twitter.com/widgets.js"></script><script>var googleWatcherVariable = false;
+    var googleWatcherFunction = function(){
+        googleWatcherVariable = true;
+    };
+    // Thank you to Jake Archibald at www.html5rocks.com for the following script!
     // http://www.html5rocks.com/en/tutorials/speed/script-loading/#disqus_thread
     // see dist/perm/production/jsLoading.js for details
     // Currently in DEVELOPMENT MODE
@@ -7,18 +11,18 @@
     // as well in the Scripts task
     var scripts = [
         'dist/perm/production/jquery_and_knockout.min.js',
-        'src/scripts/mapmanager.js', // development mode
-        'src/scripts/utilities.js', // development mode
-        'src/scripts/attributes.js', // development mode
-        'src/scripts/directions.js', // development mode
-        'src/scripts/markers.js', // development mode
-        'src/scripts/twitter.js', // development mode
-        'src/scripts/filter.js', // development mode
-        'src/scripts/glow.js', // development mode
-        'src/scripts/sort.js', // development mode
-        'src/scripts/divs.js', // development mode
-        'src/scripts/start.js', // development mode
-        // 'dist/scripts/main.min.js', // PRODUCTION mode
+        // 'src/scripts/mapmanager.js', // development mode
+        // 'src/scripts/utilities.js', // development mode
+        // 'src/scripts/attributes.js', // development mode
+        // 'src/scripts/directions.js', // development mode
+        // 'src/scripts/markers.js', // development mode
+        // 'src/scripts/twitter.js', // development mode
+        // 'src/scripts/filter.js', // development mode
+        // 'src/scripts/glow.js', // development mode
+        // 'src/scripts/sort.js', // development mode
+        // 'src/scripts/divs.js', // development mode
+        // 'src/scripts/start.js', // development mode
+        'dist/scripts/main.min.js', // PRODUCTION mode
         // 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCQCl1KRNkAF-BPdyKyO92M0d4vd6MOd0w&callback=mapManager.initMap&region=CA'
     ];
 
@@ -85,4 +89,4 @@
             loading the feeds. --><div id="twitter-error" class="scroll-div"><!-- User view error message --><div data-bind="visible: !twitterListView() && twitterIsOpen"><span class="large-font">Hmmm!</span> We're trying to load the Twitter feed for the account <span class="italic-font" data-bind="text: activeTwitter"></span>. If this message persists, try clicking on another marker on the map to reload. If this fails, there might be some error in the connection!</div><!-- List view error message --><div data-bind="visible: twitterListView() && twitterIsOpen"><span class="large-font">Hmmm!</span> We're trying to load a list of Twitter accounts connected to Toronto Theatre. If this message persists, there might be some issue connecting to Twitter. Sorry for the inconvenience. You can check out the list on the Twitter webpage <a href="https://twitter.com/BreathMachine/lists/toronto-theatre">by clicking here</a>.</div></div></div><!-- Tabs work like the list and twitter tabs above. --><img id="filter-tab" class="tab-plain tab-off filter-tab-image" src="dist/images/filter-tab-border.png"><img id="filter-tab-highlight" class="tab-highlight tab-off filter-tab-image" src="dist/images/filter-tab-highlight.png"><img id="filter-tab-back" class="tab-back tab-off filter-tab-image" data-bind="click: slideFilter" src="dist/images/back-tab-border.png"><!-- This div features buttons to filter the theatres presented based on 
         interests. --><div id="filter-div" class="right-div-off right-divs"><!-- Reset filters --><div class="button-flex"><div class="button-100 button-white" data-bind=" click: clearFilters">Uncheck all</div></div><!-- All filter options --><ul class="button-filter-flex scroll-div" data-bind="foreach: filters"><li class="button-filter-item" data-bind="click: $root.toggleFilter,
             text: flag, css: { buttonOn: filter() }"><!-- We apply the buttonOn class when the observable 'filter' is
-                'true' --></li></ul></div><footer><!-- Attributions for the icons used --><span id="credit-marker" data-bind="click: slideCredits">Credits</span><div id="credit-div" data-bind="css: { creditDivOn: creditOn() } "><div class="attributions">Map style made by <a target="_blank" href="http://www.xavierfoucrier.fr" title="Xavier Foucrier">Xavier</a> from <a target="_blank" href="https://snazzymaps.com/style/25/blue-water" title="Snazzy Maps">Snazzy Maps</a></div><div class="attributions">Icons made by <a target="_blank" href="http://www.freepik.com" title="Freepik">Freepik</a> from <a target="_blank" href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a target="_blank" href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div><div class="attributions">Icons made by <a target="_blank" href="http://www.flaticon.com/authors/icomoon" title="Icomoon">Icomoon</a> from <a target="_blank" href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a target="_blank" href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div><div class="button-100 button-white" data-bind=" click: slideCredits">Dismiss</div></div></footer><script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQCl1KRNkAF-BPdyKyO92M0d4vd6MOd0w&callback=mapManager.initMap&region=CA"></script></body></html>
+                'true' --></li></ul></div><footer><!-- Attributions for the icons used --><span id="credit-marker" data-bind="click: slideCredits">Credits</span><div id="credit-div" data-bind="css: { creditDivOn: creditOn() } "><div class="attributions">Map style made by <a target="_blank" href="http://www.xavierfoucrier.fr" title="Xavier Foucrier">Xavier</a> from <a target="_blank" href="https://snazzymaps.com/style/25/blue-water" title="Snazzy Maps">Snazzy Maps</a></div><div class="attributions">Icons made by <a target="_blank" href="http://www.freepik.com" title="Freepik">Freepik</a> from <a target="_blank" href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a target="_blank" href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div><div class="attributions">Icons made by <a target="_blank" href="http://www.flaticon.com/authors/icomoon" title="Icomoon">Icomoon</a> from <a target="_blank" href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a target="_blank" href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div><div class="button-100 button-white" data-bind=" click: slideCredits">Dismiss</div></div></footer><script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQCl1KRNkAF-BPdyKyO92M0d4vd6MOd0w&callback=googleWatcherFunction&region=CA"></script></body></html>

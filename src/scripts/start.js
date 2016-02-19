@@ -57,15 +57,30 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
     };
 
     /**
+     * Once the Google Maps API has loaded, initilize the map.
+     */
+    self.launchAttempt = function() {
+        console.log('Attempting launch');
+        if (googleWatcherVariable) {
+            mapManager.initMap();
+        } else {
+            setTimeout(function() {
+                self.launchAttempt();
+            }, 50);
+        }
+
+    }
+
+    /**
      * Add the above methods to TheatreMapViewModel
      */
     return self;
 
 }(TheatreMapViewModel || {}, ko, mapManager));
 
-// Fade the 'Check it out' button into being usuable, since all the code that 
-// supports it has loaded by this point.
-// TheatreMapViewModel.fadeInOverlayDivButton();
+// Animation on the button used to enter the useable part of the app from the 
+// opening page.
 TheatreMapViewModel.loadAnimation();
 // Apply Knockout bindings
 ko.applyBindings(TheatreMapViewModel);
+TheatreMapViewModel.launchAttempt();

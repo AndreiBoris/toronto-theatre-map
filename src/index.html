@@ -11,6 +11,10 @@
     <!-- Twitter methods for creating timelines dynamically -->
     <script async src="https://platform.twitter.com/widgets.js"></script>
     <script>
+    var googleWatcherVariable = false;
+    var googleWatcherFunction = function(){
+        googleWatcherVariable = true;
+    };
     // Thank you to Jake Archibald at www.html5rocks.com for the following script!
     // http://www.html5rocks.com/en/tutorials/speed/script-loading/#disqus_thread
     // see dist/perm/production/jsLoading.js for details
@@ -20,18 +24,18 @@
     // as well in the Scripts task
     var scripts = [
         'dist/perm/production/jquery_and_knockout.min.js',
-        'src/scripts/mapmanager.js', // development mode
-        'src/scripts/utilities.js', // development mode
-        'src/scripts/attributes.js', // development mode
-        'src/scripts/directions.js', // development mode
-        'src/scripts/markers.js', // development mode
-        'src/scripts/twitter.js', // development mode
-        'src/scripts/filter.js', // development mode
-        'src/scripts/glow.js', // development mode
-        'src/scripts/sort.js', // development mode
-        'src/scripts/divs.js', // development mode
-        'src/scripts/start.js', // development mode
-        // 'dist/scripts/main.min.js', // PRODUCTION mode
+        // 'src/scripts/mapmanager.js', // development mode
+        // 'src/scripts/utilities.js', // development mode
+        // 'src/scripts/attributes.js', // development mode
+        // 'src/scripts/directions.js', // development mode
+        // 'src/scripts/markers.js', // development mode
+        // 'src/scripts/twitter.js', // development mode
+        // 'src/scripts/filter.js', // development mode
+        // 'src/scripts/glow.js', // development mode
+        // 'src/scripts/sort.js', // development mode
+        // 'src/scripts/divs.js', // development mode
+        // 'src/scripts/start.js', // development mode
+        'dist/scripts/main.min.js', // PRODUCTION mode
         // 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCQCl1KRNkAF-BPdyKyO92M0d4vd6MOd0w&callback=mapManager.initMap&region=CA'
     ];
 
@@ -298,7 +302,7 @@
             </div>
         </div>
     </footer>
-    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQCl1KRNkAF-BPdyKyO92M0d4vd6MOd0w&callback=mapManager.initMap&region=CA"></script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQCl1KRNkAF-BPdyKyO92M0d4vd6MOd0w&callback=googleWatcherFunction&region=CA"></script>
 </body>
 
 </html>
