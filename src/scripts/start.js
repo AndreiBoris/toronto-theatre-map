@@ -21,21 +21,13 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
         self.$rightOverlay.addClass('overlay-off');
         self.$titleToronto.addClass('overlay-off');
         self.$divOverlay.css('z-index', 0); // To be able to click on the map.
-        // Keep above titleOverlay, but below display-div so that it covers the
-        // titleText when it comes out.
-        self.$titleText.css('z-index', 2);
-        // Keep covering the map (just barely) 
-        self.$titleOverlay.css('z-index', 1);
+        self.slideList(); // Show list div
         // When transition ends, delete all offscreen overlay elements.
         setTimeout(function() {
             self.$titleOverlay.remove();
             self.$divOverlay.remove();
             self.$rightOverlay.remove();
             self.$buttonOverlay.remove();
-            if (!self.listIsOpen()) {
-                self.closeRightDivs();
-                self.slideList();
-            }
         }, 1400); // Time matches the transition time in _overlay.scss
 
     };
