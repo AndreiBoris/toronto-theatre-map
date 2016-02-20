@@ -1025,7 +1025,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
                     self.currentDirections.push(curVal.instructions + ' - ' + 
                         curVal.distance.text + ' (' + curVal.duration.text + 
                             ')');
-                    console.log('major step: ' + curVal.distance.text);
                     // Add time to complete current step to total travel time
                     self.currentTravelDuration(self.currentTravelDuration() +
                         parseInt(curVal.duration.text));
@@ -1035,7 +1034,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
                                 // Remove html tags on these sub-steps
                                 var rawStep = innerVal.instructions.replace(tags,
                                     ' ');
-                                console.log('minor step: ' + innerVal.distance.text);
                                 // Separate 'Destination' sentence from the rest
                                 var cleanStep = rawStep.replace(destinationFix,
                                     '-> Destination');
@@ -1712,7 +1710,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
 
     self.toggleFilter = function(clicked) {
         clicked.filter(!clicked.filter());
-        console.log(clicked);
     };
 
     /**
@@ -1805,19 +1802,16 @@ var TheatreMapViewModel = (function(self, ko) {
     self.glowAnimation = function() {
         // Stop the Twitter glow if Twitter is open.
         if (self.twitterIsOpen() && self.glowingTwitter) {
-            console.log('Twitter is open. Stop the twitter tab from glowing.');
             self.glowingTwitter = false;
             self.stopGlow(); // Reset corresponding variables.
         }
         // Stop the list glow if the list is open.
         if (self.listIsOpen() && self.glowingList) {
-            console.log('List is open. Stop the list tab from glowing.');
             self.glowingList = false;
             self.stopGlow(); // Reset corresponding variables.
         }
         // Reset filter glow variables if filter is open.
         if (self.filterIsOpen() && self.glowingFilter) {
-            console.log('Filter is open. Reset the filter tab glow.');
             self.stopGlow(); // Reset corresponding variables.
         }
         if (self.glowingTwitter) { // Glow when some change occured.
@@ -1997,8 +1991,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
      */
     self.slideCredits = function() {
         self.creditOn(!self.creditOn());
-        console.log('going on with credits');
-        console.log(self.creditOn());
     };
 
     /**

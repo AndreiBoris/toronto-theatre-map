@@ -15,19 +15,16 @@ var TheatreMapViewModel = (function(self, ko) {
     self.glowAnimation = function() {
         // Stop the Twitter glow if Twitter is open.
         if (self.twitterIsOpen() && self.glowingTwitter) {
-            console.log('Twitter is open. Stop the twitter tab from glowing.');
             self.glowingTwitter = false;
             self.stopGlow(); // Reset corresponding variables.
         }
         // Stop the list glow if the list is open.
         if (self.listIsOpen() && self.glowingList) {
-            console.log('List is open. Stop the list tab from glowing.');
             self.glowingList = false;
             self.stopGlow(); // Reset corresponding variables.
         }
         // Reset filter glow variables if filter is open.
         if (self.filterIsOpen() && self.glowingFilter) {
-            console.log('Filter is open. Reset the filter tab glow.');
             self.stopGlow(); // Reset corresponding variables.
         }
         if (self.glowingTwitter) { // Glow when some change occured.

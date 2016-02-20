@@ -53,8 +53,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
      */
     self.slideCredits = function() {
         self.creditOn(!self.creditOn());
-        console.log('going on with credits');
-        console.log(self.creditOn());
     };
 
     /**

@@ -62,7 +62,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
 
     self.toggleFilter = function(clicked) {
         clicked.filter(!clicked.filter());
-        console.log(clicked);
     };
 
     /**
