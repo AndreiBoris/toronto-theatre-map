@@ -47,6 +47,8 @@ var mapManager = {
             styles: [{ 'featureType': 'administrative', 'elementType': 'labels.text.fill', 'stylers': [{ 'color': '#444444' }] }, { 'featureType': 'landscape', 'elementType': 'all', 'stylers': [{ 'color': '#f2f2f2' }] }, { 'featureType': 'poi', 'elementType': 'all', 'stylers': [{ 'visibility': 'off' }] }, { 'featureType': 'road', 'elementType': 'all', 'stylers': [{ 'saturation': -100 }, { 'lightness': 45 }] }, { 'featureType': 'road.highway', 'elementType': 'all', 'stylers': [{ 'visibility': 'simplified' }] }, { 'featureType': 'road.arterial', 'elementType': 'labels.icon', 'stylers': [{ 'visibility': 'off' }] }, { 'featureType': 'transit', 'elementType': 'all', 'stylers': [{ 'visibility': 'off' }] }, { 'featureType': 'water', 'elementType': 'all', 'stylers': [{ 'color': '#46bcec' }, { 'visibility': 'on' }] }]
         });
 
+        this.geocoder = new google.maps.Geocoder();
+
         // Assign the directions display to our map so that we can see 
         // directions.
         // this.directionsDisplay.setMap(this.map);
@@ -978,6 +980,8 @@ var TheatreMapViewModel = (function(self, ko) {
 var mapManager = mapManager || {};
 var google = google || {};
 var ko = ko || {};
+// Temp
+var prompt = prompt || function() {};
 
 /**
  * The module provides methods for accessing the Google Maps Directions API.
@@ -994,6 +998,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
     self.startingLocation = ko.observable('Yonge and Bloor');
     // If false, we should ask user for location.
     self.locationRequested = ko.observable(false);
+    self.addressToDisplay = ko.observable('');
 
     /**
      * Determine how to get to the requested location. Create a visual overlay
@@ -1127,7 +1132,11 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
             } else {
                 var typeIn = window.confirm('Do you want to type in location?');
                 if (typeIn) {
-                    // go
+                    // Allow user to enter text
+                    var enteredLocation = prompt('Enter a location:');
+                    console.log(enteredLocation);
+                    self.startingLocation(enteredLocation);
+                    self.calcRoute(self.currentPosition());
                 } else { // Find directions from stock location.
                     self.startingLocation('Yonge and Bloor');
                     self.calcRoute(self.currentPosition()); // Find directions
@@ -1146,9 +1155,26 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
                     lng: position.coords.longitude
                 });
                 // Convert to address
-                var address = '1234 some street';
-                window.confirm('Is this your address ' + )
-                self.calcRoute(self.currentPosition());
+                var address = self.addressAJAX(self.startingLocation().lat, self.startingLocation().lng);
+
+                var placeFound = window.confirm('Is where you are travelling from ' +
+                    address + '?');
+                if (placeFound) {
+                    self.calcRoute(self.currentPosition());
+                } else {
+                    var willType = window.confirm('Do you want to enter your starting place?');
+                    if (willType) {
+                        // Allow user to enter text
+                        var enteredLocation = prompt('Enter a location:');
+                        console.log(enteredLocation);
+                        self.startingLocation(enteredLocation);
+                        self.calcRoute(self.currentPosition());
+                    } else { // Find directions from stock location.
+                        self.startingLocation('Yonge and Bloor');
+                        self.calcRoute(self.currentPosition()); // Find directions
+                    }
+                }
+
             }, function() {
                 //handleLocationError(true, infoWindow, mapManager.map.getCenter());
             });
@@ -1159,40 +1185,67 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
     };
 
     /**
-     * Text to display to display on button that controls directions.
+     * Perform a Google Geocoding API request and get address from 
+     * @param  {string} address The real world address used to find coordinates.
+     * @param  {array}  array   An array of google.maps.Marker objects.
+     * @param  {int}    index   Determines which Marker to send coordinates to.
      */
-    self.directionText = ko.computed(function() {
-        return self.showDirections() ? 'Hide Directions' : 'Show Directions';
-    });
+    self.addressAJAX = function(lat, lng) {
+        // The request is bounded around Toronto.
+        var urlCoords = ('https://maps.googleapis.com/maps/api/geocode/json?latlng=' +
+            lat + ',' + lng + '&key=AIzaSyA4SAawmy-oEMzdWboD0iHk9gDmmjb61o4');
+        console.log(urlCoords);
 
-    /**
-     * Hide the directions drawn on the map.
-     */
-    self.closeDirections = function() {
-        // Test to make sure we already created a directionsDisplay object
-        if (mapManager.directionsDisplay) {
-            mapManager.directionsDisplay.setMap(null);
-        }
-        self.showDirections(false);
-        self.$divInfo.removeClass('direction-extention');
-    };
+        $.ajax({
+                url: urlCoords,
+                success: function(data) {
+                    self.addressToDisplay(data.results[0].formatted_address);
+            }
+            // TODO: Handle failure somehow
+        });
 
-    /**
-     * Take the button to display direction and move it to the currently opened
-     * InfoWindow. This allows us to use the same button the whole time, which
-     * allows it to use the data-bind Knockout binding to control the
-     * toggleDirections method.
-     */
-    self.moveButton = function() {
-        // Select the new info window and add the unique $directionsButton to 
-        // it.
-        $('#opened-info-window').append(self.$directionsButton);
-    };
+    // $.getJSON(urlCoords, function(data) {
+    //     console.log(data);
+    // }.error(function(e) { // Can't show the marker without coordinates.
+    //     console.log('This did not work.');
+    // }));
+};
 
-    /**
-     * Add the above methods to TheatreMapViewModel
-     */
-    return self;
+/**
+ * Text to display to display on button that controls directions.
+ */
+self.directionText = ko.computed(function() {
+    return self.showDirections() ? 'Hide Directions' : 'Show Directions';
+});
+
+/**
+ * Hide the directions drawn on the map.
+ */
+self.closeDirections = function() {
+    // Test to make sure we already created a directionsDisplay object
+    if (mapManager.directionsDisplay) {
+        mapManager.directionsDisplay.setMap(null);
+    }
+    self.showDirections(false);
+    self.$divInfo.removeClass('direction-extention');
+};
+
+/**
+ * Take the button to display direction and move it to the currently opened
+ * InfoWindow. This allows us to use the same button the whole time, which
+ * allows it to use the data-bind Knockout binding to control the
+ * toggleDirections method.
+ */
+self.moveButton = function() {
+    // Select the new info window and add the unique $directionsButton to 
+    // it.
+    $('#opened-info-window').append(self.$directionsButton);
+};
+
+/**
+ * Add the above methods to TheatreMapViewModel
+ */
+return self;
 
 }(TheatreMapViewModel || {}, ko, mapManager, google));
 

@@ -93,8 +93,9 @@
                 <!-- Contains the directions taken from Google Maps Directions
                 API in steps. -->
                 <div data-bind="visible: showDirections">
-                    <p data-bind="visible: directionSuccess">
-                        Direction from <span data-bind="text: startingLocation"></span>:
+                    <p class="space-above" data-bind="visible: directionSuccess">
+                        Direction from <span data-bind="text: addressToDisplay"></span> 
+                        :<span class="directions-options-button">&equiv;</span>
                     </p>
                     <ul class="directions" data-bind="foreach: currentDirections">
                         <li class="direction" data-bind="text: $data"></li>
