@@ -57,19 +57,35 @@ the height of current display the same effect would not result. ***/
 
 /*** Make the address line not act like a button div ***/
 
-#address-line {
+.address-line {
+    text-align: left;
     align-self: center;
+    &:hover {
+        border: none;
+    }
+    :hover {
+        border: none; // Don't let the span inside these lines have a hover border
+    }
+}
+
+.no-hover {
     &:hover {
         border: none;
     }
 }
 
+/*** Specify how much of parent div these elements should take up ***/
 
-/*** Make the address line 50% of its parent div. Done in this class instead of
-in #address-line to increase readability of HTML ***/
+.size-10 {
+    width: 10%;
+}
 
-.text-50 {
+.size-50 {
     width: 50%;
+}
+
+.size-90 {
+    width: 90%;
 }
 
 
@@ -79,9 +95,14 @@ in #address-line to increase readability of HTML ***/
     height: 50%;
 }
 
+/*** Provide some space between the destination line and the starting location 
+line ***/
+
 .space-above {
     margin-top: 1em;
 }
+
+/*** Hamburger button next to the direction to bring up location options ***/
 
 .directions-options-button {
     @extend .button-style;
@@ -91,6 +112,9 @@ in #address-line to increase readability of HTML ***/
     margin-left: 0.4em;
     border: 1px solid black;
     border-radius: 0.1em;
+    &:hover {
+        border: 0.05em solid black;
+    }
 }
 
 

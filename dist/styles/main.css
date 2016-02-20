@@ -615,19 +615,34 @@ the height of current display the same effect would not result. ***/
 }
 
 /*** Make the address line not act like a button div ***/
-#address-line {
+.address-line {
+  text-align: left;
   -webkit-align-self: center;
       -ms-flex-item-align: center;
           align-self: center;
 }
-#address-line:hover {
+.address-line:hover {
+  border: none;
+}
+.address-line :hover {
   border: none;
 }
 
-/*** Make the address line 50% of its parent div. Done in this class instead of
-in #address-line to increase readability of HTML ***/
-.text-50 {
+.no-hover:hover {
+  border: none;
+}
+
+/*** Specify how much of parent div these elements should take up ***/
+.size-10 {
+  width: 10%;
+}
+
+.size-50 {
   width: 50%;
+}
+
+.size-90 {
+  width: 90%;
 }
 
 /*** This display div when it is extended to feature directions ***/
@@ -635,16 +650,22 @@ in #address-line to increase readability of HTML ***/
   height: 50%;
 }
 
+/*** Provide some space between the destination line and the starting location 
+line ***/
 .space-above {
   margin-top: 1em;
 }
 
+/*** Hamburger button next to the direction to bring up location options ***/
 .directions-options-button {
   font-size: 2.5em;
   padding: 0 0.3em;
   margin-left: 0.4em;
   border: 1px solid black;
   border-radius: 0.1em;
+}
+.directions-options-button:hover {
+  border: 0.05em solid black;
 }
 
 /*** Narrow screens like portrait phones need more access to the display div. 
