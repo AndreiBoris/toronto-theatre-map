@@ -6,7 +6,6 @@ var twttr = twttr || {};
  * @param  {object} self        TheatreMapViewModel object without this module.
  * @param  {object} ko          Knockout object to provide framework methods.
  * @param  {object} twttr       Twitter object for creating timelines
- * @param  {object} google      Google Maps API
  * @return {object}             TheatreMapViewModel with these added methods.
  */
 var TheatreMapViewModel = (function(self, ko, twttr) {
@@ -38,8 +37,6 @@ var TheatreMapViewModel = (function(self, ko, twttr) {
         if (result) {
             self.glowingTwitter = true;
         }
-        console.log('We have a new twitter user? ' + result); // DEBUG
-        console.log(self.glowingTwitter);
         return result;
     });
 
@@ -48,7 +45,6 @@ var TheatreMapViewModel = (function(self, ko, twttr) {
      * feed should be requested.
      */
     self.toggleTwitterLength = function() {
-        console.log('Toggling twitter length.');
         self.blinkTwitterError(); // Hide twitter error message momentarily.
         self.twitterLong(!self.twitterLong()); // Toggle feed type requested.
         // If the twitter list is long, we don't need to allow css scrolling
@@ -91,11 +87,8 @@ var TheatreMapViewModel = (function(self, ko, twttr) {
             self.needTwitterUserReload(false);
             // Make the computed newTwitterUser false.
             self.lastTwitterUser(self.activeTwitter());
-            console.log('LOADING NEW TWITTER USER.'); // DEBUG
-            console.log('Active twitter account is ' + self.activeTwitter()); // DEBUG
             // Clear div for generation of new twitter feed.
             document.getElementById('twitter-account').innerHTML = '';
-            console.log('Inner height is ' + window.innerHeight);
             // Use twttr library to create new user timeline
             if (self.twitterLong()) { // Load a long, limitless feed.
                 self.currentTwitterUserLong = true;
@@ -138,8 +131,6 @@ var TheatreMapViewModel = (function(self, ko, twttr) {
             self.needTwitterListReload(false);
             // Clear div for generation of new twitter feed.
             document.getElementById('twitter-list').innerHTML = '';
-            console.log('LOADING NEW TWITTER LIST.'); // DEBUG
-            console.log('Inner height is ' + window.innerHeight);
             // Use twttr library to create new list timeline
             if (self.twitterLong()) {
                 self.currentTwitterListLong = true;

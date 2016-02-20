@@ -26,7 +26,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, googleWatcherObject) {
         
         setTimeout(function() {
             self.slideList(); // Show list div
-        }, 600); // 
+        }, 600); // Slightly after the openOverlay is run
 
         // When transition ends, delete all offscreen overlay elements.
         setTimeout(function() {
@@ -42,16 +42,16 @@ var TheatreMapViewModel = (function(self, ko, mapManager, googleWatcherObject) {
      * Perform the load animation over the enter-button
      */
     self.loadAnimation = function() {
-        self.$loadMover.addClass('first-move');
+        self.$loadMover.addClass('first-move'); // Expand black dot to line
         setTimeout(function() {
-            self.$loadMover.addClass('second-move');
+            self.$loadMover.addClass('second-move'); // Expand line to block
             setTimeout(function() {
-                self.$loadMover.addClass('third-move');
+                self.$loadMover.addClass('third-move'); // Turn block white
                 setTimeout(function() {
-                    self.$loadMover.addClass('fourth-move');
-                    self.$loadButton.addClass('fourth-move');
+                    self.$loadMover.addClass('fourth-move'); // Fade out
+                    self.$loadButton.addClass('fourth-move'); // Fade out
                     setTimeout(function() {
-                        self.$loadButton.remove();
+                        self.$loadButton.remove(); // Button is clickable
                     }, 1000);
                 }, 1000);
             }, 1000);
@@ -62,15 +62,13 @@ var TheatreMapViewModel = (function(self, ko, mapManager, googleWatcherObject) {
      * Once the Google Maps API has loaded, initilize the map.
      */
     self.launchAttempt = function() {
-        console.log('Attempting launch');
         if (googleWatcherObject.googleWatcherVariable === 'success') {
-            mapManager.initMap();
+            mapManager.initMap(); // Load markers
         } else if (googleWatcherObject.googleWatcherVariable === 'failure') {
-            console.log('running the failure handler');
-            self.googleMapFailed(true);
+            self.googleMapFailed(true); // Display error message
         } else {
             setTimeout(function() {
-                self.launchAttempt();
+                self.launchAttempt(); // Try again
             }, 50);
         }
 
@@ -88,4 +86,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager, googleWatcherObject) {
 TheatreMapViewModel.loadAnimation();
 // Apply Knockout bindings
 ko.applyBindings(TheatreMapViewModel);
+// Once we've loaded everything, we can try to launch the map, which also 
+// requires that the Google Maps API has loaded.
 TheatreMapViewModel.launchAttempt();

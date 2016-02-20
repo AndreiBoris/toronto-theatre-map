@@ -1513,7 +1513,6 @@ var twttr = twttr || {};
  * @param  {object} self        TheatreMapViewModel object without this module.
  * @param  {object} ko          Knockout object to provide framework methods.
  * @param  {object} twttr       Twitter object for creating timelines
- * @param  {object} google      Google Maps API
  * @return {object}             TheatreMapViewModel with these added methods.
  */
 var TheatreMapViewModel = (function(self, ko, twttr) {
@@ -1545,8 +1544,6 @@ var TheatreMapViewModel = (function(self, ko, twttr) {
         if (result) {
             self.glowingTwitter = true;
         }
-        console.log('We have a new twitter user? ' + result); // DEBUG
-        console.log(self.glowingTwitter);
         return result;
     });
 
@@ -1555,7 +1552,6 @@ var TheatreMapViewModel = (function(self, ko, twttr) {
      * feed should be requested.
      */
     self.toggleTwitterLength = function() {
-        console.log('Toggling twitter length.');
         self.blinkTwitterError(); // Hide twitter error message momentarily.
         self.twitterLong(!self.twitterLong()); // Toggle feed type requested.
         // If the twitter list is long, we don't need to allow css scrolling
@@ -1598,11 +1594,8 @@ var TheatreMapViewModel = (function(self, ko, twttr) {
             self.needTwitterUserReload(false);
             // Make the computed newTwitterUser false.
             self.lastTwitterUser(self.activeTwitter());
-            console.log('LOADING NEW TWITTER USER.'); // DEBUG
-            console.log('Active twitter account is ' + self.activeTwitter()); // DEBUG
             // Clear div for generation of new twitter feed.
             document.getElementById('twitter-account').innerHTML = '';
-            console.log('Inner height is ' + window.innerHeight);
             // Use twttr library to create new user timeline
             if (self.twitterLong()) { // Load a long, limitless feed.
                 self.currentTwitterUserLong = true;
@@ -1645,8 +1638,6 @@ var TheatreMapViewModel = (function(self, ko, twttr) {
             self.needTwitterListReload(false);
             // Clear div for generation of new twitter feed.
             document.getElementById('twitter-list').innerHTML = '';
-            console.log('LOADING NEW TWITTER LIST.'); // DEBUG
-            console.log('Inner height is ' + window.innerHeight);
             // Use twttr library to create new list timeline
             if (self.twitterLong()) {
                 self.currentTwitterListLong = true;
@@ -2089,7 +2080,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, googleWatcherObject) {
         
         setTimeout(function() {
             self.slideList(); // Show list div
-        }, 600); // 
+        }, 600); // Slightly after the openOverlay is run
 
         // When transition ends, delete all offscreen overlay elements.
         setTimeout(function() {
@@ -2105,16 +2096,16 @@ var TheatreMapViewModel = (function(self, ko, mapManager, googleWatcherObject) {
      * Perform the load animation over the enter-button
      */
     self.loadAnimation = function() {
-        self.$loadMover.addClass('first-move');
+        self.$loadMover.addClass('first-move'); // Expand black dot to line
         setTimeout(function() {
-            self.$loadMover.addClass('second-move');
+            self.$loadMover.addClass('second-move'); // Expand line to block
             setTimeout(function() {
-                self.$loadMover.addClass('third-move');
+                self.$loadMover.addClass('third-move'); // Turn block white
                 setTimeout(function() {
-                    self.$loadMover.addClass('fourth-move');
-                    self.$loadButton.addClass('fourth-move');
+                    self.$loadMover.addClass('fourth-move'); // Fade out
+                    self.$loadButton.addClass('fourth-move'); // Fade out
                     setTimeout(function() {
-                        self.$loadButton.remove();
+                        self.$loadButton.remove(); // Button is clickable
                     }, 1000);
                 }, 1000);
             }, 1000);
@@ -2125,15 +2116,13 @@ var TheatreMapViewModel = (function(self, ko, mapManager, googleWatcherObject) {
      * Once the Google Maps API has loaded, initilize the map.
      */
     self.launchAttempt = function() {
-        console.log('Attempting launch');
         if (googleWatcherObject.googleWatcherVariable === 'success') {
-            mapManager.initMap();
+            mapManager.initMap(); // Load markers
         } else if (googleWatcherObject.googleWatcherVariable === 'failure') {
-            console.log('running the failure handler');
-            self.googleMapFailed(true);
+            self.googleMapFailed(true); // Display error message
         } else {
             setTimeout(function() {
-                self.launchAttempt();
+                self.launchAttempt(); // Try again
             }, 50);
         }
 
@@ -2151,4 +2140,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager, googleWatcherObject) {
 TheatreMapViewModel.loadAnimation();
 // Apply Knockout bindings
 ko.applyBindings(TheatreMapViewModel);
+// Once we've loaded everything, we can try to launch the map, which also 
+// requires that the Google Maps API has loaded.
 TheatreMapViewModel.launchAttempt();
