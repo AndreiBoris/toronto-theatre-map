@@ -1211,7 +1211,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         self.leftDivOpen(true);
         self.$divInfo.addClass('left-div-on');
         self.$divInfo.removeClass('left-div-off');
-        console.log('opening left div');
         if (mapManager.util.windowWidth < 1040) {
             self.closeRightDivs();
         }
@@ -1250,7 +1249,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
     self.slideHelper = function(type, direction) {
         var lowered = type.toLowerCase();
         if (direction === 'off') {
-            console.log('Closing ' + type); // DEBUG
             self[lowered + 'IsOpen'](false); // Don't load anything to Twitter
             self['$div' + type].addClass('right-div-off'); // Place the div offscreen
             self['$tabAll' + type].addClass('tab-off'); // Move the tab as well
@@ -1258,7 +1256,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
             self['$tabAll' + type].removeClass('tab-on');
             self['$tabBack' + type].css('opacity', 0); // Show Twitter logo.
         } else if (direction === 'on') {
-            console.log('Opening ' + type); // DEBUG
             self[lowered + 'IsOpen'](true); // Load things into Twitter
             self.determineNeedToReload(); // May need to replace loaded DOM element
             self['$div' + type].addClass('right-div-on'); // Place the div onscreen
@@ -1331,14 +1328,8 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         var longUser = self.currentTwitterUserLong; // Loaded user feed
         var longList = self.currentTwitterListLong; // Loaded list feed
         var longTwitter = self.twitterLong(); // Requested feed type
-        console.log('Determining need to reload.'); // DEBUG
-        console.log('longList: ' + longList); // DEBUG
-        console.log('longUser: ' + longUser); // DEBUG
-        console.log('longTwitter: ' + longTwitter); // DEBUG
         var listResult = (longList && !longTwitter) || (!longList && longTwitter); // DEBUG
         var userResult = (longUser && !longTwitter) || (!longUser && longTwitter); // DEBUG
-        console.log('Current need to reload twitter list: ' + listResult); // DEBUG
-        console.log('Current need to reload twitter user: ' + userResult); // DEBUG
         // If the requested and loaded feeds don't match, a reload is required.
         self.needTwitterUserReload((longUser && !longTwitter) ||
             (!longUser && longTwitter));
@@ -1357,8 +1348,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
      * @param  {Object} marker to access
      */
     self.accessMarker = function(marker) {
-        console.log('Accessing marker.');
-        console.log('The screen width is ' + mapManager.util.windowWidth);
         if (self.listIsOpen() && mapManager.util.windowWidth < 1040) {
             self.slideList(); // close list div on small screen when accessing
         }
@@ -1368,22 +1357,17 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         self.currentBlurb(marker.blurb);
         self.currentAddress(marker.address);
         self.currentPosition(marker.position);
+        
         // This has to come after the last 4, as currentInfo is a computed based
         // on currentTitle and currentAddress.
         self.infoWindow.setContent(self.currentInfo());
+        
         // Move to a position where the Info Window can be displayed and open it.
         mapManager.map.panTo(marker.getPosition());
         self.openInfoWindow(marker);
+        
         // Move button to show directions to the opened InfoWindow
         self.moveButton();
-
-        // if (self.titleIsOn) {
-        //     self.titleIsOn = false;
-        //     self.$titleText.addClass('fly-away');
-        //     setTimeout(function() {
-        //         self.$divOverlay.remove();
-        //     }, 500);
-        // }
 
         // If we were already showing directions, we should stop, as the user 
         // is now looking at a different marker.
@@ -1477,7 +1461,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
             self.currentTitle() +
             '</span><br>' +
             self.currentAddress() +
-            '<br></div>';
+            '<br></div>'; // #direction-button is appended after this <br>
         return content;
     });
 
