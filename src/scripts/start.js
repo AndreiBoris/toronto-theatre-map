@@ -22,6 +22,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, googleWatcherObject) {
         self.$titleOverlay.addClass('overlay-off');
         self.$rightOverlay.addClass('overlay-off');
         self.$titleToronto.addClass('overlay-off');
+        self.$titleText.css('z-index', 2);
         self.$divOverlay.css('z-index', 0); // To be able to click on the map.
         
         setTimeout(function() {

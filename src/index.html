@@ -11,7 +11,20 @@
     <!-- See jsload.js for information and credits for the following script -->
     <script>
     'use strict';var googleWatcherObject = {googleWatcherVariable: '', googleWatcherFunction: function() {this.googleWatcherVariable = 'success'; }, googleWatcherError: function() {this.googleWatcherVariable = 'failure'; } } 
-    var scripts = ['dist/perm/production/jquery_and_knockout.min.js', 'dist/scripts/main.min.js'];
+    var scripts = ['dist/perm/production/jquery_and_knockout.min.js', 
+        'src/scripts/mapmanager.js', // development mode
+        'src/scripts/utilities.js', // development mode
+        'src/scripts/attributes.js', // development mode
+        'src/scripts/directions.js', // development mode
+        'src/scripts/markers.js', // development mode
+        'src/scripts/twitter.js', // development mode
+        'src/scripts/filter.js', // development mode
+        'src/scripts/glow.js', // development mode
+        'src/scripts/sort.js', // development mode
+        'src/scripts/divs.js', // development mode
+        'src/scripts/start.js', // development mode
+        // /*'dist/scripts/main.min.js'*/
+        ];
     var src; var script; var pendingScripts = []; var firstScript = document.scripts[0]; function stateChange() {var pendingScript; while (pendingScripts[0] && pendingScripts[0].readyState === 'loaded') {pendingScript = pendingScripts.shift(); pendingScript.onreadystatechange = null; firstScript.parentNode.insertBefore(pendingScript, firstScript); } } while (scripts.length > 0) {src = scripts.shift(); if ('async' in firstScript) {script = document.createElement('script'); script.async = false; script.src = src; document.head.appendChild(script); } else if (firstScript.readyState) {script = document.createElement('script'); pendingScripts.push(script); script.onreadystatechange = stateChange; script.src = src; } else {document.write('<script src="' + src + '" defer></' + 'script>'); } }
     </script>
     <!-- All CSS styles for the page are here. -->

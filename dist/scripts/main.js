@@ -990,6 +990,8 @@ var ko = ko || {};
 var TheatreMapViewModel = (function(self, ko, mapManager, google) {
     'use strict';
 
+    self.startingLocation = ko.observable('Yonge and Bloor subway station');
+
     /**
      * Determine how to get to the requested location. Create a visual overlay
      * as well as a list of written directions.
@@ -998,10 +1000,11 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
      */
     self.calcRoute = function(destination) {
         var request = {
-            origin: { // Yonge and Bloor
-                lat: 43.670843, 
-                lng: -79.385890 
-            },
+            // origin: { // Yonge and Bloor
+            //     lat: 43.670843, 
+            //     lng: -79.385890 
+            // },
+            origin: self.startingLocation(),
             destination: destination, // location of the marker we are targeting
             travelMode: google.maps.TravelMode.TRANSIT // transit directions
         };
@@ -1119,6 +1122,8 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         // marker and display this information to user
         self.calcRoute(self.currentPosition());
     };
+
+    self.currentAddress = ko.observable('Yonge and Bloor');
 
     /**
      * Text to display to display on button that controls directions.
@@ -2042,6 +2047,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, googleWatcherObject) {
         self.$titleOverlay.addClass('overlay-off');
         self.$rightOverlay.addClass('overlay-off');
         self.$titleToronto.addClass('overlay-off');
+        self.$titleText.css('z-index', 2);
         self.$divOverlay.css('z-index', 0); // To be able to click on the map.
         
         setTimeout(function() {

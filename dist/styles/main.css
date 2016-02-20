@@ -283,7 +283,7 @@ footer {
 
 /*** The title of the website. Positioning is handled word by word below. ***/
 .title-text {
-  z-index: 2;
+  z-index: 5;
   position: absolute;
   text-transform: uppercase;
   margin-top: 2%;
@@ -452,14 +452,6 @@ transitions when RESIZING look prettier, so it's rarely used. ***/
   .title-toronto {
     top: 0;
     left: 6.5em;
-  }
-
-  .title-theatre {
-    left: 0.5em;
-  }
-
-  .title-in {
-    left: 8.25em;
   }
 }
 /*********************
