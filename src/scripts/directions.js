@@ -13,7 +13,10 @@ var ko = ko || {};
 var TheatreMapViewModel = (function(self, ko, mapManager, google) {
     'use strict';
 
-    self.startingLocation = ko.observable('Yonge and Bloor subway station');
+    // Where to get the directions from.
+    self.startingLocation = ko.observable('Yonge and Bloor');
+    // If false, we should ask user for location.
+    self.locationRequested = ko.observable(false);
 
     /**
      * Determine how to get to the requested location. Create a visual overlay
@@ -23,10 +26,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
      */
     self.calcRoute = function(destination) {
         var request = {
-            // origin: { // Yonge and Bloor
-            //     lat: 43.670843, 
-            //     lng: -79.385890 
-            // },
             origin: self.startingLocation(),
             destination: destination, // location of the marker we are targeting
             travelMode: google.maps.TravelMode.TRANSIT // transit directions
@@ -47,9 +46,9 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
                 // the theatre in steps.
                 result.routes[0].legs[0].steps.forEach(function(curVal, index, array) {
                     // Add current major step
-                    self.currentDirections.push(curVal.instructions + ' - ' + 
-                        curVal.distance.text + ' (' + curVal.duration.text + 
-                            ')');
+                    self.currentDirections.push(curVal.instructions + ' - ' +
+                        curVal.distance.text + ' (' + curVal.duration.text +
+                        ')');
                     // Add time to complete current step to total travel time
                     self.currentTravelDuration(self.currentTravelDuration() +
                         parseInt(curVal.duration.text));
@@ -81,7 +80,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
     self.travelTime = ko.computed(function() {
         if (self.currentTravelDuration() === 0) {
             return 'Loading directions from Google Maps. If this message persists, ' +
-            'there might be a connection problem :(';
+                'there might be a connection problem :(';
         } else {
             var pluralWatch = self.currentTravelDuration() === 1 ? '.' : 's.';
             var sentence = 'This route will take approximately ' +
@@ -143,10 +142,64 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         mapManager.directionsDisplay.setMap(mapManager.map);
         // Figure out how to get to the position of the currently selected
         // marker and display this information to user
-        self.calcRoute(self.currentPosition());
+        if (!self.locationRequested()) {
+            self.locationRequested(true);
+            var geolocate = window.confirm('Can we do geolocation?');
+            if (geolocate) {
+                self.getLocation();
+            } else {
+                var typeIn = window.confirm('Do you want to type in location?');
+                if (typeIn) {
+                    // Allow user to enter text
+                    var enteredLocation = prompt('Enter a location:');
+                    console.log(enteredLocation);
+                    self.startingLocation(enteredLocation);
+                    self.calcRoute(self.currentPosition());
+                } else { // Find directions from stock location.
+                    self.startingLocation('Yonge and Bloor');
+                    self.calcRoute(self.currentPosition()); // Find directions
+                }
+            }
+        } else { // We already have the starting location
+            self.calcRoute(self.currentPosition()); // Find directions
+        }
     };
 
-    self.currentAddress = ko.observable('Yonge and Bloor');
+    self.getLocation = function() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                self.startingLocation({
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                });
+                // Convert to address
+                var address = '1234 some street';
+                var placeFound = window.confirm('Is where you are travelling from ' +
+                    address + '?');
+                if (placeFound) {
+                    self.calcRoute(self.currentPosition());
+                } else {
+                    var willType = window.confirm('Do you want to enter your starting place?');
+                    if (willType) {
+                        // Allow user to enter text
+                        var enteredLocation = prompt('Enter a location:');
+                        console.log(enteredLocation);
+                        self.startingLocation(enteredLocation);
+                        self.calcRoute(self.currentPosition());
+                    } else { // Find directions from stock location.
+                        self.startingLocation('Yonge and Bloor');
+                        self.calcRoute(self.currentPosition()); // Find directions
+                    }
+                }
+
+            }, function() {
+                //handleLocationError(true, infoWindow, mapManager.map.getCenter());
+            });
+        } else {
+            // Browser doesn't support Geolocation
+            //handleLocationError(false, infoWindow, mapManager.map.getCenter());
+        }
+    };
 
     /**
      * Text to display to display on button that controls directions.
@@ -160,7 +213,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
      */
     self.closeDirections = function() {
         // Test to make sure we already created a directionsDisplay object
-        if (mapManager.directionsDisplay) { 
+        if (mapManager.directionsDisplay) {
             mapManager.directionsDisplay.setMap(null);
         }
         self.showDirections(false);

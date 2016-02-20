@@ -94,7 +94,7 @@
                 API in steps. -->
                 <div data-bind="visible: showDirections">
                     <p data-bind="visible: directionSuccess">
-                        Direction from Yonge and Bloor subway station:
+                        Direction from <span data-bind="text: startingLocation"></span>:
                     </p>
                     <ul class="directions" data-bind="foreach: currentDirections">
                         <li class="direction" data-bind="text: $data"></li>
