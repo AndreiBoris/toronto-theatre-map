@@ -1,11 +1,12 @@
+var mapManager = mapManager || {};
+
 /**
  * This file is used to hold helper functions and objects in an encapsulated 
  * way.
+ * @param  {Object} mapManager  is the original mapManager object that we are 
+ *                              adding attributes and variables to.
  */
-
-var mapManager = mapManager || {};
-
-mapManager.util = (function() {
+mapManager.util = (function(mapManager) {
     'use strict';
     var utilities = {
         // Set InfoWindows to this before giving them relevant content.
@@ -131,34 +132,33 @@ mapManager.util = (function() {
 
         /**
          * Resize the twitter tab appropriately according to the screen height. This 
-         * gets run as soon as the app is loaded.
+         * gets run as soon as the app is loaded and then whenever the page is 
+         * resized.
          */
         repositionTabs: function() {
             var $allTabs = $('.tab-off');
             var $twitterTabs = $('.twitter-tab-image');
             var $listTabs = $('.list-tab-image');
             var $filterTabs = $('.filter-tab-image');
+            // Base positioning and tab size on the height of the window
             var screenHeight = window.innerHeight;
-            $allTabs.css('height', screenHeight / 4.5);
-            console.log('The screen height is ' + screenHeight); // DEBUG
+            // Put a limit on minimum size of tabs to avoid overly small targets.
+            var tabSizeMeasure = screenHeight < 450 ? 450 : screenHeight;
+            // Resize the tabs according to the size of the window
+            $allTabs.css('height', tabSizeMeasure / 4.5);
             $listTabs.css({
-                'top': screenHeight * 0.05
+                'top': screenHeight * 0.05 // top tab position
             });
             $twitterTabs.css({
-                'top': screenHeight * 0.35
+                'top': screenHeight * 0.35 // center tab position
             });
             $filterTabs.css({
-                'top': screenHeight * 0.65
+                'top': screenHeight * 0.65 // bottom tab position
             });
         }
-
-
-
     };
     return utilities;
-}());
-
-
+}(mapManager));
 
 // Position twitter tab as soon as page loads.
 mapManager.util.repositionTabs();

@@ -23,9 +23,8 @@ requiring a 2nd line for text. ***/
 /*** Fade out button when the left-div is already on ***/
 
 #left-div-open-button.button-disabled{
-    cursor: auto; 
+    cursor: auto; // Cursor should indicate the disabled button isn't clickable
     background: gray; 
     box-shadow: initial; 
     border: 0.15em solid black;
-    color: black;
 }

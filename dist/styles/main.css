@@ -165,6 +165,7 @@ z-index. ***/
   right: 30%;
 }
 
+/*** The container for all the credits at the bottom of the page ***/
 footer {
   z-index: 2;
   width: 100%;
@@ -175,6 +176,7 @@ footer {
   padding-right: 4em;
 }
 
+/*** The clickable 'Credits' that brings the footer out ***/
 #credit-marker {
   position: absolute;
   z-index: 2;
@@ -182,6 +184,7 @@ footer {
   bottom: 0.5em;
 }
 
+/*** The offscreen part of the footer ***/
 #credit-div {
   position: absolute;
   z-index: 9;
@@ -460,15 +463,12 @@ transitions when RESIZING look prettier, so it's rarely used. ***/
   }
 }
 /*********************
-Dependencies
-*********************/
-/*********************
 Starts offscreen
 *********************/
 /*** These styles do not influence anything in the opening screen and can be 
     loaded asynchronously if this will help with speed. ***/
 /*** Cursor changes when hovering over button ***/
-.button-clickable, .button-list-item, #credit-marker, .button-50-info {
+.button-clickable, #credit-marker, .button-list-item, .button-50-info {
   cursor: pointer;
   cursor: hand;
 }
@@ -523,7 +523,7 @@ Starts offscreen
   border: 0.1em solid black;
 }
 
-/*** Used for the uncheck all button in the filter div  ***/
+/*** Used for the uncheck all button in the filter div and in credit div dismiss ***/
 .button-100 {
   width: 100%;
   padding-top: 0.8em;
@@ -643,7 +643,8 @@ in #address-line to increase readability of HTML ***/
   height: 50%;
 }
 
-/*** Narrow screens like portrait phones need more access to the display div ***/
+/*** Narrow screens like portrait phones need more access to the display div. 
+This prevents distance between buttons at the bottom of the div and the view ***/
 @media all and (max-width: 45em) {
   #display-div.direction-extention {
     height: 70%;
@@ -654,7 +655,8 @@ in #address-line to increase readability of HTML ***/
   }
 }
 /*** Short screens like landscape phones need even more access to the display 
-div ***/
+div. This prevents distance between buttons at the bottom of the div and the 
+view  ***/
 @media all and (max-height: 26em) {
   #display-div.direction-extention {
     height: 90%;
@@ -710,6 +712,7 @@ hovering over any of them specifically. ***/
   font-size: 1.5em;
 }
 
+/*** Message to display when Google Maps API fails to load ***/
 /*** This div appears under the twitter feeds and can be seen if the feeds fail
     to load. ***/
 /*** Div that holds the list view for Twitter. ***/
@@ -826,7 +829,6 @@ requiring a 2nd line for text. ***/
   background: gray;
   box-shadow: initial;
   border: 0.15em solid black;
-  color: black;
 }
 
 @media only screen and (max-width: 76em) {

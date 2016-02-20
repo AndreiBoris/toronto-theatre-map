@@ -1,3 +1,5 @@
+/*** The container for all the credits at the bottom of the page ***/
+
 footer {
     z-index: 2;
     width: 100%;
@@ -8,12 +10,17 @@ footer {
     padding-right: 4em;
 }
 
+/*** The clickable 'Credits' that brings the footer out ***/
+
 #credit-marker {
+    @extend .button-clickable; // Cursor should indicate that it can be clicked.
     position: absolute;
     z-index: 2;
     font-size: 1.2em;
     bottom: 0.5em;
 }
+
+/*** The offscreen part of the footer ***/
 
 #credit-div {
     position: absolute;
@@ -24,4 +31,3 @@ footer {
     bottom: -20em;
     transition: $transition-time;
 }  
-

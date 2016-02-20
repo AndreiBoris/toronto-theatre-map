@@ -80,7 +80,8 @@ in #address-line to increase readability of HTML ***/
 }
 
 
-/*** Narrow screens like portrait phones need more access to the display div ***/
+/*** Narrow screens like portrait phones need more access to the display div. 
+This prevents distance between buttons at the bottom of the div and the view ***/
 
 @media all and (max-width: 45em) {
     #display-div.direction-extention {
@@ -93,7 +94,8 @@ in #address-line to increase readability of HTML ***/
 
 
 /*** Short screens like landscape phones need even more access to the display 
-div ***/
+div. This prevents distance between buttons at the bottom of the div and the 
+view  ***/
 
 @media all and (max-height: 26em) {
     #display-div.direction-extention {

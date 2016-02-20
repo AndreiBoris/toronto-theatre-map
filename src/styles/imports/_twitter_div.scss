@@ -2,12 +2,7 @@
     to load. ***/
 
 #twitter-error {
-    z-index: 1;
-    position: absolute;
-    top: 20%; // Position it in the centre of its container 
-    margin: 1em;
-    line-height: 1.5em; // Space lines for easier viewing
-    font-size: 1.5em;
+    @extend .error-style;
 }
 
 
