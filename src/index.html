@@ -9,14 +9,16 @@
     <meta name="author" content="Andrei Borissenko">
     <title>Toronto Live Theatre Resource</title>
     <script>
+    // Object used to store callbacks from Google Maps API
     var googleWatcherObject = {
-        googleWatcherVariable: false,
-        googleWatcherFunction: function() {
+        googleWatcherVariable: '',
+        googleWatcherFunction: function() { 
+            // On successful load of Google Maps API, load markers.
             this.googleWatcherVariable = 'success';
         },
         googleWatcherError: function() {
+            // On unsuccessful load of Google Maps API, display error message.
             this.googleWatcherVariable = 'failure';
-            console.log('Google Maps API failed to load');
         }
     }
 
@@ -40,8 +42,7 @@
         // 'src/scripts/sort.js', // development mode
         // 'src/scripts/divs.js', // development mode
         // 'src/scripts/start.js', // development mode
-        'dist/scripts/main.min.js', // PRODUCTION mode
-        // 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCQCl1KRNkAF-BPdyKyO92M0d4vd6MOd0w&callback=mapManager.initMap&region=CA'
+        'dist/scripts/main.min.js' // PRODUCTION mode
     ];
 
     var src;
@@ -84,28 +85,38 @@
         }
     }
     </script>
-    <link href="dist/styles/print.min.css" rel="stylesheet" media="print">
     <!-- All CSS styles for the page are here. -->
     <link href="dist/styles/main.min.css" rel="stylesheet">
 </head>
 
 <body id="body" onresize="mapManager.util.repositionTabs()">
+    <!-- Sits on top of the map initially to hide the loading map -->
     <div>
+        <!-- Prevents map from being clickable behind the overlay -->
         <div id="overlay-div">
         </div>
+        <!-- The title of the application. Words move independently from each 
+        other at times. -->
         <div data-bind="visible: !showDirections()" class="title-text title-theatre">Theatre</div>
         <div data-bind="visible: !showDirections()" class="title-text title-in">in</div>
         <div data-bind="visible: !showDirections()" class="title-text title-toronto">Toronto</div>
+        <!-- Outer border to be displayed on bigger screens  -->
         <div class="button-overlay enter-button-border2 button-white">
         </div>
+        <!-- First border to be displayed on medium and bigger screens -->
         <div class="button-overlay enter-button-border1 button-white">
         </div>
+        <!-- Button to press in order to set overlay aside and access the map -->
         <div id="enter-button" class="button-overlay button-white text-center" data-bind="click: openOverlay">
             <p>Check it out</p>
         </div>
+        <!-- This div starts on top of the enter-button and disappears after
+        the map has had a chance to load -->
         <div id="load-button" class="button-white">
+            <!-- Animates the load-button -->
             <div id="load-mover"></div>
         </div>
+        <!-- Right-side div on medium and larger displays -->
         <div class="right-overlay button-white">
         </div>
     </div>
