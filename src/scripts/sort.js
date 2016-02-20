@@ -24,7 +24,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
             self.markers.sort(mapManager.util.alphabeticalSort); // sort a-z
             self.currentSort('alpha');
         }
-        console.log(self.currentSort());
     };
 
     /**
@@ -44,7 +43,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
             self.markers.sort(mapManager.util.foundingSort);
             self.currentSort('date');
         }
-        console.log(self.currentSort());
     };
 
     /**

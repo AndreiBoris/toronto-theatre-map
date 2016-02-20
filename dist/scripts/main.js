@@ -1021,7 +1021,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
                 // the theatre in steps.
                 result.routes[0].legs[0].steps.forEach(function(curVal, index, array) {
                     // Add current major step
-                    console.log(curVal);
                     self.currentDirections.push(curVal.instructions + ' - ' + 
                         curVal.distance.text + ' (' + curVal.duration.text + 
                             ')');
@@ -1889,7 +1888,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
             self.markers.sort(mapManager.util.alphabeticalSort); // sort a-z
             self.currentSort('alpha');
         }
-        console.log(self.currentSort());
     };
 
     /**
@@ -1909,7 +1907,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
             self.markers.sort(mapManager.util.foundingSort);
             self.currentSort('date');
         }
-        console.log(self.currentSort());
     };
 
     /**

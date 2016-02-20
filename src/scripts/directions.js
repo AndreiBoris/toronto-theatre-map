@@ -44,7 +44,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
                 // the theatre in steps.
                 result.routes[0].legs[0].steps.forEach(function(curVal, index, array) {
                     // Add current major step
-                    console.log(curVal);
                     self.currentDirections.push(curVal.instructions + ' - ' + 
                         curVal.distance.text + ' (' + curVal.duration.text + 
                             ')');
