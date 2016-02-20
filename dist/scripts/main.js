@@ -999,6 +999,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
     // If false, we should ask user for location.
     self.locationRequested = ko.observable(false);
     self.addressToDisplay = ko.observable('');
+    self.directionReady = ko.observable(false);
 
     /**
      * Determine how to get to the requested location. Create a visual overlay

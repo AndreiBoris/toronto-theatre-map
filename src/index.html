@@ -140,15 +140,17 @@
                         <div class="size-10 address-line no-hover"><span class="directions-options-button">&equiv;
                         </span></div>
                     </div>
-                    <ul class="directions" data-bind="foreach: currentDirections">
-                        <li class="direction" data-bind="text: $data"></li>
-                    </ul>
-                    <br>
-                    <!-- Travel time message -->
-                    <p data-bind="text: travelTime"></p>
-                    <br>
-                    <!-- Must be included to use the API -->
-                    <p data-bind="text: currentCopyrights"></p>
+                    <div data-bind="visible: directionReady">
+                        <ul class="directions" data-bind="foreach: currentDirections">
+                            <li class="direction" data-bind="text: $data"></li>
+                        </ul>
+                        <br>
+                        <!-- Travel time message -->
+                        <p data-bind="text: travelTime"></p>
+                        <br>
+                        <!-- Must be included to use the API -->
+                        <p data-bind="text: currentCopyrights"></p>
+                    </div>
                 </div>
                 <!-- NOTE: The direction-button goes into the InfoWindows 
                 created on the map through the Google Maps API and doesn't 

@@ -628,6 +628,7 @@ the height of current display the same effect would not result. ***/
   border: none;
 }
 
+/*** Override parent conditions that give this a hover border ***/
 .no-hover:hover {
   border: none;
 }
