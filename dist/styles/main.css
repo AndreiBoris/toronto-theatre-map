@@ -107,11 +107,23 @@ media queries. ***/
 /*** The display div that pops out when a marker is accessed  ***/
 .left-divs {
   height: 30%;
+  width: 50%;
+}
+
+/*** Position of left-div when it is off screen ***/
+.left-div-off {
+  left: -50%;
 }
 
 /*** The list, twitter and filter divs ***/
 .right-divs {
   height: 100%;
+  width: 30%;
+}
+
+/*** Position of right divs when they are off screen ***/
+.right-div-off {
+  right: -30%;
 }
 
 /*** All the right-div tabs for moving the divs on and off screen ***/
@@ -148,6 +160,11 @@ z-index. ***/
   right: 0%;
 }
 
+/*** Position of the tab when the right tabs are on screen ***/
+.tab-on {
+  right: 30%;
+}
+
 footer {
   z-index: 2;
   width: 100%;
@@ -173,32 +190,6 @@ footer {
   height: 6em;
   bottom: -20em;
   transition: 0.15s;
-}
-
-/*** For large displays ***/
-.left-divs {
-  width: 50%;
-}
-
-.left-div-off {
-  left: -50%;
-}
-
-/*** Take up less space with the divs that start offscreen. ***/
-.right-divs {
-  width: 30%;
-}
-
-.tab-on {
-  right: 30%;
-}
-
-.right-div-off {
-  right: -30%;
-}
-
-.left-div-off {
-  left: -50%;
 }
 
 /*** This div prevents users from using the map before pressing enter-button ***/

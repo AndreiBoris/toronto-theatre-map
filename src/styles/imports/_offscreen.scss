@@ -19,6 +19,13 @@ media queries. ***/
 .left-divs {
     @extend .off-screen;
     height: 30%;
+    width: 50%;
+}
+
+/*** Position of left-div when it is off screen ***/
+
+.left-div-off {
+    left: -50%;
 }
 
 /*** The list, twitter and filter divs ***/
@@ -26,4 +33,11 @@ media queries. ***/
 .right-divs {
     @extend .off-screen;
     height: 100%;
+    width: 30%;
+}
+
+/*** Position of right divs when they are off screen ***/
+
+.right-div-off {
+    right: -30%;
 }

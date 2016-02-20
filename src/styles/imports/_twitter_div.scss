@@ -7,6 +7,7 @@
     top: 20%; // Position it in the centre of its container 
     margin: 1em;
     line-height: 1.5em; // Space lines for easier viewing
+    font-size: 1.5em;
 }
 
 
@@ -42,12 +43,8 @@
     box-shadow: 0.1em 0.1em 0.3em orange inset;
 }
 
-#twitter-error {
-    font-size: 1.5em;
-}
-
 @media only screen and (max-width: 40em) {
     #twitter-error {
-        font-size: 1.2em;
+        font-size: 1.2em; // Avoid overflow
     }
 }
