@@ -44,7 +44,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
      * This is the div that comes in from the left and displays information 
      * about a marker.
      */
-    self.$divInfo = $('#display-div');
+    self.$divDisplay = $('#display-div');
     self.$directionsButton = $('#direction-button');
     self.showDirections = ko.observable(false);
 
@@ -78,8 +78,8 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
      * Close the info div.
      */
     self.closeLeftDiv = function() {
-        self.$divInfo.addClass('left-div-off');
-        self.$divInfo.removeClass('left-div-on');
+        self.$divDisplay.addClass('left-div-off');
+        self.$divDisplay.removeClass('left-div-on');
         self.leftDivOpen(false);
     };
 

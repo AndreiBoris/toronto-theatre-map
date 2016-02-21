@@ -812,7 +812,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
      * This is the div that comes in from the left and displays information 
      * about a marker.
      */
-    self.$divInfo = $('#display-div');
+    self.$divDisplay = $('#display-div');
     self.$directionsButton = $('#direction-button');
     self.showDirections = ko.observable(false);
 
@@ -846,8 +846,8 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
      * Close the info div.
      */
     self.closeLeftDiv = function() {
-        self.$divInfo.addClass('left-div-off');
-        self.$divInfo.removeClass('left-div-on');
+        self.$divDisplay.addClass('left-div-off');
+        self.$divDisplay.removeClass('left-div-on');
         self.leftDivOpen(false);
     };
 
@@ -994,8 +994,8 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
      */
     self.openLeftDiv = function() {
         self.leftDivOpen(true);
-        self.$divInfo.addClass('left-div-on');
-        self.$divInfo.removeClass('left-div-off');
+        self.$divDisplay.addClass('left-div-on');
+        self.$divDisplay.removeClass('left-div-off');
         if (mapManager.util.windowWidth < 1040) {
             self.closeRightDivs();
         }
@@ -1489,7 +1489,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         // Extend the display div so that it can better present directions. This
         // will not have any effect on smaller screens where display div is 
         // always extended.
-        self.$divInfo.addClass('direction-extention');
+        self.$divDisplay.addClass('direction-extention');
         // Create a new object that will draw directions on the map. This 
         // overrides the old object, allowing us to not have to see a flash
         // of the old directions when we switch to new directions. 
@@ -1702,7 +1702,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         }
         self.directionInputDisplay(false);
         self.showDirections(false);
-        self.$divInfo.removeClass('direction-extention');
+        self.$divDisplay.removeClass('direction-extention');
     };
 
     /**
@@ -2315,7 +2315,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, googleWatcherObject) {
         // When transition ends, delete all offscreen overlay elements.
         setTimeout(function() {
             self.$titleOverlay.remove();
-            self.$divOverlay.remove();
+            self.$overlayScreen.remove();
             self.$rightOverlay.remove();
             self.$buttonOverlay.remove();
         }, 1400); // Time matches the transition time in _overlay.scss

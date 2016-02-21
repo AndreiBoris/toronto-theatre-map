@@ -66,33 +66,35 @@
     <!-- All CSS styles for the page are here. -->
     <link href="dist/styles/main.min.css" rel="stylesheet">
 </head>
-
 <!-- Reposition and resize the tabs if the window is ever resized -->
 <body id="body" onresize="mapManager.util.repositionTabs()">
     
     <!-- The following is the OVERLAY DIV, it covers the application while the 
     map is loading and the only part of it that remains after it moves offscreen
     are the title-text elements. -->
-    <div> <!-- It is wrapped just for consistency, no other purpose. -->
+    <div>
         
+        <!-- It is wrapped just for consistency, no other purpose. -->
         <!-- This overlay screen covers the entire map so that it cannot be 
         clicked until the whole OVERLAY DIV has moved offscreen -->
         <div id="overlay-screen">
         </div>
+        
         <!-- The title of the application. Words move independently from each 
         other at times. -->
         <div data-bind="visible: !showDirections()" class="title-text title-theatre">Theatre</div>
         <div data-bind="visible: !showDirections()" class="title-text title-in">in</div>
         <div data-bind="visible: !showDirections()" class="title-text title-toronto">Toronto</div>
-        <!-- Outer border to be displayed on bigger screens  -->
-        <div class="button-overlay enter-button-border2 button-white">
-        </div>
-        <!-- First border to be displayed on medium and bigger screens -->
-        <div class="button-overlay enter-button-border1 button-white">
-        </div>
         <!-- Button to press in order to set overlay aside and access the map -->
         <div id="enter-button" class="button-overlay button-white text-center" data-bind="click: openOverlay">
             <p>Check it out</p>
+        </div>
+        
+        <!-- First border to be displayed on medium and bigger screens -->
+        <div class="button-overlay enter-button-border1 button-white">
+        </div>
+        <!-- Outer border to be displayed on bigger screens  -->
+        <div class="button-overlay enter-button-border2 button-white">
         </div>
         <!-- This div starts on top of the enter-button and disappears after
         the map has had a chance to load -->
@@ -100,14 +102,16 @@
             <!-- Animates the load-button -->
             <div id="load-mover"></div>
         </div>
-        <!-- Right-side div on medium and larger displays -->
+        
+        <!-- Right-side div on medium and larger displays. Wrapper keeps it from
+        being rendered when it is not onscreen. This stops Page Speed Insights
+        from complaining that we have viewport problems. -->
         <div id="right-overlay-wrapper" class="right-overlay-wrapper">
             <div class="right-overlay button-white">
             </div>
         </div>
     </div>
-
-
+    
     <!-- Div where extra information about a theatre is shown. -->
     <div id="display-div" class="left-divs left-div-off">
         <!-- View where the information is shown (scrolls) -->

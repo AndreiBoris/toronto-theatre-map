@@ -37,7 +37,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, googleWatcherObject) {
         // When transition ends, delete all offscreen overlay elements.
         setTimeout(function() {
             self.$titleOverlay.remove();
-            self.$divOverlay.remove();
+            self.$overlayScreen.remove();
             self.$rightOverlay.remove();
             self.$buttonOverlay.remove();
         }, 1400); // Time matches the transition time in _overlay.scss

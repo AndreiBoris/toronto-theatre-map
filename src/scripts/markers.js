@@ -64,8 +64,8 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
      */
     self.openLeftDiv = function() {
         self.leftDivOpen(true);
-        self.$divInfo.addClass('left-div-on');
-        self.$divInfo.removeClass('left-div-off');
+        self.$divDisplay.addClass('left-div-on');
+        self.$divDisplay.removeClass('left-div-off');
         if (mapManager.util.windowWidth < 1040) {
             self.closeRightDivs();
         }

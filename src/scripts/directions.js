@@ -213,7 +213,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         // Extend the display div so that it can better present directions. This
         // will not have any effect on smaller screens where display div is 
         // always extended.
-        self.$divInfo.addClass('direction-extention');
+        self.$divDisplay.addClass('direction-extention');
         // Create a new object that will draw directions on the map. This 
         // overrides the old object, allowing us to not have to see a flash
         // of the old directions when we switch to new directions. 
@@ -426,7 +426,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         }
         self.directionInputDisplay(false);
         self.showDirections(false);
-        self.$divInfo.removeClass('direction-extention');
+        self.$divDisplay.removeClass('direction-extention');
     };
 
     /**
