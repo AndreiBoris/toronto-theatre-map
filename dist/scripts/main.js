@@ -1048,6 +1048,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
      *                              marker we are trying to get directions to.
      */
     self.calcRoute = function(destination) {
+        self.locationRequested(true); 
         var request = {
             origin: self.startingLocation(),
             destination: destination, // location of the marker we are targeting
@@ -1143,7 +1144,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
             }
             if (!self.locationRequested() && !self.leftDivOpen()) {
                 // Need to figure out options for starting address
-                self.openLeftDiv(); 
+                self.openLeftDiv();
             }
             self.openDirections();
         } else {
@@ -1186,8 +1187,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         // Figure out how to get to the position of the currently selected
         // marker and display this information to user
         if (!self.locationRequested()) {
-            console.log('location has been requested now');
-            self.locationRequested(true);
             self.directionsPrompt('Share your location to find directions?');
             self.nextQuestion(true, 'Geolocation');
             // if (geolocate) {
@@ -1638,8 +1637,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         // If we were already showing directions, we should stop, as the user 
         // is now looking at a different marker.
         if (self.showDirections()) {
-            self.showDirections(false); // Remove text directions
-            mapManager.directionsDisplay.setMap(null); // Remove map directions
+            self.closeDirections();
         }
 
         self.openLeftDiv(); // Open the div that slides from offscreen left.

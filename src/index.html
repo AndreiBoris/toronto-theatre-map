@@ -127,7 +127,7 @@
                     <p data-bind="text: currentBlurb"></p>
                     <br>
                 </div>
-                <div data-bind="visible: showDirections && !directionsReady()">
+                <div data-bind="visible: showDirections() && !directionsReady()">
                     <div id="direction-prompt" data-bind="text: directionsPrompt" class="big-text"></div>
                     <div class="button-flex" data-bind="visible: directionOption">
                         <div data-bind="click: directionsYes" class="direction-input-button button-50 button-green">Yes</div>
