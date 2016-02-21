@@ -1,9 +1,10 @@
 /*** Cursor changes when hovering over button ***/
 
-.button-clickable{
+.button-clickable {
     cursor: pointer;
     cursor: hand;
 }
+
 
 /*** Style for all buttons ***/
 
@@ -15,6 +16,13 @@
     border-radius: 0.6em;
 }
 
+/*** Button to submit starting location ***/
+
+.button-20 {
+    @extend .button-style;
+    width: 20%;
+    height: 2.7em;
+}
 
 /*** Inherited by button-50 and button-50-info in _off_info_win.scss ***/
 
@@ -29,6 +37,15 @@
 .button-50 {
     @extend .button-50-shared;
     height: 2.7em;
+}
+
+
+/*** Buttons at the bottom of InfoWindows. In flexbox. ***/
+
+.button-50-info {
+    @extend .button-clickable; // See _off_buttons.scss
+    @extend .button-50-shared; // see _off_buttons.scss
+    height: 2.9em;
 }
 
 
@@ -67,6 +84,7 @@
     border: none;
 }
 
+
 /*** Colour for all major buttons  ***/
 
 .button-white {
@@ -74,6 +92,23 @@
     color: black;
     border: 0.1em solid black;
 }
+
+/*** Yes button in direction start location options ***/
+
+.button-green {
+    background: #cfc;
+    color: black;
+    border: 0.1em solid black;
+}
+
+/*** No button in direction start location options ***/
+
+.button-red {
+    background: #fcc;
+    color: black;
+    border: 0.1em solid black;
+}
+
 
 /*** Used for the uncheck all button in the filter div and in credit div dismiss ***/
 

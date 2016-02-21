@@ -127,9 +127,22 @@
                     <p data-bind="text: currentBlurb"></p>
                     <br>
                 </div>
+                <div data-bind="visible: showDirections && !directionsReady()">
+                    <div id="direction-prompt" class="big-text"> Some text here, is it okay?</div>
+                    <div class="button-flex" data-bind="visible: directionOption">
+                        <div class="direction-input-button button-50 button-green">Yes</div>
+                        <div class="direction-input-button button-50 button-red">No</div>
+                    </div>
+                    <div data-bind="visible: directionInputDisplay">
+                        <div class="button-flex">
+                            <input type="text" placeholder="Starting address" class="size-80 big-text" data-bind="value: pendingAddress"></input>
+                            <div data-bind="click: enterAddress" class="button-20 button-white">Submit</div>
+                        </div>
+                    </div>
+                </div>
                 <!-- Contains the directions taken from Google Maps Directions
                 API in steps. -->
-                <div data-bind="visible: showDirections">
+                <div data-bind="visible: showDirections && directionsReady">
                     <!-- Container holds start address and direction edit button 
                     in the same way that other containers hold two buttons -->
                     <div class="space-above button-flex" data-bind="visible: directionSuccess">
@@ -140,7 +153,7 @@
                         <div class="size-10 address-line no-hover"><span class="directions-options-button">&equiv;
                         </span></div>
                     </div>
-                    <div data-bind="visible: directionReady">
+                    <div>
                         <ul class="directions" data-bind="foreach: currentDirections">
                             <li class="direction" data-bind="text: $data"></li>
                         </ul>

@@ -998,8 +998,28 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
     self.startingLocation = ko.observable('Yonge and Bloor');
     // If false, we should ask user for location.
     self.locationRequested = ko.observable(false);
+    // Address to display as the starting position in the display div
     self.addressToDisplay = ko.observable('');
-    self.directionReady = ko.observable(false);
+    // We can display the direction steps
+    self.directionsReady = ko.observable(false);
+    // Display yes/no buttons to agree or disagree
+    self.directionOption = ko.observable(false);
+    // Display input for putting in an address
+    self.directionInputDisplay = ko.observable(true);
+    // Address in the input field for new addresses
+    self.pendingAddress = ko.observable('');
+
+    /**
+     * Submit pendingAddress and put it as the startingLocation and the 
+     * addressToDisplay, running a calcRoute with this value.
+     * @return {[type]} [description]
+     */
+    self.enterAddress = function() {
+        self.startingLocation(self.pendingAddress());
+        self.addressToDisplay(self.pendingAddress());
+        self.pendingAddress('');
+        self.calcRoute(self.currentPosition());
+    };
 
     /**
      * Determine how to get to the requested location. Create a visual overlay

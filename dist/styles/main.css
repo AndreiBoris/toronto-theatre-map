@@ -76,6 +76,12 @@ li {
   overflow: auto;
 }
 
+/*** Bump text in prompt ***/
+.big-text {
+  font-size: 1.3em;
+  line-height: 1.4em;
+}
+
 .error-style, #map-error, #twitter-error {
   z-index: 1;
   position: absolute;
@@ -460,18 +466,24 @@ Starts offscreen
 /*** These styles do not influence anything in the opening screen and can be 
     loaded asynchronously if this will help with speed. ***/
 /*** Cursor changes when hovering over button ***/
-.button-clickable, #credit-marker, .button-list-item, .button-50-info {
+.button-clickable, #credit-marker, .button-50-info, .button-list-item {
   cursor: pointer;
   cursor: hand;
 }
 
 /*** Style for all buttons ***/
-.button-style, #enter-button, .button-50-shared, .button-50, .button-50-info, .button-100, .directions-options-button, .button-filter-item {
+.button-style, #enter-button, .button-20, .button-50-shared, .button-50, .button-50-info, .button-100, .directions-options-button, .button-filter-item {
   padding-top: 0.8em;
   font-weight: bold;
   cursor: pointer;
   cursor: hand;
   border-radius: 0.6em;
+}
+
+/*** Button to submit starting location ***/
+.button-20 {
+  width: 20%;
+  height: 2.7em;
 }
 
 /*** Inherited by button-50 and button-50-info in _off_info_win.scss ***/
@@ -482,6 +494,11 @@ Starts offscreen
 /*** Buttons at the top of right divs sorting. In flexbox. ***/
 .button-50 {
   height: 2.7em;
+}
+
+/*** Buttons at the bottom of InfoWindows. In flexbox. ***/
+.button-50-info {
+  height: 2.9em;
 }
 
 /*** Font sizes can be bumped up slight on larger screen ***/
@@ -511,6 +528,20 @@ Starts offscreen
 /*** Colour for all major buttons  ***/
 .button-white, .directions-options-button {
   background: #f2f2f2;
+  color: black;
+  border: 0.1em solid black;
+}
+
+/*** Yes button in direction start location options ***/
+.button-green {
+  background: #cfc;
+  color: black;
+  border: 0.1em solid black;
+}
+
+/*** No button in direction start location options ***/
+.button-red {
+  background: #fcc;
   color: black;
   border: 0.1em solid black;
 }
@@ -638,8 +669,16 @@ the height of current display the same effect would not result. ***/
   width: 10%;
 }
 
+.size-20 {
+  width: 20%;
+}
+
 .size-50 {
   width: 50%;
+}
+
+.size-80 {
+  width: 80%;
 }
 
 .size-90 {
@@ -842,11 +881,6 @@ requiring a 2nd line for text. ***/
 .info-title {
   font-weight: bold;
   font-size: 1.15em;
-}
-
-/*** Buttons at the bottom of InfoWindows. In flexbox. ***/
-.button-50-info {
-  height: 2.9em;
 }
 
 /*** Fade out button when the left-div is already on ***/
