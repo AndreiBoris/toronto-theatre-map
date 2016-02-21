@@ -10,6 +10,9 @@ var ko = ko || {};
 var TheatreMapViewModel = (function(self, ko, mapManager) {
     'use strict';
 
+    // Wrapper that holds all right divs 
+    self.$rightDivWrapper = $('#right-divs-wrapper');
+
     /**
      * Track whether each respective div is open.
      */

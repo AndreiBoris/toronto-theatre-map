@@ -102,8 +102,9 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
      * @param  {string} direction 'on' or 'off'
      */
     self.slideHelper = function(type, direction) {
-        var lowered = type.toLowerCase();
+        var lowered = type.toLowerCase(); // type of div we are sliding
         if (direction === 'off') {
+            self.$rightDivWrapper.addClass('wrapper-off');
             self[lowered + 'IsOpen'](false); // Don't load anything to Twitter
             self['$div' + type].addClass('right-div-off'); // Place the div offscreen
             self['$tabAll' + type].addClass('tab-off'); // Move the tab as well
@@ -111,6 +112,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
             self['$tabAll' + type].removeClass('tab-on');
             self['$tabBack' + type].css('opacity', 0); // Show Twitter logo.
         } else if (direction === 'on') {
+            self.$rightDivWrapper.removeClass('wrapper-off');
             self[lowered + 'IsOpen'](true); // Load things into Twitter
             self.determineNeedToReload(); // May need to replace loaded DOM element
             self['$div' + type].addClass('right-div-on'); // Place the div onscreen

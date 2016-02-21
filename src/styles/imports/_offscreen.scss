@@ -2,6 +2,17 @@
 
 $transition-time: 0.15s;
 
+
+.right-div-wrapper {
+    overflow: hidden;
+    height: 100%;
+}
+
+.right-div-wrapper.wrapper-off {
+    width: 0;
+}
+
+
 /*** Both left-divs and right-divs inherit this. The width is determined in 
 media queries. ***/
 
@@ -22,6 +33,7 @@ media queries. ***/
     width: 50%;
 }
 
+
 /*** Position of left-div when it is off screen ***/
 
 .left-div-off {
@@ -34,6 +46,7 @@ media queries. ***/
     }
 }
 
+
 /*** The list, twitter and filter divs ***/
 
 .right-divs {
@@ -41,6 +54,7 @@ media queries. ***/
     height: 100%;
     width: 30%;
 }
+
 
 /*** Position of right divs when they are off screen ***/
 
