@@ -94,7 +94,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
                 var destinationFix = /Destination/g; // To add arrow before word
                 // Draw the graphical overlay showing directions on map
                 mapManager.directionsDisplay.setDirections(result);
-                // If no directions are found, we need a new address.
+                // If no directions are found, we need a new starting address.
                 var failed = true;
                 // Create a new current directions array to display how to get to
                 // the theatre in steps.
@@ -111,13 +111,12 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
                     if (curVal.steps) { // Include detailed sub-steps
                         curVal.steps.forEach(function(innerVal, index, array) {
                             if (innerVal.instructions) { // There is a string
-                                // Remove html tags on these sub-steps
                                 var rawStep = innerVal.instructions.replace(tags,
-                                    ' ');
+                                    ' '); // Remove html tags on these sub-steps
                                 // Separate 'Destination' sentence from the rest
                                 var cleanStep = rawStep.replace(destinationFix,
                                     '-> Destination');
-                                // Add current sub-step
+                                // Add current sub-step to list of steps
                                 self.currentDirections.push(cleanStep);
                             }
                         });
@@ -125,23 +124,29 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
                 });
                 // Add Google copyright to be displayed below instructions
                 self.currentCopyrights(result.routes[0].copyrights);
-                if (failed) {
-                    console.log('There was some issue finding directions using ' +
-                        'the direction services on the Google Maps API');
+                if (failed) { // Get a new starting address.
                     self.directionsPrompt('Please try a more specific address.');
-                    self.directionsReady(false); // Hide step directions
-                    self.directionInputDisplay(true); // enter a new value
+                    self.calcRouteFailed();
                 } else { // success 
                     self.directionsReady(true); // Display directions
                 }
-            } else {
-                console.log('There was some issue finding directions using ' +
-                    'the direction services on the Google Maps API');
-                self.directionsPrompt('Please try a more specific address.');
-                self.directionsReady(false); // Hide step directions
-                self.directionInputDisplay(true); // enter a new value
+            } else { // Get a new starting address.
+                self.directionsPrompt('Please try a more specific address. ' + 
+                    'Though it is also possible that there is a network problem.');
+                self.calcRouteFailed();
             }
         });
+    };
+
+    /**
+     * Ask user for another address entered into input field to find starting 
+     * location for directions.
+     */
+    self.calcRouteFailed = function() {
+        console.log('There was some issue finding directions using ' +
+            'the direction services on the Google Maps API');
+        self.directionsReady(false); // Hide step directions
+        self.directionInputDisplay(true); // enter a new value
     };
 
     /**
