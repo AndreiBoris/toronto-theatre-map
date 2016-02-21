@@ -1,10 +1,11 @@
 /*** The container for all the credits at the bottom of the page ***/
 
 footer {
-    z-index: 2;
-    width: 100%;
+    z-index: 9; // Below overlay above everything else
+    width: 60%;
     position: absolute;
     height: 2em;
+    left: 10%;
     bottom: 0;
     text-align: center;
     padding-right: 4em;
@@ -27,15 +28,11 @@ footer {
 #credit-div {
     position: absolute;
     z-index: 9;
-    background-color: white;
+    background-color: beige;
     width: 100%;
-    height: 6em;
     bottom: -20em;
     transition: $transition-time;
-    visibility: hidden;
-    div {
-        display: none;
-    }
+    border: 0.1em solid black;
 }
 
 
@@ -43,6 +40,7 @@ footer {
 
 .attributions {
     text-align: left;
+    width: 100%
 }
 
 
@@ -50,8 +48,4 @@ footer {
 
 #credit-div.creditDivOn {
     bottom: 0;
-    visibility: visible;
-    div {
-        display: block;
-    }
 }
