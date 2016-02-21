@@ -225,6 +225,9 @@ footer {
   transition: 0.15s;
   border: 0.1em solid black;
 }
+#credit-div div {
+  display: none;
+}
 
 /*** Attributions in the credit div shouldn't be centered ***/
 .attributions {
@@ -237,6 +240,9 @@ footer {
 /*** Credit div should hug the bottom of the screen when it is on ***/
 #credit-div.creditDivOn {
   bottom: 0;
+}
+#credit-div.creditDivOn div {
+  display: block;
 }
 
 @media all and (max-width: 55em) {

@@ -33,6 +33,9 @@ footer {
     bottom: -20em;
     transition: $transition-time;
     border: 0.1em solid black;
+    div {
+        display: none;
+    }
 }
 
 
@@ -50,6 +53,9 @@ footer {
 
 #credit-div.creditDivOn {
     bottom: 0;
+    div {
+        display: block;
+    }
 }
 
 @media all and (max-width: 55em) {
