@@ -508,6 +508,11 @@ transitions when RESIZING look prettier, so it's rarely used. ***/
     left: -100%;
   }
 }
+@media all and (max-width: 32em) {
+  .title-toronto {
+    left: 0.5em;
+  }
+}
 /*** This is generally for landscape view on phones. ***/
 @media all and (max-height: 26em) {
   .title-toronto {

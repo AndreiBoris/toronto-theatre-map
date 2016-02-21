@@ -297,15 +297,12 @@ transitions when RESIZING look prettier, so it's rarely used. ***/
     #enter-button.overlay-off {
         left: -100%;
     }
-    // .title-theatre {
-    //     left: 0.5em; // Move slightly left to avoid covering tabs.
-    // }
-    // .title-in {
-    //     left: 8.25em; // Move slightly left to avoid covering tabs.
-    // }
-    // .title-toronto {
-    //     left: 1.5em; // Move slightly left to avoid covering tabs.
-    // }
+}
+
+@media all and (max-width: 32em) {
+    .title-toronto {
+        left: 0.5em;
+    }
 }
 
 
