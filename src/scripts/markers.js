@@ -91,7 +91,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
             self.$tabHLFilter.css('opacity', 0); // Set to transparent.
             self.glowingTwitterOpacity = 0; // Transparency tracking variable.
         }
-
     };
 
     /**

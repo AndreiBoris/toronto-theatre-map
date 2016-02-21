@@ -49,3 +49,9 @@ footer {
 #credit-div.creditDivOn {
     bottom: 0;
 }
+
+@media all and (max-width: 55em) {
+    .hide-credit {
+        display: none;
+    }
+}

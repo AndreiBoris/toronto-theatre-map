@@ -839,6 +839,9 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
     self.$loadButton = $('#load-button');
     self.$loadMover = $('#load-mover');
 
+    // Credit marker that allows us to bring out the credit div
+    self.$creditMarker = $('#credit-marker');
+
     /**
      * Close the info div.
      */
@@ -883,6 +886,19 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
     self.slideCredits = function() {
         self.creditOn(!self.creditOn());
     };
+
+
+    /**
+     * Hide the credit marker on small screens when any right-div is on to avoid
+     * having the credit marker appear over these divs.
+     */
+    self.hideCredits = ko.computed(function() {
+        if (self.listIsOpen() || self.filterIsOpen() || self.twitterIsOpen()){
+            self.$creditMarker.addClass('hide-credit');
+        } else {
+            self.$creditMarker.removeClass('hide-credit');
+        }
+    });
 
     /**
      * Fades out button on Info Window that displays the left div when it would
@@ -1005,7 +1021,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
             self.$tabHLFilter.css('opacity', 0); // Set to transparent.
             self.glowingTwitterOpacity = 0; // Transparency tracking variable.
         }
-
     };
 
     /**

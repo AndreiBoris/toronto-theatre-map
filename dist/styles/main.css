@@ -237,6 +237,11 @@ footer {
   bottom: 0;
 }
 
+@media all and (max-width: 55em) {
+  .hide-credit {
+    display: none;
+  }
+}
 .right-overlay-wrapper {
   overflow: hidden;
   height: 100%;
