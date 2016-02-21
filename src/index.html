@@ -142,7 +142,7 @@
                 </div>
                 <!-- Contains the directions taken from Google Maps Directions
                 API in steps. -->
-                <div data-bind="visible: showDirections && directionsReady">
+                <div data-bind="visible: showDirections() && directionsReady()">
                     <!-- Container holds start address and direction edit button 
                     in the same way that other containers hold two buttons -->
                     <div class="space-above button-flex" data-bind="visible: directionSuccess">
@@ -150,7 +150,7 @@
                         <div class="address-line size-90">
                             Direction from <span data-bind="text: addressToDisplay"></span>:
                         </div>
-                        <div class="size-10 address-line no-hover"><span class="directions-options-button">&equiv;
+                        <div class="size-10 address-line no-hover"><span class="directions-options-button" data-bind="click: newStartingLocation">&equiv;
                         </span></div>
                     </div>
                     <div>

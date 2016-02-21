@@ -1015,6 +1015,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
     self.directionQuestionGeolocation = ko.observable(false);
     self.directionQuestionDoubleCheck = ko.observable(false);
     self.directionQuestionTypeLocation = ko.observable(false);
+    self.directionQuestionNewLocation = ko.observable(false);
 
     /**
      * Submit pendingAddress and put it as the startingLocation and the 
@@ -1027,6 +1028,17 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         self.pendingAddress('');
         self.calcRoute(self.currentPosition());
         self.directionInputDisplay(false);
+    };
+
+    /**
+     * Allow user to customize a new location from which to get directions
+     */
+    self.newStartingLocation = function() {
+        self.directionsReady(false);
+        self.directionOption(true);
+        self.directionsPrompt('Do you want to pick a new starting location for ' +
+            'directions?');
+        self.nextQuestion(true, 'NewLocation');
     };
 
     /**
@@ -1125,9 +1137,13 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         // This variable determines visibility of step instructions on the view
         self.showDirections(!self.showDirections()); // Toggle
         if (self.showDirections()) { // Direction are showing
-            if (option === 'infoWin') { // Called from InfoWindow
+            if (option === 'infoWin' && self.locationRequested()) { // Called from InfoWindow
                 self.closeLeftDiv(); // Remove display div to make space
                 self.closeRightDivs(); // Remove right divs to make space
+            }
+            if (!self.locationRequested() && !self.leftDivOpen()) {
+                // Need to figure out options for starting address
+                self.openLeftDiv(); 
             }
             self.openDirections();
         } else {
@@ -1170,6 +1186,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         // Figure out how to get to the position of the currently selected
         // marker and display this information to user
         if (!self.locationRequested()) {
+            console.log('location has been requested now');
             self.locationRequested(true);
             self.directionsPrompt('Share your location to find directions?');
             self.nextQuestion(true, 'Geolocation');
@@ -1201,6 +1218,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
      *                         setup of the starting location.
      */
     self.nextQuestion = function(nextStep, choice) {
+        self.directionQuestionNewLocation(false);
         self.directionQuestionGeolocation(false);
         self.directionQuestionDoubleCheck(false);
         self.directionQuestionTypeLocation(false);
@@ -1212,6 +1230,9 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         }
     };
 
+    /**
+     * Handler for 'Yes' button in starting location set up
+     */
     self.directionsYes = function() {
         if (self.directionQuestionGeolocation()) {
             self.getLocation();
@@ -1222,11 +1243,18 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
             self.nextQuestion(false, '');
             self.directionsPrompt('Please enter a specific address.');
             self.directionInputDisplay(true); // enter a new value
+        } else if (self.directionQuestionNewLocation()) {
+            self.locationRequested(false);
+            mapManager.directionsDisplay.setMap(null);
+            self.openDirections();
         } else {
             console.log('Invalid situation to press yes button!');
         }
     };
 
+    /**
+     * Handler for 'No' button in starting location set up
+     */
     self.directionsNo = function() {
         if (self.directionQuestionGeolocation()) {
             self.directionsPrompt('Want to enter the location ' +
@@ -1246,6 +1274,9 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
                 self.addressToDisplay('Yonge and Bloor');
                 self.calcRoute(self.currentPosition());
             }
+        } else if (self.directionQuestionNewLocation()) {
+            self.directionsReady(true);
+            self.directionOption(false);
         } else {
             console.log('Invalid situation to press no button!');
         }
