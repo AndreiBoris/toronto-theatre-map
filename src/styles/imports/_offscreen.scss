@@ -26,6 +26,12 @@ media queries. ***/
 
 .left-div-off {
     left: -50%;
+    visibility: hidden;
+    div,
+    li,
+    ul {
+        display: none;
+    }
 }
 
 /*** The list, twitter and filter divs ***/
@@ -40,4 +46,10 @@ media queries. ***/
 
 .right-div-off {
     right: -30%;
+    visibility: hidden;
+    div,
+    li,
+    ul {
+        display: none;
+    }
 }

@@ -279,6 +279,7 @@ transitions when RESIZING look prettier, so it's rarely used. ***/
     }
     .right-overlay {
         right: -40%;
+        visibility: hidden;
     }
     .title-theatre {
         left: 0.5em; // Move slightly left to avoid covering tabs.

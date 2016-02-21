@@ -10,6 +10,7 @@ footer {
     padding-right: 4em;
 }
 
+
 /*** The clickable 'Credits' that brings the footer out ***/
 
 #credit-marker {
@@ -19,6 +20,7 @@ footer {
     font-size: 1.2em;
     bottom: 0.5em;
 }
+
 
 /*** The offscreen part of the footer ***/
 
@@ -30,4 +32,26 @@ footer {
     height: 6em;
     bottom: -20em;
     transition: $transition-time;
-}  
+    visibility: hidden;
+    div {
+        display: none;
+    }
+}
+
+
+/*** Attributions in the credit div shouldn't be centered ***/
+
+.attributions {
+    text-align: left;
+}
+
+
+/*** Credit div should hug the bottom of the screen when it is on ***/
+
+#credit-div.creditDivOn {
+    bottom: 0;
+    visibility: visible;
+    div {
+        display: block;
+    }
+}

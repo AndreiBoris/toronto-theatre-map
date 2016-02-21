@@ -119,6 +119,12 @@ media queries. ***/
 /*** Position of left-div when it is off screen ***/
 .left-div-off {
   left: -50%;
+  visibility: hidden;
+}
+.left-div-off div,
+.left-div-off li,
+.left-div-off ul {
+  display: none;
 }
 
 /*** The list, twitter and filter divs ***/
@@ -130,6 +136,12 @@ media queries. ***/
 /*** Position of right divs when they are off screen ***/
 .right-div-off {
   right: -30%;
+  visibility: hidden;
+}
+.right-div-off div,
+.right-div-off li,
+.right-div-off ul {
+  display: none;
 }
 
 /*** All the right-div tabs for moving the divs on and off screen ***/
@@ -199,6 +211,24 @@ footer {
   height: 6em;
   bottom: -20em;
   transition: 0.15s;
+  visibility: hidden;
+}
+#credit-div div {
+  display: none;
+}
+
+/*** Attributions in the credit div shouldn't be centered ***/
+.attributions {
+  text-align: left;
+}
+
+/*** Credit div should hug the bottom of the screen when it is on ***/
+#credit-div.creditDivOn {
+  bottom: 0;
+  visibility: visible;
+}
+#credit-div.creditDivOn div {
+  display: block;
 }
 
 /*** This div prevents users from using the map before pressing enter-button ***/
@@ -439,6 +469,7 @@ transitions when RESIZING look prettier, so it's rarely used. ***/
 
   .right-overlay {
     right: -40%;
+    visibility: hidden;
   }
 
   .title-theatre {
@@ -859,16 +890,6 @@ hovering over any of them specifically. ***/
 .buttonOn {
   background-color: #6f6;
   border: 0.05em solid black;
-}
-
-/*** Attributions in the credit div shouldn't be centered ***/
-.attributions {
-  text-align: left;
-}
-
-/*** Credit div should hug the bottom of the screen when it is on ***/
-#credit-div.creditDivOn {
-  bottom: 0;
 }
 
 /*** Helps ensure that the .button-50-infos can be displayed fully without
