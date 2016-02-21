@@ -353,13 +353,13 @@ footer {
 /*** Positioning the word 'Theatre' in the title ***/
 .title-theatre {
   font-size: 3em;
-  left: 1em;
+  left: 0.35em;
 }
 
 /*** Positioning the word 'in' in the title ***/
 .title-in {
   font-size: 2em;
-  left: 9em;
+  left: 7.9em;
   top: 0.4em;
 }
 
@@ -412,7 +412,7 @@ that its width is equal to. ***/
 a line. ***/
 .title-toronto.overlay-off {
   top: 0;
-  left: 7em;
+  left: 6.1em;
 }
 
 /*** Fade out button when the javascript is not yet loaded ***/
@@ -446,18 +446,32 @@ a line. ***/
 /*** Small desktops or tablets roughly. This media query only exists to make 
 transitions when RESIZING look prettier, so it's rarely used. ***/
 @media all and (max-width: 62em) {
+  .enter-button-border1 {
+    width: 100%;
+    height: 70%;
+  }
+
   #enter-button {
-    width: 50%;
+    width: 80%;
     height: 60%;
   }
 
   #load-button {
-    width: 50%;
+    width: 80%;
     height: 60%;
   }
 
   #enter-button.overlay-off {
     left: -50%;
+  }
+
+  .right-overlay {
+    right: -40%;
+    visibility: hidden;
+  }
+
+  .right-overlay-wrapper {
+    width: 0;
   }
 }
 /*** Phablet size roughly ***/
@@ -467,12 +481,12 @@ transitions when RESIZING look prettier, so it's rarely used. ***/
   }
 
   #enter-button {
-    width: 60%;
+    width: 100%;
     height: 70%;
   }
 
   #load-button {
-    width: 60%;
+    width: 100%;
     height: 70%;
   }
 
@@ -493,33 +507,12 @@ transitions when RESIZING look prettier, so it's rarely used. ***/
   #enter-button.overlay-off {
     left: -100%;
   }
-
-  .right-overlay {
-    right: -40%;
-    visibility: hidden;
-  }
-
-  .right-overlay-wrapper {
-    width: 0;
-  }
-
-  .title-theatre {
-    left: 0.5em;
-  }
-
-  .title-in {
-    left: 8.25em;
-  }
-
-  .title-toronto {
-    left: 1.5em;
-  }
 }
 /*** This is generally for landscape view on phones. ***/
 @media all and (max-height: 26em) {
   .title-toronto {
     top: 0;
-    left: 6.5em;
+    left: 6.1em;
   }
 }
 /*********************
