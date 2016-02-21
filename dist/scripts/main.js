@@ -1151,7 +1151,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
     self.toggleDirections = function(option) {
         // This variable determines visibility of step instructions on the view
         self.showDirections(!self.showDirections()); // Toggle
-        if (self.showDirections()) { // Direction are showing
+        if (self.showDirections()) { // Direction should be showing
             if (option === 'infoWin' && self.locationRequested()) { // Called from InfoWindow
                 self.closeLeftDiv(); // Remove display div to make space
                 self.closeRightDivs(); // Remove right divs to make space
@@ -1160,7 +1160,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
                 // Need to figure out options for starting address
                 self.openLeftDiv();
             }
-            self.openDirections();
+            self.openDirections(); // Enable directions in view
         } else {
             // Hide the directions drawn on the map
             self.closeDirections();
@@ -1203,21 +1203,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         if (!self.locationRequested()) {
             self.directionsPrompt('Share your location to find directions?');
             self.nextQuestion(true, 'Geolocation');
-            // if (geolocate) {
-            //     self.getLocation();
-            // } else {
-            //     var typeIn = window.confirm('Do you want to type in location?');
-            //     if (typeIn) {
-            //         // Allow user to enter text
-            //         var enteredLocation = prompt('Enter a location:');
-            //         console.log(enteredLocation);
-            //         self.startingLocation(enteredLocation);
-            //         self.calcRoute(self.currentPosition());
-            //     } else { // Find directions from stock location.
-            //         self.startingLocation('Yonge and Bloor');
-            //         self.calcRoute(self.currentPosition()); // Find directions
-            //     }
-            // }
         } else { // We already have the starting location
             self.calcRoute(self.currentPosition()); // Find directions
         }
@@ -1231,37 +1216,41 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
      *                         setup of the starting location.
      */
     self.nextQuestion = function(nextStep, choice) {
+        // Disable all questions
         self.directionQuestionNewLocation(false);
         self.directionQuestionGeolocation(false);
         self.directionQuestionDoubleCheck(false);
         self.directionQuestionTypeLocation(false);
-        if (nextStep) {
-            self.directionOption(true);
-            self['directionQuestion' + choice](true);
+        if (nextStep) { // We are asking another question
+            self.directionOption(true); // Provide 'Yes' and 'No' buttons
+            // Enable relavant question so that directionYes and directionNo will
+            // correctly handle the user response.
+            self['directionQuestion' + choice](true); 
         } else {
+            // Disable 'Yes' and 'No' buttons
             self.directionOption(false);
         }
     };
 
     /**
-     * Handler for 'Yes' button in starting location set up
+     * Handler for 'Yes' button in starting location setup
      */
     self.directionsYes = function() {
-        if (self.directionQuestionGeolocation()) {
-            self.getLocation();
-        } else if (self.directionQuestionDoubleCheck()) {
-            self.nextQuestion(false, '');
+        if (self.directionQuestionGeolocation()) { // have permission to geolocate
+            self.getLocation(); // Get user's position
+        } else if (self.directionQuestionDoubleCheck()) { // geolocation is good
+            self.nextQuestion(false, ''); // No more questions
             self.calcRoute(self.currentPosition());
-        } else if (self.directionQuestionTypeLocation()) {
-            self.nextQuestion(false, '');
+        } else if (self.directionQuestionTypeLocation()) { // user will input location
+            self.nextQuestion(false, ''); // No more questions
             self.directionsPrompt('Please enter a specific address.');
-            self.directionInputDisplay(true); // enter a new value
-        } else if (self.directionQuestionNewLocation()) {
-            self.locationRequested(false);
-            mapManager.directionsDisplay.setMap(null);
-            self.openDirections();
+            self.directionInputDisplay(true); // enter a new starting address
+        } else if (self.directionQuestionNewLocation()) { // user wants new starting location
+            self.locationRequested(false); // Request a new location in openDirections
+            mapManager.directionsDisplay.setMap(null); // Take direction graphics off map
+            self.openDirections(); // Get new starting location and graphic display
         } else {
-            console.log('Invalid situation to press yes button!');
+            console.log('Invalid situation to press yes button!'); // shouldn't happen
         }
     };
 
@@ -1269,64 +1258,50 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
      * Handler for 'No' button in starting location set up
      */
     self.directionsNo = function() {
-        if (self.directionQuestionGeolocation()) {
+        if (self.directionQuestionGeolocation()) { // denied access to geolocate
             self.directionsPrompt('Want to enter the location ' +
                 'you want to travel from yourself?');
             self.nextQuestion(true, 'TypeLocation');
-        } else if (self.directionQuestionDoubleCheck()) {
+        } else if (self.directionQuestionDoubleCheck()) { // geolocation is bad
             self.directionsPrompt('Sorry about that. Want to enter the location ' +
                 'you want to travel from yourself?');
             self.nextQuestion(true, 'TypeLocation');
-        } else if (self.directionQuestionTypeLocation()) {
-            if (self.addressToDisplay() === 'your location') {
-                self.nextQuestion(false, '');
-                self.calcRoute(self.currentPosition());
+        } else if (self.directionQuestionTypeLocation()) { // refuses to type location
+            if (self.addressToDisplay() === 'your location') { // error in addressAJAX
+                self.nextQuestion(false, ''); // no more questions
+                self.calcRoute(self.currentPosition()); // get directions
             } else {
-                self.nextQuestion(false, '');
-                self.startingLocation('Yonge and Bloor');
-                self.addressToDisplay('Yonge and Bloor');
-                self.calcRoute(self.currentPosition());
+                self.nextQuestion(false, ''); // no more questions
+                self.startingLocation('Yonge and Bloor'); // set default value
+                self.addressToDisplay('Yonge and Bloor'); // set default value
+                self.calcRoute(self.currentPosition()); // get directions
             }
-        } else if (self.directionQuestionNewLocation()) {
-            self.directionsReady(true);
-            self.directionOption(false);
+        } else if (self.directionQuestionNewLocation()) { // keep old starting location
+            self.directionsReady(true); // display direction steps
+            self.directionOption(false); // hide 'Yes' and 'No' buttons
         } else {
-            console.log('Invalid situation to press no button!');
+            console.log('Invalid situation to press no button!'); // shouldn't happen
         }
     };
 
+    /**
+     * Find the current position of the user.
+     */
     self.getLocation = function() {
-        if (navigator.geolocation) {
+        if (navigator.geolocation) { // Browser can do geolocation
             navigator.geolocation.getCurrentPosition(function(position) {
                 var lat = position.coords.latitude;
                 var lng = position.coords.longitude;
-                self.startingLocation({
+
+                self.startingLocation({ // IMPORTANT: used by calcRoute
                     lat: lat,
                     lng: lng
                 });
+
                 // Convert to human-readable address
                 self.addressAJAX(lat, lng);
 
-                // var placeFound = window.confirm('Is where you are travelling from ' +
-                //     address + '?');
-                // self.nextQuestion(true, 'DoubleCheck'); // Can't do this
-                // if (placeFound) {
-                //     self.calcRoute(self.currentPosition());
-                // } else {
-                //     var willType = window.confirm('Do you want to enter your starting place?');
-                //     if (willType) {
-                //         // Allow user to enter text
-                //         var enteredLocation = prompt('Enter a location:');
-                //         console.log(enteredLocation);
-                //         self.startingLocation(enteredLocation);
-                //         self.calcRoute(self.currentPosition());
-                //     } else { // Find directions from stock location.
-                //         self.startingLocation('Yonge and Bloor');
-                //         self.calcRoute(self.currentPosition()); // Find directions
-                //     }
-                // }
-
-            }, function() {
+            }, function() { // Handle error
                 console.log('Geolocation has encountered some error!');
                 self.directionsPrompt('We\'re struggling to find an address ' +
                     'corresponding to your coordinates. Would you like to ' +
