@@ -229,6 +229,8 @@ footer {
 /*** Attributions in the credit div shouldn't be centered ***/
 .attributions {
   text-align: left;
+  font-size: 1.5em;
+  margin: 0.75em 0;
   width: 100%;
 }
 
