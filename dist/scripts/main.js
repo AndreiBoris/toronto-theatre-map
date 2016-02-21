@@ -1110,7 +1110,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
                     self.directionsReady(true); // Display directions
                 }
             } else { // Get a new starting address.
-                self.directionsPrompt('Please try a more specific address. ' + 
+                self.directionsPrompt('Please try a more specific address. ' +
                     'Though it is also possible that there is a network problem.');
                 self.calcRouteFailed();
             }
@@ -1225,7 +1225,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
             self.directionOption(true); // Provide 'Yes' and 'No' buttons
             // Enable relavant question so that directionYes and directionNo will
             // correctly handle the user response.
-            self['directionQuestion' + choice](true); 
+            self['directionQuestion' + choice](true);
         } else {
             // Disable 'Yes' and 'No' buttons
             self.directionOption(false);
@@ -1301,21 +1301,19 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
                 // Convert to human-readable address
                 self.addressAJAX(lat, lng);
 
-            }, function() { // Handle error
-                console.log('Geolocation has encountered some error!');
+            }, function() { // User doesn't consent to being tracked
+                console.log('No permission to get geolocation of user!');
                 self.directionsPrompt('We\'re struggling to find an address ' +
                     'corresponding to your coordinates. Would you like to ' +
-                    'enter your address instead?');
+                    'enter the address you want directions from instead?');
                 self.nextQuestion(true, 'TypeLocation');
-                //handleLocationError(true, infoWindow, mapManager.map.getCenter());
             });
         } else {
             // Browser doesn't support Geolocation
-            //handleLocationError(false, infoWindow, mapManager.map.getCenter());
             console.log('Geolocation can\'t be used in this browser!');
             self.directionsPrompt('We\'re struggling to find an address ' +
                 'corresponding to your coordinates. Would you like to ' +
-                'enter your address instead?');
+                'enter the address you want directions from instead?');
             self.nextQuestion(true, 'TypeLocation');
         }
     };
@@ -1328,60 +1326,38 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
      */
     self.addressAJAX = function(lat, lng) {
         /*jshint camelcase: false */ // Have to access non camel case object below
-        // The request is bounded around Toronto.
+
+        // API call using lat and lng to find human readable address.
         var urlCoords = ('https://maps.googleapis.com/maps/api/geocode/json?latlng=' +
             lat + ',' + lng + '&key=AIzaSyA4SAawmy-oEMzdWboD0iHk9gDmmjb61o4');
-        console.log(urlCoords);
 
         $.ajax({
             url: urlCoords,
-            success: function(data) {
-                if (data.results[0].formatted_address) {
+            success: function(data) { // Got a response
+                if (data.results[0].formatted_address) { // Address found
                     self.addressToDisplay(data.results[0].formatted_address);
                     self.directionsPrompt('Are you travelling from ' +
                         data.results[0].formatted_address + '?');
+                    // Check with user if this is the correct location
                     self.nextQuestion(true, 'DoubleCheck');
-                } else {
+                } else { // No human reeadable address to extract
                     console.log('Could not generate human-readable address.');
-                    self.addressToDisplay('your location');
-                    self.directionsPrompt('We\'re struggling to find an address ' +
-                        'corresponding to your coordinates. Would you like to ' +
-                        'enter your address instead?');
-                    self.nextQuestion(true, 'TypeLocation');
+                    self.handleDirectionAJAXFailure();
                 }
             },
-            error: function(e) {
+            error: function(e) { // no response
                 console.log('Could not access reverse geocoding Google Maps API.');
-                self.addressToDisplay('your location');
-                self.directionsPrompt('We\'re struggling to find an address ' +
-                    'corresponding to your coordinates. Would you like to ' +
-                    'enter your address instead?');
-                self.nextQuestion(true, 'TypeLocation');
+                self.handleDirectionAJAXFailure();
             }
         });
+    };
 
-        // $.getJSON(urlCoords, function(data) {
-        //     if (data.results[0].formatted_address) {
-        //         self.addressToDisplay(data.results[0].formatted_address);
-        //         self.directionsPrompt('Are you travelling from ' +
-        //             data.results[0].formatted_address + '?');
-        //         self.nextQuestion(true, 'DoubleCheck');
-        //     } else {
-        //         console.log('Could not generate human-readable address.');
-        //         self.addressToDisplay('your location');
-        //         self.directionsPrompt('We\'re struggling to find an address ' +
-        //             'corresponding to your coordinates. Would you like to ' +
-        //             'enter your address instead?');
-        //         self.nextQuestion(true, 'TypeLocation');
-        //     }
-        // }.error(function(e) { // Can't show the marker without coordinates.
-        //     console.log('Could not access reverse geocoding Google Maps API.');
-        //     self.addressToDisplay('your location');
-        //     self.directionsPrompt('We\'re struggling to find an address ' +
-        //         'corresponding to your coordinates. Would you like to ' +
-        //         'enter your address instead?');
-        //     self.nextQuestion(true, 'TypeLocation');
-        // }));
+    self.handleDirectionAJAXFailure = function() {
+        self.addressToDisplay('your location');
+        self.directionsPrompt('We\'re struggling to find an address ' +
+            'corresponding to your coordinates. Would you like to ' +
+            'enter your address instead?');
+        self.nextQuestion(true, 'TypeLocation');
     };
 
     /**
