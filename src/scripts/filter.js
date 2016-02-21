@@ -12,6 +12,27 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
     'use strict';
 
     /**
+     * These filters are connected to checkboxes on the view. If one of them is 
+     * on, only the markers that pass that filter will be displayed. If filter
+     * is added here, be sure to add it to self.filters directly below the 
+     * following block of observables.
+     */
+    self.filterDiverse = ko.observable(false);
+    self.filterWomen = ko.observable(false);
+    self.filterBlack = ko.observable(false);
+    self.filterAboriginal = ko.observable(false);
+    self.filterQueer = ko.observable(false);
+    self.filterAsian = ko.observable(false);
+    self.filterLatin = ko.observable(false);
+    self.filterAlternative = ko.observable(false);
+    self.filterCommunity = ko.observable(false);
+    self.filterInternational = ko.observable(false);
+    self.filterChildren = ko.observable(false);
+    self.filterTechnology = ko.observable(false);
+    self.filterOffice = ko.observable(false);
+    self.filterVenue = ko.observable(false);
+
+    /**
      * Keeps the observable and the related flag (from the markers) in one place.
      * If you change something here, be sure to keep it consistent with the 
      * block of observables directly above this comment.

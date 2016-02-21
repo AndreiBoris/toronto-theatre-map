@@ -8,6 +8,22 @@ var ko = ko || {};
  */
 var TheatreMapViewModel = (function(self, ko) {
     'use strict';
+
+    // Respective right-div tab should be glowing
+    self.glowingTwitter = false;
+    self.glowingList = false;
+    self.glowingFilter = false;
+
+    // Respective glowing right-div tab should be fading
+    self.glowingTwitterFading = false;
+    self.glowingListFading = false;
+    self.glowingFilterFading = false;
+
+    // Current opacity of the glowing part of the respective tab
+    self.glowingTwitterOpacity = 0;
+    self.glowingListOpacity = 0;
+    self.glowingFilterOpacity = 0;
+
     /**
      * Animation for the  glow that indicates there is new content in the any of
      * the right side divs.

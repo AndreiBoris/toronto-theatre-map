@@ -15,6 +15,11 @@ var TheatreMapViewModel = (function(self, ko, mapManager, googleWatcherObject) {
     'use strict';
 
     /**
+     * Google Maps API failed to load
+     */
+    self.googleMapFailed = ko.observable(false);
+
+    /**
      * Remove the overlay and reveal the map.
      */
     self.openOverlay = function() {
@@ -24,7 +29,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, googleWatcherObject) {
         self.$titleToronto.addClass('overlay-off');
         self.$titleText.css('z-index', 2);
         self.$divOverlay.css('z-index', 0); // To be able to click on the map.
-        
+
         setTimeout(function() {
             self.slideList(); // Show list div
         }, 600); // Slightly after the openOverlay is run

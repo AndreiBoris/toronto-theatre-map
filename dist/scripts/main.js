@@ -766,217 +766,6 @@ mapManager.util = (function(mapManager) {
 // Position twitter tab as soon as page loads.
 mapManager.util.repositionTabs();
 
-var ko = ko || {};
-
-/**
- * The module loads attributes used by other modules.
- * @param  {object} self        TheatreMapViewModel object without this module.
- * @param  {object} ko          Knockout object to provide framework methods.
- * @return {object}             TheatreMapViewModel with these added methods.
- */
-var TheatreMapViewModel = (function(self, ko) {
-    'use strict';
-
-    /**
-     * Div for holding the error messages that are seen when twitter fails to 
-     * load quickly enough.
-     */
-    self.$twitterErrorDiv = $('#twitter-error');
-    self.errorTimeoutRequest = null; // Allows us to clear old requests
-
-    /**
-     * Holds all the google.maps.Marker type objects so we can easily manipulate
-     * them through Knockout.
-     */
-    self.markers = ko.observableArray([]);
-
-    /**
-     * Track whether each respective div is open.
-     */
-    self.listIsOpen = ko.observable(false);
-    self.filterIsOpen = ko.observable(false);
-    self.twitterIsOpen = ko.observable(false);
-    self.leftDivOpen = ko.observable(false);
-
-    /**
-     * Required to support slide and glow animations
-     */
-    self.$divList = $('#list-div');
-    self.$tabHLList = $('#list-tab-highlight');
-    self.$tabBackList = $('#list-tab-back');
-    self.$tabAllList = $('.list-tab-image');
-
-    self.$divFilter = $('#filter-div');
-    self.$tabHLFilter = $('#filter-tab-highlight');
-    self.$tabBackFilter = $('#filter-tab-back');
-    self.$tabAllFilter = $('.filter-tab-image');
-
-    self.$divTwitter = $('#twitter-div');
-    self.$tabHLTwitter = $('#twitter-tab-highlight');
-    self.$tabBackTwitter = $('#twitter-tab-back');
-    self.$tabAllTwitter = $('.twitter-tab-image');
-
-
-    // To determine whether to load the twitter list or a particular account.
-    self.twitterListView = ko.observable(true);
-
-    /**
-     * These variables hold the currently selected marker's information for 
-     * various uses.
-     */
-    self.currentTitle = ko.observable('');
-    self.currentWebsite = ko.observable('');
-    self.currentBlurb = ko.observable('');
-    self.currentAddress = ko.observable('');
-    self.currentDirections = ko.observableArray([]);
-    self.currentCopyrights = ko.observable('');
-    self.currentPosition = ko.observable({});
-    self.currentTravelDuration = ko.observable(0);
-    self.directionSuccess = ko.observable(false);
-
-
-    /**
-     * These observables are used in the computed newTwitterUser to determine
-     * if the Twitter account requested is different from the one that is loaded.
-     */
-    self.activeTwitter = ko.observable(''); // current Twitter user selected
-    self.lastTwitterUser = ko.observable(''); // current Twitter user loaded
-
-    /**
-     * The following two variables keep track of the kind of Twitter feeds that 
-     * are currently loaded. Short feeds save bandwidth by only allowing recent
-     * posts to be loaded. Long feeds allow users to scroll down to display a 
-     * limitless number of posts. 
-     */
-    self.currentTwitterListLong = false;
-    self.currentTwitterUserLong = false;
-
-    /**
-     * The length of Twitter feed that the user wants to see. Default is to show 
-     * the short feed.
-     */
-    self.twitterLong = ko.observable(false);
-
-
-    /**
-     * These observables are used by the computed newTwitterUserFeed and 
-     * newTwitterListFeed to determine whether to run and load new feeds.
-     * Both of these are changed by determineNeedToReload which gets run
-     * whenever there might be a difference between the current requested and 
-     * current loaded Twitter feed. Default is true for both as initially no
-     * Twitter feed is loaded, though this is nominal, since 
-     * determineNeedToReload gets run when twitter is first opened.
-     */
-    self.needTwitterUserReload = ko.observable(true);
-    self.needTwitterListReload = ko.observable(true);
-
-    /**
-     * If the twitter list feed has never been loaded before, it should be 
-     * loaded whenever the user requests it.
-     */
-    self.firstListLoad = true;
-
-
-    self.$twitterListDiv = $('#twitter-list');
-    self.$twitterAccountDiv = $('#twitter-account');
-
-    self.glowingTwitter = false;
-    // The twitter tab bright image is currently fading.
-    self.glowingTwitterFading = false;
-    // Opacity tracking self.$tabHLList
-    self.glowingTwitterOpacity = 0;
-
-
-    self.glowingList = false;
-    // The twitter tab bright image is currently fading.
-    self.glowingListFading = false;
-    // Opacity tracking self.$tabHLList
-    self.glowingListOpacity = 0;
-
-    self.glowingFilter = false;
-    // The twitter tab bright image is currently fading.
-    self.glowingFilterFading = false;
-    // Opacity tracking self.$tabHLList
-    self.glowingFilterOpacity = 0;
-
-
-    /**
-     * These filters are connected to checkboxes on the view. If one of them is 
-     * on, only the markers that pass that filter will be displayed. If filter
-     * is added here, be sure to add it to self.filters directly below the 
-     * following block of observables.
-     */
-    self.filterDiverse = ko.observable(false);
-    self.filterWomen = ko.observable(false);
-    self.filterBlack = ko.observable(false);
-    self.filterAboriginal = ko.observable(false);
-    self.filterQueer = ko.observable(false);
-    self.filterAsian = ko.observable(false);
-    self.filterLatin = ko.observable(false);
-    self.filterAlternative = ko.observable(false);
-    self.filterCommunity = ko.observable(false);
-    self.filterInternational = ko.observable(false);
-    self.filterChildren = ko.observable(false);
-    self.filterTechnology = ko.observable(false);
-    self.filterOffice = ko.observable(false);
-    self.filterVenue = ko.observable(false);
-
-
-    // These are used to sort first forwards and then backwards.
-    self.sortedAlpha = false;
-    self.sortedFounded = false;
-    self.currentSort = ko.observable('');
-
-    /**
-     * This is the div that comes in from the left and displays information 
-     * about a marker.
-     */
-    self.$divInfo = $('#display-div');
-    self.$directionsButton = $('#direction-button');
-    self.showDirections = ko.observable(false);
-
-    /**
-     * This button on the InfoWindow opens the left-div
-     */
-    self.$leftDivOpener = $('#left-div-open-button');
-
-
-    /**
-     * This will be the only google.maps.InfoWindow that is displayed.
-     */
-    self.infoWindow = {};
-
-
-    /**
-     * The credit div at the bottom of the app.
-     */
-    self.$creditDiv = $('#credit-div');
-    self.creditOn = ko.observable(false);
-
-    /**
-     * Overlay
-     */
-    self.$divOverlay = $('#overlay-div');
-    self.$buttonOverlay = $('.button-overlay');
-    self.$titleOverlay = $('.title-background');
-    self.$rightOverlay = $('.right-overlay');
-    self.$titleToronto = $('.title-toronto');
-    self.$titleText = $('.title-text');
-    self.$loadButton = $('#load-button');
-    self.$loadMover = $('#load-mover');
-    
-    /**
-     * Google Maps API failed to load
-     */
-    self.googleMapFailed = ko.observable(false);
-
-    /**
-     * Add the above methods to TheatreMapViewModel
-     */
-    return self;
-
-}(TheatreMapViewModel || {}, ko));
-
 var mapManager = mapManager || {};
 var google = google || {};
 var ko = ko || {};
@@ -1415,6 +1204,31 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
     'use strict';
 
     /**
+     * Holds all the google.maps.Marker type objects so we can easily manipulate
+     * them through Knockout.
+     */
+    self.markers = ko.observableArray([]);
+
+    /**
+     * These variables hold the currently selected marker's information for 
+     * various uses.
+     */
+    self.currentTitle = ko.observable('');
+    self.currentWebsite = ko.observable('');
+    self.currentBlurb = ko.observable('');
+    self.currentAddress = ko.observable('');
+    self.currentDirections = ko.observableArray([]);
+    self.currentCopyrights = ko.observable('');
+    self.currentPosition = ko.observable({});
+    self.currentTravelDuration = ko.observable(0);
+    self.directionSuccess = ko.observable(false);
+
+    /**
+     * This will be the only google.maps.InfoWindow that is displayed.
+     */
+    self.infoWindow = {};
+
+    /**
      * Close all right-divs
      * NOTE: This method needs to be in this module in order to ensure we can
      * run infoWindowBinder when we addMarkers. Move it to divs.js if this is 
@@ -1588,15 +1402,15 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         self.currentBlurb(marker.blurb);
         self.currentAddress(marker.address);
         self.currentPosition(marker.position);
-        
+
         // This has to come after the last 4, as currentInfo is a computed based
         // on currentTitle and currentAddress.
         self.infoWindow.setContent(self.currentInfo());
-        
+
         // Move to a position where the Info Window can be displayed and open it.
         mapManager.map.panTo(marker.getPosition());
         self.openInfoWindow(marker);
-        
+
         // Move button to show directions to the opened InfoWindow
         self.moveButton();
 
@@ -1731,6 +1545,61 @@ var twttr = twttr || {};
  */
 var TheatreMapViewModel = (function(self, ko, twttr) {
     'use strict';
+
+    /**
+     * These observables are used in the computed newTwitterUser to determine
+     * if the Twitter account requested is different from the one that is loaded.
+     */
+    self.activeTwitter = ko.observable(''); // current Twitter user selected
+    self.lastTwitterUser = ko.observable(''); // current Twitter user loaded
+
+    /**
+     * The following two variables keep track of the kind of Twitter feeds that 
+     * are currently loaded. Short feeds save bandwidth by only allowing recent
+     * posts to be loaded. Long feeds allow users to scroll down to display a 
+     * limitless number of posts. 
+     */
+    self.currentTwitterListLong = false;
+    self.currentTwitterUserLong = false;
+
+    /**
+     * The length of Twitter feed that the user wants to see. Default is to show 
+     * the short feed.
+     */
+    self.twitterLong = ko.observable(false);
+
+
+    /**
+     * These observables are used by the computed newTwitterUserFeed and 
+     * newTwitterListFeed to determine whether to run and load new feeds.
+     * Both of these are changed by determineNeedToReload which gets run
+     * whenever there might be a difference between the current requested and 
+     * current loaded Twitter feed. Default is true for both as initially no
+     * Twitter feed is loaded, though this is nominal, since 
+     * determineNeedToReload gets run when twitter is first opened.
+     */
+    self.needTwitterUserReload = ko.observable(true);
+    self.needTwitterListReload = ko.observable(true);
+
+    /**
+     * Div for holding the error messages that are seen when twitter fails to 
+     * load quickly enough.
+     */
+    self.$twitterErrorDiv = $('#twitter-error');
+    self.errorTimeoutRequest = null; // Allows us to clear old requests
+
+    // To determine whether to load the twitter list or a particular account.
+    self.twitterListView = ko.observable(true);
+
+    // Divs holding complete Twitter list and individual user feeds, respectively
+    self.$twitterListDiv = $('#twitter-list');
+    self.$twitterAccountDiv = $('#twitter-account');
+
+    /**
+     * If the twitter list feed has never been loaded before, it should be 
+     * loaded whenever the user requests it.
+     */
+    self.firstListLoad = true;
 
     /**
      * We hide the error div momentarily so that it doesn't normally get seen
@@ -1899,6 +1768,27 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
     'use strict';
 
     /**
+     * These filters are connected to checkboxes on the view. If one of them is 
+     * on, only the markers that pass that filter will be displayed. If filter
+     * is added here, be sure to add it to self.filters directly below the 
+     * following block of observables.
+     */
+    self.filterDiverse = ko.observable(false);
+    self.filterWomen = ko.observable(false);
+    self.filterBlack = ko.observable(false);
+    self.filterAboriginal = ko.observable(false);
+    self.filterQueer = ko.observable(false);
+    self.filterAsian = ko.observable(false);
+    self.filterLatin = ko.observable(false);
+    self.filterAlternative = ko.observable(false);
+    self.filterCommunity = ko.observable(false);
+    self.filterInternational = ko.observable(false);
+    self.filterChildren = ko.observable(false);
+    self.filterTechnology = ko.observable(false);
+    self.filterOffice = ko.observable(false);
+    self.filterVenue = ko.observable(false);
+
+    /**
      * Keeps the observable and the related flag (from the markers) in one place.
      * If you change something here, be sure to keep it consistent with the 
      * block of observables directly above this comment.
@@ -2034,6 +1924,22 @@ var ko = ko || {};
  */
 var TheatreMapViewModel = (function(self, ko) {
     'use strict';
+
+    // Respective right-div tab should be glowing
+    self.glowingTwitter = false;
+    self.glowingList = false;
+    self.glowingFilter = false;
+
+    // Respective glowing right-div tab should be fading
+    self.glowingTwitterFading = false;
+    self.glowingListFading = false;
+    self.glowingFilterFading = false;
+
+    // Current opacity of the glowing part of the respective tab
+    self.glowingTwitterOpacity = 0;
+    self.glowingListOpacity = 0;
+    self.glowingFilterOpacity = 0;
+
     /**
      * Animation for the  glow that indicates there is new content in the any of
      * the right side divs.
@@ -2114,6 +2020,12 @@ var mapManager = mapManager || {};
  */
 var TheatreMapViewModel = (function(self, ko, mapManager) {
     'use strict';
+
+    // These are used to sort first forwards and then backwards.
+    self.sortedAlpha = false;
+    self.sortedFounded = false;
+    self.currentSort = ko.observable('');
+
     /**
      * Sort alphabetically. First from a-z then from z-a. Case-insensitive.
      */
@@ -2186,6 +2098,64 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
     'use strict';
 
     /**
+     * Track whether each respective div is open.
+     */
+    self.listIsOpen = ko.observable(false);
+    self.filterIsOpen = ko.observable(false);
+    self.leftDivOpen = ko.observable(false);
+    self.twitterIsOpen = ko.observable(false);
+
+    /**
+     * Required to support slide and glow animations
+     */
+    self.$divList = $('#list-div');
+    self.$tabHLList = $('#list-tab-highlight');
+    self.$tabBackList = $('#list-tab-back');
+    self.$tabAllList = $('.list-tab-image');
+
+    self.$divFilter = $('#filter-div');
+    self.$tabHLFilter = $('#filter-tab-highlight');
+    self.$tabBackFilter = $('#filter-tab-back');
+    self.$tabAllFilter = $('.filter-tab-image');
+
+    // Support tab and glow animations
+    self.$divTwitter = $('#twitter-div');
+    self.$tabHLTwitter = $('#twitter-tab-highlight');
+    self.$tabBackTwitter = $('#twitter-tab-back');
+    self.$tabAllTwitter = $('.twitter-tab-image');
+
+    /**
+     * This is the div that comes in from the left and displays information 
+     * about a marker.
+     */
+    self.$divInfo = $('#display-div');
+    self.$directionsButton = $('#direction-button');
+    self.showDirections = ko.observable(false);
+
+    /**
+     * This button on the InfoWindow opens the left-div
+     */
+    self.$leftDivOpener = $('#left-div-open-button');
+
+    /**
+     * The credit div at the bottom of the app.
+     */
+    self.$creditDiv = $('#credit-div');
+    self.creditOn = ko.observable(false);
+
+    /**
+     * Overlay
+     */
+    self.$divOverlay = $('#overlay-div');
+    self.$buttonOverlay = $('.button-overlay');
+    self.$titleOverlay = $('.title-background');
+    self.$rightOverlay = $('.right-overlay');
+    self.$titleToronto = $('.title-toronto');
+    self.$titleText = $('.title-text');
+    self.$loadButton = $('#load-button');
+    self.$loadMover = $('#load-mover');
+
+    /**
      * Close the info div.
      */
     self.closeLeftDiv = function() {
@@ -2235,7 +2205,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
      * have no effect.
      */
     self.fadeDisplayDivButton = ko.computed(function() {
-        if (self.leftDivOpen()){
+        if (self.leftDivOpen()) {
             self.$leftDivOpener.addClass('button-disabled');
         } else {
             self.$leftDivOpener.removeClass('button-disabled');
@@ -2275,6 +2245,11 @@ var TheatreMapViewModel = (function(self, ko, mapManager, googleWatcherObject) {
     'use strict';
 
     /**
+     * Google Maps API failed to load
+     */
+    self.googleMapFailed = ko.observable(false);
+
+    /**
      * Remove the overlay and reveal the map.
      */
     self.openOverlay = function() {
@@ -2284,7 +2259,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, googleWatcherObject) {
         self.$titleToronto.addClass('overlay-off');
         self.$titleText.css('z-index', 2);
         self.$divOverlay.css('z-index', 0); // To be able to click on the map.
-        
+
         setTimeout(function() {
             self.slideList(); // Show list div
         }, 600); // Slightly after the openOverlay is run

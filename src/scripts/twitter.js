@@ -12,6 +12,61 @@ var TheatreMapViewModel = (function(self, ko, twttr) {
     'use strict';
 
     /**
+     * These observables are used in the computed newTwitterUser to determine
+     * if the Twitter account requested is different from the one that is loaded.
+     */
+    self.activeTwitter = ko.observable(''); // current Twitter user selected
+    self.lastTwitterUser = ko.observable(''); // current Twitter user loaded
+
+    /**
+     * The following two variables keep track of the kind of Twitter feeds that 
+     * are currently loaded. Short feeds save bandwidth by only allowing recent
+     * posts to be loaded. Long feeds allow users to scroll down to display a 
+     * limitless number of posts. 
+     */
+    self.currentTwitterListLong = false;
+    self.currentTwitterUserLong = false;
+
+    /**
+     * The length of Twitter feed that the user wants to see. Default is to show 
+     * the short feed.
+     */
+    self.twitterLong = ko.observable(false);
+
+
+    /**
+     * These observables are used by the computed newTwitterUserFeed and 
+     * newTwitterListFeed to determine whether to run and load new feeds.
+     * Both of these are changed by determineNeedToReload which gets run
+     * whenever there might be a difference between the current requested and 
+     * current loaded Twitter feed. Default is true for both as initially no
+     * Twitter feed is loaded, though this is nominal, since 
+     * determineNeedToReload gets run when twitter is first opened.
+     */
+    self.needTwitterUserReload = ko.observable(true);
+    self.needTwitterListReload = ko.observable(true);
+
+    /**
+     * Div for holding the error messages that are seen when twitter fails to 
+     * load quickly enough.
+     */
+    self.$twitterErrorDiv = $('#twitter-error');
+    self.errorTimeoutRequest = null; // Allows us to clear old requests
+
+    // To determine whether to load the twitter list or a particular account.
+    self.twitterListView = ko.observable(true);
+
+    // Divs holding complete Twitter list and individual user feeds, respectively
+    self.$twitterListDiv = $('#twitter-list');
+    self.$twitterAccountDiv = $('#twitter-account');
+
+    /**
+     * If the twitter list feed has never been loaded before, it should be 
+     * loaded whenever the user requests it.
+     */
+    self.firstListLoad = true;
+
+    /**
      * We hide the error div momentarily so that it doesn't normally get seen
      * by users. It will only appear if a twitter feed did not load after a 
      * full second and a half following a request.

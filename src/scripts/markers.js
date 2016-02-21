@@ -14,6 +14,31 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
     'use strict';
 
     /**
+     * Holds all the google.maps.Marker type objects so we can easily manipulate
+     * them through Knockout.
+     */
+    self.markers = ko.observableArray([]);
+
+    /**
+     * These variables hold the currently selected marker's information for 
+     * various uses.
+     */
+    self.currentTitle = ko.observable('');
+    self.currentWebsite = ko.observable('');
+    self.currentBlurb = ko.observable('');
+    self.currentAddress = ko.observable('');
+    self.currentDirections = ko.observableArray([]);
+    self.currentCopyrights = ko.observable('');
+    self.currentPosition = ko.observable({});
+    self.currentTravelDuration = ko.observable(0);
+    self.directionSuccess = ko.observable(false);
+
+    /**
+     * This will be the only google.maps.InfoWindow that is displayed.
+     */
+    self.infoWindow = {};
+
+    /**
      * Close all right-divs
      * NOTE: This method needs to be in this module in order to ensure we can
      * run infoWindowBinder when we addMarkers. Move it to divs.js if this is 
@@ -187,15 +212,15 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         self.currentBlurb(marker.blurb);
         self.currentAddress(marker.address);
         self.currentPosition(marker.position);
-        
+
         // This has to come after the last 4, as currentInfo is a computed based
         // on currentTitle and currentAddress.
         self.infoWindow.setContent(self.currentInfo());
-        
+
         // Move to a position where the Info Window can be displayed and open it.
         mapManager.map.panTo(marker.getPosition());
         self.openInfoWindow(marker);
-        
+
         // Move button to show directions to the opened InfoWindow
         self.moveButton();
 

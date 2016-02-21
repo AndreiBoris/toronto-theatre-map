@@ -10,6 +10,12 @@ var mapManager = mapManager || {};
  */
 var TheatreMapViewModel = (function(self, ko, mapManager) {
     'use strict';
+
+    // These are used to sort first forwards and then backwards.
+    self.sortedAlpha = false;
+    self.sortedFounded = false;
+    self.currentSort = ko.observable('');
+
     /**
      * Sort alphabetically. First from a-z then from z-a. Case-insensitive.
      */

@@ -11,6 +11,64 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
     'use strict';
 
     /**
+     * Track whether each respective div is open.
+     */
+    self.listIsOpen = ko.observable(false);
+    self.filterIsOpen = ko.observable(false);
+    self.leftDivOpen = ko.observable(false);
+    self.twitterIsOpen = ko.observable(false);
+
+    /**
+     * Required to support slide and glow animations
+     */
+    self.$divList = $('#list-div');
+    self.$tabHLList = $('#list-tab-highlight');
+    self.$tabBackList = $('#list-tab-back');
+    self.$tabAllList = $('.list-tab-image');
+
+    self.$divFilter = $('#filter-div');
+    self.$tabHLFilter = $('#filter-tab-highlight');
+    self.$tabBackFilter = $('#filter-tab-back');
+    self.$tabAllFilter = $('.filter-tab-image');
+
+    // Support tab and glow animations
+    self.$divTwitter = $('#twitter-div');
+    self.$tabHLTwitter = $('#twitter-tab-highlight');
+    self.$tabBackTwitter = $('#twitter-tab-back');
+    self.$tabAllTwitter = $('.twitter-tab-image');
+
+    /**
+     * This is the div that comes in from the left and displays information 
+     * about a marker.
+     */
+    self.$divInfo = $('#display-div');
+    self.$directionsButton = $('#direction-button');
+    self.showDirections = ko.observable(false);
+
+    /**
+     * This button on the InfoWindow opens the left-div
+     */
+    self.$leftDivOpener = $('#left-div-open-button');
+
+    /**
+     * The credit div at the bottom of the app.
+     */
+    self.$creditDiv = $('#credit-div');
+    self.creditOn = ko.observable(false);
+
+    /**
+     * Overlay
+     */
+    self.$divOverlay = $('#overlay-div');
+    self.$buttonOverlay = $('.button-overlay');
+    self.$titleOverlay = $('.title-background');
+    self.$rightOverlay = $('.right-overlay');
+    self.$titleToronto = $('.title-toronto');
+    self.$titleText = $('.title-text');
+    self.$loadButton = $('#load-button');
+    self.$loadMover = $('#load-mover');
+
+    /**
      * Close the info div.
      */
     self.closeLeftDiv = function() {
@@ -60,7 +118,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
      * have no effect.
      */
     self.fadeDisplayDivButton = ko.computed(function() {
-        if (self.leftDivOpen()){
+        if (self.leftDivOpen()) {
             self.$leftDivOpener.addClass('button-disabled');
         } else {
             self.$leftDivOpener.removeClass('button-disabled');
