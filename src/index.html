@@ -67,11 +67,17 @@
     <link href="dist/styles/main.min.css" rel="stylesheet">
 </head>
 
+<!-- Reposition and resize the tabs if the window is ever resized -->
 <body id="body" onresize="mapManager.util.repositionTabs()">
-    <!-- Sits on top of the map initially to hide the loading map -->
-    <div>
-        <!-- Prevents map from being clickable behind the overlay -->
-        <div id="overlay-div">
+    
+    <!-- The following is the OVERLAY DIV, it covers the application while the 
+    map is loading and the only part of it that remains after it moves offscreen
+    are the title-text elements. -->
+    <div> <!-- It is wrapped just for consistency, no other purpose. -->
+        
+        <!-- This overlay screen covers the entire map so that it cannot be 
+        clicked until the whole OVERLAY DIV has moved offscreen -->
+        <div id="overlay-screen">
         </div>
         <!-- The title of the application. Words move independently from each 
         other at times. -->
@@ -100,6 +106,8 @@
             </div>
         </div>
     </div>
+
+
     <!-- Div where extra information about a theatre is shown. -->
     <div id="display-div" class="left-divs left-div-off">
         <!-- View where the information is shown (scrolls) -->

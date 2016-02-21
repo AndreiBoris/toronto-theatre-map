@@ -62,7 +62,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
     /**
      * Overlay
      */
-    self.$divOverlay = $('#overlay-div');
+    self.$overlayScreen = $('#overlay-screen');
     self.$buttonOverlay = $('.button-overlay');
     self.$titleOverlay = $('.title-background');
     self.$rightOverlay = $('.right-overlay');

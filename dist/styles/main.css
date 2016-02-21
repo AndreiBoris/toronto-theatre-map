@@ -256,7 +256,7 @@ footer {
 }
 
 /*** This div prevents users from using the map before pressing enter-button ***/
-#overlay-div {
+#overlay-screen {
   position: absolute;
   width: 100%;
   height: 100%;
