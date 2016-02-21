@@ -128,10 +128,10 @@
                     <br>
                 </div>
                 <div data-bind="visible: showDirections && !directionsReady()">
-                    <div id="direction-prompt" class="big-text"> Some text here, is it okay?</div>
+                    <div id="direction-prompt" data-bind="text: directionsPrompt" class="big-text"></div>
                     <div class="button-flex" data-bind="visible: directionOption">
-                        <div class="direction-input-button button-50 button-green">Yes</div>
-                        <div class="direction-input-button button-50 button-red">No</div>
+                        <div data-bind="click: directionsYes" class="direction-input-button button-50 button-green">Yes</div>
+                        <div data-bind="click: directionsNo" class="direction-input-button button-50 button-red">No</div>
                     </div>
                     <div data-bind="visible: directionInputDisplay">
                         <div class="button-flex">
