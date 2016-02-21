@@ -21,17 +21,17 @@
         }
     }
     var scripts = ['dist/perm/production/jquery_and_knockout.min.js',
-        // 'src/scripts/mapmanager.js', // development mode
-        // 'src/scripts/utilities.js', // development mode
-        // 'src/scripts/divs.js', // development mode
-        // 'src/scripts/markers.js', // development mode
-        // 'src/scripts/directions.js', // development mode
-        // 'src/scripts/twitter.js', // development mode
-        // 'src/scripts/filter.js', // development mode
-        // 'src/scripts/glow.js', // development mode
-        // 'src/scripts/sort.js', // development mode
-        // 'src/scripts/start.js', // development mode
-        'dist/scripts/main.min.js'
+        'src/scripts/mapmanager.js', // development mode
+        'src/scripts/utilities.js', // development mode
+        'src/scripts/divs.js', // development mode
+        'src/scripts/markers.js', // development mode
+        'src/scripts/directions.js', // development mode
+        'src/scripts/twitter.js', // development mode
+        'src/scripts/filter.js', // development mode
+        'src/scripts/glow.js', // development mode
+        'src/scripts/sort.js', // development mode
+        'src/scripts/start.js', // development mode
+        // 'dist/scripts/main.min.js' // production mode
     ];
     var src;
     var script;
@@ -148,11 +148,11 @@
                     in the same way that other containers hold two buttons -->
                     <div class="space-above button-flex" data-bind="visible: directionSuccess">
                         <!-- Not a button -->
-                        <div class="address-line size-90">
+                        <div class="address-line size-80">
                             Direction from <span data-bind="text: addressToDisplay"></span>:
                         </div>
                         <!-- Button to get a new starting location for directions -->
-                        <div class="size-10 address-line no-hover"><span class="directions-options-button" data-bind="click: newStartingLocation">&equiv;
+                        <div class="size-20 address-line no-hover"><span class="directions-options-button" data-bind="click: newStartingLocation">&equiv;
                         </span></div>
                     </div>
                     <div>
