@@ -1,3 +1,9 @@
+.right-overlay-wrapper {
+    overflow: hidden;
+    height: 100%;
+}
+
+
 /*** This div prevents users from using the map before pressing enter-button ***/
 
 #overlay-div {
@@ -159,6 +165,9 @@ $overlayTransition: 1.4s;
 
 .right-overlay.overlay-off {
     right: -40%;
+    .right-overlay-wrapper {
+        width: 0;
+    }
 }
 
 
@@ -280,6 +289,9 @@ transitions when RESIZING look prettier, so it's rarely used. ***/
     .right-overlay {
         right: -40%;
         visibility: hidden;
+    }
+    .right-overlay-wrapper {
+        width: 0; // Don't allow wrapper to be clickable when right-overlay is gone
     }
     .title-theatre {
         left: 0.5em; // Move slightly left to avoid covering tabs.

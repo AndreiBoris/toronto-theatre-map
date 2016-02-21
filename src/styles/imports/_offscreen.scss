@@ -2,11 +2,15 @@
 
 $transition-time: 0.15s;
 
+/*** Prevent the right-divs from affecting viewport width when they are 
+offscreen ***/
 
 .right-div-wrapper {
     overflow: hidden;
     height: 100%;
 }
+
+/*** Wrapper shouldn't be clickable when its children are offscreen ***/
 
 .right-div-wrapper.wrapper-off {
     width: 0;

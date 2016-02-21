@@ -100,11 +100,14 @@ li {
 }
 
 /*** How long offscreen elements take to move on and off ***/
+/*** Prevent the right-divs from affecting viewport width when they are 
+offscreen ***/
 .right-div-wrapper {
   overflow: hidden;
   height: 100%;
 }
 
+/*** Wrapper shouldn't be clickable when its children are offscreen ***/
 .right-div-wrapper.wrapper-off {
   width: 0;
 }
@@ -240,6 +243,11 @@ footer {
   display: block;
 }
 
+.right-overlay-wrapper {
+  overflow: hidden;
+  height: 100%;
+}
+
 /*** This div prevents users from using the map before pressing enter-button ***/
 #overlay-div {
   position: absolute;
@@ -369,6 +377,9 @@ footer {
 .right-overlay.overlay-off {
   right: -40%;
 }
+.right-overlay.overlay-off .right-overlay-wrapper {
+  width: 0;
+}
 
 /*** When the overlay is off, border1 goes farther than its width, this 
 is done to create a visual effect where the divs follow one another as some move
@@ -479,6 +490,10 @@ transitions when RESIZING look prettier, so it's rarely used. ***/
   .right-overlay {
     right: -40%;
     visibility: hidden;
+  }
+
+  .right-overlay-wrapper {
+    width: 0;
   }
 
   .title-theatre {
