@@ -1006,9 +1006,9 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
     self.directionOption = ko.observable(false);
     // Display input for putting in an address
     self.directionInputDisplay = ko.observable(false);
-    // Address in the input field for new addresses
+    // Address stored in the input field.
     self.pendingAddress = ko.observable('');
-    // Prompt to user when setting up directions
+    // Prompt to user when setting up starting position for directions.
     self.directionsPrompt = ko.observable('');
 
     // Direction setup questions
@@ -1023,22 +1023,27 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
      * @return {[type]} [description]
      */
     self.enterAddress = function() {
+        // This is the location to search from.
         self.startingLocation(self.pendingAddress());
+        // This is the is the equivalent string to display to the user. The 
+        // differentiation accounts for startingLocation sometimes being a 
+        // coordinate rather than a string.
         self.addressToDisplay(self.pendingAddress());
-        self.pendingAddress('');
+        self.pendingAddress(''); // Clear the input field.
+        self.directionInputDisplay(false); // Hide input area
+        // Use new starting location to calculate route
         self.calcRoute(self.currentPosition());
-        self.directionInputDisplay(false);
     };
 
     /**
      * Allow user to customize a new location from which to get directions
      */
     self.newStartingLocation = function() {
-        self.directionsReady(false);
-        self.directionOption(true);
+        self.directionsReady(false); // Hide step by step directions
+        self.directionOption(true); // Show 'Yes' and 'No' buttons
         self.directionsPrompt('Do you want to pick a new starting location for ' +
-            'directions?');
-        self.nextQuestion(true, 'NewLocation');
+            'directions?'); // Prompt for user to understand buttons
+        self.nextQuestion(true, 'NewLocation'); // Handle 'Yes' and 'No' correctly
     };
 
     /**
@@ -1048,11 +1053,13 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
      *                              marker we are trying to get directions to.
      */
     self.calcRoute = function(destination) {
-        self.locationRequested(true); 
+        // We no longer need to find a startingLocation each time we get 
+        // directions
+        self.locationRequested(true);
         var request = {
-            origin: self.startingLocation(),
+            origin: self.startingLocation(), // where we travel from
             destination: destination, // location of the marker we are targeting
-            travelMode: google.maps.TravelMode.TRANSIT // transit directions
+            travelMode: google.maps.TravelMode.TRANSIT // transit directions only
         };
         // Clear the directions and duration from the last caclRoute call
         self.currentDirections.removeAll();
@@ -1061,15 +1068,15 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
         // Request the directions based on the request object defined above.
         mapManager.directionsService.route(request, function(result, status) {
             if (status === google.maps.DirectionsStatus.OK) { // got a response
-                console.log('We made the request!');
                 self.directionSuccess(true); // Toggle display of opening comment
                 var tags = /<[^>]*>/g; // To remove html tafgs
                 var destinationFix = /Destination/g; // To add arrow before word
                 // Draw the graphical overlay showing directions on map
                 mapManager.directionsDisplay.setDirections(result);
+                // If no directions are found, we need a new address.
+                var failed = true;
                 // Create a new current directions array to display how to get to
                 // the theatre in steps.
-                var failed = true;
                 result.routes[0].legs[0].steps.forEach(function(curVal, index, array) {
                     failed = false; // Found at least one step
                     self.directionsReady(true); // display directions
@@ -1101,6 +1108,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
                     console.log('There was some issue finding directions using ' +
                         'the direction services on the Google Maps API');
                     self.directionsPrompt('Please try a more specific address.');
+                    self.directionsReady(false); // Hide step directions
                     self.directionInputDisplay(true); // enter a new value
                 } else { // success 
                     self.directionsReady(true); // Display directions
@@ -1109,6 +1117,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
                 console.log('There was some issue finding directions using ' +
                     'the direction services on the Google Maps API');
                 self.directionsPrompt('Please try a more specific address.');
+                self.directionsReady(false); // Hide step directions
                 self.directionInputDisplay(true); // enter a new value
             }
         });
