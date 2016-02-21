@@ -14,7 +14,8 @@ var gulp = require('gulp'),
     htmlmin = require('gulp-htmlmin'),
     imageResize = require('gulp-image-resize'),
     critical = require('critical'),
-    rename = require('gulp-rename');
+    rename = require('gulp-rename'),
+    livereload = require('gulp-livereload');
 
 // Styles
 gulp.task('styles', function() {
@@ -28,6 +29,7 @@ gulp.task('styles', function() {
         }))
         .pipe(cssnano())
         .pipe(gulp.dest('dist/styles'))
+        .pipe(livereload())
         .pipe(notify({
             message: 'Styles task complete'
         }));
@@ -117,7 +119,7 @@ gulp.task('images', function() {
         .pipe(imageResize({
             width: 400
         }))
-        .pipe(rename(function (path) { path.basename += '-400';}))
+        .pipe(rename(function(path) { path.basename += '-400'; }))
         .pipe(gulp.dest('dist/images'))
         .pipe(notify({
             message: 'Resize (no minification) task complete'
@@ -157,7 +159,7 @@ gulp.task('gulpfile-lint', function() {
 
 // Watch
 gulp.task('watch', function() {
-
+    livereload.listen();
     // Watch .scss files
     gulp.watch('src/styles/**/*.scss', ['styles']);
 
