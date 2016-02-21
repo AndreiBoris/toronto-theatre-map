@@ -131,8 +131,8 @@
                 <div data-bind="visible: showDirections() && !directionsReady()">
                     <div id="direction-prompt" data-bind="text: directionsPrompt" class="big-text"></div>
                     <div class="button-flex" data-bind="visible: directionOption">
-                        <div data-bind="click: directionsYes" class="direction-input-button button-50 button-green">Yes</div>
-                        <div data-bind="click: directionsNo" class="direction-input-button button-50 button-red">No</div>
+                        <div data-bind="click: directionsYes, text: directionYesText" class="direction-input-button button-50 button-green"></div>
+                        <div data-bind="click: directionsNo, text: directionNoText" class="direction-input-button button-50 button-red"></div>
                     </div>
                     <div data-bind="visible: directionInputDisplay">
                         <div class="button-flex">

@@ -1314,6 +1314,10 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
     self.directionQuestionTypeLocation = ko.observable(false);
     self.directionQuestionNewLocation = ko.observable(false);
 
+    // Text to clarify customization of starting location for directions
+    self.directionYesText = ko.observable('');
+    self.directionNoText = ko.observable('');
+
     /**
      * Submit pendingAddress and put it as the startingLocation and the 
      * addressToDisplay, running a calcRoute with this value.
@@ -1523,9 +1527,33 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
             // Enable relavant question so that directionYes and directionNo will
             // correctly handle the user response.
             self['directionQuestion' + choice](true);
+            self.changeButtonText(); // Change text on buttons to reflect question
         } else {
             // Disable 'Yes' and 'No' buttons
             self.directionOption(false);
+        }
+    };
+
+    /**
+     * Update the text on 'Yes' and 'No' buttons to clarify meaning
+     */
+    self.changeButtonText = function() {
+        if (self.directionQuestionNewLocation()) { // Want to change starting location?
+            self.directionYesText('Edit');
+            self.directionNoText('Cancel');
+        } else if (self.directionQuestionGeolocation()) { // Allow geolocation?
+            self.directionYesText('Allow');
+            self.directionNoText('Deny');
+        } else if (self.directionQuestionDoubleCheck()) { // Correct geolocation?
+            self.directionYesText('Close Enough!');
+            self.directionNoText('Way off!');
+        } else if (self.directionQuestionTypeLocation()) { // Want to input location?
+            self.directionYesText('Edit');
+            self.directionNoText('Too lazy');
+        } else { // Something went wrong
+            self.directionYesText('Yes');
+            self.directionNoText('No');
+
         }
     };
 
