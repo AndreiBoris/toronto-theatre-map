@@ -111,20 +111,24 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Div where extra information about a theatre is shown. -->
     <div id="display-div" class="left-divs left-div-off">
-        <!-- View where the information is shown (scrolls) -->
+        
+        <!-- Fixed size view where the information is shown (scrolls) -->
         <div id="display-box">
-            <!-- Container where information is held (can exceed view) -->
+            
+            <!-- Container where information is held (can exceed viewsize) -->
             <div class="current-display">
+
+                <!-- Title of the selected theatre with a link to their website -->
                 <h4 class="display-title">
-                <!-- Title changes when different markers are selected -->
                 <a class="display-link" target="_blank" data-bind="attr: { href: currentWebsite },
                 text: currentTitle"></a>
                 </h4>
-                <!-- Container holds address and directions button in the same 
-                way that other containers hold two buttons -->
+
+                <!-- Container holds address of the theatre and directions 
+                button in the same way that other containers hold two buttons -->
                 <div class="button-flex">
                     <!-- Not a button -->
                     <div class="size-50 address-line" data-bind="text: currentAddress"></div>
@@ -133,6 +137,7 @@
                     text: directionText">
                     </div>
                 </div>
+
                 <!-- Contains the blurb about each theatre, either hardcoded 
                 text or taken from Wikipedia if the hardcode is not available.
                 Not displayed if directions are being shown. -->
@@ -140,12 +145,24 @@
                     <p data-bind="text: currentBlurb"></p>
                     <br>
                 </div>
+
+                <!-- Set up for directions. Can choose an appropriate starting 
+                location. This will only display if a starting location is not 
+                already chosen. -->
                 <div data-bind="visible: showDirections() && !directionsReady()">
+                    <!-- The current question the user is answering -->
                     <div id="direction-prompt" data-bind="text: directionsPrompt" class="big-text"></div>
+                    <!-- Buttons user uses to answer questions -->
                     <div class="button-flex" data-bind="visible: directionOption">
                         <div data-bind="click: directionsYes, text: directionYesText" class="direction-input-button button-50 button-green"></div>
                         <div data-bind="click: directionsNo, text: directionNoText" class="direction-input-button button-50 button-red"></div>
                     </div>
+                    <!-- If user chose to enter text, this will display. NOTE:
+                    adding this input element seemed to create some unexplained
+                    behaviour at the beginning of the page loading, with some 
+                    elements flashing above their prescribed z-index and the 
+                    title text growing into position rather than just appearing
+                    like they are supposed to. -->
                     <div data-bind="visible: directionInputDisplay">
                         <div class="button-flex">
                             <input type="text" placeholder="Starting address" class="size-80 big-text" data-bind="value: pendingAddress"></input>
@@ -153,6 +170,7 @@
                         </div>
                     </div>
                 </div>
+
                 <!-- Contains the directions taken from Google Maps Directions
                 API in steps. -->
                 <div data-bind="visible: showDirections() && directionsReady()">
@@ -164,7 +182,7 @@
                             Direction from <span data-bind="text: addressToDisplay"></span>:
                         </div>
                         <!-- Button to get a new starting location for directions -->
-                        <div class="size-20 address-line no-hover"><span class="directions-options-button" data-bind="click: newStartingLocation">&equiv;
+                        <div class="size-20 address-line no-hover"><span class="directions-options-button" data-bind="click: newStartingLocation">Edit
                         </span></div>
                     </div>
                     <div>
@@ -179,6 +197,7 @@
                         <p data-bind="text: currentCopyrights"></p>
                     </div>
                 </div>
+
                 <!-- NOTE: The direction-button goes into the InfoWindows 
                 created on the map through the Google Maps API and doesn't 
                 actually live here in the display-div -->
@@ -193,8 +212,10 @@
                     </div>
                 </div>
             </div>
+
         </div>
-        <!-- Buttons at the bottom of display-div to control what is shown -->
+
+        <!-- Buttons at the bottom of display-div to close things -->
         <div class="button-flex">
             <!-- Close the display-div -->
             <div class="button-50 button-white" data-bind="click: closeLeftDiv">
@@ -206,9 +227,11 @@
             </div>
         </div>
     </div>
+    
     <!-- Google Maps API map. -->
     <div id="map">
     </div>
+
     <!-- The following three images are all on top of one another and are revealed
         by changing the opacity through JavaScript. -->
     <img id="list-tab" class="tab-plain tab-off list-tab-image" src="dist/images/list-tab-border.png"></img>
@@ -222,8 +245,13 @@
     <img id="filter-tab" class="tab-plain tab-off filter-tab-image" src="dist/images/filter-tab-border.png"></img>
     <img id="filter-tab-highlight" class="tab-highlight tab-off filter-tab-image" src="dist/images/filter-tab-highlight.png"></img>
     <img id="filter-tab-back" class="tab-back tab-off filter-tab-image" data-bind="click: slideFilter" src="dist/images/back-tab-border.png"></img>
-    <!-- This div lists all the theatres by name. -->
+    
+    <!-- Below are the three right-divs that get acccessed by the tabs above -->
+
+    
     <div id="right-divs-wrapper" class="right-div-wrapper wrapper-off">
+
+        <!-- This div lists all the theatres by name. -->
         <div id="list-div" class="right-divs right-div-off">
             <!-- These buttons allow sorting the theatres alphabetically or by date
             founded. -->
@@ -257,6 +285,7 @@
                 <span class="large-font">Oh no!</span> We couldn't load Google Maps due to some connection error. Perhaps there is some issue with the link to Google Maps or a break in your local connection? You can try checking your connection and reloading the page!
             </div>
         </div>
+
         <!-- This div features Twitter feed either from a list of all the theatres
         referenced in the app, or from one particular company. -->
         <div id="twitter-div" class="right-div-off right-divs">
@@ -306,6 +335,7 @@
                 </div>
             </div>
         </div>
+
         <!-- This div features buttons to filter the theatres presented based on 
         interests. -->
         <div id="filter-div" class="right-div-off right-divs">
@@ -324,7 +354,10 @@
                 </li>
             </ul>
         </div>
+
     </div>
+
+    <!-- Credits live here -->
     <footer>
         <!-- Attributions for the icons used -->
         <span id="credit-marker" data-bind="click: slideCredits">Credits</span>
@@ -340,6 +373,7 @@
             </div>
         </div>
     </footer>
+
     <!-- Twitter methods for creating timelines dynamically -->
     <script async src="https://platform.twitter.com/widgets.js"></script>
     <!-- Google Maps API -->

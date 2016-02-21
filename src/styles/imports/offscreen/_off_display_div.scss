@@ -117,13 +117,11 @@ line ***/
 .directions-options-button {
     @extend .button-style;
     @extend .button-white;
-    font-size: 2.5em; 
-    padding: 0 0.3em;
+    padding: 0.5em 0.8em;
     margin-left: 0.1em;
     border: 1px solid black;
-    border-radius: 0.1em;
     &:hover {
-        border: 0.05em solid black;
+        border: 0.2em solid black;
     }
 }
 
