@@ -83,7 +83,9 @@ var mapManager = {
             //infoWin: {}, // placeholder
             //infoWindowOpen: false
             blurb: '',
-            address: markerItem.address
+            address: markerItem.address,
+            // bounce animation drops instead of cutting to the downward position
+            animation: google.maps.Animation.DROP
         }));
     },
 
@@ -594,6 +596,22 @@ var mapManager = {
             icon: 'dist/images/city.png',
             flags: ['Black', 'Diversity', 'Company office'],
             founded: 2000
+        }, {
+            twitter: 'TheBoxToronto',
+            title: 'The Box Toronto',
+            website: 'http://www.theboxtoronto.com//',
+            blurb: 'To fill the need in Toronto for affordable, accessible, ' + 
+            'clean rehearsal, studio and performance space and to help nurture ' + 
+            'and support theatre from the beginning stages of the artistic ' + 
+            'process to polished performance and everything inbetween.',
+            address: '103-89 Niagara St, Toronto, On',
+            position: {
+                lat: 43.641601, 
+                lng: -79.403273
+            },
+            icon: 'dist/images/museum.png',
+            flags: ['Theatre venue'],
+            founded: 2013
         }];
 
     }

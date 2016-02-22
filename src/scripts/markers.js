@@ -209,10 +209,30 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
             self.closeDirections();
         }
 
+        self.bounceMarker(marker);
+
         self.openLeftDiv(); // Open the div that slides from offscreen left.
         self.activeTwitter(marker.twitterHandle); // What Twitter feed to get
         self.userTwitter(); // Twitter should go into user view
         self.determineNeedToReload(); // We might have a new twitter feed to load
+    };
+
+    /**
+     * Make marker bounce once. Revert marker to original position if it was 
+     * moved
+     */
+    self.bounceMarker = function(marker) {
+        var startPos = marker.getPosition(); // Original position saved
+        marker.setDraggable(true); // Marker must be draggable for smooth animation
+        marker.setAnimation(google.maps.Animation.BOUNCE); // Bounce marker
+        setTimeout(function(){
+            marker.setAnimation(null); // Don't complete a bounce after this one
+        }, 50); // right after starting first bounce
+        setTimeout(function(){
+            marker.setDraggable(false); // Non bouncing markers aren't draggable.
+            // Revert to original position if it was dragged.
+            marker.setPosition(startPos);
+        }, 1000); // 1 bounce takes about 700ms, this accounts for lag. 
     };
 
     /**
