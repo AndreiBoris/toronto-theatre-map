@@ -50,7 +50,7 @@ If you want to fork or clone this repository and desire to manage the build
 system, you should be able to do this by going to the root directory and running:
 
 ```
-npm install --save-dev gulp gulp-ruby-sass gulp-autoprefixer gulp-cssnano gulp-jshint gulp-uglify gulp-rename gulp-concat gulp-notify del gulp-htmlmin gulp-image-resize gulp-livereload
+npm install --save-dev jshint gulp gulp-ruby-sass gulp-autoprefixer gulp-cssnano gulp-jshint gulp-uglify gulp-rename gulp-concat gulp-notify del gulp-htmlmin gulp-image-resize gulp-livereload
 ```
 
 After this you can make sure that everything is built by running
