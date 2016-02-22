@@ -1,5 +1,5 @@
 /*********************
-Initial Page
+All styles
 *********************/
 
 @import 'imports/reset';
@@ -26,28 +26,22 @@ Initial Page
 @import 'imports/overlay';
 
 
-/*********************
-Starts offscreen
-*********************/
+@import 'imports/buttons';
 
-/*** These styles do not influence anything in the opening screen and can be 
-    loaded asynchronously if this will help with speed. ***/
 
-@import 'imports/offscreen/off_buttons';
+@import 'imports/display_div'; 
 
-@import 'imports/offscreen/off_general';
 
-@import 'imports/offscreen/off_offscreen';
+@import 'imports/list_div';
 
-@import 'imports/offscreen/off_display_div'; 
 
-@import 'imports/offscreen/off_list_div';
+@import 'imports/twitter_div';
 
-@import 'imports/offscreen/off_twitter_div';
 
-@import 'imports/offscreen/off_filter_div';
+@import 'imports/filter_div';
 
-@import 'imports/offscreen/off_info_win';
 
-@import 'imports/offscreen/off_media_queries';
+@import 'imports/info_win';
 
+
+@import 'imports/media_queries';

@@ -1,5 +1,5 @@
 /*********************
-Initial Page
+All styles
 *********************/
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
@@ -82,6 +82,31 @@ li {
   line-height: 1.4em;
 }
 
+/*** Used briefly in the Twitter error div ***/
+.large-font {
+  font-size: 1.8em;
+}
+
+/*** Used briefly in the Twitter error div ***/
+.italic-font {
+  font-style: italic;
+}
+
+/*** Used in list div theatres ***/
+.text-center, .list-title {
+  text-align: center;
+}
+
+/*** Used to increase year size in list div theatres ***/
+.bump-size {
+  font-size: 1.15em;
+}
+
+/*** Used for list div theatres ***/
+.bolded-text {
+  font-weight: bold;
+}
+
 .error-style, #map-error, #twitter-error {
   z-index: 1;
   position: absolute;
@@ -154,6 +179,20 @@ media queries. ***/
 .right-div-off li,
 .right-div-off ul {
   display: none;
+}
+
+/*** Right div is on screen ***/
+.right-div-on {
+  right: 0%;
+  /*** z-index needs to be higher than .tab-back otherwise those tabs are 
+      clickable through the right-div ***/
+  z-index: 6;
+}
+
+/*** Left div is on screen ***/
+.left-div-on {
+  left: 0%;
+  z-index: 2;
 }
 
 /*** All the right-div tabs for moving the divs on and off screen ***/
@@ -520,11 +559,6 @@ transitions when RESIZING look prettier, so it's rarely used. ***/
     left: 6.1em;
   }
 }
-/*********************
-Starts offscreen
-*********************/
-/*** These styles do not influence anything in the opening screen and can be 
-    loaded asynchronously if this will help with speed. ***/
 /*** Cursor changes when hovering over button ***/
 .button-clickable, #credit-marker, .button-50-info, .button-list-item {
   cursor: pointer;
@@ -613,45 +647,6 @@ Starts offscreen
   height: 2.7em;
   font-size: 1.3em;
   font-weight: bold;
-}
-
-/*** Used briefly in the Twitter error div ***/
-.large-font {
-  font-size: 1.8em;
-}
-
-/*** Used briefly in the Twitter error div ***/
-.italic-font {
-  font-style: italic;
-}
-
-/*** Used in list div theatres ***/
-.text-center, .list-title {
-  text-align: center;
-}
-
-/*** Used to increase year size in list div theatres ***/
-.bump-size {
-  font-size: 1.15em;
-}
-
-/*** Used for list div theatres ***/
-.bolded-text {
-  font-weight: bold;
-}
-
-/*** Right div is on screen ***/
-.right-div-on {
-  right: 0%;
-  /*** z-index needs to be higher than .tab-back otherwise those tabs are 
-      clickable through the right-div ***/
-  z-index: 6;
-}
-
-/*** Left div is on screen ***/
-.left-div-on {
-  left: 0%;
-  z-index: 2;
 }
 
 /*** This is the information in the left div that gets loaded from each marker 
