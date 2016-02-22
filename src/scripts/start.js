@@ -87,6 +87,10 @@ var TheatreMapViewModel = (function(self, ko, mapManager, googleWatcherObject) {
 
 }(TheatreMapViewModel || {}, ko, mapManager, googleWatcherObject));
 
+$(window).load(function() {
+  $("body").removeClass("preload");
+});
+
 // Animation on the button used to enter the useable part of the app from the 
 // opening page.
 TheatreMapViewModel.loadAnimation();

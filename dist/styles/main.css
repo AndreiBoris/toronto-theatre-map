@@ -107,6 +107,16 @@ li {
   font-weight: bold;
 }
 
+/*** Fix animation bug on page load. This style gets removed as soon as the 
+page actually loads. Thanks to Chris Coyier for the tip! 
+https://css-tricks.com/transitions-only-after-page-load/ ***/
+.preload * {
+  transition: none !important;
+}
+.preload * #load-mover {
+  transition: 1s !important;
+}
+
 /*** Extension used in list div and twitter div to display messages upon failure ***/
 .error-style, #map-error, #twitter-error {
   z-index: 1;

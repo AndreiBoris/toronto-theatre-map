@@ -49,7 +49,7 @@
         } else {
             document.write('<script src="' + src + '" defer></' + 'script>');
         }
-    }</script><!-- All CSS styles for the page are here. --><link href="dist/styles/main.min.css" rel="stylesheet"></head><!-- Reposition and resize the tabs if the window is ever resized --><body id="body" onresize="mapManager.util.repositionTabs()"><!-- The following is the OVERLAY DIV, it covers the application while the 
+    }</script><!-- All CSS styles for the page are here. --><link href="dist/styles/main.min.css" rel="stylesheet"></head><!-- Reposition and resize the tabs if the window is ever resized --><body id="body" class="preload" onresize="mapManager.util.repositionTabs()"><!-- The following is the OVERLAY DIV, it covers the application while the 
     map is loading and the only part of it that remains after it moves offscreen
     are the title-text elements. --><div><!-- It is wrapped just for consistency, no other purpose. --><!-- This overlay screen covers the entire map so that it cannot be 
         clicked until the whole OVERLAY DIV has moved offscreen --><div id="overlay-screen"></div><!-- The title of the application. Words move independently from each 

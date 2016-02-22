@@ -22,12 +22,14 @@ li {
     overflow: auto;
 }
 
+
 /*** Bump text in prompt ***/
 
 .big-text {
     font-size: 1.3em;
     line-height: 1.4em;
 }
+
 
 /*** Used briefly in the Twitter error div ***/
 
@@ -61,4 +63,15 @@ li {
 
 .bolded-text {
     font-weight: bold;
+}
+
+/*** Fix animation bug on page load. This style gets removed as soon as the 
+page actually loads. Thanks to Chris Coyier for the tip! 
+https://css-tricks.com/transitions-only-after-page-load/ ***/
+
+.preload * {
+    transition: none !important;
+    #load-mover{
+        transition: 1s !important; // Keep the load indicator transitioning
+    }
 }
