@@ -1961,6 +1961,8 @@ var mapManager = mapManager || {};
 var TheatreMapViewModel = (function(self, ko, mapManager) {
     'use strict';
 
+    self.filterText = ko.observable('');
+
     /**
      * These filters are connected to checkboxes on the view. If one of them is 
      * on, only the markers that pass that filter will be displayed. If filter

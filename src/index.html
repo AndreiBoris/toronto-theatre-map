@@ -225,7 +225,12 @@ var script; var pendingScripts = []; var firstScript = document.scripts[0]; func
                     <span class="no-border" data-bind="visible: currentSort() === 'date-reverse'">&uArr;</span>
                 </div>
             </div>
-            <input id="list-filter-input" class="big-text list-div-filter" type="text" placeholder="Search for theatre"></input>
+            <input id="list-filter-input" 
+            class="big-text list-div-filter" 
+            type="text" 
+            placeholder="Search for theatre" 
+            data-bind="value: filterText">
+            </input>
             <!-- Use Knockout to list each item in the markers array. -->
             <ul class="button-list-flex scroll-div" data-bind="foreach: markers">
                 <!-- Each item becomes a button that accesses the corresponding marker.
