@@ -717,23 +717,6 @@ mapManager.util = (function(mapManager) {
         },
 
         /**
-         * Check to see if the marker has filter in its flags attribute array.
-         * @param  {object} marker is the item we want to check
-         * @param  {string} filter is the string we need to find in the marker.flags 
-         *                         array.
-         */
-        itemFailsFilter: function(marker, filter) {
-            if (mapManager.util.inArray(marker.flags, filter)) { // Marker passes filter
-                return false;
-            } else { // Marker fails filter
-                mapManager.util.hideItem(marker); // Hide marker and corresponding button.
-                // Call will be able to stop checking other filters for this marker, 
-                // since it has already failed this one such work is unnecessary.
-                return true;
-            }
-        },
-
-        /**
          * Resize the right tabs appropriately according to window height. This 
          * gets run as soon as the app is loaded and then whenever the page is 
          * resized.
@@ -2077,11 +2060,13 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
      * is probably one of the first things worth redesigning.
      */
     self.filterMarkers = ko.computed(function() {
+        console.log('Running filter markers');
         var length = self.markers().length; // number of theatres
         var numFilters = self.filters.length; // number of filters
         var i, j;
         var marker; // makes loop easier to read
         self.glowingList = true;
+        var filterString = self.filterText().toLowerCase();
         for (i = 0; i < length; i++) { // check each theatre
 
             marker = self.markers()[i]; // current theatre
@@ -2090,19 +2075,60 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
             // can handle both a filter being turned on and off.
             mapManager.util.showItem(marker);
 
+            // If there is a filterString, check if marker.title has it as substring
+            if (filterString !== '' && self.itemFailsTextFilter(marker, filterString)) {
+                continue; // Don't check filters, marker won't be shown
+            }
+
             for (j = 0; j < numFilters; j++) { // cycle through each filter
                 if (self.filters[j].filter()) { // the filter is turned on
-                    if (mapManager.util.itemFailsFilter(marker, self.filters[j].flag)) {
-                        // Since only one InfoWindow can be open at a given time
-                        // we turn off the Close all Windows button if a 
-                        // filtered marker had its open.
-                        //self.checkInfoWindow(marker);
-                        break; // If an item doesn't pass the filter, we don't 
-                    } // need to test the other filters.
+                    if (self.itemFailsFilter(marker, self.filters[j].flag)) {
+                        // If an item doesn't pass the filter, we don't need to
+                        // test the other filters.
+                        break;
+                    }
                 }
             }
         }
     });
+
+    /**
+     * Check to see if the filterString is in the marker and return true 
+     * otherwise
+     * @param  {object} marker       The marker that we are trying to filter
+     * @param  {string} filterString User inputted string to search for in marker
+     * @return {boolean}             True if marker fails and isn't shown, false
+     *                                    if marker passes and should be shown.
+     */
+    self.itemFailsTextFilter = function(marker, filterString){
+        if (marker.title.toLowerCase().search(filterString) !== -1) { // string in theatre name
+            return false;
+        } else { // Marker fails filter 
+            mapManager.util.hideItem(marker); // Hide marker and corresponding button.
+            // Caller can avoid checking filters for this marker since it has 
+            // already failed the text filter
+            return true;
+        }
+    };
+
+    /**
+     * Check to see if the marker has filter in its flags attribute array.
+     * @param  {object} marker is the item we want to check
+     * @param  {string} filter is the string we need to find in the marker.flags 
+     *                         array.
+     * @param  {string} typedText is the string the user typed into search field   
+     */
+    self.itemFailsFilter = function(marker, filter) {
+        if (mapManager.util.inArray(marker.flags, filter)) { // Marker passes filter
+            return false;
+        } else { // Marker fails filter
+            mapManager.util.hideItem(marker); // Hide marker and corresponding button.
+            // Call will be able to stop checking other filters for this marker, 
+            // since it has already failed this one such work is unnecessary.
+            return true;
+        }
+    };
+
     /**
      * Add the above methods to TheatreMapViewModel
      */
@@ -2379,11 +2405,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager, googleWatcherObject) {
                         self.enterAddress(); // enter starting address
                     }
                 }
-                // if (self.listIsOpen()) { // list div must be open
-                //     if ($listFilterInput.is(':focus')) { // input must be focus
-                //         self.enterAddress(); // search for theatre
-                //     }
-                // }
             }
 
         });

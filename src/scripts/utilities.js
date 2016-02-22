@@ -114,23 +114,6 @@ mapManager.util = (function(mapManager) {
         },
 
         /**
-         * Check to see if the marker has filter in its flags attribute array.
-         * @param  {object} marker is the item we want to check
-         * @param  {string} filter is the string we need to find in the marker.flags 
-         *                         array.
-         */
-        itemFailsFilter: function(marker, filter) {
-            if (mapManager.util.inArray(marker.flags, filter)) { // Marker passes filter
-                return false;
-            } else { // Marker fails filter
-                mapManager.util.hideItem(marker); // Hide marker and corresponding button.
-                // Call will be able to stop checking other filters for this marker, 
-                // since it has already failed this one such work is unnecessary.
-                return true;
-            }
-        },
-
-        /**
          * Resize the right tabs appropriately according to window height. This 
          * gets run as soon as the app is loaded and then whenever the page is 
          * resized.

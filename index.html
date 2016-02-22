@@ -1,9 +1,68 @@
-<!DOCTYPE html><html lang="en" id="html-elem"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="initial-scale=1,user-scalable=no"><meta name="description" content="Theatre in Toronto"><meta name="author" content="Andrei Borissenko"><title>Toronto Live Theatre Resource</title><!-- See jsload.js for information and credits for the following script --><script>'use strict';var googleWatcherObject = {googleWatcherVariable: '', googleWatcherFunction: function() {this.googleWatcherVariable = 'success'; }, googleWatcherError: function() {this.googleWatcherVariable = 'failure'; } }
-var scripts = ['dist/perm/production/jquery_and_knockout.min.js', 'dist/scripts/main.min.js', ]; var src;
-var script; var pendingScripts = []; var firstScript = document.scripts[0]; function stateChange() {var pendingScript;
-    while (pendingScripts[0] && pendingScripts[0].readyState === 'loaded') {pendingScript = pendingScripts.shift(); pendingScript.onreadystatechange = null; firstScript.parentNode.insertBefore(pendingScript, firstScript); } }
- while (scripts.length > 0) {src = scripts.shift(); if ('async' in firstScript) {script = document.createElement('script'); script.async = false; script.src = src; document.head.appendChild(script);
-    } else if (firstScript.readyState) { script = document.createElement('script'); pendingScripts.push(script); script.onreadystatechange = stateChange; script.src = src; } else {document.write('<script src="' + src + '" defer></' + 'script>'); } }</script><!-- All CSS styles for the page are here. --><link href="dist/styles/main.min.css" rel="stylesheet"></head><!-- Reposition and resize the tabs if the window is ever resized --><body id="body" class="preload" onresize="mapManager.util.repositionTabs()"><!-- The following is the OVERLAY DIV, it covers the application while the 
+<!DOCTYPE html><html lang="en" id="html-elem"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="initial-scale=1,user-scalable=no"><meta name="description" content="Theatre in Toronto"><meta name="author" content="Andrei Borissenko"><title>Toronto Live Theatre Resource</title><!-- See jsload.js for information and credits for the following script --><script>'use strict';
+
+    var googleWatcherObject = {
+        googleWatcherVariable: '',
+        googleWatcherFunction: function() {
+            this.googleWatcherVariable = 'success';
+        },
+        googleWatcherError: function() {
+            this.googleWatcherVariable = 'failure';
+        }
+    };
+    var scripts = [
+        'dist/perm/production/jquery_and_knockout.min.js',
+        'src/scripts/mapmanager.js',
+        'src/scripts/utilities.js',
+        'src/scripts/divs.js',
+        'src/scripts/markers.js',
+        'src/scripts/directions.js',
+        'src/scripts/twitter.js',
+        'src/scripts/filter.js',
+        'src/scripts/glow.js',
+        'src/scripts/sort.js',
+        'src/scripts/start.js'
+        // 'dist/scripts/main.min.js', // PRODUCTION mode
+    ];
+
+    var src;
+    var script;
+    var pendingScripts = [];
+    var firstScript = document.scripts[0];
+
+    // Watch scripts load in IE
+    function stateChange() {
+        // Execute as many scripts in order as we can
+        var pendingScript;
+        while (pendingScripts[0] && pendingScripts[0].readyState === 'loaded') {
+            pendingScript = pendingScripts.shift();
+            // avoid future loading events from this script (eg, if src changes)
+            pendingScript.onreadystatechange = null;
+            // can't just appendChild, old IE bug if element isn't closed
+            firstScript.parentNode.insertBefore(pendingScript, firstScript);
+        }
+    }
+
+    // loop through our script urls
+    while (scripts.length > 0) {
+        src = scripts.shift();
+        if ('async' in firstScript) { // modern browsers
+            script = document.createElement('script');
+            script.async = false;
+            script.src = src;
+            document.head.appendChild(script);
+        } else if (firstScript.readyState) { // IE<10
+            // create a script and add it to our todo pile
+            script = document.createElement('script');
+            pendingScripts.push(script);
+            // listen for state changes
+            script.onreadystatechange = stateChange;
+            // must set src AFTER adding onreadystatechange listener
+            // else we’ll miss the loaded event for cached scripts
+            script.src = src;
+        } else { // fall back to defer
+            document.write('<script src="' + src + '" defer></' + 'script>');
+        }
+    }</script><!-- All CSS styles for the page are here. --><link href="dist/styles/main.min.css" rel="stylesheet"></head><!-- Reposition and resize the tabs if the window is ever resized --><body id="body" class="preload" onresize="mapManager.util.repositionTabs()"><!-- The following is the OVERLAY DIV, it covers the application while the 
     map is loading and the only part of it that remains after it moves offscreen
     are the title-text elements. --><div><!-- It is wrapped just for consistency, no other purpose. --><!-- This overlay screen covers the entire map so that it cannot be 
         clicked until the whole OVERLAY DIV has moved offscreen --><div id="overlay-screen"></div><!-- The title of the application. Words move independently from each 
@@ -33,7 +92,7 @@ var script; var pendingScripts = []; var firstScript = document.scripts[0]; func
         used solely in the tabReposition method of mapManager.utilities--><img id="list-tab" class="tab-image tab-plain tab-off list-tab-image" src="dist/images/list-tab-border.png"><img id="list-tab-highlight" class="tab-image tab-highlight tab-off list-tab-image" src="dist/images/list-tab-highlight.png"><img id="list-tab-back" class="tab-image tab-back tab-off list-tab-image" data-bind="click: slideList" src="dist/images/back-tab-border.png"><!-- Tabs work just like for the list-tabs above. --><img id="twitter-tab" class="tab-image tab-plain tab-off twitter-tab-image" src="dist/images/twitter-tab-border.png"><img id="twitter-tab-highlight" class="tab-image tab-highlight tab-off twitter-tab-image" src="dist/images/twitter-tab-highlight.png"><img id="twitter-tab-back" class="tab-image tab-back tab-off twitter-tab-image" data-bind="click: slideTwitter" src="dist/images/back-tab-border.png"><!-- Tabs work like the list and twitter tabs above. --><img id="filter-tab" class="tab-image tab-plain tab-off filter-tab-image" src="dist/images/filter-tab-border.png"><img id="filter-tab-highlight" class="tab-image tab-highlight tab-off filter-tab-image" src="dist/images/filter-tab-highlight.png"><img id="filter-tab-back" class="tab-image tab-back tab-off filter-tab-image" data-bind="click: slideFilter" src="dist/images/back-tab-border.png"><!-- Below are the three right-divs that get acccessed by the tabs above --><div id="right-divs-wrapper" class="right-div-wrapper wrapper-off"><!-- This div lists all the theatres by name. --><div id="list-div" class="right-divs right-div-off"><!-- These buttons allow sorting the theatres alphabetically or by date
             founded. --><div class="button-flex"><div class="button-50 button-white" data-bind="click: sortListAlpha">Alphabetical<!-- The spans become visible when a sort method is selected 
                     and indicate which direction the sort is performed in using
-                    up and down arrows. --><span class="no-border" data-bind="visible: currentSort() === 'alpha'">&dArr;</span> <span class="no-border" data-bind="visible: currentSort() === 'alpha-reverse'">&uArr;</span></div><div class="button-50 button-white" data-bind="click: sortListFounding">Date Founded <span class="no-border" data-bind="visible: currentSort() === 'date'">&dArr;</span> <span class="no-border" data-bind="visible: currentSort() === 'date-reverse'">&uArr;</span></div></div><input id="list-filter-input" class="big-text list-div-filter" type="text" placeholder="Search for theatre" data-bind="value: filterText"><!-- Use Knockout to list each item in the markers array. --><ul class="button-list-flex scroll-div" data-bind="foreach: markers"><!-- Each item becomes a button that accesses the corresponding marker.
+                    up and down arrows. --><span class="no-border" data-bind="visible: currentSort() === 'alpha'">&dArr;</span> <span class="no-border" data-bind="visible: currentSort() === 'alpha-reverse'">&uArr;</span></div><div class="button-50 button-white" data-bind="click: sortListFounding">Date Founded <span class="no-border" data-bind="visible: currentSort() === 'date'">&dArr;</span> <span class="no-border" data-bind="visible: currentSort() === 'date-reverse'">&uArr;</span></div></div><input id="list-filter-input" class="big-text list-div-filter" type="text" placeholder="Search for theatre by name" data-bind="textInput: filterText"><!-- Use Knockout to list each item in the markers array. --><ul class="button-list-flex scroll-div" data-bind="foreach: markers"><!-- Each item becomes a button that accesses the corresponding marker.
                 A list item is 'visible' if it it not being filtered through the 
                 controls in the filter-div below. --><li class="button-list-item" data-bind="visible: listed, click: $root.accessMarker"><h4 class="bolded-text list-title" data-bind="text: title"></h4><p class="text-center">Date founded: <span class="bump-size bolded-text" data-bind="text: founded"></span></p></li></ul><div id="map-error" data-bind="visible: googleMapFailed" class="scroll-div"><span class="large-font">Oh no!</span> We couldn't load Google Maps due to some connection error. Perhaps there is some issue with the link to Google Maps or a break in your local connection? You can try checking your connection and reloading the page!</div></div><!-- This div features Twitter feed either from a list of all the theatres
         referenced in the app, or from one particular company. --><div id="twitter-div" class="right-div-off right-divs"><!-- These buttons allow switches between the list and user feeds, and 

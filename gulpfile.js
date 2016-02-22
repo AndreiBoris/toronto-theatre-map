@@ -39,7 +39,6 @@ gulp.task('styles', function() {
 gulp.task('scripts', function() {
     return gulp.src(['src/scripts/mapmanager.js',
             'src/scripts/utilities.js',
-            'src/scripts/mapmanger.js',
             'src/scripts/divs.js',
             'src/scripts/markers.js',
             'src/scripts/directions.js',

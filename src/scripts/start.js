@@ -96,11 +96,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager, googleWatcherObject) {
                         self.enterAddress(); // enter starting address
                     }
                 }
-                // if (self.listIsOpen()) { // list div must be open
-                //     if ($listFilterInput.is(':focus')) { // input must be focus
-                //         self.enterAddress(); // search for theatre
-                //     }
-                // }
             }
 
         });
