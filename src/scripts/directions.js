@@ -422,11 +422,11 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
     self.closeDirections = function() {
         // Test to make sure we already created a directionsDisplay object
         if (mapManager.directionsDisplay) {
-            mapManager.directionsDisplay.setMap(null);
+            mapManager.directionsDisplay.setMap(null); // hide drawn directions
         }
-        self.directionInputDisplay(false);
-        self.showDirections(false);
-        self.$divDisplay.removeClass('direction-extention');
+        self.directionInputDisplay(false); // Disable starting address input
+        self.showDirections(false); // Hide direction steps in display div
+        self.$divDisplay.removeClass('direction-extention'); // shrink display div
     };
 
     /**
@@ -447,3 +447,16 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
     return self;
 
 }(TheatreMapViewModel || {}, ko, mapManager, google));
+
+
+// This listens for enter key and performs the correct action when the user 
+// is inputting an address.
+document.addEventListener('keyup', function(e) {
+    'use strict';
+    if (TheatreMapViewModel.showDirections() && !TheatreMapViewModel.directionsReady() && 
+        TheatreMapViewModel.directionInputDisplay()) { // submit button is present
+        if (e.keyCode === 13) { // Enter button is pressed
+            TheatreMapViewModel.enterAddress(); // enter address
+        }
+    }
+});
