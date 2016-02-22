@@ -80,8 +80,6 @@ var mapManager = {
             listed: ko.observable(true),
             founded: markerItem.founded, // Company's founding year
             flags: markerItem.flags, // Categories for filters
-            //infoWin: {}, // placeholder
-            //infoWindowOpen: false
             blurb: '',
             address: markerItem.address,
             // bounce animation drops instead of cutting to the downward position
@@ -127,7 +125,7 @@ var mapManager = {
             // Make a call to the Wikipedia API to retrieve a website and/or blurb.
             this.markerDataAjax(marker, website, blurb);
         } else { // If there is no title, we can't do a wikipedia AJAX call.
-            // FIll the InfoWindow as best as we can.
+            // Fill the InfoWindow as best as we can.
             // this.infoWindowMaker(marker.infoWin, title, website, blurb);
             marker.website = website;
             marker.blurb = blurb;
@@ -163,7 +161,6 @@ var mapManager = {
          */
         var wikipediaRequestTimeout = setTimeout(function() {
             // Fall back on whatever content is provided by markerData.
-            // marker.infoWin.setContent(fallbackBlurp);
             marker.website = fallbackWebsite;
             marker.blurb = fallbackBlurp;
             return;
@@ -195,9 +192,14 @@ var mapManager = {
                     website = fallbackWebsite;
                     blurb = fallbackBlurp;
                 }
-                // self.infoWindowMaker(infoWindow, marker.title, website, blurb);
                 marker.website = website;
                 marker.blurb = blurb;
+            },
+            error: function(e) { // no response
+                console.log('Could not access Wikipedia API.');
+                // Fall back on whatever content is provided by markerData.
+                marker.website = fallbackWebsite;
+                marker.blurb = fallbackBlurp;
             }
         });
     },
@@ -226,11 +228,6 @@ var mapManager = {
             var lng = data.results[0].geometry.location.lng;
             // Set position of appropriate Marker.
             marker.setPosition(new google.maps.LatLng(lat, lng));
-            // Update model stored in mapManager so that it can be later stored.
-            // self.markerData[index].position = {
-            //     lat: lat,
-            //     lng: lng
-            // };
         }).error(function(e) { // Can't show the marker without coordinates.
             console.log('We experienced a failure when making the coordinate request for ' +
                 address + ' for the place called ' + marker.title);
@@ -600,13 +597,13 @@ var mapManager = {
             twitter: 'TheBoxToronto',
             title: 'The Box Toronto',
             website: 'http://www.theboxtoronto.com//',
-            blurb: 'To fill the need in Toronto for affordable, accessible, ' + 
-            'clean rehearsal, studio and performance space and to help nurture ' + 
-            'and support theatre from the beginning stages of the artistic ' + 
-            'process to polished performance and everything inbetween.',
+            blurb: 'To fill the need in Toronto for affordable, accessible, ' +
+                'clean rehearsal, studio and performance space and to help nurture ' +
+                'and support theatre from the beginning stages of the artistic ' +
+                'process to polished performance and everything inbetween.',
             address: '103-89 Niagara St, Toronto, On',
             position: {
-                lat: 43.641601, 
+                lat: 43.641601,
                 lng: -79.403273
             },
             icon: 'dist/images/museum.png',

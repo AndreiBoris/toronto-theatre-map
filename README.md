@@ -81,3 +81,9 @@ information about upcoming shows.
 * Directions from any location by transit (unreasonable locations provide 
 unreasonable results.)
 * Credit div at the bottom.
+
+#### Next Features
+
+* Get information straight from websites using server side code. 
+* Allow for favorites and setting like expanded twitter feeds to be saved from 
+use to use.
