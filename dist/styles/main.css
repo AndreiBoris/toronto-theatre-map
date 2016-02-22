@@ -87,6 +87,11 @@ li {
   font-size: 1.8em;
 }
 
+/*** Used for info window buttons to avoid creating 2 line buttons ***/
+.small-font {
+  font-size: 0.85em;
+}
+
 /*** Used briefly in the Twitter error div ***/
 .italic-font {
   font-style: italic;

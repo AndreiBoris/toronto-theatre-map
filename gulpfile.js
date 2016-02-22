@@ -13,8 +13,6 @@ var gulp = require('gulp'),
     del = require('del'),
     htmlmin = require('gulp-htmlmin'),
     imageResize = require('gulp-image-resize'),
-    critical = require('critical'),
-    rename = require('gulp-rename'),
     livereload = require('gulp-livereload');
 
 // Styles

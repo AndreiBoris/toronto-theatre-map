@@ -1,1 +1,0 @@
-Developed by Andrei Borissenko

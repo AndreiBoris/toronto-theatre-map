@@ -1,0 +1,16 @@
+# Toronto Theatre Map
+
+This is work-in-progress map of some theatres and theatre companies in Toronto,
+Canada. You can check out [live version of the website here.](http://andreicommunication.github.io/toronto-theatre-map/) If there are any comments or issues you have with the app you can 
+reach me at Andrei.Borissenko@gmail.com
+
+### Build System
+
+If you want to fork or clone this repository and desire to manage the build 
+system, you should be able to do this simply:
+
+From the root directory, run:
+
+```
+$ npm install --save-dev gulp gulp-ruby-sass gulp-autoprefixer gulp-cssnano gulp-jshint gulp-uglify gulp-rename gulp-concat gulp-notify del gulp-htmlmin gulp-image-resize gulp-livereload
+```
