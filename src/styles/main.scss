@@ -2,46 +2,46 @@
 All styles
 *********************/
 
-@import 'imports/reset';
+@import 'imports/reset'; // Nothing project specific here
 
 
-@import 'imports/general';
+@import 'imports/general'; // Styles that don't fit in other locations
 
 
-@import 'imports/errors';
+@import 'imports/errors'; // Styling for error messages in list_div and twitter_div
 
 
-@import 'imports/map';
+@import 'imports/map'; // Styling for map container
 
 
-@import 'imports/offscreen';
+@import 'imports/offscreen'; // Styles for divs offscreen left and right
 
 
-@import 'imports/tabs';
+@import 'imports/tabs'; // Styles for tabs that control left divs' positions
 
 
-@import 'imports/credit_div';
+@import 'imports/credit_div'; // Styles for div at the bottom of app for credits
 
 
-@import 'imports/overlay';
+@import 'imports/overlay'; // Styles for opening screen that hides the app
 
 
-@import 'imports/buttons';
+@import 'imports/buttons'; // Styles for buttons all over the app
 
 
-@import 'imports/display_div'; 
+@import 'imports/display_div'; // Styles for top left div with info about markers
 
 
-@import 'imports/list_div';
+@import 'imports/list_div'; // Styles for right side div with list of theatres
 
 
-@import 'imports/twitter_div';
+@import 'imports/twitter_div'; // Styles for right side div with twitter feeds
 
 
-@import 'imports/filter_div';
+@import 'imports/filter_div'; // Styles for right side div with filters 
 
 
-@import 'imports/info_win';
+@import 'imports/info_win'; // Styles for info window appearing over markers
 
 
-@import 'imports/media_queries';
+@import 'imports/media_queries'; // Fine tuning for different size media

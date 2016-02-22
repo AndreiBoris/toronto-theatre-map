@@ -107,6 +107,7 @@ li {
   font-weight: bold;
 }
 
+/*** Extension used in list div and twitter div to display messages upon failure ***/
 .error-style, #map-error, #twitter-error {
   z-index: 1;
   position: absolute;
