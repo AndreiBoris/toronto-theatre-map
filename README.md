@@ -62,3 +62,22 @@ and then you can run
 `gulp watch` 
 
 Now you can edit the src files and the build files will be changed automatically.
+
+### Features
+
+* Overlay behind which the application initially loads
+* Three tabs on the right side of the application opening up three boxes
+    1. A list of theatres with a search and sort features
+    2. A Twitter feed that can display a list of all theatre accounts related to
+    Toronto theatre or just the individual currently selected account. Initially
+    it displays a short feed with a limited number of posts but this can be 
+    expanded to a true feed for the account or list.
+    3. A filters box that allows you to find only the theatres that identify 
+    with certain keywords.
+* A set of markers on the map corresponding to the locations of theatre venues 
+and offices of theatre companies if they do not have a dedicated venue.
+* Information about each theatre's mandate and a link to their website to find 
+information about upcoming shows.
+* Directions from any location by transit (unreasonable locations provide 
+unreasonable results.)
+* Credit div at the bottom.
