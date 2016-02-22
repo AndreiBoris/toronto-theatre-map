@@ -132,8 +132,12 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
         var numFilters = self.filters.length; // number of filters
         var i, j;
         var marker; // makes loop easier to read
-        self.glowingList = true;
         var filterString = self.filterText().toLowerCase();
+        if (filterString !== '') { // filter string has text in it
+            self.glowingList = true; // tab should glow
+        } else { // no text in filter string
+            self.glowingList = false; // tab should stop glowing
+        }
         for (i = 0; i < length; i++) { // check each theatre
 
             marker = self.markers()[i]; // current theatre

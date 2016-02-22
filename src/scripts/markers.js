@@ -72,28 +72,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
     };
 
     /**
-     * Reset the glow animation variables for all tabs that are no longer 
-     * glowing.
-     */
-    self.stopGlow = function() {
-        if (!self.glowingTwitter) { // Reset Twitter tab.
-            self.glowingTwitterFading = false; // Glow begins like this.
-            self.$tabHLTwitter.css('opacity', 0); // Set to transparent.
-            self.glowingTwitterOpacity = 0; // Transparency tracking variable.
-        }
-        if (!self.glowingList) { // Reset list tab
-            self.glowingTwitterFading = false; // Glow begins like this.
-            self.$tabHLList.css('opacity', 0); // Set to transparent.
-            self.glowingTwitterOpacity = 0; // Transparency tracking variable.
-        }
-        if (self.filterIsOpen()) { // Reset filter tab.
-            self.glowingTwitterFading = false; // Glow begins like this.
-            self.$tabHLFilter.css('opacity', 0); // Set to transparent.
-            self.glowingTwitterOpacity = 0; // Transparency tracking variable.
-        }
-    };
-
-    /**
      * Works to slide all right-divs off and on screen
      * @param  {string} type      The kind of div that you want to slide, start
      *                            with a Capital letter as that's how the code

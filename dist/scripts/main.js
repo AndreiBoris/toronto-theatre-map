@@ -986,28 +986,6 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
     };
 
     /**
-     * Reset the glow animation variables for all tabs that are no longer 
-     * glowing.
-     */
-    self.stopGlow = function() {
-        if (!self.glowingTwitter) { // Reset Twitter tab.
-            self.glowingTwitterFading = false; // Glow begins like this.
-            self.$tabHLTwitter.css('opacity', 0); // Set to transparent.
-            self.glowingTwitterOpacity = 0; // Transparency tracking variable.
-        }
-        if (!self.glowingList) { // Reset list tab
-            self.glowingTwitterFading = false; // Glow begins like this.
-            self.$tabHLList.css('opacity', 0); // Set to transparent.
-            self.glowingTwitterOpacity = 0; // Transparency tracking variable.
-        }
-        if (self.filterIsOpen()) { // Reset filter tab.
-            self.glowingTwitterFading = false; // Glow begins like this.
-            self.$tabHLFilter.css('opacity', 0); // Set to transparent.
-            self.glowingTwitterOpacity = 0; // Transparency tracking variable.
-        }
-    };
-
-    /**
      * Works to slide all right-divs off and on screen
      * @param  {string} type      The kind of div that you want to slide, start
      *                            with a Capital letter as that's how the code
@@ -2065,8 +2043,12 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
         var numFilters = self.filters.length; // number of filters
         var i, j;
         var marker; // makes loop easier to read
-        self.glowingList = true;
         var filterString = self.filterText().toLowerCase();
+        if (filterString !== '') { // filter string has text in it
+            self.glowingList = true; // tab should glow
+        } else { // no text in filter string
+            self.glowingList = false; // tab should stop glowing
+        }
         for (i = 0; i < length; i++) { // check each theatre
 
             marker = self.markers()[i]; // current theatre
@@ -2172,9 +2154,8 @@ var TheatreMapViewModel = (function(self, ko) {
             self.glowingTwitter = false;
             self.stopGlow(); // Reset corresponding variables.
         }
-        // Stop the list glow if the list is open.
+        // Reset list glow variables if list is open.
         if (self.listIsOpen() && self.glowingList) {
-            self.glowingList = false;
             self.stopGlow(); // Reset corresponding variables.
         }
         // Reset filter glow variables if filter is open.
@@ -2184,7 +2165,8 @@ var TheatreMapViewModel = (function(self, ko) {
         if (self.glowingTwitter) { // Glow when some change occured.
             self.animateGlowTab('Twitter');
         }
-        if (self.glowingList) { // Glow when some change occured.
+        // Glow when some change occured or there is filter text
+        if (self.glowingList && !self.listIsOpen()) { 
             self.animateGlowTab('List');
         }
         // Glow when any filter is on and the filter tab isn't already open. 
@@ -2220,6 +2202,28 @@ var TheatreMapViewModel = (function(self, ko) {
             if (self['glowing' + type + 'Opacity'] >= 1.3) {
                 self['glowing' + type + 'Fading'] = true; // Switch to decreasing opacity.
             }
+        }
+    };
+
+    /**
+     * Reset the glow animation variables for all tabs that are no longer 
+     * glowing.
+     */
+    self.stopGlow = function() {
+        if (!self.glowingTwitter) { // Reset Twitter tab.
+            self.glowingTwitterFading = false; // Glow begins like this.
+            self.$tabHLTwitter.css('opacity', 0); // Set to transparent.
+            self.glowingTwitterOpacity = 0; // Transparency tracking variable.
+        }
+        if (!self.glowingList) { // Reset list tab
+            self.glowingTwitterFading = false; // Glow begins like this.
+            self.$tabHLList.css('opacity', 0); // Set to transparent.
+            self.glowingTwitterOpacity = 0; // Transparency tracking variable.
+        }
+        if (self.filterIsOpen()) { // Reset filter tab.
+            self.glowingTwitterFading = false; // Glow begins like this.
+            self.$tabHLFilter.css('opacity', 0); // Set to transparent.
+            self.glowingTwitterOpacity = 0; // Transparency tracking variable.
         }
     };
 

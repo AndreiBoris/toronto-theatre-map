@@ -40,11 +40,11 @@ gulp.task('scripts', function() {
     return gulp.src(['src/scripts/mapmanager.js',
             'src/scripts/utilities.js',
             'src/scripts/divs.js',
+            'src/scripts/glow.js',
             'src/scripts/markers.js',
             'src/scripts/directions.js',
             'src/scripts/twitter.js',
             'src/scripts/filter.js',
-            'src/scripts/glow.js',
             'src/scripts/sort.js',
             'src/scripts/start.js'
         ])
