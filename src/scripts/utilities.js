@@ -131,12 +131,13 @@ mapManager.util = (function(mapManager) {
         },
 
         /**
-         * Resize the twitter tab appropriately according to the screen height. This 
+         * Resize the right tabs appropriately according to window height. This 
          * gets run as soon as the app is loaded and then whenever the page is 
          * resized.
          */
         repositionTabs: function() {
-            var $allTabs = $('.tab-off');
+            console.log('Resizing tabs');
+            var $allTabs = $('.tab-image');
             var $twitterTabs = $('.twitter-tab-image');
             var $listTabs = $('.list-tab-image');
             var $filterTabs = $('.filter-tab-image');

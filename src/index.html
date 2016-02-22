@@ -21,17 +21,17 @@
         }
     }
     var scripts = ['dist/perm/production/jquery_and_knockout.min.js',
-        // 'src/scripts/mapmanager.js', // development mode
-        // 'src/scripts/utilities.js', // development mode
-        // 'src/scripts/divs.js', // development mode
-        // 'src/scripts/markers.js', // development mode
-        // 'src/scripts/directions.js', // development mode
-        // 'src/scripts/twitter.js', // development mode
-        // 'src/scripts/filter.js', // development mode
-        // 'src/scripts/glow.js', // development mode
-        // 'src/scripts/sort.js', // development mode
-        // 'src/scripts/start.js', // development mode
-        'dist/scripts/main.min.js' // production mode
+        'src/scripts/mapmanager.js', // development mode
+        'src/scripts/utilities.js', // development mode
+        'src/scripts/divs.js', // development mode
+        'src/scripts/markers.js', // development mode
+        'src/scripts/directions.js', // development mode
+        'src/scripts/twitter.js', // development mode
+        'src/scripts/filter.js', // development mode
+        'src/scripts/glow.js', // development mode
+        'src/scripts/sort.js', // development mode
+        'src/scripts/start.js', // development mode
+        // 'dist/scripts/main.min.js' // production mode
     ];
     var src;
     var script;
@@ -233,18 +233,19 @@
     </div>
 
     <!-- The following three images are all on top of one another and are revealed
-        by changing the opacity through JavaScript. -->
-    <img id="list-tab" class="tab-plain tab-off list-tab-image" src="dist/images/list-tab-border.png"></img>
-    <img id="list-tab-highlight" class="tab-highlight tab-off list-tab-image" src="dist/images/list-tab-highlight.png"></img>
-    <img id="list-tab-back" class="tab-back tab-off list-tab-image" data-bind="click: slideList" src="dist/images/back-tab-border.png"></img>
+        by changing the opacity through JavaScript. NOTE: tab-image class is 
+        used solely in the tabReposition method of mapManager.utilities-->
+    <img id="list-tab" class="tab-image tab-plain tab-off list-tab-image" src="dist/images/list-tab-border.png"></img>
+    <img id="list-tab-highlight" class="tab-image tab-highlight tab-off list-tab-image" src="dist/images/list-tab-highlight.png"></img>
+    <img id="list-tab-back" class="tab-image tab-back tab-off list-tab-image" data-bind="click: slideList" src="dist/images/back-tab-border.png"></img>
     <!-- Tabs work just like for the list-tabs above. -->
-    <img id="twitter-tab" class="tab-plain tab-off twitter-tab-image" src="dist/images/twitter-tab-border.png"></img>
-    <img id="twitter-tab-highlight" class="tab-highlight tab-off twitter-tab-image" src="dist/images/twitter-tab-highlight.png"></img>
-    <img id="twitter-tab-back" class="tab-back tab-off twitter-tab-image" data-bind="click: slideTwitter" src="dist/images/back-tab-border.png"></img>
+    <img id="twitter-tab" class="tab-image tab-plain tab-off twitter-tab-image" src="dist/images/twitter-tab-border.png"></img>
+    <img id="twitter-tab-highlight" class="tab-image tab-highlight tab-off twitter-tab-image" src="dist/images/twitter-tab-highlight.png"></img>
+    <img id="twitter-tab-back" class="tab-image tab-back tab-off twitter-tab-image" data-bind="click: slideTwitter" src="dist/images/back-tab-border.png"></img>
     <!-- Tabs work like the list and twitter tabs above. -->
-    <img id="filter-tab" class="tab-plain tab-off filter-tab-image" src="dist/images/filter-tab-border.png"></img>
-    <img id="filter-tab-highlight" class="tab-highlight tab-off filter-tab-image" src="dist/images/filter-tab-highlight.png"></img>
-    <img id="filter-tab-back" class="tab-back tab-off filter-tab-image" data-bind="click: slideFilter" src="dist/images/back-tab-border.png"></img>
+    <img id="filter-tab" class="tab-image tab-plain tab-off filter-tab-image" src="dist/images/filter-tab-border.png"></img>
+    <img id="filter-tab-highlight" class="tab-image tab-highlight tab-off filter-tab-image" src="dist/images/filter-tab-highlight.png"></img>
+    <img id="filter-tab-back" class="tab-image tab-back tab-off filter-tab-image" data-bind="click: slideFilter" src="dist/images/back-tab-border.png"></img>
     
     <!-- Below are the three right-divs that get acccessed by the tabs above -->
 

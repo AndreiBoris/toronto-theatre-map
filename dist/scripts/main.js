@@ -734,12 +734,13 @@ mapManager.util = (function(mapManager) {
         },
 
         /**
-         * Resize the twitter tab appropriately according to the screen height. This 
+         * Resize the right tabs appropriately according to window height. This 
          * gets run as soon as the app is loaded and then whenever the page is 
          * resized.
          */
         repositionTabs: function() {
-            var $allTabs = $('.tab-off');
+            console.log('Resizing tabs');
+            var $allTabs = $('.tab-image');
             var $twitterTabs = $('.twitter-tab-image');
             var $listTabs = $('.list-tab-image');
             var $filterTabs = $('.filter-tab-image');
@@ -1033,7 +1034,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
     self.slideHelper = function(type, direction) {
         var lowered = type.toLowerCase(); // type of div we are sliding
         if (direction === 'off') {
-            self.$rightDivWrapper.addClass('wrapper-off');
+            self.$rightDivWrapper.addClass('wrapper-off'); // Shrink wrapper
             self[lowered + 'IsOpen'](false); // Don't load anything to Twitter
             self['$div' + type].addClass('right-div-off'); // Place the div offscreen
             self['$tabAll' + type].addClass('tab-off'); // Move the tab as well
@@ -1041,7 +1042,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
             self['$tabAll' + type].removeClass('tab-on');
             self['$tabBack' + type].css('opacity', 0); // Show Twitter logo.
         } else if (direction === 'on') {
-            self.$rightDivWrapper.removeClass('wrapper-off');
+            self.$rightDivWrapper.removeClass('wrapper-off'); // Stretch wrapper
             self[lowered + 'IsOpen'](true); // Load things into Twitter
             self.determineNeedToReload(); // May need to replace loaded DOM element
             self['$div' + type].addClass('right-div-on'); // Place the div onscreen
