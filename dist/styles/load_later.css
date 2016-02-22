@@ -723,6 +723,13 @@ hovering over any of them specifically. ***/
 }
 
 /*** Message to display when Google Maps API fails to load ***/
+/*** Filter in the list div to find markers ***/
+.list-div-filter {
+  width: 98%;
+  padding-left: 2%;
+  margin-left: 1%;
+}
+
 /*** This div appears under the twitter feeds and can be seen if the feeds fail
     to load. ***/
 /*** Div that holds the list view for Twitter. ***/

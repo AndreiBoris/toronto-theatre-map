@@ -55,3 +55,11 @@ hovering over any of them specifically. ***/
 #map-error{
     @extend .error-style;
 }
+
+/*** Filter in the list div to find markers ***/
+
+.list-div-filter {
+    width: 98%;
+    padding-left: 2%;
+    margin-left: 1%;
+}

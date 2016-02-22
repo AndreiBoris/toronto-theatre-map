@@ -81,17 +81,44 @@ var TheatreMapViewModel = (function(self, ko, mapManager, googleWatcherObject) {
     };
 
     /**
+     * Set up listeners and remove no transition startup fix.
+     */
+    self.setupToRun = function() {
+        var $newAddressInput = $('#new-address-input');
+        var $listFilterInput = $('#list-filter-input');
+        document.addEventListener('keyup', function(e) {
+            if (e.keyCode === 13) { // Enter button is pressed
+                // This listens for enter key and performs the correct action when the user 
+                // is inputting an address.
+                if (self.showDirections() && !self.directionsReady() &&
+                    self.directionInputDisplay()) { // submit button is present
+                    if ($newAddressInput.is(':focus')) { // input must be focus
+                        self.enterAddress(); // enter starting address
+                    }
+                }
+                // if (self.listIsOpen()) { // list div must be open
+                //     if ($listFilterInput.is(':focus')) { // input must be focus
+                //         self.enterAddress(); // search for theatre
+                //     }
+                // }
+            }
+
+        });
+
+        $(window).load(function() {
+            $('body').removeClass('preload');
+        });
+    };
+
+    /**
      * Add the above methods to TheatreMapViewModel
      */
     return self;
 
 }(TheatreMapViewModel || {}, ko, mapManager, googleWatcherObject));
 
-$(window).load(function() {
-    'use strict';
-    $('body').removeClass('preload');
-});
 
+TheatreMapViewModel.setupToRun();
 // Animation on the button used to enter the useable part of the app from the 
 // opening page.
 TheatreMapViewModel.loadAnimation();

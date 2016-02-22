@@ -449,14 +449,3 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
 }(TheatreMapViewModel || {}, ko, mapManager, google));
 
 
-// This listens for enter key and performs the correct action when the user 
-// is inputting an address.
-document.addEventListener('keyup', function(e) {
-    'use strict';
-    if (TheatreMapViewModel.showDirections() && !TheatreMapViewModel.directionsReady() && 
-        TheatreMapViewModel.directionInputDisplay()) { // submit button is present
-        if (e.keyCode === 13) { // Enter button is pressed
-            TheatreMapViewModel.enterAddress(); // enter address
-        }
-    }
-});
