@@ -84,13 +84,15 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
     };
 
     /**
-     * Close the info div and the Info Window to clear the map of clutter.
+     * Close the info div, the Info Window, the directions, the right divs and 
+     * the credits div to clear the map of clutter.
      */
     self.closeMarkerInfo = function() {
         self.closeDirections();
         self.closeLeftDiv();
         self.closeInfoWindow();
         self.closeRightDivs();
+        self.closeCredits();
     };
 
     /**
@@ -117,6 +119,15 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
      */
     self.slideCredits = function() {
         self.creditOn(!self.creditOn());
+    };
+
+    /**
+     * Closes the credits div if it is open.
+     */
+    self.closeCredits = function() {
+        if (self.creditOn()){
+            self.creditOn(false);
+        }
     };
 
 
