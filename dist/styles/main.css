@@ -810,7 +810,7 @@ view  ***/
   -webkit-flex-direction: column;
       -ms-flex-direction: column;
           flex-direction: column;
-  height: 90%;
+  height: 85%;
 }
 .button-list-flex :hover {
   background-color: #e6e6e6;

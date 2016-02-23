@@ -82,8 +82,9 @@ information about upcoming shows.
 unreasonable results.)
 * Credit div at the bottom.
 
-#### Next Features
+#### Features to Come
 
-* Get information straight from websites using server side code. 
+* Get information straight from websites using server side code to display 
+current plays with an associated image.
 * Allow for favorites and setting like expanded twitter feeds to be saved from 
 use to use.
