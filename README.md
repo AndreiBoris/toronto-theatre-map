@@ -22,7 +22,7 @@ If you want to update the scss or js, be sure to also use the **src/styles/** an
 the console is referencing minified files*, you can change the code into 
 development mode like this:
 
-1. Find the following element in the head in **/src/index.html** 
+* Find the following element in the head in **/src/index.html** 
 
 ```
 <!-- See jsload.js for information and credits for the following script -->
@@ -31,7 +31,7 @@ development mode like this:
     </script>
 ```
 
-2. Copy the entire text in the **dist/perm/production/jsLoading.js** file and 
+* Copy the entire text in the **dist/perm/production/jsLoading.js** file and 
 paste it by replacing the minified looking code
 
 ```
@@ -41,7 +41,7 @@ paste it by replacing the minified looking code
     </script>
 ```
 
-If you later want to go back, you can copy the **dist/perm/production/jsLoading.min.js**
+* If you later want to go back, you can copy the **dist/perm/production/jsLoading.min.js**
 file into the same spot.
 
 ### Build System
