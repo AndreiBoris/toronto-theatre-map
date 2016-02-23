@@ -33,7 +33,7 @@ hovering over any of them specifically. ***/
 /*** Buttons for each theatre in the list div ***/
 
 .button-list-item {
-    @extend .button-clickable;
+    @extend .button-style;
     margin: 0.2em 0; // Separate the buttons
     display: flex;
     flex-direction: column;
