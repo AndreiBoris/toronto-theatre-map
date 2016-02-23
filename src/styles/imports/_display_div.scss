@@ -40,7 +40,7 @@
 through the current display and that the buttons stay at the bottom. If we made
 the height of current display the same effect would not result. ***/
 
-#display-box {
+.display-box {
     overflow: auto;
     height: 80%;
 }
@@ -48,7 +48,7 @@ the height of current display the same effect would not result. ***/
 
 /*** Used to move buttons to the bottom of the display div ***/
 
-#display-div {
+.display-div {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -101,7 +101,7 @@ the height of current display the same effect would not result. ***/
 
 /*** This display div when it is extended to feature directions ***/
 
-#display-div.direction-extention {
+.display-div.direction-extention {
     height: 50%;
 }
 
@@ -130,10 +130,10 @@ line ***/
 This prevents distance between buttons at the bottom of the div and the view ***/
 
 @media all and (max-width: 45em) {
-    #display-div.direction-extention {
+    .display-div.direction-extention {
         height: 70%;
     }
-    #display-box {
+    .display-box {
         height: 86%;
     }
 }
@@ -144,7 +144,7 @@ div. This prevents distance between buttons at the bottom of the div and the
 view  ***/
 
 @media all and (max-height: 26em) {
-    #display-div.direction-extention {
+    .display-div.direction-extention {
         height: 90%;
     }
 }

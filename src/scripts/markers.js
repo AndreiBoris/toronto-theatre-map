@@ -310,7 +310,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
      *                         website properly formatted.
      */
     self.currentInfo = ko.computed(function() {
-        var content = '<div id="opened-info-window"><span class="info-title">' +
+        var content = '<div id="opened-info-window" class="opened-info-window"><span class="info-title">' +
             self.currentTitle() +
             '</span><br>' +
             self.currentAddress() +

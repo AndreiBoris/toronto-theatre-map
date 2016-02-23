@@ -204,7 +204,7 @@ https://css-tricks.com/transitions-only-after-page-load/ ***/
 }
 
 /*** Extension used in list div and twitter div to display messages upon failure ***/
-.error-style, #map-error, #twitter-error {
+.error-style, .map-error {
   z-index: 1;
   position: absolute;
   top: 20%;
@@ -213,8 +213,13 @@ https://css-tricks.com/transitions-only-after-page-load/ ***/
   font-size: 1.5em;
 }
 
+@media only screen and (max-width: 40em) {
+  .error-style, .map-error {
+    font-size: 1.2em;
+  }
+}
 /*** The map needs to have a specific size in order to display. ***/
-#map {
+.map {
   height: 100%;
   width: 100%;
   position: absolute;
@@ -343,7 +348,7 @@ footer {
 }
 
 /*** The clickable 'Credits' that brings the footer out ***/
-#credit-marker {
+.credit-marker {
   position: absolute;
   z-index: 2;
   font-size: 1.2em;
@@ -351,7 +356,7 @@ footer {
 }
 
 /*** The offscreen part of the footer ***/
-#credit-div {
+.credit-div {
   position: absolute;
   z-index: 9;
   background-color: beige;
@@ -360,7 +365,7 @@ footer {
   transition: 0.15s;
   border: 0.1em solid black;
 }
-#credit-div div {
+.credit-div div {
   display: none;
 }
 
@@ -373,10 +378,10 @@ footer {
 }
 
 /*** Credit div should hug the bottom of the screen when it is on ***/
-#credit-div.creditDivOn {
+.credit-div.creditDivOn {
   bottom: 0;
 }
-#credit-div.creditDivOn div {
+.credit-div.creditDivOn div {
   display: block;
 }
 
@@ -391,7 +396,7 @@ footer {
 }
 
 /*** This div prevents users from using the map before pressing enter-button ***/
-#overlay-screen {
+.overlay-screen {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -400,21 +405,21 @@ footer {
 
 /*** How long the transition from overlay to map takes ***/
 /*** Button and borders hug the bottom left corner. ***/
-.enter-button-shared, #enter-button, #load-button, .enter-button-border1, .enter-button-border2 {
+.enter-button-shared, .enter-button, .load-button, .enter-button-border1, .enter-button-border2 {
   left: 0;
   bottom: 0;
   transition: 1.4s;
 }
 
 /*** The button that sends the overlay off screen ***/
-#enter-button {
+.enter-button {
   position: absolute;
   z-index: 13;
   width: 40%;
   height: 50%;
   padding-top: 0.8em;
 }
-#enter-button p {
+.enter-button p {
   font-size: 2em;
   position: relative;
   top: 40%;
@@ -422,7 +427,7 @@ footer {
 }
 
 /*** Graphic above the enter-button to signify loading. ***/
-#load-button {
+.load-button {
   position: absolute;
   z-index: 14;
   width: 40%;
@@ -430,7 +435,7 @@ footer {
 }
 
 /*** Part of graphic that moves around the load-button ***/
-#load-mover {
+.load-mover {
   z-index: 15;
   width: 2em;
   height: 2em;
@@ -440,23 +445,23 @@ footer {
   transition: 1s;
 }
 
-#load-mover.first-move {
+.load-mover.first-move {
   width: 100%;
 }
 
-#load-mover.second-move {
+.load-mover.second-move {
   height: 100%;
 }
 
-#load-mover.third-move {
+.load-mover.third-move {
   background: white;
 }
 
-#load-mover.fourth-move {
+.load-mover.fourth-move {
   opacity: 0;
 }
 
-#load-button.fourth-move {
+.load-button.fourth-move {
   opacity: 0;
 }
 
@@ -539,7 +544,7 @@ faster than others. ***/
 
 /*** When the overlay is off, enter-button goes off screen the same distance 
 that its width is equal to. ***/
-#enter-button.overlay-off {
+.enter-button.overlay-off {
   left: -40%;
 }
 
@@ -551,7 +556,7 @@ a line. ***/
 }
 
 /*** Fade out button when the javascript is not yet loaded ***/
-#enter-button.button-disabled {
+.enter-button.button-disabled {
   cursor: auto;
   background: gray;
 }
@@ -586,17 +591,17 @@ transitions when RESIZING look prettier, so it's rarely used. ***/
     height: 70%;
   }
 
-  #enter-button {
+  .enter-button {
     width: 80%;
     height: 60%;
   }
 
-  #load-button {
+  .load-button {
     width: 80%;
     height: 60%;
   }
 
-  #enter-button.overlay-off {
+  .enter-button.overlay-off {
     left: -50%;
   }
 
@@ -615,31 +620,31 @@ transitions when RESIZING look prettier, so it's rarely used. ***/
     opacity: 0;
   }
 
-  #enter-button {
+  .enter-button {
     width: 100%;
     height: 70%;
   }
 
-  #load-button {
+  .load-button {
     width: 100%;
     height: 70%;
   }
 
-  #enter-button.overlay-off {
+  .enter-button.overlay-off {
     left: -60%;
   }
 }
 /*** Small screens ***/
 @media all and (max-width: 40em) {
-  #enter-button {
+  .enter-button {
     width: 100%;
   }
 
-  #load-button {
+  .load-button {
     width: 100%;
   }
 
-  #enter-button.overlay-off {
+  .enter-button.overlay-off {
     left: -100%;
   }
 }
@@ -656,12 +661,12 @@ transitions when RESIZING look prettier, so it's rarely used. ***/
   }
 }
 /*** Cursor changes when hovering over button ***/
-.button-clickable, #credit-marker, .button-50-info, .button-list-item {
+.button-clickable, .credit-marker, .button-50-info, .button-list-item {
   cursor: pointer;
 }
 
 /*** Style for all buttons ***/
-.button-style, #enter-button, .button-20, .button-50-shared, .button-50, .button-50-info, .button-100, .directions-options-button, .button-filter-item {
+.button-style, .enter-button, .button-20, .button-50-shared, .button-50, .button-50-info, .button-100, .directions-options-button, .button-filter-item {
   padding-top: 0.8em;
   font-weight: bold;
   cursor: pointer;
@@ -776,13 +781,13 @@ transitions when RESIZING look prettier, so it's rarely used. ***/
 /*** This is the div enclosing .current-display. We make sure that we can scroll
 through the current display and that the buttons stay at the bottom. If we made
 the height of current display the same effect would not result. ***/
-#display-box {
+.display-box {
   overflow: auto;
   height: 80%;
 }
 
 /*** Used to move buttons to the bottom of the display div ***/
-#display-div {
+.display-div {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -835,7 +840,7 @@ the height of current display the same effect would not result. ***/
 }
 
 /*** This display div when it is extended to feature directions ***/
-#display-div.direction-extention {
+.display-div.direction-extention {
   height: 50%;
 }
 
@@ -858,11 +863,11 @@ line ***/
 /*** Narrow screens like portrait phones need more access to the display div. 
 This prevents distance between buttons at the bottom of the div and the view ***/
 @media all and (max-width: 45em) {
-  #display-div.direction-extention {
+  .display-div.direction-extention {
     height: 70%;
   }
 
-  #display-box {
+  .display-box {
     height: 86%;
   }
 }
@@ -870,12 +875,12 @@ This prevents distance between buttons at the bottom of the div and the view ***
 div. This prevents distance between buttons at the bottom of the div and the 
 view  ***/
 @media all and (max-height: 26em) {
-  #display-div.direction-extention {
+  .display-div.direction-extention {
     height: 90%;
   }
 }
 /*** Thin border to mark end of list-div when it it open ***/
-#list-div {
+.list-div {
   border-left: 0.05em solid #d9d9d9;
 }
 
@@ -932,24 +937,22 @@ hovering over any of them specifically. ***/
   margin-left: 1%;
 }
 
-/*** This div appears under the twitter feeds and can be seen if the feeds fail
-    to load. ***/
 /*** Div that holds the list view for Twitter. ***/
-#twitter-list {
+.twitter-list {
   position: relative;
   z-index: 2;
   height: 90%;
 }
 
 /*** Div that holds the user view for Twitter ***/
-#twitter-account {
+.twitter-account {
   position: relative;
   z-index: 2;
   height: 85%;
 }
 
 /*** Title for user view ***/
-#twitter-account-header {
+.twitter-account-header {
   position: relative;
   z-index: 3;
   min-width: 100%;
@@ -961,11 +964,6 @@ hovering over any of them specifically. ***/
   box-shadow: 0.1em 0.1em 0.3em orange inset;
 }
 
-@media only screen and (max-width: 40em) {
-  #twitter-error {
-    font-size: 1.2em;
-  }
-}
 /*** Color displayed when a filter button is pressed ***/
 /*** Div that holds filter options ***/
 #filter-div {
@@ -1017,7 +1015,7 @@ hovering over any of them specifically. ***/
 
 /*** Helps ensure that the .button-50-infos can be displayed fully without
 requiring a 2nd line for text. ***/
-#opened-info-window {
+.opened-info-window {
   min-width: 16em;
 }
 
@@ -1028,7 +1026,7 @@ requiring a 2nd line for text. ***/
 }
 
 /*** Fade out button when the left-div is already on ***/
-#left-div-open-button.button-disabled {
+.left-div-open-button.button-disabled {
   cursor: auto;
   background: gray;
   box-shadow: initial;

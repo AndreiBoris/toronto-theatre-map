@@ -6,7 +6,7 @@
 
 /*** This div prevents users from using the map before pressing enter-button ***/
 
-#overlay-screen {
+.overlay-screen {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -29,7 +29,7 @@ $overlayTransition: 1.4s;
 
 /*** The button that sends the overlay off screen ***/
 
-#enter-button {
+.enter-button {
     position: absolute;
     z-index: 13; // Unnecessairly high.
     width: 40%;
@@ -48,7 +48,7 @@ $overlayTransition: 1.4s;
 
 /*** Graphic above the enter-button to signify loading. ***/
 
-#load-button {
+.load-button {
     position: absolute;
     z-index: 14; // Higher than enter-button
     width: 40%;
@@ -59,7 +59,7 @@ $overlayTransition: 1.4s;
 
 /*** Part of graphic that moves around the load-button ***/
 
-#load-mover {
+.load-mover {
     z-index: 15; // higher than load-button
     width: 2em;
     height: 2em;
@@ -69,23 +69,23 @@ $overlayTransition: 1.4s;
     transition: 1s;
 }
 
-#load-mover.first-move {
+.load-mover.first-move {
     width: 100%;
 }
 
-#load-mover.second-move {
+.load-mover.second-move {
     height: 100%;
 }
 
-#load-mover.third-move {
+.load-mover.third-move {
     background: white;
 }
 
-#load-mover.fourth-move {
+.load-mover.fourth-move {
     opacity: 0;
 }
 
-#load-button.fourth-move {
+.load-button.fourth-move {
     opacity: 0;
 }
 
@@ -192,7 +192,7 @@ faster than others. ***/
 /*** When the overlay is off, enter-button goes off screen the same distance 
 that its width is equal to. ***/
 
-#enter-button.overlay-off {
+.enter-button.overlay-off {
     left: -40%;
 }
 
@@ -208,7 +208,7 @@ a line. ***/
 
 /*** Fade out button when the javascript is not yet loaded ***/
 
-#enter-button.button-disabled {
+.enter-button.button-disabled {
     cursor: auto;
     background: gray;
 }
@@ -244,15 +244,15 @@ transitions when RESIZING look prettier, so it's rarely used. ***/
         width: 100%; // First border takes position of outermost border
         height: 70%;
     }
-    #enter-button {
+    .enter-button {
         width: 80%; // Increase button size to old border1 size. 
         height: 60%;
     }
-    #load-button {
+    .load-button {
         width: 80%; // Increase button size to old border1 size. 
         height: 60%;
     }
-    #enter-button.overlay-off {
+    .enter-button.overlay-off {
         left: -50%; // Need to move own width over
     }
     .right-overlay {
@@ -271,15 +271,15 @@ transitions when RESIZING look prettier, so it's rarely used. ***/
     .enter-button-border1 {
         opacity: 0;
     }
-    #enter-button {
+    .enter-button {
         width: 100%;
         height: 70%; // Take position that border1 used to have
     }
-    #load-button {
+    .load-button {
         width: 100%; // Take position that border1 used to have
         height: 70%;
     }
-    #enter-button.overlay-off {
+    .enter-button.overlay-off {
         left: -60%; // Need to move own width over
     }
 }
@@ -288,13 +288,13 @@ transitions when RESIZING look prettier, so it's rarely used. ***/
 /*** Small screens ***/
 
 @media all and (max-width: 40em) {
-    #enter-button {
+    .enter-button {
         width: 100%;
     }
-    #load-button {
+    .load-button {
         width: 100%;
     }
-    #enter-button.overlay-off {
+    .enter-button.overlay-off {
         left: -100%;
     }
 }

@@ -1,6 +1,6 @@
 /*** Thin border to mark end of list-div when it it open ***/
 
-#list-div {
+.list-div {
     border-left: 0.05em solid #d9d9d9;
 }
 
@@ -52,7 +52,7 @@ hovering over any of them specifically. ***/
 
 /*** Message to display when Google Maps API fails to load ***/
 
-#map-error{
+.map-error{
     @extend .error-style;
 }
 

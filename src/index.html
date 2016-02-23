@@ -34,7 +34,7 @@ var script; var pendingScripts = []; var firstScript = document.scripts[0]; func
         <!-- It is wrapped just for consistency, no other purpose. -->
         <!-- This overlay screen covers the entire map so that it cannot be 
         clicked until the whole OVERLAY DIV has moved offscreen -->
-        <div id="overlay-screen">
+        <div id="overlay-screen" class="overlay-screen">
         </div>
         <!-- The title of the application. Words move independently from each 
         other at times. -->
@@ -42,7 +42,7 @@ var script; var pendingScripts = []; var firstScript = document.scripts[0]; func
         <div data-bind="visible: !showDirections()" class="title-text title-in">in</div>
         <div data-bind="visible: !showDirections()" class="title-text title-toronto">Toronto</div>
         <!-- Button to press in order to set overlay aside and access the map -->
-        <div id="enter-button" class="button-overlay button-white text-center" data-bind="click: openOverlay">
+        <div id="enter-button" class="enter-button button-overlay button-white text-center" data-bind="click: openOverlay">
             <p>Check it out</p>
         </div>
         <!-- First border to be displayed on medium and bigger screens -->
@@ -53,9 +53,9 @@ var script; var pendingScripts = []; var firstScript = document.scripts[0]; func
         </div>
         <!-- This div starts on top of the enter-button and disappears after
         the map has had a chance to load -->
-        <div id="load-button" class="button-white">
+        <div id="load-button" class="load-button button-white">
             <!-- Animates the load-button -->
-            <div id="load-mover"></div>
+            <div id="load-mover" class="load-mover"></div>
         </div>
         <!-- Right-side div on medium and larger displays. Wrapper keeps it from
         being rendered when it is not onscreen. This stops Page Speed Insights
@@ -66,9 +66,9 @@ var script; var pendingScripts = []; var firstScript = document.scripts[0]; func
         </div>
     </div>
     <!-- Div where extra information about a theatre is shown. -->
-    <div id="display-div" class="left-divs left-div-off">
+    <div id="display-div" class="display-div left-divs left-div-off">
         <!-- Fixed size view where the information is shown (scrolls) -->
-        <div id="display-box">
+        <div id="display-box" class="display-box">
             <!-- Container where information is held (can exceed viewsize) -->
             <div class="current-display">
                 <!-- Title of the selected theatre with a link to their website -->
@@ -148,7 +148,7 @@ var script; var pendingScripts = []; var firstScript = document.scripts[0]; func
                 actually live here in the display-div -->
                 <div id="direction-button" class="button-flex">
                     <!-- Button to open the left-div with extra info -->
-                    <div id="left-div-open-button" class="small-font button-50-info button-white" data-bind="click: openLeftDiv,
+                    <div id="left-div-open-button" class="left-div-open-button small-font button-50-info button-white" data-bind="click: openLeftDiv,
                     text: detailText">
                     </div>
                     <!-- Button to open and close the directions -->
@@ -171,7 +171,7 @@ var script; var pendingScripts = []; var firstScript = document.scripts[0]; func
         </div>
     </div>
     <!-- Google Maps API map. -->
-    <div id="map">
+    <div id="map" class="map">
     </div>
     <!-- The following three images are all on top of one another and are revealed
         by changing the opacity through JavaScript. NOTE: tab-image class is 
@@ -190,7 +190,7 @@ var script; var pendingScripts = []; var firstScript = document.scripts[0]; func
     <!-- Below are the three right-divs that get acccessed by the tabs above -->
     <div id="right-divs-wrapper" class="right-div-wrapper wrapper-off">
         <!-- This div lists all the theatres by name. -->
-        <div id="list-div" class="right-divs right-div-off">
+        <div id="list-div" class="list-div right-divs right-div-off">
             <!-- These buttons allow sorting the theatres alphabetically or by date
             founded. -->
             <div class="button-flex">
@@ -220,7 +220,7 @@ var script; var pendingScripts = []; var firstScript = document.scripts[0]; func
                         <span class="bump-size bolded-text" data-bind="text: founded"></span></p>
                 </li>
             </ul>
-            <div id="map-error" data-bind="visible: googleMapFailed" class="scroll-div">
+            <div id="map-error" data-bind="visible: googleMapFailed" class="error-style scroll-div">
                 <span class="large-font">Oh no!</span> We couldn't load Google Maps due to some connection error. Perhaps there is some issue with the link to Google Maps or a break in your local connection? You can try checking your connection and reloading the page!
             </div>
         </div>
@@ -252,17 +252,17 @@ var script; var pendingScripts = []; var firstScript = document.scripts[0]; func
                 </div>
             </div>
             <!-- List view -->
-            <div id="twitter-list" class="scroll-div" data-bind="visible: twitterListView() && twitterIsOpen">
+            <div id="twitter-list" class="twitter-list scroll-div" data-bind="visible: twitterListView() && twitterIsOpen">
             </div>
             <!-- Reference to which account we are on for user-view -->
-            <div id="twitter-account-header" data-bind="text: currentTitle, visible: !twitterListView() && twitterIsOpen"></div>
+            <div id="twitter-account-header" class="twitter-account-header" data-bind="text: currentTitle, visible: !twitterListView() && twitterIsOpen"></div>
             <!-- User view -->
-            <div id="twitter-account" class="scroll-div" data-bind="visible: !twitterListView() && twitterIsOpen">
+            <div id="twitter-account" class="twitter-account scroll-div" data-bind="visible: !twitterListView() && twitterIsOpen">
             </div>
             <!-- Error appears behind the other divs and will display 1.5 seconds
             after switching views or feed lengths if there is some problem in 
             loading the feeds. -->
-            <div id="twitter-error" class="scroll-div">
+            <div id="twitter-error" class="error-style scroll-div">
                 <!-- User view error message -->
                 <div data-bind="visible: !twitterListView() && twitterIsOpen">
                     <span class="large-font">Hmmm!</span> We're trying to load the Twitter feed for the account <span class="italic-font" data-bind="text: activeTwitter"></span>. If this message persists, try clicking on another marker on the map to reload. If this fails, there might be some error in the connection!
@@ -295,8 +295,8 @@ var script; var pendingScripts = []; var firstScript = document.scripts[0]; func
     <!-- Credits live here -->
     <footer>
         <!-- Attributions for the icons used -->
-        <span id="credit-marker" data-bind="click: slideCredits">Credits</span>
-        <div id="credit-div" data-bind="css: { creditDivOn: creditOn() } ">
+        <span id="credit-marker" class="credit-marker" data-bind="click: slideCredits">Credits</span>
+        <div id="credit-div" class="credit-div" data-bind="css: { creditDivOn: creditOn() } ">
             <div class="attributions">Map style made by <a target="_blank" href="http://www.xavierfoucrier.fr" title="Xavier Foucrier">Xavier</a> from <a target="_blank" href="https://snazzymaps.com/style/25/blue-water" title="Snazzy Maps">Snazzy Maps</a>
             </div>
             <div class="attributions">Icons made by <a target="_blank" href="http://www.freepik.com" title="Freepik">Freepik</a> from <a target="_blank" href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a target="_blank" href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>

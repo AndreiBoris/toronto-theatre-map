@@ -14,7 +14,7 @@ footer {
 
 /*** The clickable 'Credits' that brings the footer out ***/
 
-#credit-marker {
+.credit-marker {
     @extend .button-clickable; // Cursor should indicate that it can be clicked.
     position: absolute;
     z-index: 2;
@@ -25,7 +25,7 @@ footer {
 
 /*** The offscreen part of the footer ***/
 
-#credit-div {
+.credit-div {
     position: absolute;
     z-index: 9;
     background-color: beige;
@@ -51,7 +51,7 @@ footer {
 
 /*** Credit div should hug the bottom of the screen when it is on ***/
 
-#credit-div.creditDivOn {
+.credit-div.creditDivOn {
     bottom: 0;
     div {
         display: block;

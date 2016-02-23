@@ -29,18 +29,17 @@ var mapManager = (function(self, ko, TheatreMapViewModel, google) {
          * NOTE: This is probably better to do in addMarkers inside markers.js
          * as that wouldn't slow down the initial rendering of the map.
          */
-        this.directionsService = new google.maps.DirectionsService();
-        // this.directionsDisplay = new google.maps.DirectionsRenderer();
+        self.directionsService = new google.maps.DirectionsService();
 
         // Keep a tab on the screen width in order to determine certain 
         // responsive features.
-        this.util.windowWidth = window.innerWidth;
+        self.util.windowWidth = window.innerWidth;
 
-        // Use this to guess at whether we're on a phone or not. NOT GOOD.
-        this.util.screenWidth = screen.width;
+        // Use self to guess at whether we're on a phone or not. NOT GOOD.
+        self.util.screenWidth = screen.width;
 
         // Create a Map object and specify the DOM element for display.
-        this.map = new google.maps.Map(document.getElementById('map'), {
+        self.map = new google.maps.Map(document.getElementById('map'), {
             center: startingMapPosition,
             scrollwheel: true,
             zoom: 12,
@@ -48,11 +47,7 @@ var mapManager = (function(self, ko, TheatreMapViewModel, google) {
             styles: [{ 'featureType': 'administrative', 'elementType': 'labels.text.fill', 'stylers': [{ 'color': '#444444' }] }, { 'featureType': 'landscape', 'elementType': 'all', 'stylers': [{ 'color': '#f2f2f2' }] }, { 'featureType': 'poi', 'elementType': 'all', 'stylers': [{ 'visibility': 'off' }] }, { 'featureType': 'road', 'elementType': 'all', 'stylers': [{ 'saturation': -100 }, { 'lightness': 45 }] }, { 'featureType': 'road.highway', 'elementType': 'all', 'stylers': [{ 'visibility': 'simplified' }] }, { 'featureType': 'road.arterial', 'elementType': 'labels.icon', 'stylers': [{ 'visibility': 'off' }] }, { 'featureType': 'transit', 'elementType': 'all', 'stylers': [{ 'visibility': 'off' }] }, { 'featureType': 'water', 'elementType': 'all', 'stylers': [{ 'color': '#46bcec' }, { 'visibility': 'on' }] }]
         });
 
-        this.geocoder = new google.maps.Geocoder();
-
-        // Assign the directions display to our map so that we can see 
-        // directions.
-        // this.directionsDisplay.setMap(this.map);
+        self.geocoder = new google.maps.Geocoder();
 
         /**
          * Add the markers stored in mapManager.markerData through an 
@@ -70,8 +65,8 @@ var mapManager = (function(self, ko, TheatreMapViewModel, google) {
      */
     self.pushMarker = function(markerItem, array) {
         array.push(new google.maps.Marker({
-            position: this.util.nullPosition, // 0,0 placeholder
-            map: this.map, // the Google map
+            position: self.util.nullPosition, // 0,0 placeholder
+            map: self.map, // the Google map
             title: markerItem.title, // important for many methods
             twitterHandle: markerItem.twitter, // used to access twitter feed
             icon: markerItem.icon, // graphic on the map
@@ -98,7 +93,7 @@ var mapManager = (function(self, ko, TheatreMapViewModel, google) {
         if (position) {
             marker.setPosition(position);
         } else if (address) {
-            this.mapPositionAJAX(marker, address);
+            self.mapPositionAJAX(marker, address);
         } else {
             // Take the marker off the map.
             marker.setMap(null);
@@ -116,15 +111,15 @@ var mapManager = (function(self, ko, TheatreMapViewModel, google) {
     self.setDescription = function(marker, title, website, blurb) {
         if (title && website && blurb) { // we have all the data already
             // Fill the InfoWindow with all the important data.
-            // this.infoWindowMaker(marker.infoWin, title, website, blurb);
+            // self.infoWindowMaker(marker.infoWin, title, website, blurb);
             marker.website = website;
             marker.blurb = blurb;
         } else if (title) { // we have the title, so we can look up missing data
             // Make a call to the Wikipedia API to retrieve a website and/or blurb.
-            this.markerDataAjax(marker, website, blurb);
+            self.markerDataAjax(marker, website, blurb);
         } else { // If there is no title, we can't do a wikipedia AJAX call.
             // Fill the InfoWindow as best as we can.
-            // this.infoWindowMaker(marker.infoWin, title, website, blurb);
+            // self.infoWindowMaker(marker.infoWin, title, website, blurb);
             marker.website = website;
             marker.blurb = blurb;
         }
@@ -230,7 +225,7 @@ var mapManager = (function(self, ko, TheatreMapViewModel, google) {
     };
 
     self.load = function() {
-        this.markerData = [{
+        self.markerData = [{
             twitter: 'yyzbuddies',
             title: 'Buddies in Bad Times Theatre',
             website: 'http://buddiesinbadtimes.com/events/',
@@ -1368,7 +1363,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager, google) {
      *                         website properly formatted.
      */
     self.currentInfo = ko.computed(function() {
-        var content = '<div id="opened-info-window"><span class="info-title">' +
+        var content = '<div id="opened-info-window" class="opened-info-window"><span class="info-title">' +
             self.currentTitle() +
             '</span><br>' +
             self.currentAddress() +

@@ -8,3 +8,9 @@
     line-height: 1.5em; // Space lines for easier viewing
     font-size: 1.5em;
 }
+
+@media only screen and (max-width: 40em) {
+    .error-style {
+        font-size: 1.2em; // Avoid over flow on small screens
+    }
+}
