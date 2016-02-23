@@ -190,7 +190,8 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
      * @param  {string} typedText is the string the user typed into search field   
      */
     self.itemFailsFilter = function(marker, filter) {
-        if (mapManager.util.inArray(marker.flags, filter)) { // Marker passes filter
+        // if (mapManager.util.inArray(marker.flags, filter)) { // Marker passes filter
+        if ($.inArray(filter, marker.flags) !== -1) { // Marker passes filter
             return false;
         } else { // Marker fails filter
             mapManager.util.hideItem(marker); // Hide marker and corresponding button.

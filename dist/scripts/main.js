@@ -683,22 +683,6 @@ mapManager.util = (function(mapManager) {
             }
         },
 
-        /**
-         * Determine if sought is present in the unsorted array.
-         * @param  {array}      array  
-         * @param  {primative}  sought can be any primitive to be searched for in the 
-         *                             array.
-         */
-        inArray: function(array, sought) {
-            var length = array.length;
-            var i;
-            for (i = 0; i < length; i++) {
-                if (array[i] === sought) {
-                    return true;
-                }
-            }
-            return false;
-        },
 
         /**
          * Resize the right tabs appropriately according to window height. This 
@@ -2232,7 +2216,8 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
      * @param  {string} typedText is the string the user typed into search field   
      */
     self.itemFailsFilter = function(marker, filter) {
-        if (mapManager.util.inArray(marker.flags, filter)) { // Marker passes filter
+        // if (mapManager.util.inArray(marker.flags, filter)) { // Marker passes filter
+        if ($.inArray(filter, marker.flags) !== -1) { // Marker passes filter
             return false;
         } else { // Marker fails filter
             mapManager.util.hideItem(marker); // Hide marker and corresponding button.
