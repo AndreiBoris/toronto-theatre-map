@@ -1,21 +1,22 @@
 var google = google || {};
 // instantiated TheatreMapViewModel from app.js
-var TheatreMapViewModel = TheatreMapViewModel || {};
+var mapManager = mapManager || {};
 var ko = ko || {};
+var TheatreMapViewModel = TheatreMapViewModel || {};
 
 /**
  * mapManager is responsible for holding the map, markers data, and 
  * related logic
  */
-var mapManager = {
+var mapManager = (function(self, ko, TheatreMapViewModel, google) {
+    'use strict';
 
     /**
      * The Google Maps API runs this function as a callback when it loads in 
      * order to pan over the correct region and then to load all the markers 
      * from the model.
      */
-    initMap: function() {
-        'use strict';
+    self.initMap = function() {
 
         var startingMapPosition = {
             lat: 43.657899,
@@ -59,7 +60,7 @@ var mapManager = {
          * populated when mapManager.load() is run at the bottom of this file.
          */
         TheatreMapViewModel.addMarkers();
-    },
+    };
 
     /**
      * Adds a marker to an array using the data in a markerItem object.
@@ -67,8 +68,7 @@ var mapManager = {
      * @param  {array}  array      is an observableArray of markers in the
      *                             TheatreMapViewModel
      */
-    pushMarker: function(markerItem, array) {
-        'use strict';
+    self.pushMarker = function(markerItem, array) {
         array.push(new google.maps.Marker({
             position: this.util.nullPosition, // 0,0 placeholder
             map: this.map, // the Google map
@@ -85,15 +85,14 @@ var mapManager = {
             // bounce animation drops instead of cutting to the downward position
             animation: google.maps.Animation.DROP
         }));
-    },
+    };
 
     /**
      * If the position coordinates exist, use those. Otherwise, use the address 
      * and make a Google Maps Geocoding call to find the corresponding 
      * coordinates. Failing those two things, we can't display the Marker.
      */
-    adjustPosition: function(marker, markerItem) {
-        'use strict';
+    self.adjustPosition = function(marker, markerItem) {
         var position = markerItem.position;
         var address = markerItem.address;
         if (position) {
@@ -105,7 +104,7 @@ var mapManager = {
             marker.setMap(null);
         }
 
-    },
+    };
 
     /**
      * Fill an InfoWindow associated with marker using available data.
@@ -114,8 +113,7 @@ var mapManager = {
      * @param {string} website The website that the title should link to.
      * @param {string} blurb   The description corresponding to the marker.
      */
-    setDescription: function(marker, title, website, blurb) {
-        'use strict';
+    self.setDescription = function(marker, title, website, blurb) {
         if (title && website && blurb) { // we have all the data already
             // Fill the InfoWindow with all the important data.
             // this.infoWindowMaker(marker.infoWin, title, website, blurb);
@@ -130,7 +128,7 @@ var mapManager = {
             marker.website = website;
             marker.blurb = blurb;
         }
-    },
+    };
 
     /**
      * Perform a MediaWiki API AJAX request and apply retrieved info to the 
@@ -144,10 +142,8 @@ var mapManager = {
      *                                        the corresponding content from the
      *                                        a mapManager.markerData item. 
      */
-    markerDataAjax: function(marker, fallbackWebsite, fallbackBlurp) {
-        'use strict';
+    self.markerDataAjax = function(marker, fallbackWebsite, fallbackBlurp) {
 
-        var self = this;
 
         var formattedName = marker.title.replace(/ /g, '_');
 
@@ -202,7 +198,7 @@ var mapManager = {
                 marker.blurb = fallbackBlurp;
             }
         });
-    },
+    };
 
     /**
      * Perform a Google Geocoding API request and apply retrieved coordinates 
@@ -211,9 +207,7 @@ var mapManager = {
      * @param  {array}  array   An array of google.maps.Marker objects.
      * @param  {int}    index   Determines which Marker to send coordinates to.
      */
-    mapPositionAJAX: function(marker, address) {
-        'use strict';
-        var self = this;
+    self.mapPositionAJAX = function(marker, address) {
 
         // Might be safer to have no spaces in the url.
         var formattedAddress = address.replace(/ /g, '+');
@@ -233,10 +227,9 @@ var mapManager = {
                 address + ' for the place called ' + marker.title);
             marker.setMap(null); // Don't display this marker.
         });
-    },
+    };
 
-    load: function() {
-        'use strict';
+    self.load = function() {
         this.markerData = [{
             twitter: 'yyzbuddies',
             title: 'Buddies in Bad Times Theatre',
@@ -611,7 +604,16 @@ var mapManager = {
             founded: 2013
         }];
 
-    }
-};
+    };
+
+    /**
+     * Add the above methods to TheatreMapViewModel
+     */
+    return self;
+
+}(mapManager || {}, ko, TheatreMapViewModel, google));
+
 
 mapManager.load();
+
+
