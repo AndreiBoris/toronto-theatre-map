@@ -349,6 +349,7 @@ footer {
 
 /*** The clickable 'Credits' that brings the footer out ***/
 .credit-marker {
+  cursor: pointer;
   position: absolute;
   z-index: 2;
   font-size: 1.2em;
@@ -660,11 +661,6 @@ transitions when RESIZING look prettier, so it's rarely used. ***/
     left: 6.1em;
   }
 }
-/*** Cursor changes when hovering over button ***/
-.button-clickable, .credit-marker, .button-50-info {
-  cursor: pointer;
-}
-
 /*** Style for all buttons ***/
 .button-style, .enter-button, .button-20, .button-50-shared, .button-50, .button-50-info, .button-100, .directions-options-button, .button-list-item, .button-filter-item {
   padding-top: 0.8em;

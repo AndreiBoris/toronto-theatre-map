@@ -15,7 +15,7 @@ footer {
 /*** The clickable 'Credits' that brings the footer out ***/
 
 .credit-marker {
-    @extend .button-clickable; // Cursor should indicate that it can be clicked.
+    cursor: pointer;
     position: absolute;
     z-index: 2;
     font-size: 1.2em;

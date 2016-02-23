@@ -1,10 +1,3 @@
-/*** Cursor changes when hovering over button ***/
-
-.button-clickable {
-    cursor: pointer;
-}
-
-
 /*** Style for all buttons ***/
 
 .button-style {
@@ -41,7 +34,6 @@
 /*** Buttons at the bottom of InfoWindows. In flexbox. ***/
 
 .button-50-info {
-    @extend .button-clickable; // See _off_buttons.scss
     @extend .button-50-shared; // see _off_buttons.scss
     height: 2.9em;
 }
