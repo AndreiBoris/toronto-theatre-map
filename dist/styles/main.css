@@ -204,7 +204,7 @@ https://css-tricks.com/transitions-only-after-page-load/ ***/
 }
 
 /*** Extension used in list div and twitter div to display messages upon failure ***/
-.error-style, .map-error {
+.error-style {
   z-index: 1;
   position: absolute;
   top: 20%;
@@ -214,7 +214,7 @@ https://css-tricks.com/transitions-only-after-page-load/ ***/
 }
 
 @media only screen and (max-width: 40em) {
-  .error-style, .map-error {
+  .error-style {
     font-size: 1.2em;
   }
 }
@@ -929,7 +929,6 @@ hovering over any of them specifically. ***/
   font-size: 1.5em;
 }
 
-/*** Message to display when Google Maps API fails to load ***/
 /*** Filter in the list div to find markers ***/
 .list-div-filter {
   width: 98%;

@@ -50,12 +50,6 @@ hovering over any of them specifically. ***/
     @extend .text-center;
 }
 
-/*** Message to display when Google Maps API fails to load ***/
-
-.map-error{
-    @extend .error-style;
-}
-
 /*** Filter in the list div to find markers ***/
 
 .list-div-filter {
