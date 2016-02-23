@@ -51,7 +51,7 @@
 /*** Animate buttons when hovering over them ***/
 
 .button-hover {
-    border: 0.2em solid black;
+    border: 0.2em solid #000;
 }
 
 
@@ -79,24 +79,21 @@
 
 .button-white {
     background: #f2f2f2;
-    color: black;
-    border: 0.1em solid black;
+    border: 0.1em solid #000;
 }
 
 /*** Yes button in direction start location options ***/
 
 .button-green {
     background: #cfc;
-    color: black;
-    border: 0.1em solid black;
+    border: 0.1em solid #000;
 }
 
 /*** No button in direction start location options ***/
 
 .button-red {
     background: #fcc;
-    color: black;
-    border: 0.1em solid black;
+    border: 0.1em solid #000;
 }
 
 

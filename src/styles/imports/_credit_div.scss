@@ -28,11 +28,11 @@ footer {
 .credit-div {
     position: absolute;
     z-index: 9;
-    background-color: beige;
+    background-color: #ffc;
     width: 100%;
     bottom: -20em;
     transition: $transition-time;
-    border: 0.1em solid black;
+    border: 0.1em solid #000;
     div {
         display: none;
     }

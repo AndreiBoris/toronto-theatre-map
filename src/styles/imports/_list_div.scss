@@ -15,7 +15,7 @@
     :hover {
         // hover over an element in this list
         background-color: #e6e6e6;
-        border: 0.05em solid black;
+        border: 0.05em solid #000;
     }
 }
 
@@ -39,7 +39,7 @@ hovering over any of them specifically. ***/
     flex-direction: column;
     justify-content: space-around;
     min-height: 4em;
-    border-bottom: 0.05em solid black;
+    border-bottom: 0.05em solid #000;
 }
 
 
