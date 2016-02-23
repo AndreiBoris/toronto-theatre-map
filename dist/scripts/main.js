@@ -670,20 +670,6 @@ mapManager.util = (function(mapManager) {
         },
 
         /**
-         * Sort two markers in reverse alphabetical order based on their titles. Ignore
-         * case.
-         * @param  {object} a is a Marker object
-         * @param  {object} b is a Marker object
-         */
-        alphabeticalSortReverse: function(a, b) {
-            if (a.title === b.title) {
-                return 0;
-            } else {
-                return a.title.toLowerCase() < b.title.toLowerCase() ? 1 : -1;
-            }
-        },
-
-        /**
          * Sort two markers in ascending order based on the year the corresponding item
          * was founded.
          * @param  {object} a is a Marker object
@@ -694,20 +680,6 @@ mapManager.util = (function(mapManager) {
                 return 0;
             } else {
                 return a.founded > b.founded ? 1 : -1;
-            }
-        },
-
-        /**
-         * Sort two markers in descending order based on the year the corresponding item
-         * was founded.
-         * @param  {object} a is a Marker object
-         * @param  {object} b is a Marker object
-         */
-        foundingSortReverse: function(a, b) {
-            if (a.founded === b.founded) {
-                return 0;
-            } else {
-                return a.founded < b.founded ? 1 : -1;
             }
         },
 
@@ -2302,7 +2274,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
         self.resetSorts('sortedAlpha'); // reset all sort orders but 'sortedAlpha'
         if (self.sortedAlpha) { // then sort from z-a
             self.sortedAlpha = false; // next time sort a-z
-            self.markers.sort(mapManager.util.alphabeticalSortReverse); // sort z-a
+            self.markers.reverse();
             self.currentSort('alpha-reverse');
         } else {
             self.sortedAlpha = true; // next time sort from z-a
@@ -2320,7 +2292,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
         if (self.sortedFounded) { // then sort from latest to earliest
             self.sortedFounded = false; // next time sort from earliest to latest
             // sort from latest to earliest
-            self.markers.sort(mapManager.util.foundingSortReverse);
+            self.markers.reverse();
             self.currentSort('date-reverse');
         } else {
             self.sortedFounded = true; // next time sort from latest to earliest

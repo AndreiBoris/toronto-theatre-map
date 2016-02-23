@@ -23,7 +23,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
         self.resetSorts('sortedAlpha'); // reset all sort orders but 'sortedAlpha'
         if (self.sortedAlpha) { // then sort from z-a
             self.sortedAlpha = false; // next time sort a-z
-            self.markers.sort(mapManager.util.alphabeticalSortReverse); // sort z-a
+            self.markers.reverse();
             self.currentSort('alpha-reverse');
         } else {
             self.sortedAlpha = true; // next time sort from z-a
@@ -41,7 +41,7 @@ var TheatreMapViewModel = (function(self, ko, mapManager) {
         if (self.sortedFounded) { // then sort from latest to earliest
             self.sortedFounded = false; // next time sort from earliest to latest
             // sort from latest to earliest
-            self.markers.sort(mapManager.util.foundingSortReverse);
+            self.markers.reverse();
             self.currentSort('date-reverse');
         } else {
             self.sortedFounded = true; // next time sort from latest to earliest
