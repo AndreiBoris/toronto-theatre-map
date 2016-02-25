@@ -60,36 +60,6 @@ gulp.task('scripts', function() {
         }));
 });
 
-// temp task used to concatenate jQuery and Knockout
-// Scripts
-// gulp.task('perma', function() {
-//     return gulp.src(['dist/perm/jquery-1.12.0.min.js',
-//         'dist/perm/knockout-3.4.0.js'])
-//         .pipe(concat('jquery_and_knockout.js'))
-//         .pipe(gulp.dest('dist/perm/production'))
-//         .pipe(rename({
-//             suffix: '.min'
-//         }))
-//         .pipe(uglify())
-//         .pipe(gulp.dest('dist/perm/production'))
-//         .pipe(notify({
-//             message: 'Perma task complete'
-//         }));
-// });
-// 
-// Temp task used to minify the cssLoading script
-// gulp.task('minime', function() {
-//     return gulp.src(['dist/perm/production/cssLoading.js'])
-//         .pipe(rename({
-//             suffix: '.min'
-//         }))
-//         .pipe(uglify())
-//         .pipe(gulp.dest('dist/perm/production'))
-//         .pipe(notify({
-//             message: 'minature task complete'
-//         }));
-// });
-
 // Temp task used to minify the jsLoading script
 gulp.task('minime', function() {
     return gulp.src(['dist/perm/production/jsLoading.js'])
@@ -172,47 +142,3 @@ gulp.task('watch', function() {
     // Watch this file
     gulp.watch('gulpfile.js', ['gulpfile-lint']);
 });
-
-/*** No longer used due to measured decrease in performance ***/
-// // Critical CSS
-// gulp.task('critical', ['styles', 'scripts', 'images', 'minify-html'], function () {
-//     critical.generate({
-//         inline: true,
-//         base: '.',
-//         src: 'index.html',
-//         minify: true,
-//         css: ['dist/styles/main.min.css'],
-//         width: 1900,
-//         height: 1300,
-//         dest: 'index.html',
-//     });
-// });
-
-// // Critical CSS that is used by watch, responds to changes in any scss files,
-// // requires that a minified HTML file is already present in root dir.
-// gulp.task('critical-styles', ['styles'], function () {
-//     critical.generate({
-//         inline: true,
-//         base: '.',
-//         src: 'index.html',
-//         minify: true,
-//         css: ['dist/styles/main.min.css'],
-//         width: 1900,
-//         height: 1300,
-//         dest: 'index.html',
-//     });
-// });
-
-// // Critical CSS that is used by watch, responds to changes in the html file,
-// gulp.task('critical-html', ['minify-html'], function () {
-//     critical.generate({
-//         inline: true,
-//         base: '.',
-//         src: 'index.html',
-//         minify: true,
-//         css: ['dist/styles/main.min.css'],
-//         width: 1900,
-//         height: 1300,
-//         dest: 'index.html',
-//     });
-// });
