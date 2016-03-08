@@ -8,18 +8,17 @@
     <meta name="description" content="Theatre in Toronto">
     <meta name="author" content="Andrei Borissenko">
     <title>Toronto Live Theatre Resource</title>
-    <!-- See jsload.js for information and credits for the following script -->
     <script>
-    'use strict';var googleWatcherObject = {googleWatcherVariable: '', googleWatcherFunction: function() {this.googleWatcherVariable = 'success';
-    }, googleWatcherError: function() {this.googleWatcherVariable = 'failure'; } }
-var scripts = ['dist/perm/production/jquery_and_knockout.min.js', 'dist/scripts/main.min.js', ]; var src;
-var script; var pendingScripts = []; var firstScript = document.scripts[0]; function stateChange() {var pendingScript;
-    while (pendingScripts[0] && pendingScripts[0].readyState === 'loaded') {pendingScript = pendingScripts.shift();
-        pendingScript.onreadystatechange = null; firstScript.parentNode.insertBefore(pendingScript, firstScript); } }
- while (scripts.length > 0) {src = scripts.shift(); if ('async' in firstScript) {script = document.createElement('script');
-        script.async = false; script.src = src; document.head.appendChild(script);
-    } else if (firstScript.readyState) { script = document.createElement('script'); pendingScripts.push(script); script.onreadystatechange = stateChange; script.src = src;
-    } else {document.write('<script src="' + src + '" defer></' + 'script>'); } }
+    'use strict';
+    var googleWatcherObject = {
+        googleWatcherVariable: '',
+        googleWatcherFunction: function() {
+        this.googleWatcherVariable = 'success';
+        },
+        googleWatcherError: function() {
+            this.googleWatcherVariable = 'failure';
+        }
+    }
     </script>
     <!-- All CSS styles for the page are here. -->
     <link href="dist/styles/main.min.css" rel="stylesheet">
@@ -27,16 +26,16 @@ var script; var pendingScripts = []; var firstScript = document.scripts[0]; func
 <!-- Reposition and resize the tabs if the window is ever resized -->
 
 <body id="body" class="preload" onresize="mapManager.util.repositionTabs()">
-    <!-- The following is the OVERLAY DIV, it covers the application while the 
+    <!-- The following is the OVERLAY DIV, it covers the application while the
     map is loading and the only part of it that remains after it moves offscreen
     are the title-text elements. -->
     <div>
         <!-- It is wrapped just for consistency, no other purpose. -->
-        <!-- This overlay screen covers the entire map so that it cannot be 
+        <!-- This overlay screen covers the entire map so that it cannot be
         clicked until the whole OVERLAY DIV has moved offscreen -->
         <div id="overlay-screen" class="overlay-screen">
         </div>
-        <!-- The title of the application. Words move independently from each 
+        <!-- The title of the application. Words move independently from each
         other at times. -->
         <div data-bind="visible: !showDirections()" class="title-text title-theatre">Theatre</div>
         <div data-bind="visible: !showDirections()" class="title-text title-in">in</div>
@@ -76,7 +75,7 @@ var script; var pendingScripts = []; var firstScript = document.scripts[0]; func
                 <a class="display-link" target="_blank" data-bind="attr: { href: currentWebsite },
                 text: currentTitle"></a>
                 </h4>
-                <!-- Container holds address of the theatre and directions 
+                <!-- Container holds address of the theatre and directions
                 button in the same way that other containers hold two buttons -->
                 <div class="button-flex">
                     <!-- Not a button -->
@@ -86,15 +85,15 @@ var script; var pendingScripts = []; var firstScript = document.scripts[0]; func
                     text: directionText">
                     </div>
                 </div>
-                <!-- Contains the blurb about each theatre, either hardcoded 
+                <!-- Contains the blurb about each theatre, either hardcoded
                 text or taken from Wikipedia if the hardcode is not available.
                 Not displayed if directions are being shown. -->
                 <div data-bind="visible: !showDirections()">
                     <p data-bind="text: currentBlurb"></p>
                     <br>
                 </div>
-                <!-- Set up for directions. Can choose an appropriate starting 
-                location. This will only display if a starting location is not 
+                <!-- Set up for directions. Can choose an appropriate starting
+                location. This will only display if a starting location is not
                 already chosen. -->
                 <div data-bind="visible: showDirections() && !directionsReady()">
                     <!-- The current question the user is answering -->
@@ -106,8 +105,8 @@ var script; var pendingScripts = []; var firstScript = document.scripts[0]; func
                     </div>
                     <!-- If user chose to enter text, this will display. NOTE:
                     adding this input element seemed to create some unexplained
-                    behaviour at the beginning of the page loading, with some 
-                    elements flashing above their prescribed z-index and the 
+                    behaviour at the beginning of the page loading, with some
+                    elements flashing above their prescribed z-index and the
                     title text growing into position rather than just appearing
                     like they are supposed to. -->
                     <div data-bind="visible: directionInputDisplay">
@@ -120,7 +119,7 @@ var script; var pendingScripts = []; var firstScript = document.scripts[0]; func
                 <!-- Contains the directions taken from Google Maps Directions
                 API in steps. -->
                 <div data-bind="visible: showDirections() && directionsReady()">
-                    <!-- Container holds start address and direction edit button 
+                    <!-- Container holds start address and direction edit button
                     in the same way that other containers hold two buttons -->
                     <div class="space-above button-flex" data-bind="visible: directionSuccess">
                         <!-- Not a button -->
@@ -143,8 +142,8 @@ var script; var pendingScripts = []; var firstScript = document.scripts[0]; func
                         <p data-bind="text: currentCopyrights"></p>
                     </div>
                 </div>
-                <!-- NOTE: The direction-button goes into the InfoWindows 
-                created on the map through the Google Maps API and doesn't 
+                <!-- NOTE: The direction-button goes into the InfoWindows
+                created on the map through the Google Maps API and doesn't
                 actually live here in the display-div -->
                 <div id="direction-button" class="button-flex">
                     <!-- Button to open the left-div with extra info -->
@@ -174,7 +173,7 @@ var script; var pendingScripts = []; var firstScript = document.scripts[0]; func
     <div id="map" class="map">
     </div>
     <!-- The following three images are all on top of one another and are revealed
-        by changing the opacity through JavaScript. NOTE: tab-image class is 
+        by changing the opacity through JavaScript. NOTE: tab-image class is
         used solely in the tabReposition method of mapManager.utilities-->
     <img id="list-tab" class="tab-image tab-plain tab-off list-tab-image" src="dist/images/list-tab-border.png" alt="clickable tab">
     <img id="list-tab-highlight" class="tab-image tab-highlight tab-off list-tab-image" src="dist/images/list-tab-highlight.png" alt="clickable tab">
@@ -196,7 +195,7 @@ var script; var pendingScripts = []; var firstScript = document.scripts[0]; func
             <div class="button-flex">
                 <div class="button-50 button-white" data-bind="click: sortListAlpha">
                     Alphabetical
-                    <!-- The spans become visible when a sort method is selected 
+                    <!-- The spans become visible when a sort method is selected
                     and indicate which direction the sort is performed in using
                     up and down arrows. -->
                     <span class="no-border" data-bind="visible: currentSort() === 'alpha'">&dArr;</span>
@@ -212,7 +211,7 @@ var script; var pendingScripts = []; var firstScript = document.scripts[0]; func
             <!-- Use Knockout to list each item in the markers array. -->
             <ul class="button-list-flex scroll-div" data-bind="foreach: markers">
                 <!-- Each item becomes a button that accesses the corresponding marker.
-                A list item is 'visible' if it it not being filtered through the 
+                A list item is 'visible' if it it not being filtered through the
                 controls in the filter-div below. -->
                 <li class="button-list-item" data-bind="visible: listed, click: $root.accessMarker">
                     <h4 class="bolded-text list-title" data-bind="text: title"></h4>
@@ -227,12 +226,12 @@ var script; var pendingScripts = []; var firstScript = document.scripts[0]; func
         <!-- This div features Twitter feed either from a list of all the theatres
         referenced in the app, or from one particular company. -->
         <div id="twitter-div" class="right-div-off right-divs">
-            <!-- These buttons allow switches between the list and user feeds, and 
+            <!-- These buttons allow switches between the list and user feeds, and
             between keeping the feed short or allowing Twitter to do a true feed
             with virtually endless tweets acccessed by scrolling down. -->
             <div class="button-flex">
                 <div id="twitter-list-button" class="button-50 button-white" data-bind=" click: switchTwitter">
-                    <!-- Text changes depending on whether a single account or the 
+                    <!-- Text changes depending on whether a single account or the
                     list of all accounts is being viewed. -->
                     <span class="no-border" data-bind="visible: twitterListView">
                 See User Feed
@@ -260,7 +259,7 @@ var script; var pendingScripts = []; var firstScript = document.scripts[0]; func
             <div id="twitter-account" class="twitter-account scroll-div" data-bind="visible: !twitterListView() && twitterIsOpen">
             </div>
             <!-- Error appears behind the other divs and will display 1.5 seconds
-            after switching views or feed lengths if there is some problem in 
+            after switching views or feed lengths if there is some problem in
             loading the feeds. -->
             <div id="twitter-error" class="error-style scroll-div">
                 <!-- User view error message -->
@@ -273,7 +272,7 @@ var script; var pendingScripts = []; var firstScript = document.scripts[0]; func
                 </div>
             </div>
         </div>
-        <!-- This div features buttons to filter the theatres presented based on 
+        <!-- This div features buttons to filter the theatres presented based on
         interests. -->
         <div id="filter-div" class="right-div-off right-divs">
             <!-- Reset filters -->
@@ -312,6 +311,10 @@ var script; var pendingScripts = []; var firstScript = document.scripts[0]; func
     <script async src="https://platform.twitter.com/widgets.js"></script>
     <!-- Google Maps API -->
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQCl1KRNkAF-BPdyKyO92M0d4vd6MOd0w&callback=googleWatcherObject.googleWatcherFunction&region=CA" onerror="googleWatcherObject.googleWatcherError()"></script>
+    <!-- Load frameworks and libraries -->
+    <script src="dist/perm/production/jquery_and_knockout.min.js"></script>
+    <!-- Load main code -->
+    <script src="dist/scripts/main.min.js"></script>
 </body>
 
 </html>

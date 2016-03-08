@@ -1,3 +1,9 @@
+// Thanks to Jake Archibald for this!
+//
+// http://www.html5rocks.com/en/tutorials/speed/script-loading/
+
+// Use this version to load more quickly (slightly)
+
 'use strict';
 
     var googleWatcherObject = {
@@ -11,17 +17,17 @@
     };
     var scripts = [
         'dist/perm/production/jquery_and_knockout.min.js',
-        'src/scripts/mapmanager.js',
-        'src/scripts/utilities.js',
-        'src/scripts/divs.js',
-        'src/scripts/glow.js',
-        'src/scripts/markers.js',
-        'src/scripts/directions.js',
-        'src/scripts/twitter.js',
-        'src/scripts/filter.js',
-        'src/scripts/sort.js',
-        'src/scripts/start.js'
-        // 'dist/scripts/main.min.js', // PRODUCTION mode
+        // 'src/scripts/mapmanager.js',
+        // 'src/scripts/utilities.js',
+        // 'src/scripts/divs.js',
+        // 'src/scripts/glow.js',
+        // 'src/scripts/markers.js',
+        // 'src/scripts/directions.js',
+        // 'src/scripts/twitter.js',
+        // 'src/scripts/filter.js',
+        // 'src/scripts/sort.js',
+        // 'src/scripts/start.js'
+        'dist/scripts/main.min.js', // PRODUCTION mode
     ];
 
     var src;

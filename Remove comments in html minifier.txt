@@ -1,0 +1,3 @@
+Remove comments in html minifier
+
+Test difference between using script and not at top of html index.
