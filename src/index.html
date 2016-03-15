@@ -9,7 +9,24 @@
     <meta name="author" content="Andrei Borissenko">
     <title>Toronto Live Theatre Resource</title>
     <script>
-    'use strict';var googleWatcherObject = {googleWatcherVariable: '', googleWatcherFunction: function() {this.googleWatcherVariable = 'success';
+    'use strict';
+    var head = document.getElementsByTagName('head')[0];
+
+// Save the original method
+var insertBefore = head.insertBefore;
+
+// Replace it!
+head.insertBefore = function (newElement, referenceElement) {
+
+    if (newElement.href && newElement.href.indexOf('https://fonts.googleapis.com/css?family=Roboto') === 0) {
+
+        console.info('Prevented Roboto from loading!');
+        return;
+    }
+
+    insertBefore.call(head, newElement, referenceElement);
+};
+    var googleWatcherObject = {googleWatcherVariable: '', googleWatcherFunction: function() {this.googleWatcherVariable = 'success';
     }, googleWatcherError: function() {this.googleWatcherVariable = 'failure'; } }
 var scripts = ['dist/perm/production/jquery_and_knockout.min.js', 'dist/scripts/main.min.js', ]; var src;
 var script; var pendingScripts = []; var firstScript = document.scripts[0]; function stateChange() {var pendingScript;
