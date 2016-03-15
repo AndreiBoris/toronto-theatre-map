@@ -9,16 +9,16 @@
     <meta name="author" content="Andrei Borissenko">
     <title>Toronto Live Theatre Resource</title>
     <script>
-    'use strict';
-    var googleWatcherObject = {
-        googleWatcherVariable: '',
-        googleWatcherFunction: function() {
-        this.googleWatcherVariable = 'success';
-        },
-        googleWatcherError: function() {
-            this.googleWatcherVariable = 'failure';
-        }
-    }
+    'use strict';var googleWatcherObject = {googleWatcherVariable: '', googleWatcherFunction: function() {this.googleWatcherVariable = 'success';
+    }, googleWatcherError: function() {this.googleWatcherVariable = 'failure'; } }
+var scripts = ['dist/perm/production/jquery_and_knockout.min.js', 'dist/scripts/main.min.js', ]; var src;
+var script; var pendingScripts = []; var firstScript = document.scripts[0]; function stateChange() {var pendingScript;
+    while (pendingScripts[0] && pendingScripts[0].readyState === 'loaded') {pendingScript = pendingScripts.shift();
+        pendingScript.onreadystatechange = null; firstScript.parentNode.insertBefore(pendingScript, firstScript); } }
+ while (scripts.length > 0) {src = scripts.shift(); if ('async' in firstScript) {script = document.createElement('script');
+        script.async = false; script.src = src; document.head.appendChild(script);
+    } else if (firstScript.readyState) { script = document.createElement('script'); pendingScripts.push(script); script.onreadystatechange = stateChange; script.src = src;
+    } else {document.write('<script src="' + src + '" defer></' + 'script>'); } }
     </script>
     <!-- All CSS styles for the page are here. -->
     <!-- <link href="dist/styles/main.min.css" rel="stylesheet"> -->
@@ -314,10 +314,6 @@
     <script async src="https://platform.twitter.com/widgets.js"></script>
     <!-- Google Maps API -->
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQCl1KRNkAF-BPdyKyO92M0d4vd6MOd0w&callback=googleWatcherObject.googleWatcherFunction&region=CA" onerror="googleWatcherObject.googleWatcherError()"></script>
-    <!-- Load frameworks and libraries -->
-    <script defer src="dist/perm/production/jquery_and_knockout.min.js"></script>
-    <!-- Load main code -->
-    <script defer src="dist/scripts/main.min.js"></script>
 </body>
 
 </html>
