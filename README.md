@@ -1,7 +1,7 @@
 * [Build System](#build-system)
 * [Features](#features)
 * [Features to Come](#features-to-come)
-* [Possible Additions](#possible-addition)
+* [Possible Additions](#possible-additions)
 
 # Toronto Theatre Map
 
