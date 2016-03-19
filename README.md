@@ -1,3 +1,8 @@
+* [Build System](#build-system)
+* [Features](#features)
+* [Features to Come](#features-to-come)
+* [Possible Additions](#possible-addition)
+
 # Toronto Theatre Map
 
 This is work-in-progress map of some theatres and theatre companies in Toronto,
@@ -50,7 +55,7 @@ If you want to fork or clone this repository and desire to manage the build
 system, you should be able to do this by going to the root directory and running:
 
 ```
-npm install --save-dev jshint gulp gulp-ruby-sass gulp-autoprefixer gulp-cssnano gulp-jshint gulp-uglify gulp-rename gulp-concat gulp-notify del gulp-htmlmin gulp-image-resize gulp-livereload
+npm install
 ```
 
 After this you can make sure that everything is built by running
@@ -86,9 +91,8 @@ unreasonable results.)
 
 * Get information straight from websites using server side code to display
 current plays at various venues.
-* Change UI, especially for phones but generally to make the experience more
-pleasing. Transparent sliding boxes come to mind. Definitely a new opening
-graphic.
+* Change UI, especially for phones, to make the experience more pleasing.
+Transparent sliding boxes come to mind. Definitely a new opening graphic.
 
 ##### Possible additions
 
