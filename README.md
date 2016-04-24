@@ -6,7 +6,7 @@
 # Toronto Theatre Map
 
 This is work-in-progress map of some theatres and theatre companies in Toronto,
-Canada. You can check out [live version of the website here.](http://andreicommunication.github.io/toronto-theatre-map/)
+Canada. You can check out [live version of the website here.](http://andreiboris.github.io/toronto-theatre-map/)
 
 ## Work with the Code
 
